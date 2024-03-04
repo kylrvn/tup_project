@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\application",
+    "\\application\\modules",
+    "\\application\\modules\\dashboard",
+    "\\application\\modules\\dashboard\\views",
+    "\\application\\modules\\dashboard\\views\\grid",
+    "\\application\\modules\\scan",
+    "\\application\\modules\\scan\\views",
+    "\\application\\modules\\schedule",
+    "\\application\\modules\\schedule\\views"
+  ],
+  "SelectedNode": "\\application\\modules\\schedule\\views\\index.php",
+  "PreviewInSolutionExplorer": false
+}
