@@ -1,21 +1,16 @@
 <?php
-main_header(['create_document']);
+main_header(['Dashboard']);
 ?>
 <!-- ############ PAGE START-->
 
 
 <head>
- 
+
     <style>
         body {
-            font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-
-
-
-        
         }
 
         table {
@@ -26,21 +21,22 @@ main_header(['create_document']);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
-			  border: 1px solid #ddd;
+            border: 1px solid #ddd;
         }
 
         th {
             background-color: #db7378;
             color: #fff;
-            font-weight:bold;   
-			text-align:center;
+            font-weight: bold;
+            text-align: center;
         }
 
-		header {
+        header {
             background-color: #9f3a3b;
             color: #fff;
             padding: 15px;
@@ -64,8 +60,8 @@ main_header(['create_document']);
         .buttons {
             display: inline-block;
             text-align: right;
-			float:right;
-			
+            float: right;
+
         }
 
         .buttons button {
@@ -83,19 +79,21 @@ main_header(['create_document']);
 
 
 
-        <div class="user-info">
-            <h1>Hello</h1>
-    <p><?=date('M d, Y - h:i A');?></p>
-        </div>
-        <div class="buttons">
-            <button>Acknowledge</button>
-            <button onclick="load_calendar(this)">Calendar</button>
-            <button onclick="load_account(this)">Accounts</button>
-        </div>
-    </header>
-    <div class="container" id="load_page">
+    <div class="user-info">
+        <h1>Hello</h1>
+        <p>
+            <?= date('M d, Y - h:i A'); ?>
+        </p>
     </div>
-    
+    <div class="buttons">
+        <button>Acknowledge</button>
+        <button onclick="load_calendar(this)">Calendar</button>
+        <button onclick="load_account(this)">Accounts</button>
+    </div>
+</header>
+<div class="container" id="load_page">
+</div>
+
 
 
 

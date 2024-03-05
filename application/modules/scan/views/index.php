@@ -5,12 +5,11 @@ main_header(['Scan']);
 <!-- ############ PAGE START-->
 <style>
     body {
-          font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
     }
-    </style>
+</style>
 
 <div class="content-header">
     <div class="container-fluid">
@@ -20,13 +19,14 @@ main_header(['Scan']);
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <div class="input-group" style="width:250px; position: absolute; right:0px; top:0px; margin-right:12px;">
-                    
+                    <div class="input-group"
+                        style="width:250px; position: absolute; right:0px; top:0px; margin-right:12px;">
+
                         <select class="form-control" id="select">
                             <option value="Current_Documents">Current Documents</option>
                             <option value="Manage_Category">Manage Category</option>
                             <!-- <option value="Ordering"> Ordering </option> -->
-                        </select> 
+                        </select>
                     </div>
 
                     <!-- <li class="breadcrumb-item active">Management</li> -->
@@ -51,7 +51,8 @@ main_header(['Scan']);
                             <div class="row">
                                 <div class="form-group w-100">
                                     <label for="">Faculty Number</label>
-                                    <input type="text" id="faculty_no" class="form-control inpt" placeholder="Faculty No.">
+                                    <input type="text" id="faculty_no" class="form-control inpt"
+                                        placeholder="Faculty No.">
                                 </div>
 
                                 <!-- <div class="form-group w-100">
@@ -87,13 +88,16 @@ main_header(['Scan']);
                                     <label for="">Publish Date</label>
                                     <input type="date" id="pub_date" class="form-control inpt">
                                 </div> -->
-                        </div>
-                        <div class="card-footer">
-                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" id="Save">Submit</button> -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" id="Scan">Scan</button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-list" style="display: none" id="Delete">Delete</button>
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-list2" style="display: none" id="Update_list">Update</button>
-                        </div>
+                            </div>
+                            <div class="card-footer">
+                                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default" id="Save">Submit</button> -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#modal-default" id="Scan">Scan</button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#modal-list" style="display: none" id="Delete">Delete</button>
+                                <button type="button" class="btn btn-warning" data-toggle="modal"
+                                    data-target="#modal-list2" style="display: none" id="Update_list">Update</button>
+                            </div>
                     </form>
                 </div>
             </div>
@@ -108,7 +112,7 @@ main_header(['Scan']);
             <div class="modal-header">
                 <h5 class="modal-title">Are you sure you want to save details?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!-- <div class="modal-body">
@@ -116,7 +120,7 @@ main_header(['Scan']);
             </div> -->
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="save_scan"  data-samplefile="">Save</button>
+                <button type="button" class="btn btn-primary" id="save_scan" data-samplefile="">Save</button>
             </div>
         </div>
     </div>
@@ -129,7 +133,7 @@ main_header(['Scan']);
             <div class="modal-header">
                 <h5 class="modal-title">Are you sure you want to add category?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!-- <div class="modal-body">
@@ -150,7 +154,7 @@ main_header(['Scan']);
             <div class="modal-header">
                 <h5 class="modal-title">Are you sure you want to delete list?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!-- <div class="modal-body">

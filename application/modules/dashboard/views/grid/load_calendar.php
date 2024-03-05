@@ -1,5 +1,4 @@
 <?php
-var_dump($details)
 ?>
 <table>
     <div class= "text-center" style="width: 5 rem; margin-top:1rem;">

@@ -27,7 +27,7 @@ login_header();
     </style>
 </head>
   <header>
-        <img src="http://192.168.1.30/tup_project/assets/images/Logo/tuplogo.png" id="logo">
+        <img src="<?=base_url()?>assets/images/Logo/tuplogo.png" id="logo">
         <h1>Daily Time Record Portal System</h1>
     </header>
 
@@ -62,7 +62,7 @@ login_header();
 						</div>
 						<div class="card-footer py-3 border-0">
 								 <div class="text-center">
-								Don't have an account? <a href="http://192.168.1.30/tup_project/" class="text-dark">Create One</a>
+								Don't have an account? <a href="<?=base_url()?>create_user" class="text-dark">Create One</a>
 							</div>
 						</div>
 					</div>
