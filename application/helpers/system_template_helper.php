@@ -182,7 +182,7 @@ function main_header($menubar = [])
                   </a>
                 </ul>
               </li>
-              
+
               <li class="nav-item">
                 <ul class="nav nav-item">
                   <a style="color:<?= (sidebar($menubar, ['Scan'])) ? 'white' : 'black' ?>;" href="<?= base_url() ?>scan"
@@ -192,6 +192,18 @@ function main_header($menubar = [])
                   </a>
                 </ul>
               </li>
+
+              <li class="nav-item">
+                <ul class="nav nav-item">
+                  <a style="color:<?= (sidebar($menubar, ['Reports'])) ? 'white' : 'black' ?>;"
+                    href="<?= base_url() ?>Reports" class="nav-link <?= (sidebar($menubar, ['Reports'])) ? 'active' : '' ?>">
+                    <i class="fas fa-chart-bar nav-icon"></i> <!-- Change the icon class here -->
+                    <p>Reports</p>
+                  </a>
+                </ul>
+              </li>
+
+
             </ul>
             </li>
             </ul>
