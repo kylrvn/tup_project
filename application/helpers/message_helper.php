@@ -58,14 +58,10 @@ define('MB', 1048576);
 //     'sales' =>  'tblsales'
 // ]);
 $array = array(
-    'customer' =>  'tbl_customers',
-    'item' => 'tbl_item',
-    'order' => 'tbl_order',
-    'reference' => 'tbl_reference',
-    'list' => 'tbl_list',
     'user' => 'tbl_user',
     'sched' => 'tbl_schedule',
     'scan' => 'tbl_dtr',
+    'dtr' => 'tbl_dtr',
 
 
 

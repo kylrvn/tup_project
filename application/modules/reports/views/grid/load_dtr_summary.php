@@ -3,7 +3,7 @@
 $numberOfDaysInMonth = $details['num_of_days'];
 
 $daysArray = range(1, $numberOfDaysInMonth);
-// var_dump($details);
+// var_dump($details['data'][0]->Fname);
 ?>
 
 <!-- Content Here -->
@@ -25,10 +25,10 @@ $daysArray = range(1, $numberOfDaysInMonth);
                 <table class="table-black" style="width: 100%;">
                     <thead>
                         <tr style="border-bottom: solid black 1px;">
-                            <th class="center-text" colspan="<?=$numberOfDaysInMonth+2?>">
+                            <th class="center-text" colspan="<?= $numberOfDaysInMonth + 2 ?>">
                                 For the Month of
-                                <?= strtoupper($details['month_in_words']) ?> 
-                                <?= $details['year']?>
+                                <?= strtoupper($details['month_in_words']) ?>
+                                <?= $details['year'] ?>
                             </th>
 
                             <th class="center-text" style="border-left: solid black 1px;" colspan="2">
@@ -60,34 +60,45 @@ $daysArray = range(1, $numberOfDaysInMonth);
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: solid black 1px;">
-                            <td class="center-text">
-                                <b>1</b>
-                            </td>
-                            <td class="center-text" style="border-left: solid black 1px;">
-                                <b>ALOB, KARL MARIE P.</b>
-                            </td>
-                            <?php
-                            foreach ($daysArray as $day) { ?>
-                                <td class="center-text" style="border-left: solid black 1px;">&nbsp;</td>
+                        <?php
+                        foreach ($details['data'] as $key => $value) {
+                            ?>
+                            <tr style="border-bottom: solid black 1px;">
+                                <td class="center-text">
+                                    <b>
+                                        <?= $key + 1 ?>
+                                    </b>
+                                </td>
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                    <b><?= $value->Lname ?>, <?= $value->Fname ?>     <?= $value->Mname ?>.</b>
+                                </td>
                                 <?php
-                            } ?>
-                            <td class="center-text" style="border-left: solid black 1px;">
-                                2.503
-                            </td>
-                            <td class="center-text" style="border-left: solid black 1px;">
-                                0.0
-                            </td>
-                            <td class="center-text" style="border-left: solid black 1px;">
-                                <b>0.21</b>
-                            </td>
-                            <td class="center-text" style="border-left: solid black 1px;">
-                                <b>0.0</b>
-                            </td>
-                            <td class="center-text" style="border-left: solid black 1px;">
-                                <b>2.713</b>
-                            </td>
-                        </tr>
+                                foreach ($daysArray as $day) { ?>
+                                    <td class="center-text" style="border-left: solid black 1px;">
+                                    <!-- Put Late/Undertime Data Here if($day == dtr_date) -->
+                                        &nbsp;
+                                    </td>
+                                    <?php
+                                } ?>
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                    2.503
+                                </td>
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                    0.0
+                                </td>
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                    <b>0.21</b>
+                                </td>
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                    <b>0.0</b>
+                                </td>
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                    <b>2.713</b>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>

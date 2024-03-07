@@ -36,6 +36,19 @@ class Reports_model extends CI_Model
         $data_to_send["month_in_words"] = $monthInWords;
         $data_to_send["year"] = $year;
 
+        $this->db->select(
+            'u.*,'.
+            // 'd.Date_time,'.
+            's.Date,'.
+            's.Start_time,'.
+            's.End_time,'
+        );
+        $this->db->from($this->Table->user.' u');
+        // $this->db->join($this->Table->dtr.' d', 'u.ID=d.Faculty_id','left');
+        $this->db->join($this->Table->sched.' s', 'u.ID=s.Faculty_id','left');
+
+        $data_to_send["data"] = $this->db->get()->result();
+
         // echo json_encode($monthInWords);
         return $data_to_send;
     }
