@@ -37,4 +37,12 @@ class Reports extends MY_Controller
 		$this->data['content'] = 'grid/load_dtr_summary';
 		$this->load->view('layout',$this->data);
 	}
+
+	public function load_deduction_summary(){
+		$this->rModel->month = $this->input->post('selected_month');
+
+		$this->data['details'] = $this->rModel->get_deduction_summary();
+		$this->data['content'] = 'grid/load_deduction_summary';
+		$this->load->view('layout',$this->data);
+	}
 }

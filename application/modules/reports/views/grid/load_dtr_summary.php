@@ -25,7 +25,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                 <table class="table-black" style="width: 100%;">
                     <thead>
                         <tr style="border-bottom: solid black 1px;">
-                            <th class="center-text" colspan="33">
+                            <th class="center-text" colspan="<?=$numberOfDaysInMonth+2?>">
                                 For the Month of
                                 <?= strtoupper($details['month_in_words']) ?> 
                                 <?= $details['year']?>
@@ -34,7 +34,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                             <th class="center-text" style="border-left: solid black 1px;" colspan="2">
                                 Leave Credits as
                                 of
-                                <?= date('m-d-Y') ?>
+                                <?= $details['year'] ?>
                             </th>
                             <th class="center-text" style="border-left: solid black 1px;" colspan="3">TOTAL
                             </th>

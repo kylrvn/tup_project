@@ -47,7 +47,7 @@ main_header(['Reports']);
         <div class="card-header">
             <h3 class="card-title" style="font-weight:550;">DTR Summary Report/Daily Attendance</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <button type="button" class="btn btn-tool expand1" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                 </button>
             </div>
@@ -60,7 +60,7 @@ main_header(['Reports']);
                 </div>
                 <div class="col-3">
                     <h6>Select Month/Year:</h6>
-                    <input class="form-control" type="month" id="select_month" style="inline-block"
+                    <input class="form-control" type="month" id="select_month1" style="inline-block"
                         value="<?= date('Y-m') ?>">
                 </div>
             </div>
@@ -68,21 +68,37 @@ main_header(['Reports']);
         <div class="card-body" id="load_summary">
             <!-- Content Loaded here -->
         </div>
+        <div class="card-footer">
+            <!-- Footer -->
+        </div>
     </div>
 </section>
 
 <section class="content">
-    <div class="card">
+    <div class="card collapsed-card">
         <div class="card-header">
             <h3 class="card-title" style="font-weight:550;">Report of deduction for Leave w/o pay, Tardiness and
                 Undertime</h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
+                <button type="button" class="btn btn-tool expand2" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-plus"></i>
                 </button>
             </div>
+            <div class="row mt-3 mr-3 ml-3">
+                <div class="col-4">
+                    &nbsp;
+                </div>
+                <div class="col-5">
+                    &nbsp;
+                </div>
+                <div class="col-3">
+                    <h6>Select Month/Year:</h6>
+                    <input class="form-control" type="month" id="select_month2" style="inline-block"
+                        value="<?= date('Y-m') ?>">
+                </div>
+            </div>
         </div>
-        <div class="card-body">
+        <div class="card-body" id="deduction_summary">
             <!-- Content Here -->
         </div>
         <div class="card-footer">
@@ -98,3 +114,37 @@ main_header(['Reports']);
 main_footer();
 ?>
 <script src="<?php echo base_url() ?>/assets/js/reports/reports.js"></script>
+<script>
+
+    var expanded1 = false;
+    var expanded2 = false;
+    var clicking = false;
+
+    $('.expand1').click(function () {
+        if (!clicking) {
+            clicking = true;
+            if (expanded2 == false) {
+                $('.expand2').click();
+                expanded2 = true;
+            } else {
+                expanded2 = false;
+            }
+            clicking = false;
+        }
+    });
+
+    $('.expand2').click(function () {
+        if (!clicking) {
+            clicking = true;
+            if (expanded1 == false) {
+                $('.expand1').click();
+                expanded1 = true;
+            } else {
+                expanded1 = false;
+            }
+            clicking = false;
+        }
+    });
+
+
+</script>

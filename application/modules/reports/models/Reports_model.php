@@ -17,8 +17,7 @@ class Reports_model extends CI_Model
         $this->Table = json_decode(TABLE);
     }
 
-    public function get_dtr_summary()
-    {
+    public function get_dtr_summary(){
         $selected_month = $this->month;
 
         $date_parts = explode("-", $selected_month);
@@ -35,6 +34,31 @@ class Reports_model extends CI_Model
 
         $data_to_send["num_of_days"] = $days_in_selected_month;
         $data_to_send["month_in_words"] = $monthInWords;
+        $data_to_send["year"] = $year;
+
+        // echo json_encode($monthInWords);
+        return $data_to_send;
+    }
+
+    public function get_deduction_summary(){
+        $selected_month = $this->month;
+
+        $date_parts = explode("-", $selected_month);
+
+        $year = $date_parts[0];
+        $month = $date_parts[1];
+
+        $days_in_selected_month = date('t', mktime(0, 0, 0, $month, 1, $year));
+
+        $data_to_send = [];
+
+        $dateObj = DateTime::createFromFormat('!m', $month);
+        $monthInWords = $dateObj->format('F');
+        $monthInAbbv = $dateObj->format('M');
+
+        $data_to_send["num_of_days"] = $days_in_selected_month;
+        $data_to_send["month_in_words"] = $monthInWords;
+        $data_to_send["month"] = $monthInAbbv;
         $data_to_send["year"] = $year;
 
         // echo json_encode($monthInWords);
