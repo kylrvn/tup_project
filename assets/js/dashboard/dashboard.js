@@ -60,7 +60,7 @@ $('#save_schedule').click(function() {
         // },
     })
     });
-
+   
     $('#Update').click(function() {
         $.post({
              url: 'faculty_schedule/service/Faculty_schedule_service/update_schedule',
@@ -95,8 +95,30 @@ $('#save_schedule').click(function() {
             // },
         })
         });
-    
 
+        $('#confirm').click(function() {
+            // alert($('.acknowledgement').val());
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var dataId;
+            var FacID;
+            checkboxes.forEach(function(checkbox){
+                if(checkbox.checked){
+                dataId = checkbox.getAttribute('data-week');
+                FacID = checkbox.getAttribute('data-FacID');
+                console.log(dataId+' '+ $('.acknowledgement').val()+' '+ FacID);
+            }
+            });
+            $.post({
+                 url: 'dashboard/service/Dashboard_service/insert_acknowledgement',
+                data: {
+                    dataID             : dataId,
+                    FacultyID              : FacID,
+                    Acknowledge        : $('.acknowledgement').val()
+                },
+        
+            })
+            });
+      
     function update(element){
         //alert(element.getAttribute('data-Start_time'));
         document.getElementById('ID').value=element.getAttribute('data-ID');
@@ -108,7 +130,6 @@ $('#save_schedule').click(function() {
         // console.log();
     }
 
-    
 
 
 

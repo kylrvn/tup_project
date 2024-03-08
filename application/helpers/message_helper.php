@@ -66,7 +66,8 @@ $array = array(
     'user' => 'tbl_user',
     'sched' => 'tbl_schedule',
     'scan' => 'tbl_dtr',
-
+    'logs' => 'tbl_logs',
+    'acknowledge' => 'tbl_acknowledged'
 
 
 

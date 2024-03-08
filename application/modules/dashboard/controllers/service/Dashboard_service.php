@@ -15,7 +15,8 @@ class Dashboard_service extends MY_Controller
 		// }
 
 		$model_list = [
-			'create_document/service/Create_document_services_model' => 'csModel'
+			'dashboard/service/Create_document_services_model' => 'csModel',
+			'dashboard/service/Dashboard_services_model' => 'dsModel'
 		];
 		$this->load->model($model_list);
 	}
@@ -48,6 +49,16 @@ class Dashboard_service extends MY_Controller
 		// print($this->input->post("Fname"));
 		// echo "Controller for save method";
 		$response = $this->csModel->save_method_from_model();
+		echo json_encode($response);
+	}
+	public function insert_acknowledgement(){
+
+		$this->dsModel->dataID = $this->input->post("dataID");
+		$this->dsModel->FacultyID = $this->input->post("FacultyID");
+		$this->dsModel->Acknowledge = $this->input->post("Acknowledge");
+		// print($this->input->post("Fname"));
+		// echo "Controller for save method";
+		$response = $this->dsModel->insert_acknowledgement();
 		echo json_encode($response);
 	}
 }

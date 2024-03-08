@@ -31,11 +31,52 @@ class Dashboard_model extends CI_Model
     public function get_schedule(){
         $this->db->select('*');
         $this->db->where('Date >=',date('Y-m-d', strtotime('monday this week')));
-        $this->db->where('Date <=',date('Y-m-d', strtotime('sunday this week')));
+        $this->db->where('Faculty_id', $this->session->ID);
+        // $this->db->where('Date <=',date('Y-m-d', strtotime('sunday this week')));
         $this->db->from($this->Table->sched);
 
         $query = $this->db->get()->result();
         
+        return $query;
+    }
+    public function get_dtr_logs(){
+        $this->db->select('*');
+        $this->db->from($this->Table->logs);
+        $this->db->where('timein_am !=', NULL);
+        $this->db->where('timeout_am !=', NULL);
+        // $this->db->where('timein_pm !=', NULL);
+        // $this->db->where('timeout_pm !=', NULL);
+        $this->db->where('FacultyID', $this->session->ID);
+        $query = $this->db->get()->result();
+        return $query;
+        // echo json_encode($query);
+    }
+    public function filter_calendar(){
+        $this->db->select('*');
+        $this->db->from($this->Table->sched);
+        $this->db->where('Date',$this->date);
+        $this->db->where('Faculty_id', $this->session->ID);
+        $query = $this->db->get()->result();
+
+        // echo json_encode($query);
+        return $query;
+    }
+    public function filter_dtr_logs(){
+        $this->db->select('*');
+        $this->db->from($this->Table->logs);
+        $this->db->where("DATE(date_log)",$this->date);
+        $this->db->where('FacultyID', $this->session->ID);
+        $query = $this->db->get()->result();
+
+        // echo json_encode($query);
+        return $query;
+    }
+    public function get_acknowledgement_dtr_week(){
+        $this->db->select('*');
+        $this->db->from($this->Table->logs);
+        $query = $this->db->get()->result();
+
+        // echo json_encode($query);
         return $query;
     }
 }
