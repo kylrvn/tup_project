@@ -17,9 +17,9 @@ class Schedule_model extends CI_Model
         $this->Table = json_decode(TABLE);
     }
 
-    public function get_documents(){
+    public function get_faculty(){
         $this->db->select('*');
-        $this->db->from($this->Table->document);
+        $this->db->from($this->Table->user);
 
         $query = $this->db->get()->result();
         

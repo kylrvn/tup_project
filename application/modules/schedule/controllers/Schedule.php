@@ -11,9 +11,9 @@ class Schedule extends MY_Controller
 		$this->session = (object)get_userdata(USER);
 
 		$model_list = [
-			'create_document/Dashboard_model' => 'cModel',
+			'schedule/Schedule_model' => 'sModel',
 		];
-		//$this->load->Dashboard_model($model_list);
+		$this->load->model($model_list);
 	}
 
 	/** load main page 
@@ -28,10 +28,16 @@ class Schedule extends MY_Controller
 		$this->load->view('layout', $this->data);
 	}
 	
-	public function get_calendar(){
+	public function load_faculty(){
+		$this->data['details'] = $this->sModel->get_faculty();
+		$this->data['content'] = 'grid/load_faculty_table';
+		$this->load->view('layout',$this->data);
+	}
 
+	public function load_calendar(){
 
-		$this->data['content'] = 'grid/load_calendar';
+		$this->data['details'] = $this->input->post('faculty_id');
+		$this->data['content'] = 'grid/load_sched_calendar';
 		$this->load->view('layout',$this->data);
 	}
 }

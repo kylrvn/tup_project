@@ -75,25 +75,25 @@ main_header(['Reports']);
 </section>
 
 <section class="content">
-    <div class="card collapsed-card">
+    <div class="card">
         <div class="card-header">
             <h3 class="card-title" style="font-weight:550;">Report of deduction for Leave w/o pay, Tardiness and
                 Undertime</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool expand2" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-plus"></i>
+                    <i class="fas fa-minus"></i>
                 </button>
             </div>
             <div class="row mt-3 mr-3 ml-3">
                 <div class="col-4">
                     &nbsp;
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                     &nbsp;
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <h6>Select Month/Year:</h6>
-                    <input class="form-control" type="month" id="select_month2" style="inline-block"
+                    <input class="form-control" type="month" id="select_month2" style="inline-block;"
                         value="<?= date('Y-m') ?>">
                 </div>
             </div>
@@ -115,36 +115,5 @@ main_footer();
 ?>
 <script src="<?php echo base_url() ?>/assets/js/reports/reports.js"></script>
 <script>
-
-    var expanded1 = false;
-    var expanded2 = false;
-    var clicking = false;
-
-    $('.expand1').click(function () {
-        if (!clicking) {
-            clicking = true;
-            if (expanded2 == false) {
-                $('.expand2').click();
-                expanded2 = true;
-            } else {
-                expanded2 = false;
-            }
-            clicking = false;
-        }
-    });
-
-    $('.expand2').click(function () {
-        if (!clicking) {
-            clicking = true;
-            if (expanded1 == false) {
-                $('.expand1').click();
-                expanded1 = true;
-            } else {
-                expanded1 = false;
-            }
-            clicking = false;
-        }
-    });
-
 
 </script>

@@ -130,73 +130,78 @@ function main_header($menubar = [])
           <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <li class="nav-item menu-open">
-                <a href="#" class="nav-link">
-                  <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->
+                <!-- <a href="#" class="nav-link">
                   <p style="color:black; font-weight:bold;">
                     Primary Menu
                     <i class="right fas fa-angle-left"></i>
                   </p>
-                </a>
+                </a> -->
 
                 <ul class="nav nav-item">
                   <li class="nav-item">
                     <a style="color:<?= (sidebar($menubar, ['Dashboard'])) ? 'white' : 'black' ?>;"
                       href="<?= base_url() ?>Dashboard"
                       class="nav-link <?= (sidebar($menubar, ['Dashboard'])) ? 'active' : '' ?>">
-                      <i class="fas fa-list nav-icon"></i>
+                      <i class="fas fa-home nav-icon"></i>
                       <p>Dashboard</p>
                     </a>
                   </li>
                 </ul>
               </li>
 
-              <li class="nav-item">
-                <ul class="nav nav-item">
+
+              <ul class="nav nav-item">
+                <li class="nav-item">
                   <a style="color:<?= (sidebar($menubar, ['schedule'])) ? 'white' : 'black' ?>;"
                     href="<?= base_url() ?>schedule"
                     class="nav-link <?= (sidebar($menubar, ['schedule'])) ? 'active' : '' ?>">
-                    <i class="fas fa-list nav-icon"></i>
+                    <i class="fas fa-calendar-alt nav-icon"></i>
                     <p>Schedule</p>
                   </a>
-                </ul>
-              </li>
+                </li>
+              </ul>
+
 
               <li class="nav-item">
-                <ul class="nav nav-item">
-                  <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>;"
-                    href="<?= base_url() ?>create_user"
-                    class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
-                    <i class="fas fa-list nav-icon"></i>
-                    <p>Create User</p>
-                  </a>
-                </ul>
-              </li>
+  <ul class="nav nav-item">
+    <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>;"
+      href="<?= base_url() ?>create_user"
+      class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
+      <i class="fas fa-user-plus nav-icon"></i>
+      <p>Create User</p>
+    </a>
+  </ul>
+</li>
+
 
               <li class="nav-item">
-                <ul class="nav nav-item">
-                  <a style="color:<?= (sidebar($menubar, ['Faculty_schedule'])) ? 'white' : 'black' ?>;"
-                    href="<?= base_url() ?>faculty_schedule"
-                    class="nav-link <?= (sidebar($menubar, ['Faculty_schedule'])) ? 'active' : '' ?>">
-                    <i class="fas fa-list nav-icon"></i>
-                    <p>Upload Schedule</p>
-                  </a>
-                </ul>
-              </li>
+  <ul class="nav nav-item">
+    <a style="color:<?= (sidebar($menubar, ['Faculty_schedule'])) ? 'white' : 'black' ?>;"
+      href="<?= base_url() ?>faculty_schedule"
+      class="nav-link <?= (sidebar($menubar, ['Faculty_schedule'])) ? 'active' : '' ?>">
+      <i class="fas fa-upload nav-icon"></i>
+      <p>Upload Schedule</p>
+    </a>
+  </ul>
+</li>
+
 
               <li class="nav-item">
                 <ul class="nav nav-item">
                   <a style="color:<?= (sidebar($menubar, ['Scan'])) ? 'white' : 'black' ?>;" href="<?= base_url() ?>scan"
                     class="nav-link <?= (sidebar($menubar, ['Scan'])) ? 'active' : '' ?>">
-                    <i class="fas fa-list nav-icon"></i>
+                    <i class="fas fa-qrcode nav-icon"></i>
                     <p>Scan</p>
                   </a>
                 </ul>
               </li>
 
+
               <li class="nav-item">
                 <ul class="nav nav-item">
                   <a style="color:<?= (sidebar($menubar, ['Reports'])) ? 'white' : 'black' ?>;"
-                    href="<?= base_url() ?>Reports" class="nav-link <?= (sidebar($menubar, ['Reports'])) ? 'active' : '' ?>">
+                    href="<?= base_url() ?>Reports"
+                    class="nav-link <?= (sidebar($menubar, ['Reports'])) ? 'active' : '' ?>">
                     <i class="fas fa-chart-bar nav-icon"></i> <!-- Change the icon class here -->
                     <p>Reports</p>
                   </a>
