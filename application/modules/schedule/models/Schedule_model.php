@@ -6,7 +6,7 @@ class Schedule_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
-        $this->session = (object)get_userdata(USER);
+        $this->session = (object) get_userdata(USER);
 
         // if(is_empty_object($this->session)){
         // 	redirect(base_url().'login/authentication', 'refresh');
@@ -17,12 +17,24 @@ class Schedule_model extends CI_Model
         $this->Table = json_decode(TABLE);
     }
 
-    public function get_faculty(){
+    public function get_faculty()
+    {
         $this->db->select('*');
         $this->db->from($this->Table->user);
 
         $query = $this->db->get()->result();
-        
+
+        return $query;
+    }
+
+    public function get_schedule()
+    {
+        $this->db->select('*');
+        $this->db->from($this->Table->sched);
+        $this->db->where('Faculty_id', $this->faculty_id);
+
+        $query = $this->db->get()->result();
+
         return $query;
     }
 }
