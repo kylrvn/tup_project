@@ -1,5 +1,5 @@
 <?php
-main_header(['create_document']);
+main_header(['Dashboard']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

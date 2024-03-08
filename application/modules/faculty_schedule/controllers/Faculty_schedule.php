@@ -20,13 +20,12 @@ class Faculty_schedule extends MY_Controller
 	public function index()
 	{
 		
-		
 		$this->data['content'] = 'index';
 		$this->load->view('layout', $this->data);
 	}
 
 	public function load_grid(){
-		var_dump($this->cModel->get_schedule());
+		// var_dump($this->cModel->get_schedule());
 		$this->data['details'] = $this->cModel->get_schedule();
 		$this->data['content'] = 'grid/load_grid';
 		$this->load->view('layout', $this->data);

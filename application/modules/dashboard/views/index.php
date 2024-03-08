@@ -50,17 +50,12 @@ foreach ($groupedData as $weekNumber => $weekData) {
 
 
 <head>
- 
+
     <style>
         body {
-            font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-
-
-
-        
         }
 
         table {
@@ -71,21 +66,22 @@ foreach ($groupedData as $weekNumber => $weekData) {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
-			  border: 1px solid #ddd;
+            border: 1px solid #ddd;
         }
 
         th {
             background-color: #db7378;
             color: #fff;
-            font-weight:bold;   
-			text-align:center;
+            font-weight: bold;
+            text-align: center;
         }
 
-		header {
+        header {
             background-color: #9f3a3b;
             color: #fff;
             padding: 15px;
@@ -109,8 +105,8 @@ foreach ($groupedData as $weekNumber => $weekData) {
         .buttons {
             display: inline-block;
             text-align: right;
-			float:right;
-			
+            float: right;
+
         }
 
         .buttons button {
