@@ -31,12 +31,12 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                 <?= $details['year'] ?>
                             </th>
 
-                            <th class="center-text" style="border-left: solid black 1px;" colspan="2">
+                            <!-- <th class="center-text" style="border-left: solid black 1px;" colspan="2">
                                 Leave Credits as
                                 of
                                 <?= $details['year'] ?>
-                            </th>
-                            <th class="center-text" style="border-left: solid black 1px;" colspan="3">TOTAL
+                            </th> -->
+                            <th class="center-text" style="border-left: solid black 1px;" colspan="5">TOTAL
                             </th>
                         </tr>
                     </thead>
@@ -52,10 +52,10 @@ $daysArray = range(1, $numberOfDaysInMonth);
 
                                 <?php
                             } ?>
-                            <th class="center-text" style="border-left: solid black 1px;">SC</th>
-                            <th class="center-text" style="border-left: solid black 1px;">FREQ. SC</th>
-                            <th class="center-text" style="border-left: solid black 1px;">TARD</th>
-                            <th class="center-text" style="border-left: solid black 1px;">UNDERTIME</th>
+                            <!-- <th class="center-text" style="border-left: solid black 1px;">SC</th>
+                            <th class="center-text" style="border-left: solid black 1px;">FREQ. SC</th> -->
+                            <!-- <th class="center-text" style="border-left: solid black 1px;">TARD</th> -->
+                            <th class="center-text" style="border-left: solid black 1px;">OVERLOAD</th>
                             <th class="center-text" style="border-left: solid black 1px;">TOTAL</th>
                         </tr>
                     </thead>
@@ -80,7 +80,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                     </td>
                                     <?php
                                 } ?>
-                                <td class="center-text" style="border-left: solid black 1px;">
+                                <!-- <td class="center-text" style="border-left: solid black 1px;">
                                     2.503
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
@@ -88,7 +88,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
                                     <b>0.21</b>
-                                </td>
+                                </td> -->
                                 <td class="center-text" style="border-left: solid black 1px;">
                                     <b>0.0</b>
                                 </td>

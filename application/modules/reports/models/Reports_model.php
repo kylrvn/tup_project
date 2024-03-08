@@ -37,11 +37,8 @@ class Reports_model extends CI_Model
         $data_to_send["year"] = $year;
 
         $this->db->select(
-            'u.*,'.
+            'u.*,'
             // 'd.Date_time,'.
-            's.Date,'.
-            's.Start_time,'.
-            's.End_time,'
         );
         $this->db->from($this->Table->user.' u');
         // $this->db->join($this->Table->dtr.' d', 'u.ID=d.Faculty_id','left');
