@@ -27,33 +27,29 @@ class Faculty_schedule_services_model extends CI_Model
 
         $end_time = $this->end_time;
         $end_hour = (int) substr($end_time, 0, 2);
-        $end_period = ($end_hour < 12) ? 'AM' : 'PM';
+        $end_period = ($end_hour < 12 || $end_hour == 12) ? 'AM' : 'PM';
 
-        if($start_period == 'AM'){
+        // Initialize variables
+        $start_time_am = null;
+        $start_time_pm = null;
+        $end_time_am = null;
+        $end_time_pm = null;
+        $subject_am = null;
+        $subject_pm = null;
+
+        // Set values based on AM or PM
+        if ($start_period == 'AM') {
             $start_time_am = $this->start_time;
-            $start_time_pm = null;
-        }
-        else{
-            $start_time_am = null;
-            $start_time_pm = $this->start_time;
-        }
-
-        if($end_period == 'AM'){
-            $end_time_am = $this->end_time;
-            $end_time_pm = null;
-        }
-        else{
-            $end_time_am = null;
-            $end_time_pm = $this->end_time;
-        }
-
-        if($start_period == 'AM'){
             $subject_am = $this->subject;
-            $subject_pm = null;
-        }
-        else{
-            $subject_am = null;
+        } else {
+            $start_time_pm = $this->start_time;
             $subject_pm = $this->subject;
+        }
+
+        if ($end_period == 'AM') {
+            $end_time_am = $this->end_time;
+        } else {
+            $end_time_pm = $this->end_time;
         }
 
         try {
@@ -69,7 +65,7 @@ class Faculty_schedule_services_model extends CI_Model
 
                 'Start_time_am' => $start_time_am,
                 'End_time_am' => $end_time_am,
-                'Start_time_pm' => $start_time_pm, 
+                'Start_time_pm' => $start_time_pm,
                 'End_time_pm' => $end_time_pm,
             );
 

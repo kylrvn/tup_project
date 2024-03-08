@@ -23,10 +23,10 @@ main_header(['schedule']);
 
 
 <!-- /.row -->
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="container" id="load_faculty_table">
+<div class="row" style="display:flex;">
+    <div class="col-12" >
+        <div class="card" >
+            <div class="container col-12" id="load_faculty_table">
                 <!-- Faculty Table Loaded Here -->
             </div>
         </div>
