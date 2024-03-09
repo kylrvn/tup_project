@@ -20,7 +20,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                     <br>
                     FACULTY DAILY ATTENDANCE CHART
                     <br>
-                    TARDINESS/UNDERTIME
+                    OVERLOAD
                 </label>
             </div>
             <div class="card-body table-responsive p-0">
@@ -57,7 +57,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                             <!-- <th class="center-text" style="border-left: solid black 1px;">SC</th>
                             <th class="center-text" style="border-left: solid black 1px;">FREQ. SC</th> -->
                             <!-- <th class="center-text" style="border-left: solid black 1px;">TARD</th> -->
-                            <th class="center-text" style="border-left: solid black 1px;">TARDINESS/UNDERTIME</th>
+                            <th class="center-text" style="border-left: solid black 1px;">OVERLOAD</th>
                             <th class="center-text" style="border-left: solid black 1px;">TOTAL</th>
                         </tr>
                     </thead>

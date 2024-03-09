@@ -52,11 +52,15 @@ main_header(['Reports']);
                 </button>
             </div>
             <div class="row mt-3 mr-3 ml-3">
-                <div class="col-4">
+                <div class="col-6">
                     &nbsp;
                 </div>
-                <div class="col-5">
-                    &nbsp;
+                <div class="col-3">
+                    <h6>Select Type of Report:</h6>
+                    <select class="form-control" id="report_type">
+                        <option selected value="tard_undertime">Tardiness/Undertime</option>
+                        <option value="overload">Overload</option>
+                    </select>
                 </div>
                 <div class="col-3">
                     <h6>Select Month/Year:</h6>

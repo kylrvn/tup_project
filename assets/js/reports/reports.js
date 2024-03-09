@@ -6,6 +6,7 @@ var load_dtr_summary = () => {
         url: baseUrl + 'reports/load_dtr_summary',
         data: {
             selected_month: $('#select_month1').val(),
+            report_type: $('#report_type').val(),
         },
         
         success: function (data) {
@@ -47,6 +48,7 @@ $('#select_month1').change(function () {
         url: baseUrl + 'reports/load_dtr_summary',
         data: {
             selected_month: $('#select_month1').val(),
+            report_type: $('#report_type').val(),
         },
         
         success: function (data) {
@@ -70,6 +72,26 @@ $('#select_month2').change(function () {
         
         success: function (data) {
             $('#deduction_summary').html(data);
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+});
+
+$('#report_type').change(function () {
+    // alert($('#report_type').val());
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'reports/load_dtr_summary',
+        data: {
+            selected_month: $('#select_month1').val(),
+            report_type: $('#report_type').val(),
+        },
+        
+        success: function (data) {
+            $('#load_summary').html(data);
         },
         error: function (xhr, status, error) {
             console.error(xhr.responseText);

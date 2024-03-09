@@ -34,7 +34,13 @@ class Reports extends MY_Controller
 		$this->rModel->month = $this->input->post('selected_month');
 
 		$this->data['details'] = $this->rModel->get_dtr_summary();
-		$this->data['content'] = 'grid/load_dtr_summary';
+
+		if($this->input->post('report_type') == "tard_undertime"){
+			$this->data['content'] = 'grid/load_dtr_summary';
+		}
+		else if($this->input->post('report_type') == "overload"){
+			$this->data['content'] = 'grid/load_dtr_summary_overload';
+		}
 		$this->load->view('layout',$this->data);
 	}
 
