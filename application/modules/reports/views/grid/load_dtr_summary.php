@@ -52,19 +52,19 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                     <?= $day ?>
                                 </th>
 
-                                <?php
+                            <?php
                             } ?>
                             <!-- <th class="center-text" style="border-left: solid black 1px;">SC</th>
                             <th class="center-text" style="border-left: solid black 1px;">FREQ. SC</th> -->
-                            <!-- <th class="center-text" style="border-left: solid black 1px;">TARD</th> -->
-                            <th class="center-text" style="border-left: solid black 1px;">TARDINESS/UNDERTIME</th>
+                            <th class="center-text" style="border-left: solid black 1px;">TARD</th>
+                            <th class="center-text" style="border-left: solid black 1px;">UNDERTIME</th>
                             <th class="center-text" style="border-left: solid black 1px;">TOTAL</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         foreach ($details['data'] as $key => $value) {
-                            ?>
+                        ?>
                             <tr style="border-bottom: solid black 1px;">
                                 <td class="center-text">
                                     <b>
@@ -72,33 +72,35 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                     </b>
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
-                                    <b><?= $value->Lname ?>, <?= $value->Fname ?>     <?= $value->Mname ?>.</b>
+                                    <b><?= $value->Lname ?>, <?= $value->Fname ?> <?= $value->Mname ?>.</b>
                                 </td>
                                 <?php
-                                foreach ($daysArray as $day) { ?>
+                                foreach ($daysArray as $day) {
+                                ?>
                                     <td class="center-text" style="border-left: solid black 1px;">
-                                    <!-- Put Late/Undertime Data Here if($day == dtr_date) -->
+                                        <!-- Display undertime and tardiness for the specific day -->
                                         &nbsp;
                                     </td>
-                                    <?php
+                                <?php
+
                                 } ?>
                                 <!-- <td class="center-text" style="border-left: solid black 1px;">
                                     2.503
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
                                     0.0
+                                </td>-->
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                    <b><?= sprintf('%02d:%02d', floor(@$value->tt / 60), @$value->tt % 60) ?></b>
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
-                                    <b>0.21</b>
-                                </td> -->
-                                <td class="center-text" style="border-left: solid black 1px;">
-                                    <b>0.0</b>
+                                    <b><?= sprintf('%02d:%02d', floor(@$value->ut / 60), @$value->ut % 60) ?></b>
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
-                                    <b>2.713</b>
+                                    <b><?= sprintf('%02d:%02d', floor(@$value->utt / 60), @$value->utt % 60) ?></b>
                                 </td>
                             </tr>
-                            <?php
+                        <?php
                         }
                         ?>
                     </tbody>
