@@ -258,7 +258,7 @@ class Reports_model extends CI_Model
             '*'
         );
         $this->db->from($this->Table->log);
-        $this->db->where('idno', $ID);
+        $this->db->where('FacultyID', $ID);
         $logs = $this->db->get()->result();
         return $logs;
     }

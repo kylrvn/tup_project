@@ -29,20 +29,18 @@
         </thead>
         <tbody>
             <?php
-            // foreach ($details as $key => $value) {
+            foreach ($details as $key => $value) {
                 ?>
                 <tr>
                     <td><b><?=@$key+1?></b></td>
-                    <td><?=ucfirst($details->Lname)?>, <?=ucfirst($details->Fname)?> <?=ucfirst($details->Mname)?></td>
-                    <td><?=$details->Department?></td>
+                    <td><?=ucfirst($value->Lname)?>, <?=ucfirst($value->Fname)?> <?=ucfirst($value->Mname)?></td>
+                    <td><?=$value->Department?></td>
                     <td>
-                        <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?=$details->ID?>"><i class="fas fa-calendar"></i></button>
-                        <button class="btn btn-sm btn-primary" data-id="<?=$details->ID?>"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-sm btn-warning" data-id="<?=$details->ID?>"><i class="fas fa-upload"></i></button>
+                        <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?=$value->ID?>"><i class="fas fa-calendar"></i></button>
                     </td>
                 </tr>
                 <?php
-            // }
+            }
             ?>
         </tbody>
     </table>

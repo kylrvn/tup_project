@@ -272,7 +272,7 @@ main_header(['Faculty_schedule']);
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9">
+            <!-- <div class="col-sm-9">
                 <table class="table border-in-table table-hover table-sm">
                     <thead>
                         <tr>
@@ -287,18 +287,9 @@ main_header(['Faculty_schedule']);
                         </tr>
                     </thead>
                     <h5>Schedule</h5>
-                    <!-- <div class="input-group"
-                        style="width:250px; position: absolute; right:0px; top:0px; margin-right:12px;">
-                        <input type="text" class="form-control form-control-sm" id="search_text" data-field="Search"
-                            placeholder="Search Account name">
-                        <span class="input-group-btn">
-                            <button class="btn btn-sm btn-success" id="search" type="button"><i
-                                    class="fa fa-search"></i></button>
-                        </span>
-                    </div> -->
                     <tbody id="load_schedule"></tbody>
                 </table>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>

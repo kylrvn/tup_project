@@ -149,7 +149,6 @@ function main_header($menubar = [])
                 </ul>
               </li>
 
-
               <ul class="nav nav-item">
                 <li class="nav-item">
                   <a style="color:<?= (sidebar($menubar, ['schedule'])) ? 'white' : 'black' ?>;"
@@ -160,9 +159,32 @@ function main_header($menubar = [])
                   </a>
                 </li>
               </ul>
+
               <ul class="nav nav-item">
                 <li class="nav-item">
-                  <a style="color:<?= (sidebar($menubar, ['upload_attachments'])) ? 'white' : 'black' ?>;"
+                  <a style="color:<?= (sidebar($menubar, ['request'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty" ? 'none' : '' ?>;"
+                    href="<?= base_url() ?>request"
+                    class="nav-link <?= (sidebar($menubar, ['request'])) ? 'active' : '' ?>">
+                    <i class="fas fa-envelope nav-icon"></i>
+                    <p>Request</p>
+                  </a>
+                </li>
+              </ul>
+
+              <li class="nav-item">
+                <ul class="nav nav-item">
+                  <a style="color:<?= (sidebar($menubar, ['Faculty_schedule'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "HR"? 'none' : '' ?>;"
+                    href="<?= base_url() ?>faculty_schedule"
+                    class="nav-link <?= (sidebar($menubar, ['Faculty_schedule'])) ? 'active' : '' ?>">
+                    <i class="far fa-clock nav-icon"></i>
+                    <p>Submit Schedule</p>
+                  </a>
+                </ul>
+              </li>
+
+              <ul class="nav nav-item">
+                <li class="nav-item">
+                  <a style="color:<?= (sidebar($menubar, ['upload_attachments'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "HR"? 'none' : '' ?>"
                     href="<?= base_url() ?>upload_attachments"
                     class="nav-link <?= (sidebar($menubar, ['upload_attachments'])) ? 'active' : '' ?>">
                     <i class="fas fa-upload nav-icon"></i>
@@ -170,7 +192,6 @@ function main_header($menubar = [])
                   </a>
                 </li>
               </ul>
-
 
               <li class="nav-item">
                 <ul class="nav nav-item">
@@ -183,20 +204,7 @@ function main_header($menubar = [])
                 </ul>
               </li>
 
-
-              <li class="nav-item">
-                <ul class="nav nav-item">
-                  <a style="color:<?= (sidebar($menubar, ['Faculty_schedule'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "HR"? 'none' : '' ?>;"
-                    href="<?= base_url() ?>faculty_schedule"
-                    class="nav-link <?= (sidebar($menubar, ['Faculty_schedule'])) ? 'active' : '' ?>">
-                    <i class="fas fa-upload nav-icon"></i>
-                    <p>Submit Schedule</p>
-                  </a>
-                </ul>
-              </li>
-
-
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <ul class="nav nav-item">
                   <a style="color:<?= (sidebar($menubar, ['Scan'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty"? 'none' : '' ?>;" href="<?= base_url() ?>scan"
                     class="nav-link <?= (sidebar($menubar, ['Scan'])) ? 'active' : '' ?>">
@@ -204,8 +212,7 @@ function main_header($menubar = [])
                     <p>Scan</p>
                   </a>
                 </ul>
-              </li>
-
+              </li> -->
 
               <li class="nav-item">
                 <ul class="nav nav-item">

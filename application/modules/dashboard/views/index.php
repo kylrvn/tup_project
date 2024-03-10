@@ -1,5 +1,5 @@
 <?php
-main_header(['create_document']);
+main_header(['Dashboard']);
 // Get data from the controller
 $week_sched_dtr = $week_sched_dtr;
 

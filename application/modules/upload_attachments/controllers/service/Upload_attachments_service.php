@@ -28,7 +28,7 @@ class Upload_attachments_service extends MY_Controller
 		
 		 // Handle file upload
 		 $config['upload_path'] = 'assets/uploads/'; // Directory path where you want to store the uploaded files
-		 $config['allowed_types'] = 'gif|jpg|png|pdf|doc|docx'; // Allowed file types
+		 $config['allowed_types'] = 'gif|jpeg|jpg|png|pdf|doc|docx'; // Allowed file types
 		 $config['max_size'] = 10240; // Maximum file size in kilobytes (10 MB)
 		 $config['file_name'] = $this->usModel->FacultyID.'_'.$this->usModel->Date_Uploaded.'_'.uniqid(); // Unique file name
 		 

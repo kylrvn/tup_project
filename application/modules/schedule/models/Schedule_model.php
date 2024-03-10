@@ -21,8 +21,14 @@ class Schedule_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from($this->Table->user);
-        $this->db->where('ID', $this->session->ID);
-        $query = $this->db->get()->row();
+
+        if($this->session->User_type == "faculty"){
+            $this->db->where('ID', $this->session->ID);
+        }
+        else if($this->session->User_type == "HR"){
+            // Do nothing
+        }
+        $query = $this->db->get()->result();
 
         return $query;
     }

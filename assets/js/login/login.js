@@ -1,10 +1,6 @@
 $(document).ready(function () {
     $('#Login').on('click', function () {
-        // const captchaResponse = grecaptcha.getResponse();
 
-        // if(!captchaResponse.lenght > 0){
-        //     throw new Error("Captcha not complete")
-        // }
         $.ajax({
             url: base_url + 'login/service/login_service/login',
             type: "POST",
@@ -17,7 +13,18 @@ $(document).ready(function () {
                 if (response.has_error) {
                     toastr.error(response.error_message);
                 } else {
-                    window.location = base_url + "faculty_schedule";
+                    // console.log(response.session.User_type);
+                    if(response.session.User_type == "faculty"){
+                        window.location = base_url + "dashboard";
+                    }
+                    else if (response.session.User_type == "HR"){
+                        window.location = base_url + "schedule";
+                    }
+                    else{
+                        window.location = base_url + "dashboard";
+                    }
+
+                    
                 }
             }
         });
