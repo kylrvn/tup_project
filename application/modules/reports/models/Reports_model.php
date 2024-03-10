@@ -29,8 +29,12 @@ class Reports_model extends CI_Model
         $undertime_total = 0;
         $tard_total = 0;
         $undertime_tard_total = 0;
+        $overtime_total = 0;
         $ut = 0;
         $t = 0;
+        $ov = 0;
+        $undertime_tard_daily = array();
+        $overload_daily = array();
 
         $days_in_selected_month = date('t', mktime(0, 0, 0, $month, 1, $year));
 
@@ -60,7 +64,7 @@ class Reports_model extends CI_Model
             $numberOfDaysInMonth = $data_to_send['num_of_days'];
             $daysArray = range(1, $numberOfDaysInMonth);
             foreach ($daysArray as $day) {
-                $undertime_tard_daily = array();
+                // $undertime_tard_daily = array();
 
                 $tempschedarr = array();
                 $dayOfWeek = strtolower(date("l", strtotime($day . "-" . $month . "-" . $year))); //Use any date from $selected_month
@@ -156,28 +160,39 @@ class Reports_model extends CI_Model
                                     $o = 0; // points for overload
                                     $o = $quota_checker - $quota;
 
-                                    $pts = $o >= 900 ? $this->calculate_daily_overload($o) : 0; //if 15 mins has passed, calculate overload
-                                    // echo 'overload pts :' . $pts . '<br>';
+                                    $ov = $o >= 900 ? $this->calculate_daily_overload($o) : 0; //if 15 mins has passed, calculate overload
+                                    $overtime_total += $ov;
+                                    // echo 'overload pts :' . $ov . '<br>';
                                 }
                             }
                             // echo $undertime_total.'<br>';
                         }
                         // echo 'hrs spend on this day "' . $day . '" : ' . ($quota_checker / 3600) . 'hrs <br>';
                         // echo 'ut: ' . $ut . ' t: '. $t.'<br>';
-
+                        // $undertime_tard_daily = array();
+                        $undertime_tard_daily[$day] = [
+                            "day" => $day,
+                            "ut_daily" => $ut,
+                            "t_daily" => $t,
+                        ];
+                        $overload_daily[$day] = [
+                            "day" => $day,
+                            "ol_daily" => $ov,
+                        ];
                         break;
 
                     } //if checker
                     
                 } //end log foreach loop
                 // $val->daily[] = $undertime_tard_daily;
-                if($t!=0 && $ut!=0){
-                    $undertime_tard_daily = array(
-                        "ut_daily" => $ut,
-                        "t_daily" => $t,
-                    );
-                }
                 // var_dump($undertime_tard_daily);
+                if (!isset($undertime_tard_daily[$day])) {
+                    $undertime_tard_daily[$day] = [];
+                }
+                if (!isset($overload_daily[$day])) {
+                    $overload_daily[$day] = [];
+                }
+                $ov = 0;
                 $ut = 0;
                 $t = 0;
             }
@@ -186,11 +201,14 @@ class Reports_model extends CI_Model
             $val->ut = $undertime_total;
             $val->tt = $tard_total;
             $val->utt = $undertime_tard_total;
-            // $val->daily = $undertime_tard_daily;
+            $val->ol = $overtime_total;
+            $val->daily = $undertime_tard_daily;
+            $val->daily_ol = $overload_daily;
 
             $undertime_total = 0;
             $tard_total = 0;
             $undertime_tard_total = 0;
+            $overtime_total = 0;
 
         } /* end of faculty foreach loop */
         // echo json_encode($monthInWords);
@@ -253,6 +271,8 @@ class Reports_model extends CI_Model
         $this->db->from($this->Table->sched);
         $this->db->where('Faculty_id', $ID);
         $this->db->where('Active', 1);
+        $this->db->order_by('time_frame', 'asc');
+        //add modification to cater order
         $query = $this->db->get()->result();
         return $query;
     }

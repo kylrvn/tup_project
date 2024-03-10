@@ -52,7 +52,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                     <?= $day ?>
                                 </th>
 
-                                <?php
+                            <?php
                             } ?>
                             <!-- <th class="center-text" style="border-left: solid black 1px;">SC</th>
                             <th class="center-text" style="border-left: solid black 1px;">FREQ. SC</th> -->
@@ -64,7 +64,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                     <tbody>
                         <?php
                         foreach ($details['data'] as $key => $value) {
-                            ?>
+                        ?>
                             <tr style="border-bottom: solid black 1px;">
                                 <td class="center-text">
                                     <b>
@@ -72,16 +72,37 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                     </b>
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
-                                    <b><?= $value->Lname ?>, <?= $value->Fname ?>     <?= $value->Mname ?>.</b>
+                                    <b><?= $value->Lname ?>, <?= $value->Fname ?> <?= $value->Mname ?>.</b>
                                 </td>
-                                <?php
-                                foreach ($daysArray as $day) { ?>
+                                <?php foreach ($daysArray as $day) { ?>
                                     <td class="center-text" style="border-left: solid black 1px;">
-                                    <!-- Put Late/Undertime Data Here if($day == dtr_date) -->
-                                        &nbsp;
+                                        <?php
+                                        // Find the data for the specific day
+                                        $dayData = [];
+                                        foreach ($value->daily_ol as $dailyData) {
+                                            if (isset($dailyData['day']) && (int)$dailyData['day'] == $day) {
+                                                $dayData = $dailyData;
+                                                break;
+                                            }
+                                        }
+
+                                        if (!empty($dayData)) {
+                                            // Display undertime and tardiness for the specific day
+                                            echo $dayData['ol_daily'];
+                                            // if($dayData['ut_daily']!=0){
+                                            //     echo sprintf('%02d:%02d', floor($dayData['t_daily'] / 60), $dayData['t_daily'] % 60) . '<br>';
+                                            // }
+                                            // if($dayData['ut_daily']!=0){
+                                            //     echo sprintf('%02d:%02d', floor($dayData['ut_daily'] / 60), $dayData['ut_daily'] % 60) . '<br>';
+                                            // }
+
+                                        } else {
+                                            // If no data available for the day, display a placeholder
+                                            echo '&nbsp;';
+                                        }
+                                        ?>
                                     </td>
-                                    <?php
-                                } ?>
+                                <?php } ?>
                                 <!-- <td class="center-text" style="border-left: solid black 1px;">
                                     2.503
                                 </td>
@@ -92,13 +113,13 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                     <b>0.21</b>
                                 </td> -->
                                 <td class="center-text" style="border-left: solid black 1px;">
-                                    <b>0.0</b>
+                                    <b><?= $value->ol?></b>
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
-                                    <b>2.713</b>
+                                    <b><?= $value->ol?></b>
                                 </td>
                             </tr>
-                            <?php
+                        <?php
                         }
                         ?>
                     </tbody>

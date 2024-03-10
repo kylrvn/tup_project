@@ -105,3 +105,4 @@ function password_verify_laravel($plain_text, $hash){
         return false;
     }
 }
+
