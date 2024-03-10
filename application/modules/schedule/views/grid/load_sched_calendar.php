@@ -1,6 +1,22 @@
 <?php
-    var_dump($details);
+// var_dump($details);
+
+$days = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+
+$start_time = new DateTime('07:00:00');
+$end_time = new DateTime('21:00:00');
+
+$time_intervals = array();
+
+$current_time = clone $start_time;
+while ($current_time <= $end_time) {
+    $time_intervals[] = $current_time->format('H:i:s');
+    $current_time->add(new DateInterval('PT15M'));
+}
+
+// var_dump($time_intervals);
 ?>
+
 <head>
     <style>
         body {
@@ -132,166 +148,1223 @@
     </style>
 
 </head>
-<div class="container">
-    <div class="table">
-        <table class="table table-bordered text-center">
+<div class="container" style="width:100%;">
+    <div class="row">
+        <table class="table-bordered text-center col-12">
             <thead>
                 <tr class="bg-light-gray">
-                    <th class="text-uppercase">Time
-                    </th>
-                    <th class="text-uppercase">Monday</th>
-                    <th class="text-uppercase">Tuesday</th>
-                    <th class="text-uppercase">Wednesday</th>
-                    <th class="text-uppercase">Thursday</th>
-                    <th class="text-uppercase">Friday</th>
-                    <th class="text-uppercase">Saturday</th>
+                    <th class="text-uppercase" style="width:50rem;">Time</th>
+                    <?php
+                    foreach ($days as $value) { ?>
+                        <th class="text-uppercase" style="width:50rem;">
+                            <?= $value ?>
+                        </th>
+                        <?php
+                    }
+                    ?>
+
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="align-middle">09:00am</td>
-                    <td>
-                        <span
-                            class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13">Dance</span>
-                        <div class="margin-10px-top font-size14">9:00-10:00</div>
-                        <div class="font-size13 text-light-gray">Ivana Wong</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Yoga</span>
-                        <div class="margin-10px-top font-size14">9:00-10:00</div>
-                        <div class="font-size13 text-light-gray">Marta Healy</div>
-                    </td>
+                <?php
+                $data_days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+                $data = [];
+                $over_all_loop = 0;;
+                foreach ($details as $key => $value) {
+                    if (in_array($value->Day, $data_days)) {
+                        array_push($data, $value->Day);
+                    }
+                    $over_all_loop++;
+                }
+                $mondayCount = 0;
+                $tuesdayCount = 0;
+                $wednesdayCount = 0;
+                $thursdayCount = 0;
+                $fridayCount = 0;
+                $saturdayCount = 0;
 
-                    <td>
-                        <span
-                            class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Music</span>
-                        <div class="margin-10px-top font-size14">9:00-10:00</div>
-                        <div class="font-size13 text-light-gray">Ivana Wong</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Dance</span>
-                        <div class="margin-10px-top font-size14">9:00-10:00</div>
-                        <div class="font-size13 text-light-gray">Ivana Wong</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Art</span>
-                        <div class="margin-10px-top font-size14">9:00-10:00</div>
-                        <div class="font-size13 text-light-gray">Kate Alley</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">English</span>
-                        <div class="margin-10px-top font-size14">9:00-10:00</div>
-                        <div class="font-size13 text-light-gray">James Smith</div>
-                    </td>
-                </tr>
+                foreach ($data as $day) {
+                    switch ($day) {
+                        case "monday":
+                            $mondayCount++;
+                            break;
+                        case "tuesday":
+                            $tuesdayCount++;
+                            break;
+                        case "wednesday":
+                            $wednesdayCount++;
+                            break;
+                        case "thursday":
+                            $thursdayCount++;
+                            break;
+                        case "friday":
+                            $fridayCount++;
+                            break;
+                        case "saturday":
+                            $saturdayCount++;
+                            break;
+                        // Add more cases for other days if needed
+                    }
+                }
+                foreach ($time_intervals as $time) { ?>
+                    <tr>
+                        <td class="align-middle">
+                            <?php
+                            $date = DateTime::createFromFormat('H:i:s', $time);
+                            $formattedTime = $date->format('h:i A');
+                            echo $formattedTime;
+                            ?>
+                        </td>
+                        <!-- Dynamic Expansion of Schedule -->
+                        <?php
+                        if ($time == '12:15:00' && $time <= '12:45:00') { ?>
+                            <td rowspan="3" colspan="6">
+                                <div class="font-size13">
+                                    NOON BREAK
+                                </div>
+                            </td>
+                            <?php
+                        }
+                        ?>
 
-                <tr>
-                    <td class="align-middle">10:00am</td>
-                    <td>
-                        <span
-                            class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Music</span>
-                        <div class="margin-10px-top font-size14">10:00-11:00</div>
-                        <div class="font-size13 text-light-gray">Ivana Wong</div>
-                    </td>
-                    <td class="bg-light-gray">
+                        <!-- MONDAY -->
+                        <?php
+                        $loop_monday = 0;
+                        $loop1 = 0;
+                        foreach ($details as $key => $value) {
+                            $day = "monday";
+                            $start_time = new DateTime(isset($value->Start_time_am) ? $value->Start_time_am : $value->Start_time_pm);
+                            $end_time = new DateTime(isset($value->End_time_am) ? $value->End_time_am : $value->End_time_pm);
 
-                    </td>
-                    <td>
-                        <span
-                            class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Art</span>
-                        <div class="margin-10px-top font-size14">10:00-11:00</div>
-                        <div class="font-size13 text-light-gray">Kate Alley</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Yoga</span>
-                        <div class="margin-10px-top font-size14">10:00-11:00</div>
-                        <div class="font-size13 text-light-gray">Marta Healy</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">English</span>
-                        <div class="margin-10px-top font-size14">10:00-11:00</div>
-                        <div class="font-size13 text-light-gray">James Smith</div>
-                    </td>
-                    <td class="bg-light-gray">
+                            // Calculate the time difference
+                            $time_converted = $start_time->diff($end_time);
+                            $time_difference = $time_converted->format('%H:%I:%S');
 
-                    </td>
-                </tr>
+                            $time_in_seconds = strtotime($time_difference) - strtotime('00:00:00');
 
-                <tr>
-                    <td class="align-middle">11:00am</td>
-                    <td>
-                        <span
-                            class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Break</span>
-                        <div class="margin-10px-top font-size14">11:00-12:00</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Break</span>
-                        <div class="margin-10px-top font-size14">11:00-12:00</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Break</span>
-                        <div class="margin-10px-top font-size14">11:00-12:00</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Break</span>
-                        <div class="margin-10px-top font-size14">11:00-12:00</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Break</span>
-                        <div class="margin-10px-top font-size14">11:00-12:00</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Break</span>
-                        <div class="margin-10px-top font-size14">11:00-12:00</div>
-                    </td>
-                </tr>
+                            $interval_minutes = 15 * 60;
+                            $number_of_intervals = $time_in_seconds / $interval_minutes;
 
-                <tr>
-                    <td class="align-middle">12:00pm</td>
-                    <td class="bg-light-gray">
+                            $result = (double) $number_of_intervals;
 
-                    </td>
-                    <td>
-                        <span
-                            class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Art</span>
-                        <div class="margin-10px-top font-size14">12:00-1:00</div>
-                        <div class="font-size13 text-light-gray">Kate Alley</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Dance</span>
-                        <div class="margin-10px-top font-size14">12:00-1:00</div>
-                        <div class="font-size13 text-light-gray">Ivana Wong</div>
-                    </td>
-                    <td>
-                        <span
-                            class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Music</span>
-                        <div class="margin-10px-top font-size14">12:00-1:00</div>
-                        <div class="font-size13 text-light-gray">Ivana Wong</div>
-                    </td>
-                    <td class="bg-light-gray">
+                            if ($value->Day == $day) {
+                                $loop_monday++;
+                            }
 
-                    </td>
-                    <td>
-                        <span
-                            class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Yoga</span>
-                        <div class="margin-10px-top font-size14">12:00-1:00</div>
-                        <div class="font-size13 text-light-gray">Marta Healy</div>
-                    </td>
-                </tr>
+                            $loop1++;
 
-                <tr>
+                            if ($mondayCount > 1) {
+                                // Upper
+                                if ($value->Day == $day && $loop_monday == 1 && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_am) { ?>
+                                            <td rowspan="<?=$result + 1?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+
+                                    </div>
+                                    <?php
+                                }
+
+                                // Lower
+                                if ($value->Day == $day && $loop_monday == 2 && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_pm) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+                                }
+                            } else if ($mondayCount == 1) {
+
+                                // Upper
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                                // Lower
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                            } else {
+                                // Upper  ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '07:00:00' && $time < '12:15:00' && $loop1 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+
+                                    // Lower   ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '13:00:00' && $time < '22:00:00' && $loop1 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+                        <!-- TUESDAY -->
+                        <?php
+                        $loop_tuesday = 0;
+                        $loop2 = 0;
+                        foreach ($details as $key => $value) {
+                            $day = "tuesday";
+                            $start_time = new DateTime(isset($value->Start_time_am) ? $value->Start_time_am : $value->Start_time_pm);
+                            $end_time = new DateTime(isset($value->End_time_am) ? $value->End_time_am : $value->End_time_pm);
+
+                            // Calculate the time difference
+                            $time_converted = $start_time->diff($end_time);
+                            $time_difference = $time_converted->format('%H:%I:%S');
+
+                            $time_in_seconds = strtotime($time_difference) - strtotime('00:00:00');
+
+                            $interval_minutes = 15 * 60;
+                            $number_of_intervals = $time_in_seconds / $interval_minutes;
+
+                            $result = (double) $number_of_intervals;
+
+                            if ($value->Day == $day) {
+                                $loop_tuesday++;
+                            }
+
+                            $loop2++;
+
+                            if ($tuesdayCount > 1) {
+                                // Upper
+                                if ($value->Day == $day && $loop_tuesday == 1 && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_am) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+
+                                    </div>
+                                    <?php
+                                }
+
+                                // Lower
+                                if ($value->Day == $day && $loop_tuesday == 2 && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_pm) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+                                }
+                            } else if ($tuesdayCount == 1) {
+
+                                // Upper
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                                // Lower
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                            } else {
+                                // Upper  ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '07:00:00' && $time < '12:15:00' && $loop2 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+
+                                    // Lower   ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '13:00:00' && $time < '22:00:00' && $loop2 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+                        <!-- WEDNESDAY -->
+                        <?php
+                        $loop_wednesday = 0;
+                        $loop3 = 0;
+                        foreach ($details as $key => $value) {
+                            $day = "wednesday";
+                            $start_time = new DateTime(isset($value->Start_time_am) ? $value->Start_time_am : $value->Start_time_pm);
+                            $end_time = new DateTime(isset($value->End_time_am) ? $value->End_time_am : $value->End_time_pm);
+
+                            // Calculate the time difference
+                            $time_converted = $start_time->diff($end_time);
+                            $time_difference = $time_converted->format('%H:%I:%S');
+
+                            $time_in_seconds = strtotime($time_difference) - strtotime('00:00:00');
+
+                            $interval_minutes = 15 * 60;
+                            $number_of_intervals = $time_in_seconds / $interval_minutes;
+
+                            $result = (double) $number_of_intervals;
+
+                            if ($value->Day == $day) {
+                                $loop_wednesday++;
+                            }
+
+                            $loop3++;
+
+                            if ($wednesdayCount > 1) {
+                                // Upper
+                                if ($value->Day == $day && $loop_wednesday == 1 && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_am) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+
+                                    </div>
+                                    <?php
+                                }
+
+                                // Lower
+                                if ($value->Day == $day && $loop_wednesday == 2 && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_pm) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+                                }
+                            } else if ($wednesdayCount == 1) {
+
+                                // Upper
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                                // Lower
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                            } else {
+                                // Upper  ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '07:00:00' && $time < '12:15:00' && $loop3 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+
+                                    // Lower   ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '13:00:00' && $time < '22:00:00' && $loop3 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <!-- THURSDAY -->
+                        <?php
+                        $loop_thursday = 0;
+                        $loop4 = 0;
+                        foreach ($details as $key => $value) {
+                            $day = "thursday";
+                            $start_time = new DateTime(isset($value->Start_time_am) ? $value->Start_time_am : $value->Start_time_pm);
+                            $end_time = new DateTime(isset($value->End_time_am) ? $value->End_time_am : $value->End_time_pm);
+
+                            // Calculate the time difference
+                            $time_converted = $start_time->diff($end_time);
+                            $time_difference = $time_converted->format('%H:%I:%S');
+
+                            $time_in_seconds = strtotime($time_difference) - strtotime('00:00:00');
+
+                            $interval_minutes = 15 * 60;
+                            $number_of_intervals = $time_in_seconds / $interval_minutes;
+
+                            $result = (double) $number_of_intervals;
+
+                            if ($value->Day == $day) {
+                                $loop_thursday++;
+                            }
+
+                            $loop4++;
+
+                            if ($thursdayCount > 1) {
+                                // Upper
+                                if ($value->Day == $day && $loop_thursday == 1 && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_am) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+
+                                    </div>
+                                    <?php
+                                }
+
+                                // Lower
+                                if ($value->Day == $day && $loop_thursday == 2 && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_pm) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+                                }
+                            } else if ($thursdayCount == 1) {
+
+                                // Upper
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                                // Lower
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                            } else {
+                                // Upper  ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '07:00:00' && $time < '12:15:00' && $loop4 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+
+                                    // Lower   ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '13:00:00' && $time < '22:00:00' && $loop4 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+                        <!-- FRIDAY -->
+                        <?php
+                        $loop_friday = 0;
+                        $loop5 = 0;
+                        foreach ($details as $key => $value) {
+                            $day = "friday";
+                            $start_time = new DateTime(isset($value->Start_time_am) ? $value->Start_time_am : $value->Start_time_pm);
+                            $end_time = new DateTime(isset($value->End_time_am) ? $value->End_time_am : $value->End_time_pm);
+
+                            // Calculate the time difference
+                            $time_converted = $start_time->diff($end_time);
+                            $time_difference = $time_converted->format('%H:%I:%S');
+
+                            $time_in_seconds = strtotime($time_difference) - strtotime('00:00:00');
+
+                            $interval_minutes = 15 * 60;
+                            $number_of_intervals = $time_in_seconds / $interval_minutes;
+
+                            $result = (double) $number_of_intervals;
+
+                            if ($value->Day == $day) {
+                                $loop_friday++;
+                            }
+
+                            $loop5++;
+
+                            if ($fridayCount > 1) {
+                                // Upper
+                                if ($value->Day == $day && $loop_friday == 1 && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_am) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+
+                                    </div>
+                                    <?php
+                                }
+
+                                // Lower
+                                if ($value->Day == $day && $loop_friday == 2 && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_pm) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+                                }
+                            } else if ($fridayCount == 1) {
+
+                                // Upper
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                                // Lower
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                            } else {
+                                // Upper  ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '07:00:00' && $time < '12:15:00' && $loop5 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+
+                                    // Lower   ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '13:00:00' && $time < '22:00:00' && $loop5 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+                        <!-- SATURDAY -->
+                        <?php
+                        $loop_saturday = 0;
+                        $loop6 = 0;
+                        foreach ($details as $key => $value) {
+                            $day = "saturday";
+                            $start_time = new DateTime(isset($value->Start_time_am) ? $value->Start_time_am : $value->Start_time_pm);
+                            $end_time = new DateTime(isset($value->End_time_am) ? $value->End_time_am : $value->End_time_pm);
+
+                            // Calculate the time difference
+                            $time_converted = $start_time->diff($end_time);
+                            $time_difference = $time_converted->format('%H:%I:%S');
+
+                            $time_in_seconds = strtotime($time_difference) - strtotime('00:00:00');
+
+                            $interval_minutes = 15 * 60;
+                            $number_of_intervals = $time_in_seconds / $interval_minutes;
+
+                            $result = (double) $number_of_intervals;
+
+                            if ($value->Day == $day) {
+                                $loop_saturday++;
+                            }
+
+                            $loop6++;
+
+                            if ($saturdayCount > 1) {
+                                // Upper
+                                if ($value->Day == $day && $loop_saturday == 1 && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_am) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+
+                                    </div>
+                                    <?php
+                                }
+
+                                // Lower
+                                if ($value->Day == $day && $loop_saturday == 2 && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <?php
+                                        } ?>
+                                        <?php
+                                        if ($time == $value->Start_time_pm) { ?>
+                                            <td rowspan="<?= $result + 1 ?>">
+                                                <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                            </td>
+                                            <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+                                }
+                            } else if ($saturdayCount == 1) {
+
+                                // Upper
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time < '12:15:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_am || $time > $value->End_time_am) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_am) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                                // Lower
+                                if ($value->Start_time_am != null && $value->End_time_am != null) {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_am != null && $value->End_time_am != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                } else {
+                                    if ($value->Day == $day && $time > '12:45:00' && $time < '22:00:00' && $value->Start_time_pm != null && $value->End_time_pm != null) { ?>
+                                            <div class="font-size13">
+                                                <?php
+                                                if ($time < $value->Start_time_pm || $time > $value->End_time_pm) { ?>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                                <?php
+                                                if ($time == $value->Start_time_pm) { ?>
+                                                    <td rowspan="<?= $result + 1 ?>">
+                                                    <?= isset($value->Subject_am) ? $value->Subject_am : $value->Subject_pm ?>
+                                                    </td>
+                                                <?php
+                                                } ?>
+                                            </div>
+                                        <?php
+                                    }
+                                }
+
+                            } else {
+                                // Upper  ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '07:00:00' && $time < '12:15:00' && $loop6 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                    <?php
+
+                                    // Lower   ?>
+                                    <div class="font-size13">
+                                        <?php
+                                        if ($time >= '13:00:00' && $time < '22:00:00' && $loop6 > $over_all_loop) { ?>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+
+                        <!-- <td>
+                            TUESDAY
+                        </td>
+                        <td>
+                            WEDNESDAY
+                        </td>
+                        <td>
+                            THURSDAY
+                        </td>
+                        <td>
+                            FRIDAY
+                        </td>
+                        <td>
+                            SATURDAY
+                        </td> -->
+                    </tr>
+                    <?php
+                } ?>
+
+
+                <!-- <tr>
                     <td class="align-middle">01:00pm</td>
                     <td>
                         <span
@@ -326,7 +1399,7 @@
                         <div class="margin-10px-top font-size14">1:00-2:00</div>
                         <div class="font-size13 text-light-gray">Ivana Wong</div>
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>

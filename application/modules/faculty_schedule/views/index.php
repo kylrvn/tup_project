@@ -17,9 +17,9 @@ main_header(['Faculty_schedule']);
                     <div class="input-group"
                         style="width:250px; position: absolute; right:0px; top:0px; margin-right:12px;">
                         <!-- <select class="form-control" id="select">
-                            <option value="Current_Documents">Current Documents</option>
-                            <option value="Manage_Category">Manage Category</option>
-                        </select> -->
+              <option value="Current_Documents">Current Documents</option>
+              <option value="Manage_Category">Manage Category</option>
+            </select> -->
                     </div>
 
                     <!-- <li class="breadcrumb-item active">Management</li> -->
@@ -34,85 +34,243 @@ main_header(['Faculty_schedule']);
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-sm-3">
+            <div class="col-sm-12">
                 <div class="card card-primary">
                     <div class="card-header" style="background-color:#9f3a3b;">
-                        <h3 class="card-title">Faculty schedule</h3>
+	                    <h6 style="font-size: 100%;"><i class="fa fa-info"></i> NOTE: Empty rows will not be added to schedule</h6>
                     </div>
-                    <form id="uploadForm" enctype="multipart/form-data">
-                        <div class="card-body">
-                            <div class="row">
-                                <!-- <div class="form-group w-100">
-                                        <label for="">Faculty ID</label>
-                                        <input type="text" id="faculty_id" class="form-control inpt" placeholder="Faculty ID">
-                                    </div> -->
-                                <input type="text" id="ID" hidden class="form-control inpt" placeholder="Subject">
-                                <div class="form-group w-100">
-                                    <label for="">Subject</label>
-                                    <input type="text" id="subject" class="form-control inpt" placeholder="Subject">
-                                </div>
-                                <div class="form-group w-100">
-                                    <label for="">Room</label>
-                                    <input type="text" id="room" class="form-control inpt" placeholder="Room">
-                                </div>
-                                <div class="form-group w-100">
-                                    <label for="">Day</label>
-                                    <select name="Day" id="day" class="form-control form-control-sm">
-                                        <option value="monday">Monday</option>
-                                        <option value="tuesday">Tuesday</option>
-                                        <option value="wednesday">Wednesday</option>
-                                        <option value="thursday">Thursday</option>
-                                        <option value="friday">Friday</option>
-                                        <option value="saturday">Saturday</option>
-                                    </select>
-                                </div>
-                                <div class="form-group w-100">
-                                    <label for="">Start Time</label>
-                                    <input type="time" id="start_time" class="form-control inpt" placeholder="Start Time">
-                                </div>
-                                <div class="form-group w-100">
-                                    <label for="">End Time</label>
-                                    <input type="time" id="end_time" class="form-control inpt" placeholder="End Time"0>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#modal-default" id="Save">Submit</button>
-                            <button type="button" class="btn btn-primary" hidden id="Update">Update</button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-list"
-                                style="display: none" id="Delete">Delete</button>
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-list2"
-                                style="display: none" id="Update_list">Update</button>
-                        </div>
-                    </form>
+                    <div class="card-body" style="background-color:#D16567;">
+                        <table class="table" style="width: 100%; color: white;">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">DAY</th>
+                                    <th class="text-left">ADD ROW</th>
+                                    <th class="text-center">TIME FRAME</th>
+                                    <th class="text-center">TIME</th>
+                                    <th class="text-center">SUBJECT NAME</th>
+                                    <th class="text-center">ROOM</th>
+                                    <th class="text-center"># OF HRS.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table_monday">
+                                <tr>
+                                    <td class="text-left">
+                                        <label>MONDAY</label>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary " data-day="monday" onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="monday" onclick="add_row_pm(this)">PM</button>
+                                        <input type="text" hidden name="day" value="monday">
+                                    </td>
+                                    <td class="text-center">
+                                        <b>AM</b>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" hidden name="time_frame" value="AM">
+                                        <input type="time" name="start" onchange="check_am_time(this)">
+                                        TO
+                                        <input type="time" name="end" onchange="check_am_time(this)">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="subject" style="width:100%;"
+                                            placeholder="ENTER SUBJECT HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="room" style="width:60%;"
+                                            placeholder="ENTER ROOM HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody id="table_tuesday">
+                                <tr>
+                                    <td class="text-left">
+                                        <label>TUESDAY</label>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary " data-day="tuesday" onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="tuesday" onclick="add_row_pm(this)">PM</button>
+                                        <input type="text" hidden name="day" value="tuesday">
+                                    </td>
+                                    <td class="text-center">
+                                        <b>AM</b>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" hidden name="time_frame" value="AM">
+                                        <input type="time" name="start" onchange="check_am_time(this)">
+                                        TO
+                                        <input type="time" name="end" onchange="check_am_time(this)">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="subject" style="width:100%;"
+                                            placeholder="ENTER SUBJECT HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="room" style="width:60%;"
+                                            placeholder="ENTER ROOM HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody id="table_wednesday">
+                                <tr>
+                                    <td class="text-left">
+                                        <label>WEDNESDAY</label>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary " data-day="wednesday" onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="wednesday" onclick="add_row_pm(this)">PM</button>
+                                        <input type="text" hidden name="day" value="wednesday">
+                                    </td>
+                                    <td class="text-center">
+                                        <b>AM</b>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" hidden name="time_frame" value="AM">
+                                        <input type="time" name="start" onchange="check_am_time(this)">
+                                        TO
+                                        <input type="time" name="end" onchange="check_am_time(this)">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="subject" style="width:100%;"
+                                            placeholder="ENTER SUBJECT HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="room" style="width:60%;"
+                                            placeholder="ENTER ROOM HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody id="table_thursday">
+                                <tr>
+                                    <td class="text-left">
+                                        <label>THURSDAY</label>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary " data-day="thursday" onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="thursday" onclick="add_row_pm(this)">PM</button>
+                                        <input type="text" hidden name="day" value="thursday">
+                                    </td>
+                                    <td class="text-center">
+                                        <b>AM</b>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" hidden name="time_frame" value="AM">
+                                        <input type="time" name="start" onchange="check_am_time(this)">
+                                        TO
+                                        <input type="time" name="end" onchange="check_am_time(this)">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="subject" style="width:100%;"
+                                            placeholder="ENTER SUBJECT HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="room" style="width:60%;"
+                                            placeholder="ENTER ROOM HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody id="table_friday">
+                                <tr>
+                                    <td class="text-left">
+                                        <label>FRIDAY</label>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary " data-day="friday" onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="friday" onclick="add_row_pm(this)">PM</button>
+                                        <input type="text" hidden name="day" value="friday">
+                                    </td>
+                                    <td class="text-center">
+                                        <b>AM</b>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" hidden name="time_frame" value="AM">
+                                        <input type="time" name="start" onchange="check_am_time(this)">
+                                        TO
+                                        <input type="time" name="end" onchange="check_am_time(this)">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="subject" style="width:100%;"
+                                            placeholder="ENTER SUBJECT HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="room" style="width:60%;"
+                                            placeholder="ENTER ROOM HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody id="table_saturday">
+                                <tr>
+                                    <td class="text-left">
+                                        <label>SATURDAY</label>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary " data-day="saturday" onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="saturday" onclick="add_row_pm(this)">PM</button>
+                                        <input type="text" hidden name="day" value="saturday">
+                                    </td>
+                                    <td class="text-center">
+                                        <b>AM</b>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" hidden name="time_frame" value="AM">
+                                        <input type="time" name="start" onchange="check_am_time(this)">
+                                        TO
+                                        <input type="time" name="end" onchange="check_am_time(this)">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="subject" style="width:100%;"
+                                            placeholder="ENTER SUBJECT HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" name="room" style="width:60%;"
+                                            placeholder="ENTER ROOM HERE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer" style="background-color:#9f3a3b;">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default" id="Save">
+                            Submit
+                        </button>
+                        <!-- <button type="button" class="btn btn-warning" id="debug">Debug</button> -->
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-9">
-                <table class="table border-in-table table-hover table-sm">
-                    <thead>
-                        <tr>
-                            <th style="width: 5%;">#</th>
-                            <th style="width: 20%;">FACULTY ID</th>
-                            <th style="width: 25%;">SUBJECT</th>
-                            <th style="width: 15%;">ROOM</th>
-                            <th style="width: 15%;">DAY</th>
-                            <th style="width: 20%;">START TIME</th>
-                            <th style="width: 20%;">END TIME</th>
-                        </tr>
-                    </thead>
-                    <h5>Schedule</h5>
-                    <!-- <div class="input-group"
-                        style="width:250px; position: absolute; right:0px; top:0px; margin-right:12px;">
-                        <input type="text" class="form-control form-control-sm" id="search_text" data-field="Search"
-                            placeholder="Search Account name">
-                        <span class="input-group-btn">
-                            <button class="btn btn-sm btn-success" id="search" type="button"><i
-                                    class="fa fa-search"></i></button>
-                        </span>
-                    </div> -->
-                    <tbody id="load_schedule"></tbody>
-                </table>
             </div>
         </div>
     </div>
@@ -124,64 +282,22 @@ main_header(['Faculty_schedule']);
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Are you sure you want to save details?</h5>
+                <h5 class="modal-title">Action Irreversable! <br> Make sure the data entered is final and correct</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!-- <div class="modal-body">
-                <p>One fine body&hellip;</p>
-            </div> -->
+        <p>One fine body&hellip;</p>
+      </div> -->
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="save_schedule" data-samplefile="">Save</button>
+                <button type="button" class="btn btn-primary" id="save_schedule"
+                    data-samplefile="">Confirm/Save</button>
             </div>
         </div>
     </div>
 </div>
-
-<!-- MODAL FOR ADD CATEGORY-->
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Are you sure you want to add category?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <!-- <div class="modal-body">
-                <p>One fine body&hellip;</p>
-            </div> -->
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="save_doc">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- CONFIRMATION MODAL DELETE -->
-<div class="modal fade" id="modal-list">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Are you sure you want to delete list?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <!-- <div class="modal-body">
-                <p>One fine body&hellip;</p>
-            </div> -->
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="delete_list">Yes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- ############ PAGE END-->
 <?php
 main_footer();

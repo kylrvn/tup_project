@@ -17,9 +17,9 @@ class Create_user_model extends CI_Model
         $this->Table = json_decode(TABLE);
     }
 
-    public function get_user(){
+    public function get_departments(){
         $this->db->select('*');
-        $this->db->from($this->Table->user);
+        $this->db->from($this->Table->department);
 
         $query = $this->db->get()->result();
         return $query;

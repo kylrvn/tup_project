@@ -19,13 +19,14 @@ class Create_user extends MY_Controller
 	/** load main page */
 	public function index()
 	{
+		$this->data['departments'] = $this->cModel->get_departments();
 		$this->data['content'] = 'index';
 		$this->load->view('layout', $this->data);
 	}
 
-	public function load_user(){
-		$this->data['details'] = $this->cModel->get_user();
-		$this->data['content'] = 'grid/load_user';
+	public function load_departments(){
+		$this->data['details'] = $this->cModel->get_departments();
+		$this->data['content'] = 'grid/load_departments';
 		$this->load->view('layout', $this->data);
 	}
 

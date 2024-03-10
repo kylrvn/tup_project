@@ -35,8 +35,8 @@ class Schedule extends MY_Controller
 	}
 
 	public function load_calendar(){
-
-		$this->data['details'] = $this->input->post('faculty_id');
+		$this->sModel->faculty_id = $this->input->post('faculty_id');
+		$this->data['details'] = $this->sModel->get_schedule();
 		$this->data['content'] = 'grid/load_sched_calendar';
 		$this->load->view('layout',$this->data);
 	}

@@ -1,6 +1,15 @@
 <?php
 main_header(['schedule']);
 ?>
+
+<head>
+    <style>
+        .custom-modal-width {
+            max-width: 90%;
+            /* Adjust the percentage or use a fixed pixel value as needed */
+        }
+    </style>
+</head>
 <!-- ############ PAGE START-->
 <div class="content-header">
     <div class="container-fluid">
@@ -14,10 +23,10 @@ main_header(['schedule']);
 
 
 <!-- /.row -->
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="container" id="load_faculty_table">
+<div class="row" style="display:flex;">
+    <div class="col-12" >
+        <div class="card" >
+            <div class="container col-12" id="load_faculty_table">
                 <!-- Faculty Table Loaded Here -->
             </div>
         </div>
@@ -25,7 +34,7 @@ main_header(['schedule']);
 </div>
 
 <div class="modal fade" id="calendar_modal" tabindex="-1" role="dialog" aria-labelledby="calendar_modal">
-    <div class="modal-dialog modal-lg calendar_modal-modal" role="document">
+    <div class="modal-dialog custom-modal-width calendar_modal-modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <b>FACULTY (NAME) SCHEDULE</b>
@@ -33,18 +42,20 @@ main_header(['schedule']);
                         aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="" id="modal_data">
-                <div class="container" >
+            <div class="modal-body" id="modal_data">
+                <div class="container">
                     <!-- Content Loaded here -->
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger flat " data-dismiss="modal"> <i class="fa fa-times"></i>
-                    Close</button>
+                <button type="button" class="btn btn-danger flat " data-dismiss="modal">
+                    <i class="fa fa-times"></i> Close
+                </button>
             </div>
         </div>
     </div>
 </div>
+
 
 
 

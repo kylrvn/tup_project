@@ -64,6 +64,7 @@ $array = array(
     'logs' => 'tbl_logs',
     'acknowledge' => 'tbl_acknowledged' ,
     'dtr' => 'tbl_dtr',
+    'department' => 'tbl_departments',
 
 
 
