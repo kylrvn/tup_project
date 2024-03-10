@@ -272,6 +272,33 @@ main_header(['Faculty_schedule']);
                     </div>
                 </div>
             </div>
+            <div class="col-sm-9">
+                <table class="table border-in-table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">#</th>
+                            <th style="width: 15%;">FACULTY ID</th>
+                            <th style="width: 20%;">SUBJECT</th>
+                            <th style="width: 10%;">ROOM</th>
+                            <th style="width: 10%;">DAY</th>
+                            <th style="width: 15%;">START TIME</th>
+                            <th style="width: 10%;">END TIME</th>
+                            <th style="width: 10%;">ACTION</th>
+                        </tr>
+                    </thead>
+                    <h5>Schedule</h5>
+                    <!-- <div class="input-group"
+                        style="width:250px; position: absolute; right:0px; top:0px; margin-right:12px;">
+                        <input type="text" class="form-control form-control-sm" id="search_text" data-field="Search"
+                            placeholder="Search Account name">
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm btn-success" id="search" type="button"><i
+                                    class="fa fa-search"></i></button>
+                        </span>
+                    </div> -->
+                    <tbody id="load_schedule"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends MY_Controller
+class User_Dashboard extends MY_Controller
 {
 	private $data = [];
 	protected $session;
@@ -11,7 +11,7 @@ class Dashboard extends MY_Controller
 		$this->session = (object)get_userdata(USER);
 
 		$model_list = [
-			'dashboard/Dashboard_model' => 'cModel',
+			'dashboard/User_Dashboard_model' => 'udModel',
 		];
 		$this->load->model($model_list);
 	}
@@ -38,14 +38,8 @@ class Dashboard extends MY_Controller
 	}
 	public function filter_calendar(){
 		$this->cModel->date = $this->input->post('date');
-		if(!empty($this->cModel->date)){
 		$this->data['details'] = $this->cModel->filter_calendar();
 		$this->data['dtr_logs'] = $this->cModel->filter_dtr_logs();
-		}
-		else{
-			$this->data['details'] = $this->cModel->get_schedule();
-			$this->data['dtr_logs'] = $this->cModel->get_dtr_logs();
-		}
 		// echo json_encode($this->data['dtr_logs']);
 		$calendar_html = $this->load->view('grid/load_calendar', $this->data, true); // Load the view with filtered data and capture it as a string
 		echo $calendar_html; 

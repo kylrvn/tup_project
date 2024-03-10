@@ -11,11 +11,11 @@ if (!empty($details)) {
                 <?= $key + 1 ?>
             </td>
             <td><?= $value->Faculty_id ?></td>
-            <td><?= $value->Subject ?></td>
+            <td><?= (!empty($value->Subject_am) ? $value->Subject_am : $value->Subject_pm) ?></td>
             <td><?= $value->Room ?></td>
             <td><?= $value->Day ?></td>
-            <td><?= $value->Start_time ?></td>
-            <td><?= $value->End_time ?></td>
+            <td><?= (!empty($value->Start_time_am) ? date('h:i:a',strtotime($value->Start_time_am)) : date('h:i:a',strtotime($value->Start_time_pm))) ?></td>
+            <td><?= (!empty($value->End_time_am) ? date('h:i:a',strtotime($value->End_time_am)) : date('h:i:a',strtotime($value->End_time_pm))) ?></td>
             <td>
                 <button type="button" class="btn btn-danger btn-sm delbtn" data-id="<?= @$value->ID ?>"><i
                         class="fa fa-trash"></i></button>

@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class Dashboard_model extends CI_Model
+class User_Dashboard_model extends CI_Model
 {
     public $Table;
     public function __construct()
@@ -54,10 +54,10 @@ class Dashboard_model extends CI_Model
     public function filter_calendar(){
         $this->db->select('*');
         $this->db->from($this->Table->sched);
-        $this->db->where('Day',strtolower(date('l',strtotime($this->date))));
+        $this->db->where('Date',$this->date);
         $this->db->where('Faculty_id', $this->session->ID);
         $query = $this->db->get()->result();
-        
+
         // echo json_encode($query);
         return $query;
     }

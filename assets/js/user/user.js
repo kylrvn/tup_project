@@ -48,7 +48,37 @@ $(document).on('click', '#Login', function () {
     })
 
 }); 
+$(document).on('click', '#update_user_info', function (){
+    $.post({
+        url: base_url + 'dashboard/service/User_Dashboard_service/update_user_details',
+        // selector: '.form-control',
+        data: {
+            fname     : $('#fname').val(),
+            lname     : $('#lname').val(),
+            mname     : $('#mname').val(),
+            suffix    : $('#suffix').val(),
+            age       : $('#age').val(),
+            address   : $('#address').val(),
+            conNo     : $('#conNo').val(),
+            eType     : $('#eType').val(),
+            department     : $('#department').val(),
+            eStatus     : $('#eStatus').val(),
+            position     : $('#position').val(),
+            pics     : $('#pics').val(),
+            email     : $('#email').val(),
+        },
+        success:function(e)
+            {
+                var e = JSON.parse(e);
+                if(e.has_error == false){
+                    toastr.success(e.error_message);
 
+                } else {
+                    toastr.error(e.error_message); 
+                }
+        },
+    })
+})
 // CHANGE PASSWORD
 $(document).on('click', '#Change', function () {
     var n = $('#new_pass').val();

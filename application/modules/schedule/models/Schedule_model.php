@@ -21,8 +21,8 @@ class Schedule_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from($this->Table->user);
-
-        $query = $this->db->get()->result();
+        $this->db->where('ID', $this->session->ID);
+        $query = $this->db->get()->row();
 
         return $query;
     }
@@ -32,7 +32,7 @@ class Schedule_model extends CI_Model
         $this->db->select('*');
         $this->db->from($this->Table->sched);
         $this->db->where('Faculty_id', $this->faculty_id);
-
+        
         $query = $this->db->get()->result();
 
         return $query;

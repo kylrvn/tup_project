@@ -154,12 +154,14 @@ foreach ($groupedData as $weekNumber => $weekData) {
                     <th>Date</th>
                     <th>Acknowledged</th>
                     <th>Request for Verification</th>
+                    <th>Description for Request</th>
                 </tr>
                 <?php foreach ($formattedWeeks  as $week) {  ?>
                  <tr>   
                 <td><?=$week?></td>
                 <td> <input type="checkbox" value="1" class="acknowledgement" data-week="<?=$week?>" data-FacID="<?=$session->ID?>" name="acknowledgement[]"></td>
-                <td> <input type="checkbox" name="forVerif[]"></td>
+                <td> <input type="checkbox" value="1" class="forVerif" data-week="<?=$week?>" data-FacID="<?=$session->ID?>" name="forVerif[]"></td>
+                <td><input type="text" id="reason"></td>
                  </tr>
                 <?php }?>
                 <!-- <tr>

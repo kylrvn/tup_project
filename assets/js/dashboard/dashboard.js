@@ -97,27 +97,41 @@ $('#save_schedule').click(function () {
         });
 
         $('#confirm').click(function() {
-            // alert($('.acknowledgement').val());
             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
             var dataId;
             var FacID;
+            var acknowledgeValue;
+            var forVerifValue;
+            var acknowledgeReason;
+            var forVerifReason;
             checkboxes.forEach(function(checkbox){
                 if(checkbox.checked){
-                dataId = checkbox.getAttribute('data-week');
-                FacID = checkbox.getAttribute('data-FacID');
-                console.log(dataId+' '+ $('.acknowledgement').val()+' '+ FacID);
-            }
+                    dataId = checkbox.getAttribute('data-week');
+                    FacID = checkbox.getAttribute('data-FacID');
+                    if (checkbox.classList.contains('acknowledgement')) {
+                        acknowledgeValue = checkbox.value;
+                        // acknowledgeReason = checkbox.parentElement.nextElementSibling.nextElementSibling.querySelector('input[type="text"]').value;
+                    } else if (checkbox.classList.contains('forVerif')) {
+                        forVerifValue = checkbox.value;
+                        forVerifReason = checkbox.parentElement.nextElementSibling.querySelector('input[type="text"]').value;
+                    }
+                }
             });
+            // console.log(forVerifReason+' '+forVerifValue);
+            // return
             $.post({
-                 url: 'dashboard/service/Dashboard_service/insert_acknowledgement',
+                url: 'dashboard/service/Dashboard_service/insert_acknowledgement',
                 data: {
-                    dataID             : dataId,
-                    FacultyID              : FacID,
-                    Acknowledge        : $('.acknowledgement').val()
+                    dataID: dataId,
+                    FacultyID: FacID,
+                    Acknowledge: acknowledgeValue,
+                    ForVerif: forVerifValue,
+                    // AcknowledgeReason: acknowledgeReason,
+                    ForVerifReason: forVerifReason
                 },
-        
-            })
             });
+        });
+        
       
     function update(element){
         //alert(element.getAttribute('data-Start_time'));

@@ -64,12 +64,22 @@ class Dashboard_services_model extends CI_Model
             //     empty($this->Category_ID)){
             //     throw new Exception(MISSING_DETAILS, true);
             // }   
-            
-            $data = array(
-                'Schedule' => $this->dataID,
-                'FacultyID' => $this->FacultyID,
-                'Acknowledged' => $this->Acknowledge
-            );
+            if(empty($this->Acknowledge)){
+                $data = array(
+                    'Schedule' => $this->dataID,
+                    'FacultyID' => $this->FacultyID,
+                    'ForVerif' => $this->ForVerif,
+                    'ForVerifReason' => $this->ForVerifReason
+                );
+            }
+            else if(!empty($this->Acknowledge)){
+                $data = array(
+                    'Schedule' => $this->dataID,
+                    'FacultyID' => $this->FacultyID,
+                    'Acknowledged' => $this->Acknowledge
+                );
+            }
+          
 
             $this->db->trans_start();
                            

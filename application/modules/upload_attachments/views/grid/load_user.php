@@ -1,16 +1,18 @@
-<!-- dash_grid -->
 <?php
     $ci = & get_instance();
     if(!empty($details)){
         foreach ($details as $key => $value) {
             ?>
                 <tr>
-                    <td><?=@$value->Status ?></td>
-                    
+                    <td><?=@$key+1?></td>
+                    <td><?=(@$value->Faculty_number)?></td>
+                    <td><?=(@$value->Fname." ".@$value->Lname)?></td>
+                    <td><?=@$value->Department?></td>                 
                 </tr>
             <?php  
         }        
-    }else{
+    }
+    else{
         ?>
             <tr>
                 <td colspan="7">

@@ -65,7 +65,7 @@ $array = array(
     'acknowledge' => 'tbl_acknowledged' ,
     'dtr' => 'tbl_dtr',
     'department' => 'tbl_departments',
-
+    'file_attachments' => 'tbl_file_attachment'
 
 
 

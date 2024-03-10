@@ -160,11 +160,21 @@ function main_header($menubar = [])
                   </a>
                 </li>
               </ul>
+              <ul class="nav nav-item">
+                <li class="nav-item">
+                  <a style="color:<?= (sidebar($menubar, ['upload_attachments'])) ? 'white' : 'black' ?>;"
+                    href="<?= base_url() ?>upload_attachments"
+                    class="nav-link <?= (sidebar($menubar, ['upload_attachments'])) ? 'active' : '' ?>">
+                    <i class="fas fa-upload nav-icon"></i>
+                    <p>Upload Attachments</p>
+                  </a>
+                </li>
+              </ul>
 
 
               <li class="nav-item">
                 <ul class="nav nav-item">
-                  <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty"? 'none' : '' ?>;"
+                  <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty" ? 'none' : '' ?>;"
                     href="<?= base_url() ?>create_user"
                     class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
                     <i class="fas fa-user-plus nav-icon"></i>

@@ -56,6 +56,8 @@ class Dashboard_service extends MY_Controller
 		$this->dsModel->dataID = $this->input->post("dataID");
 		$this->dsModel->FacultyID = $this->input->post("FacultyID");
 		$this->dsModel->Acknowledge = $this->input->post("Acknowledge");
+		$this->dsModel->ForVerif = $this->input->post("ForVerif");
+		$this->dsModel->ForVerifReason = $this->input->post("ForVerifReason");
 		// print($this->input->post("Fname"));
 		// echo "Controller for save method";
 		$response = $this->dsModel->insert_acknowledgement();
