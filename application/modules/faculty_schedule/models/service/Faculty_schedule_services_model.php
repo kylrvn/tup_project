@@ -21,59 +21,70 @@ class Faculty_schedule_services_model extends CI_Model
 
     public function save_schedule()
     {
-        $start_time = $this->start_time;
-        $start_hour = (int) substr($start_time, 0, 2);
-        $start_period = ($start_hour < 12) ? 'AM' : 'PM';
-
-        $end_time = $this->end_time;
-        $end_hour = (int) substr($end_time, 0, 2);
-        $end_period = ($end_hour < 12 || $end_hour == 12) ? 'AM' : 'PM';
-
-        // Initialize variables
-        $start_time_am = null;
-        $start_time_pm = null;
-        $end_time_am = null;
-        $end_time_pm = null;
-        $subject_am = null;
-        $subject_pm = null;
-
-        // Set values based on AM or PM
-        if ($start_period == 'AM') {
-            $start_time_am = $this->start_time;
-            $subject_am = $this->subject;
-        } else {
-            $start_time_pm = $this->start_time;
-            $subject_pm = $this->subject;
-        }
-
-        if ($end_period == 'AM') {
-            $end_time_am = $this->end_time;
-        } else {
-            $end_time_pm = $this->end_time;
-        }
+        // var_dump($this->data);
 
         try {
+            foreach ($this->data as $key => $value) {
 
-            $data = array(
-                'Faculty_id' => $this->faculty_id,
+                // var_dump($value['time_frame']);
+                if($value['time_frame'] == "AM"){
+                    $subject_am = $value['subject'];
+                    $subject_pm = null;
+                }
+                else{
+                    $subject_am = null;
+                    $subject_pm = $value['subject'];
+                }
 
-                'Subject_am' => $subject_am,
-                'Subject_pm' => $subject_pm,
+                if($value['time_frame'] == "AM" || $value['end_time'] == "12:00"){
+                    $start_time_am = $value['start_time'];
+                    $end_time_am = $value['end_time'];
+                    $start_time_pm = null;
+                    $end_time_pm = null;
+                }
+                else{
+                    $start_time_am = null;
+                    $end_time_am = null;
+                    $start_time_pm = $value['start_time'];
+                    $end_time_pm = $value['end_time'];
+                }
 
-                'Room' => $this->room,
-                'Day' => $this->day,
+                $data = array(
+                    'Faculty_id' => $this->faculty_id,
 
-                'Start_time_am' => $start_time_am,
-                'End_time_am' => $end_time_am,
-                'Start_time_pm' => $start_time_pm,
-                'End_time_pm' => $end_time_pm,
-            );
+                    'time_frame' => $value['time_frame'],
 
-            $this->db->trans_start();
+                    'Subject_am' => $subject_am,
+                    'Subject_pm' => $subject_pm,
 
-            $this->db->insert($this->Table->sched, $data);
+                    'Room' => $value['room'],
+                    'Day' => $value['day'],
 
-            $this->db->trans_complete();
+                    'Start_time_am' => $start_time_am,
+                    'End_time_am' => $end_time_am,
+                    'Start_time_pm' => $start_time_pm,
+                    'End_time_pm' => $end_time_pm,
+                );
+
+                if(
+                    empty($value['day']) || $value['day'] == "" && 
+                    empty($value['time_frame']) || $value['time_frame'] == "" && 
+                    empty($value['start_time']) || $value['start_time'] == "" && 
+                    empty($value['end_time']) || $value['end_time'] == "" && 
+                    empty($value['subject']) || $value['subject'] == "" && 
+                    empty($value['room']) || $value['room'] == "" 
+                ){
+                    // Do Nothing
+                }
+                else{
+                    $this->db->trans_start();
+
+                    $this->db->insert($this->Table->sched, $data);
+    
+                    $this->db->trans_complete();
+                }
+                
+            }
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 throw new Exception(ERROR_PROCESSING, true);
@@ -85,7 +96,6 @@ class Faculty_schedule_services_model extends CI_Model
             return(array('message' => $msg->getMessage(), 'has_error' => true));
         }
     }
-
 
     public function update_schedule()
     {

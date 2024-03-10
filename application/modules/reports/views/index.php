@@ -44,7 +44,7 @@ main_header(['Reports']);
 <!-- Main content "collapsed-card" -->
 <section class="content">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header" style="background-color:#9F3A3B; color: white;">
             <h3 class="card-title" style="font-weight:550;">DTR Summary Report/Daily Attendance</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool expand1" data-card-widget="collapse" title="Collapse">
@@ -72,7 +72,7 @@ main_header(['Reports']);
         <div class="card-body" id="load_summary">
             <!-- Content Loaded here -->
         </div>
-        <div class="card-footer">
+        <div class="card-footer" style="background-color:#9F3A3B; color: white;">
             <!-- Footer -->
         </div>
     </div>
@@ -80,7 +80,7 @@ main_header(['Reports']);
 
 <section class="content">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header" style="background-color:#9F3A3B; color: white;">
             <h3 class="card-title" style="font-weight:550;">Report of deduction for Leave w/o pay, Tardiness and
                 Undertime</h3>
             <div class="card-tools">
@@ -105,7 +105,7 @@ main_header(['Reports']);
         <div class="card-body" id="deduction_summary">
             <!-- Content Here -->
         </div>
-        <div class="card-footer">
+        <div class="card-footer" style="background-color:#9F3A3B; color: white;">
             <!-- Footer -->
         </div>
     </div>

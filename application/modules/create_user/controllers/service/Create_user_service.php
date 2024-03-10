@@ -34,12 +34,11 @@ class Create_user_service extends MY_Controller
 		$this->csModel->Address = $this->input->post("Address");
 		$this->csModel->Suffix = $this->input->post("Suffix");
 		$this->csModel->Estatus = $this->input->post("Estatus");
-		$this->csModel->Pics = $this->input->post("Pics");
 		$this->csModel->Contact_Number = $this->input->post("Contact_Number");
 		$this->csModel->Age = $this->input->post("Age");
 
-
 		$response = $this->csModel->save_method_from_model();
+		echo json_encode($response);
 	}
 
 	public function update()
@@ -56,11 +55,18 @@ class Create_user_service extends MY_Controller
 		$this->csModel->Address = $this->input->post("Address");
 		$this->csModel->Suffix = $this->input->post("Suffix");
 		$this->csModel->Estatus = $this->input->post("Estatus");
-		$this->csModel->Pics = $this->input->post("Pics");
 		$this->csModel->Contact_Number = $this->input->post("Contact_Number");
 		$this->csModel->Age = $this->input->post("Age");
 
 		$response = $this->csModel->update();
+		echo json_encode($response);
+	}
+
+	public function add_department(){
+		$this->csModel->dept_name = $this->input->post("dept_name");
+		$this->csModel->status = $this->input->post("status");
+
+		$response = $this->csModel->add_dept();
 		echo json_encode($response);
 	}
 

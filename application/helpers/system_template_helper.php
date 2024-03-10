@@ -3,7 +3,7 @@ function main_header($menubar = [])
 {
   defined('BASEPATH') or exit('No direct script access allowed');
   $session = (object) get_userdata(USER);
-  $session2 = (object) get_userdata(SAMPLE);
+  // var_dump($session);
   $ci = &get_instance();
   ?>
   <!DOCTYPE html>
@@ -139,7 +139,7 @@ function main_header($menubar = [])
 
                 <ul class="nav nav-item">
                   <li class="nav-item">
-                    <a style="color:<?= (sidebar($menubar, ['Dashboard'])) ? 'white' : 'black' ?>;"
+                    <a style="color:<?= (sidebar($menubar, ['Dashboard'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "HR"? 'none' : '' ?>;"
                       href="<?= base_url() ?>Dashboard"
                       class="nav-link <?= (sidebar($menubar, ['Dashboard'])) ? 'active' : '' ?>">
                       <i class="fas fa-home nav-icon"></i>
@@ -163,32 +163,32 @@ function main_header($menubar = [])
 
 
               <li class="nav-item">
-  <ul class="nav nav-item">
-    <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>;"
-      href="<?= base_url() ?>create_user"
-      class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
-      <i class="fas fa-user-plus nav-icon"></i>
-      <p>Create User</p>
-    </a>
-  </ul>
-</li>
-
-
-              <li class="nav-item">
-  <ul class="nav nav-item">
-    <a style="color:<?= (sidebar($menubar, ['Faculty_schedule'])) ? 'white' : 'black' ?>;"
-      href="<?= base_url() ?>faculty_schedule"
-      class="nav-link <?= (sidebar($menubar, ['Faculty_schedule'])) ? 'active' : '' ?>">
-      <i class="fas fa-upload nav-icon"></i>
-      <p>Upload Schedule</p>
-    </a>
-  </ul>
-</li>
+                <ul class="nav nav-item">
+                  <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty"? 'none' : '' ?>;"
+                    href="<?= base_url() ?>create_user"
+                    class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
+                    <i class="fas fa-user-plus nav-icon"></i>
+                    <p>Create User</p>
+                  </a>
+                </ul>
+              </li>
 
 
               <li class="nav-item">
                 <ul class="nav nav-item">
-                  <a style="color:<?= (sidebar($menubar, ['Scan'])) ? 'white' : 'black' ?>;" href="<?= base_url() ?>scan"
+                  <a style="color:<?= (sidebar($menubar, ['Faculty_schedule'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "HR"? 'none' : '' ?>;"
+                    href="<?= base_url() ?>faculty_schedule"
+                    class="nav-link <?= (sidebar($menubar, ['Faculty_schedule'])) ? 'active' : '' ?>">
+                    <i class="fas fa-upload nav-icon"></i>
+                    <p>Submit Schedule</p>
+                  </a>
+                </ul>
+              </li>
+
+
+              <li class="nav-item">
+                <ul class="nav nav-item">
+                  <a style="color:<?= (sidebar($menubar, ['Scan'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty"? 'none' : '' ?>;" href="<?= base_url() ?>scan"
                     class="nav-link <?= (sidebar($menubar, ['Scan'])) ? 'active' : '' ?>">
                     <i class="fas fa-qrcode nav-icon"></i>
                     <p>Scan</p>
@@ -199,7 +199,7 @@ function main_header($menubar = [])
 
               <li class="nav-item">
                 <ul class="nav nav-item">
-                  <a style="color:<?= (sidebar($menubar, ['Reports'])) ? 'white' : 'black' ?>;"
+                  <a style="color:<?= (sidebar($menubar, ['Reports'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty"? 'none' : '' ?>;"
                     href="<?= base_url() ?>Reports"
                     class="nav-link <?= (sidebar($menubar, ['Reports'])) ? 'active' : '' ?>">
                     <i class="fas fa-chart-bar nav-icon"></i> <!-- Change the icon class here -->

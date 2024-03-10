@@ -62,6 +62,7 @@ $array = array(
     'sched' => 'tbl_schedule',
     'scan' => 'tbl_dtr',
     'dtr' => 'tbl_dtr',
+    'department' => 'tbl_departments',
 
 
 
