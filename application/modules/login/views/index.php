@@ -44,7 +44,7 @@ login_header();
 	<div class="container ">
 		<div class="row justify-content-sm-center">
 			<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-				<div class="card shadow-lg" style="margin-top:-100%;">
+				<div class="card shadow-lg" style="margin-top:-50%;">
 					<div class="card-body p-5">
 						<h1 class="fs-4 card-title fw-bold mb-4">User Authentication</h1>
 

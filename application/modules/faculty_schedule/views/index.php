@@ -35,7 +35,7 @@ main_header(['Faculty_schedule']);
         <div class="row">
 
             <div class="col-sm-12">
-                <div class="card card-primary" style="zoom:80%;">
+                <div class="card card-primary" style="zoom:75%;">
                     <div class="card-header" style="background-color:#9f3a3b;">
                         <h6 style="font-size: 100%;"><i class="fa fa-info"></i><b> NOTE:</b>
                             Empty rows will not be added to schedule.
