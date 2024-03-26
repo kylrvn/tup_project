@@ -63,12 +63,11 @@ $array = array(
     'scan' => 'tbl_dtr',
     'logs' => 'tbl_logs',
     'log' => 'tbl_logs',
-    'acknowledge' => 'tbl_acknowledged' ,
+    'acknowledge' => 'tbl_acknowledged',
     'dtr' => 'tbl_dtr',
     'department' => 'tbl_departments',
-    'file_attachments' => 'tbl_file_attachment'
-
-
+    'file_attachments' => 'tbl_file_attachment',
+    'subjects' => 'tbl_subjects',
 
 );
 define('TABLE', json_encode($array));

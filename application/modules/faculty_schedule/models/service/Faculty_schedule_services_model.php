@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') or exit ('No direct script access allowed');
 class Faculty_schedule_services_model extends CI_Model
 {
     public $ID;
@@ -26,64 +26,37 @@ class Faculty_schedule_services_model extends CI_Model
         try {
             foreach ($this->data as $key => $value) {
 
-                // var_dump($value['time_frame']);
-                if($value['time_frame'] == "AM"){
-                    $subject_am = $value['subject'];
-                    $subject_pm = null;
-                }
-                else{
-                    $subject_am = null;
-                    $subject_pm = $value['subject'];
-                }
-
-                if($value['time_frame'] == "AM" || $value['end_time'] == "12:00"){
-                    $start_time_am = $value['start_time'];
-                    $end_time_am = $value['end_time'];
-                    $start_time_pm = null;
-                    $end_time_pm = null;
-                }
-                else{
-                    $start_time_am = null;
-                    $end_time_am = null;
-                    $start_time_pm = $value['start_time'];
-                    $end_time_pm = $value['end_time'];
-                }
-
                 $data = array(
                     'Faculty_id' => $this->faculty_id,
 
                     'time_frame' => $value['time_frame'],
 
-                    'Subject_am' => $subject_am,
-                    'Subject_pm' => $subject_pm,
+                    'Subject' => $value['subject'],
 
                     'Room' => $value['room'],
                     'Day' => $value['day'],
 
-                    'Start_time_am' => $start_time_am,
-                    'End_time_am' => $end_time_am,
-                    'Start_time_pm' => $start_time_pm,
-                    'End_time_pm' => $end_time_pm,
+                    'Start_time' => $value['start_time'],
+                    'End_time' => $value['end_time'],
                 );
 
-                if(
-                    empty($value['day']) || $value['day'] == "" && 
-                    empty($value['time_frame']) || $value['time_frame'] == "" && 
-                    empty($value['start_time']) || $value['start_time'] == "" && 
-                    empty($value['end_time']) || $value['end_time'] == "" && 
-                    empty($value['subject']) || $value['subject'] == "" && 
-                    empty($value['room']) || $value['room'] == "" 
-                ){
+                if (
+                    empty ($value['day']) || $value['day'] == "" &&
+                    empty ($value['time_frame']) || $value['time_frame'] == "" &&
+                    empty ($value['start_time']) || $value['start_time'] == "" &&
+                    empty ($value['end_time']) || $value['end_time'] == "" &&
+                    empty ($value['subject']) || $value['subject'] == "" &&
+                    empty ($value['room']) || $value['room'] == ""
+                ) {
                     // Do Nothing
-                }
-                else{
+                } else {
                     $this->db->trans_start();
 
                     $this->db->insert($this->Table->sched, $data);
-    
+
                     $this->db->trans_complete();
                 }
-                
+
             }
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
@@ -93,19 +66,13 @@ class Faculty_schedule_services_model extends CI_Model
                 return array('message' => SAVED_SUCCESSFUL, 'has_error' => false);
             }
         } catch (Exception $msg) {
-            return(array('message' => $msg->getMessage(), 'has_error' => true));
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
         }
     }
 
     public function update_schedule()
     {
         try {
-            // if(
-            //     empty($this->Money) || 
-            //     empty($this->Lname) || 
-            //     empty($this->Cnum)){
-            //     throw new Exception(MISSING_DETAILS, true);
-            // }   
 
             $data = array(
                 'Subject' => $this->subject,
@@ -128,7 +95,7 @@ class Faculty_schedule_services_model extends CI_Model
                 return array('message' => SAVED_SUCCESSFUL, 'has_error' => false);
             }
         } catch (Exception $msg) {
-            return(array('message' => $msg->getMessage(), 'has_error' => true));
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
         }
     }
 
@@ -154,7 +121,7 @@ class Faculty_schedule_services_model extends CI_Model
                 return array('message' => DELETED_SUCCESSFUL, 'has_error' => false);
             }
         } catch (Exception $msg) {
-            return(array('message' => $msg->getMessage(), 'has_error' => true));
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
         }
     }
 
@@ -187,7 +154,7 @@ class Faculty_schedule_services_model extends CI_Model
                 return array('message' => SAVED_SUCCESSFUL, 'has_error' => false);
             }
         } catch (Exception $msg) {
-            return(array('message' => $msg->getMessage(), 'has_error' => true));
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 main_header(['Faculty_schedule']);
-// var_dump($category);
+// var_dump($subjects);
 ?>
 <!-- ############ PAGE START-->
 <style>
@@ -35,9 +35,13 @@ main_header(['Faculty_schedule']);
         <div class="row">
 
             <div class="col-sm-12">
-                <div class="card card-primary">
+                <div class="card card-primary" style="zoom:80%;">
                     <div class="card-header" style="background-color:#9f3a3b;">
-	                    <h6 style="font-size: 100%;"><i class="fa fa-info"></i> NOTE: Empty rows will not be added to schedule</h6>
+                        <h6 style="font-size: 100%;"><i class="fa fa-info"></i><b> NOTE:</b>
+                            Empty rows will not be added to schedule.
+                            If your subject isn't in the list, click the &nbsp; <i class="fas fa-list"></i> &nbsp;
+                            button next to the drop-down and manually type you subject.
+                        </h6>
                     </div>
                     <div class="card-body" style="background-color:#D16567;">
                         <table class="table" style="width: 100%; color: white;">
@@ -47,7 +51,7 @@ main_header(['Faculty_schedule']);
                                     <th class="text-left">ADD ROW</th>
                                     <th class="text-center">TIME FRAME</th>
                                     <th class="text-center">TIME</th>
-                                    <th class="text-center">SUBJECT NAME</th>
+                                    <th class="text-center">SUBJECT</th>
                                     <th class="text-center">ROOM</th>
                                     <th class="text-center"># OF HRS.</th>
                                 </tr>
@@ -58,8 +62,10 @@ main_header(['Faculty_schedule']);
                                         <label>MONDAY</label>
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary " data-day="monday" onclick="add_row_am(this)">AM</button>
-                                        <button class="btn btn-sm btn-primary " data-day="monday" onclick="add_row_pm(this)">PM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="monday"
+                                            onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="monday"
+                                            onclick="add_row_pm(this)">PM</button>
                                         <input type="text" hidden name="day" value="monday">
                                     </td>
                                     <td class="text-center">
@@ -73,13 +79,28 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="subject" style="width:100%;"
-                                            placeholder="ENTER SUBJECT HERE">
+                                        <div style="display: flex; align-items: center;">
+                                            <select class="text-center" name="subject"
+                                                style="width:88%; height:1.8rem;">
+                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <?php
+                                                foreach ($subjects as $key => $data) { ?>
+                                                    <option value="<?= $data->Subject_name ?>">
+                                                        <?= $data->Subject_name ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                        </div>
                                         <br>
                                     </td>
+
                                     <td class="text-center">
-                                        <input type="text" name="room" style="width:60%;"
-                                            placeholder="ENTER ROOM HERE">
+                                        <input class="text-center" type="text" name="room" style="width:60%;"
+                                            placeholder="ROOM #">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -93,8 +114,10 @@ main_header(['Faculty_schedule']);
                                         <label>TUESDAY</label>
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary " data-day="tuesday" onclick="add_row_am(this)">AM</button>
-                                        <button class="btn btn-sm btn-primary " data-day="tuesday" onclick="add_row_pm(this)">PM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="tuesday"
+                                            onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="tuesday"
+                                            onclick="add_row_pm(this)">PM</button>
                                         <input type="text" hidden name="day" value="tuesday">
                                     </td>
                                     <td class="text-center">
@@ -108,13 +131,27 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="subject" style="width:100%;"
-                                            placeholder="ENTER SUBJECT HERE">
+                                        <div style="display: flex; align-items: center;">
+                                            <select class="text-center" name="subject"
+                                                style="width:88%; height:1.8rem;">
+                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <?php
+                                                foreach ($subjects as $key => $data) { ?>
+                                                    <option value="<?= $data->Subject_name ?>">
+                                                        <?= $data->Subject_name ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                        </div>
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="room" style="width:60%;"
-                                            placeholder="ENTER ROOM HERE">
+                                        <input class="text-center" type="text" name="room" style="width:60%;"
+                                            placeholder="ROOM #">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -128,8 +165,10 @@ main_header(['Faculty_schedule']);
                                         <label>WEDNESDAY</label>
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary " data-day="wednesday" onclick="add_row_am(this)">AM</button>
-                                        <button class="btn btn-sm btn-primary " data-day="wednesday" onclick="add_row_pm(this)">PM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="wednesday"
+                                            onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="wednesday"
+                                            onclick="add_row_pm(this)">PM</button>
                                         <input type="text" hidden name="day" value="wednesday">
                                     </td>
                                     <td class="text-center">
@@ -143,13 +182,27 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="subject" style="width:100%;"
-                                            placeholder="ENTER SUBJECT HERE">
+                                        <div style="display: flex; align-items: center;">
+                                            <select class="text-center" name="subject"
+                                                style="width:88%; height:1.8rem;">
+                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <?php
+                                                foreach ($subjects as $key => $data) { ?>
+                                                    <option value="<?= $data->Subject_name ?>">
+                                                        <?= $data->Subject_name ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                        </div>
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="room" style="width:60%;"
-                                            placeholder="ENTER ROOM HERE">
+                                        <input class="text-center" type="text" name="room" style="width:60%;"
+                                            placeholder="ROOM #">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -163,8 +216,10 @@ main_header(['Faculty_schedule']);
                                         <label>THURSDAY</label>
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary " data-day="thursday" onclick="add_row_am(this)">AM</button>
-                                        <button class="btn btn-sm btn-primary " data-day="thursday" onclick="add_row_pm(this)">PM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="thursday"
+                                            onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="thursday"
+                                            onclick="add_row_pm(this)">PM</button>
                                         <input type="text" hidden name="day" value="thursday">
                                     </td>
                                     <td class="text-center">
@@ -178,13 +233,27 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="subject" style="width:100%;"
-                                            placeholder="ENTER SUBJECT HERE">
+                                        <div style="display: flex; align-items: center;">
+                                            <select class="text-center" name="subject"
+                                                style="width:88%; height:1.8rem;">
+                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <?php
+                                                foreach ($subjects as $key => $data) { ?>
+                                                    <option value="<?= $data->Subject_name ?>">
+                                                        <?= $data->Subject_name ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                        </div>
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="room" style="width:60%;"
-                                            placeholder="ENTER ROOM HERE">
+                                        <input class="text-center" type="text" name="room" style="width:60%;"
+                                            placeholder="ROOM #">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -198,8 +267,10 @@ main_header(['Faculty_schedule']);
                                         <label>FRIDAY</label>
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary " data-day="friday" onclick="add_row_am(this)">AM</button>
-                                        <button class="btn btn-sm btn-primary " data-day="friday" onclick="add_row_pm(this)">PM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="friday"
+                                            onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="friday"
+                                            onclick="add_row_pm(this)">PM</button>
                                         <input type="text" hidden name="day" value="friday">
                                     </td>
                                     <td class="text-center">
@@ -213,13 +284,27 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="subject" style="width:100%;"
-                                            placeholder="ENTER SUBJECT HERE">
+                                        <div style="display: flex; align-items: center;">
+                                            <select class="text-center" name="subject"
+                                                style="width:88%; height:1.8rem;">
+                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <?php
+                                                foreach ($subjects as $key => $data) { ?>
+                                                    <option value="<?= $data->Subject_name ?>">
+                                                        <?= $data->Subject_name ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                        </div>
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="room" style="width:60%;"
-                                            placeholder="ENTER ROOM HERE">
+                                        <input class="text-center" type="text" name="room" style="width:60%;"
+                                            placeholder="ROOM #">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -233,8 +318,10 @@ main_header(['Faculty_schedule']);
                                         <label>SATURDAY</label>
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary " data-day="saturday" onclick="add_row_am(this)">AM</button>
-                                        <button class="btn btn-sm btn-primary " data-day="saturday" onclick="add_row_pm(this)">PM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="saturday"
+                                            onclick="add_row_am(this)">AM</button>
+                                        <button class="btn btn-sm btn-primary " data-day="saturday"
+                                            onclick="add_row_pm(this)">PM</button>
                                         <input type="text" hidden name="day" value="saturday">
                                     </td>
                                     <td class="text-center">
@@ -248,13 +335,27 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="subject" style="width:100%;"
-                                            placeholder="ENTER SUBJECT HERE">
+                                        <div style="display: flex; align-items: center;">
+                                            <select class="text-center" name="subject"
+                                                style="width:88%; height:1.8rem;">
+                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <?php
+                                                foreach ($subjects as $key => $data) { ?>
+                                                    <option value="<?= $data->Subject_name ?>">
+                                                        <?= $data->Subject_name ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                        </div>
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" name="room" style="width:60%;"
-                                            placeholder="ENTER ROOM HERE">
+                                        <input class="text-center" type="text" name="room" style="width:60%;"
+                                            placeholder="ROOM #">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -265,8 +366,9 @@ main_header(['Faculty_schedule']);
                         </table>
                     </div>
                     <div class="card-footer" style="background-color:#9f3a3b;">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default" id="Save">
-                            Submit
+                        <button type="button" class="btn btn-success" data-toggle="modal"
+                            style="margin-left:87%; width:10rem;" data-target="#modal-default" id="Save">
+                            Encode Schedule
                         </button>
                         <!-- <button type="button" class="btn btn-warning" id="debug">Debug</button> -->
                     </div>

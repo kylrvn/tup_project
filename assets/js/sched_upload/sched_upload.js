@@ -1,3 +1,5 @@
+
+
 function check_am_time(inputElement) {
     var inputValue = inputElement.value;
 
@@ -60,104 +62,185 @@ $(document).ready(function () {
 
 function add_row_am(element) {
 
-    var day = element.getAttribute('data-day');
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'faculty_schedule/Faculty_schedule/get_subjects',
+        success: function (data) {
+            subject_data = JSON.parse(data);
 
-    var capitalizedFirstLetter;
-    if(day == "thursday"){
-        capitalizedFirstLetter = day.substring(0, 2).toUpperCase();;
-    }
-    else{
-        capitalizedFirstLetter = day.charAt(0).toUpperCase();
-    }
+            var day = element.getAttribute('data-day');
 
-    var tbody = document.getElementById("table_" + day);
+            var capitalizedFirstLetter;
+            if (day == "thursday") {
+                capitalizedFirstLetter = day.substring(0, 2).toUpperCase();;
+            }
+            else {
+                capitalizedFirstLetter = day.charAt(0).toUpperCase();
+            }
 
-    var newRow = document.createElement("tr");
+            var tbody = document.getElementById("table_" + day);
 
-    newRow.innerHTML = `
-    <td class="text-left">
-        <label>`+capitalizedFirstLetter+`</label>
-    </td>
-    <td>
-        &nbsp;
-        <input type="text" hidden name="day" value="`+day+`">
-    </td>
-    <td class="text-center">
-        <b>AM</b>
-    </td>
-    <td class="text-center">
-        <input type="text" hidden name="time_frame" value="AM">
-        <input type="time" name="start" onchange="check_am_time(this)">
-        TO
-        <input type="time" name="end" onchange="check_am_time(this)">
-        <br>
-    </td>
-    <td class="text-center">
-        <input type="text" name="subject" style="width:100%;" placeholder="ENTER SUBJECT HERE">
-        <br>
-    </td>
-    <td class="text-center">
-        <input type="text" name="room" style="width:60%;" placeholder="ENTER ROOM HERE">
-        <br>
-    </td>
-    <td class="text-center">
-        &nbsp;
-    </td>
-    `;
+            var newRow = document.createElement("tr");
 
-    tbody.appendChild(newRow);
+            newRow.innerHTML = `
+                <td class="text-left">
+                    <label>${capitalizedFirstLetter}</label>
+                </td>
+                <td>
+                    &nbsp;
+                    <input type="text" hidden name="day" value="${day}">
+                </td>
+                <td class="text-center">
+                    <b>AM</b>
+                </td>
+                <td class="text-center">
+                    <input type="text" hidden name="time_frame" value="AM">
+                    <input type="time" name="start" onchange="check_am_time(this)">
+                    TO
+                    <input type="time" name="end" onchange="check_am_time(this)">
+                    <br>
+                </td>
+                <td class="text-center">
+                    <div style="display: flex; align-items: center;">
+                        <select class="text-center" name="subject" style="width:88%; height:1.8rem;">
+                            <option value="" disabled selected>SELECT SUBJECT</option>
+                            ${subject_data.map(item => `
+                                <option value="${item.Subject_name}">
+                                    ${item.Subject_name}
+                                </option>
+                            `).join('')}
+                        </select>
+                        <button class="btn btn-sm btn-success" onclick="add_subject(this)" style="width:12%; height:1.8rem;"><i
+                                class="fas fa-list"></i></button>
+                    </div>
+                    <br>
+                </td>
+                <td class="text-center">
+                    <input type="text" name="room" style="width:60%;" placeholder="ENTER ROOM HERE">
+                    <br>
+                </td>
+                <td class="text-center">
+                    &nbsp;
+                </td>
+            `;
+
+
+            tbody.appendChild(newRow);
+        },
+    });
 
 }
 
 
 function add_row_pm(element) {
 
-    var day = element.getAttribute('data-day');
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'faculty_schedule/Faculty_schedule/get_subjects',
+        success: function (data) {
+            subject_data = JSON.parse(data);
 
-    var capitalizedFirstLetter;
-    if(day == "thursday"){
-        capitalizedFirstLetter = day.substring(0, 2).toUpperCase();;
-    }
-    else{
-        capitalizedFirstLetter = day.charAt(0).toUpperCase();
-    }
+            var day = element.getAttribute('data-day');
 
-    var tbody = document.getElementById("table_" + day);
+            var capitalizedFirstLetter;
+            if (day == "thursday") {
+                capitalizedFirstLetter = day.substring(0, 2).toUpperCase();;
+            }
+            else {
+                capitalizedFirstLetter = day.charAt(0).toUpperCase();
+            }
 
-    var newRow = document.createElement("tr");
+            var tbody = document.getElementById("table_" + day);
 
-    newRow.innerHTML = `
-    <td class="text-left">
-        <label>`+capitalizedFirstLetter+`</label>
-    </td>
-    <td>
-        &nbsp;
-        <input type="text" hidden name="day" value="`+day+`">
-    </td>
-    <td class="text-center">
-        <b>PM</b>
-    </td>
-    <td class="text-center">
-        <input type="text" hidden name="time_frame" value="PM">
-        <input type="time" name="start" onchange="check_pm_time(this)">
-        TO
-        <input type="time" name="end" onchange="check_pm_time(this)">
-        <br>
-    </td>
-    <td class="text-center">
-        <input type="text" name="subject" style="width:100%;" placeholder="ENTER SUBJECT HERE">
-        <br>
-    </td>
-    <td class="text-center">
-        <input type="text" name="room" style="width:60%;" placeholder="ENTER ROOM HERE">
-        <br>
-    </td>
-    <td class="text-center">
-        &nbsp;
-    </td>
+            var newRow = document.createElement("tr");
+
+            newRow.innerHTML = `
+                <td class="text-left">
+                    <label>`+ capitalizedFirstLetter + `</label>
+                </td>
+                <td>
+                    &nbsp;
+                    <input type="text" hidden name="day" value="`+ day + `">
+                </td>
+                <td class="text-center">
+                    <b>PM</b>
+                </td>
+                <td class="text-center">
+                    <input type="text" hidden name="time_frame" value="PM">
+                    <input type="time" name="start" onchange="check_pm_time(this)">
+                    TO
+                    <input type="time" name="end" onchange="check_pm_time(this)">
+                    <br>
+                </td>
+                <td class="text-center">
+                    <div style="display: flex; align-items: center;">
+                        <select class="text-center" name="subject" style="width:88%; height:1.8rem;">
+                            <option value="" disabled selected>SELECT SUBJECT</option>
+                            ${subject_data.map(item => `
+                                <option value="${item.Subject_name}">
+                                    ${item.Subject_name}
+                                </option>
+                            `).join('')}
+                        </select>
+                        <button class="btn btn-sm btn-success" onclick="add_subject(this)" style="width:12%; height:1.8rem;"><i
+                                class="fas fa-list"></i></button>
+                    </div>
+                    <br>
+                </td>
+                <td class="text-center">
+                    <input type="text" name="room" style="width:60%;" placeholder="ENTER ROOM HERE">
+                    <br>
+                </td>
+                <td class="text-center">
+                    &nbsp;
+                </td>
+                `;
+
+            tbody.appendChild(newRow);
+        },
+    });
+}
+
+function add_subject(element) {
+    console.log(element.closest('td').innerHTML);
+
+    element.closest('td').innerHTML = `
+    <div style="display: flex; align-items: center;">
+        <input class="text-center" type="text" name="subject" style="width:88%;" placeholder="ENTER SUBJECT HERE">
+        <button class="btn btn-sm btn-primary" onclick="return_subject(this)" style="width:12%; height:1.8rem;"><i
+                class="fas fa-edit"></i></button>
+    </div>
+    <br>
     `;
+}
 
-    tbody.appendChild(newRow);
+function return_subject(element) {
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'faculty_schedule/Faculty_schedule/get_subjects',
+        success: function (data) {
+            subject_data = JSON.parse(data);
+            console.log(element.closest('td').innerHTML);
+
+            element.closest('td').innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <select class="text-center" name="subject" style="width:88%; height:1.8rem;">
+                    <option value="" disabled selected>SELECT SUBJECT</option>
+                    ${subject_data.map(item => `
+                    <option value="${item.Subject_name}">
+                        ${item.Subject_name}
+                    </option>
+                    `).join('')}
+                </select>
+                <button class="btn btn-sm btn-success" onclick="add_subject(this)" style="width:12%; height:1.8rem;"><i
+                        class="fas fa-list"></i></button>
+            </div>
+            <br>
+            `;
+        },
+    });
+
 }
 
 $('#save_schedule').click(function () {
