@@ -80,7 +80,7 @@ main_header(['Create_User']);
                         <div class="form-group">
                             <label for="">Sex</label>
                             <select id="Sex" class="form-control inpt" placeholder="Sex">
-                                <option value="" selected disabled>Select Sex</option>
+                                <option value="" selected disabled>Select</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
@@ -99,6 +99,7 @@ main_header(['Create_User']);
                                 <option value="" selected disabled>Select Status</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
+                                <!-- <option value="Widowed">Widowed</option> -->
                             </select>
                         </div>
                     </div>
@@ -116,8 +117,10 @@ main_header(['Create_User']);
                             <label for="">Department</label>
                             <select type="text" id="Department" class="form-control inpt" placeholder="Department">
                                 <?php
-                                foreach($departments as $key=>$dept){?>
-                                    <option value="<?=$dept->department_name?>"><?=$dept->department_name?></option>
+                                foreach ($departments as $key => $dept) { ?>
+                                    <option value="<?= $dept->department_name ?>">
+                                        <?= $dept->department_name ?>
+                                    </option>
                                     <?php
                                 }
                                 ?>
@@ -208,10 +211,10 @@ main_header(['Create_User']);
                     <div class="card card-primary">
                         <div class="card-header" style="background-color:#9F3A3B;">
                             <h3 class="card-title">List of Departments</h3>
-                            
+
                         </div>
                         <div class="card-body">
-                        <table class="table border-in-table table-hover table-sm">
+                            <table class="table border-in-table table-hover table-sm">
                                 <thead>
                                     <tr>
                                         <th>#</th>
