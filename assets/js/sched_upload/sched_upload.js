@@ -116,7 +116,7 @@ function add_row_am(element) {
                     <br>
                 </td>
                 <td class="text-center">
-                    <input type="text" name="room" style="width:60%;" placeholder="ENTER ROOM HERE">
+                    <input class="text-center" type="text" name="room" style="width:60%;" placeholder="ROOM #">
                     <br>
                 </td>
                 <td class="text-center">
@@ -188,7 +188,7 @@ function add_row_pm(element) {
                     <br>
                 </td>
                 <td class="text-center">
-                    <input type="text" name="room" style="width:60%;" placeholder="ENTER ROOM HERE">
+                    <input class="text-center" type="text" name="room" style="width:60%;" placeholder="ROOM #">
                     <br>
                 </td>
                 <td class="text-center">

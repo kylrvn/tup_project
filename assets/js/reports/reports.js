@@ -8,7 +8,7 @@ var load_dtr_summary = () => {
             selected_month: $('#select_month1').val(),
             report_type: $('#report_type').val(),
         },
-        
+
         success: function (data) {
             $('#load_summary').html(data);
         },
@@ -25,9 +25,27 @@ var load_deduction_summary = () => {
         data: {
             selected_month: $('#select_month2').val(),
         },
-        
+
         success: function (data) {
             $('#deduction_summary').html(data);
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+var load_dtr = () => {
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'reports/load_dtr',
+        data: {
+            selected_faculty: $('#selected_faculty').val(),
+            selected_month: $('#select_month3').val(),
+        },
+
+        success: function (data) {
+            $('#dtr_form').html(data);
         },
         error: function (xhr, status, error) {
             console.error(xhr.responseText);
@@ -38,6 +56,7 @@ var load_deduction_summary = () => {
 $(document).ready(function () {
     load_dtr_summary();
     load_deduction_summary();
+    load_dtr();
 });
 
 $('#select_month1').change(function () {
@@ -50,7 +69,7 @@ $('#select_month1').change(function () {
             selected_month: $('#select_month1').val(),
             report_type: $('#report_type').val(),
         },
-        
+
         success: function (data) {
             $('#load_summary').html(data);
         },
@@ -69,7 +88,7 @@ $('#select_month2').change(function () {
         data: {
             selected_month: $('#select_month2').val(),
         },
-        
+
         success: function (data) {
             $('#deduction_summary').html(data);
         },
@@ -89,7 +108,7 @@ $('#report_type').change(function () {
             selected_month: $('#select_month1').val(),
             report_type: $('#report_type').val(),
         },
-        
+
         success: function (data) {
             $('#load_summary').html(data);
         },
@@ -98,3 +117,8 @@ $('#report_type').change(function () {
         }
     });
 });
+
+$('#selected_faculty, #select_month3').change(function () {
+    load_dtr();
+});
+

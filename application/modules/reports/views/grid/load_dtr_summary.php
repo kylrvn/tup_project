@@ -48,9 +48,9 @@ $daysArray = range(1, $numberOfDaysInMonth);
                             <th class="center-text" style="border-left: solid black 1px;">NAME OF EMPLOYEE</th>
                             <?php foreach ($daysArray as $day) { ?>
 
-                                <th class="center-text" style="border-left: solid black 1px; width: 1.7%;">
-                                    <?= $day ?>
-                                </th>
+                            <th class="center-text" style="border-left: solid black 1px; width: 1.7%;">
+                                <?= $day ?>
+                            </th>
 
                             <?php
                             } ?>
@@ -65,18 +65,18 @@ $daysArray = range(1, $numberOfDaysInMonth);
                         <?php
                         foreach ($details['data'] as $key => $value) {
                         ?>
-                            <tr style="border-bottom: solid black 1px;">
-                                <td class="center-text">
-                                    <b>
-                                        <?= $key + 1 ?>
-                                    </b>
-                                </td>
-                                <td class="center-text" style="border-left: solid black 1px;">
-                                    <b><?= $value->Lname ?>, <?= $value->Fname ?> <?= $value->Mname ?>.</b>
-                                </td>
-                                <?php foreach ($daysArray as $day) { ?>
-                                    <td class="center-text" style="border-left: solid black 1px;">
-                                        <?php
+                        <tr style="border-bottom: solid black 1px;">
+                            <td class="center-text">
+                                <b>
+                                    <?= $key + 1 ?>
+                                </b>
+                            </td>
+                            <td class="center-text" style="border-left: solid black 1px;">
+                                <b><?= $value->Lname ?>, <?= $value->Fname ?> <?= substr($value->Mname, 0, 1) ?>.</b>
+                            </td>
+                            <?php foreach ($daysArray as $day) { ?>
+                            <td class="center-text" style="border-left: solid black 1px;">
+                                <?php
                                         // Find the data for the specific day
                                         $dayData = [];
                                         foreach ($value->daily as $dailyData) {
@@ -107,24 +107,24 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                             echo '&nbsp;';
                                         }
                                         ?>
-                                    </td>
-                                <?php } ?>
-                                <!-- <td class="center-text" style="border-left: solid black 1px;">
+                            </td>
+                            <?php } ?>
+                            <!-- <td class="center-text" style="border-left: solid black 1px;">
                                     2.503
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
                                     0.0
                                 </td>-->
-                                <td class="center-text" style="border-left: solid black 1px;">
-                                    <b><?= sprintf('%02d:%02d', floor(@$value->tt / 60), @$value->tt % 60) ?></b>
-                                </td>
-                                <td class="center-text" style="border-left: solid black 1px;">
-                                    <b><?= sprintf('%02d:%02d', floor(@$value->ut / 60), @$value->ut % 60) ?></b>
-                                </td>
-                                <td class="center-text" style="border-left: solid black 1px;">
-                                    <b><?= sprintf('%02d:%02d', floor(@$value->utt / 60), @$value->utt % 60) ?></b>
-                                </td>
-                            </tr>
+                            <td class="center-text" style="border-left: solid black 1px;">
+                                <b><?= sprintf('%02d:%02d', floor(@$value->tt / 60), @$value->tt % 60) ?></b>
+                            </td>
+                            <td class="center-text" style="border-left: solid black 1px;">
+                                <b><?= sprintf('%02d:%02d', floor(@$value->ut / 60), @$value->ut % 60) ?></b>
+                            </td>
+                            <td class="center-text" style="border-left: solid black 1px;">
+                                <b><?= sprintf('%02d:%02d', floor(@$value->utt / 60), @$value->utt % 60) ?></b>
+                            </td>
+                        </tr>
                         <?php
                         }
                         ?>

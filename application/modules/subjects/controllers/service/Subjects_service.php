@@ -31,4 +31,17 @@ class Subjects_service extends MY_Controller
 		echo json_encode($response);
 	}
 
+	public function update_subject()
+	{
+
+		$this->SsModel->ID = $this->input->post("id");
+		$this->SsModel->subject_name = $this->input->post("subject_name");
+		$this->SsModel->color = $this->input->post("color");
+		$this->SsModel->department = $this->input->post("department");
+		$this->SsModel->status = $this->input->post("status");
+
+		$response = $this->SsModel->update_subject();
+		echo json_encode($response);
+	}
+
 }
