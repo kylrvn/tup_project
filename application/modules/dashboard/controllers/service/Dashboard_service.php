@@ -53,14 +53,21 @@ class Dashboard_service extends MY_Controller
 	}
 	public function insert_acknowledgement(){
 
-		$this->dsModel->dataID = $this->input->post("dataID");
-		$this->dsModel->FacultyID = $this->input->post("FacultyID");
-		$this->dsModel->Acknowledge = $this->input->post("Acknowledge");
-		$this->dsModel->ForVerif = $this->input->post("ForVerif");
-		$this->dsModel->ForVerifReason = $this->input->post("ForVerifReason");
-		// print($this->input->post("Fname"));
-		// echo "Controller for save method";
-		$response = $this->dsModel->insert_acknowledgement();
+		  $postData = $this->input->post('data');
+    foreach ($postData as $data) {
+		 if(empty($data["Acknowledge"])){
+			$this->dsModel->dataID = $data["dataID"];
+			$this->dsModel->FacultyID = $data["FacultyID"];
+			$this->dsModel->ForVerif = $data["ForVerif"];
+			$this->dsModel->ForVerifReason = $data["ForVerifReason"];
+		}
+		else if(!empty($data["dataID"] && $data["FacultyID"] && $data["Acknowledge"])){
+			$this->dsModel->dataID = $data["dataID"];
+			$this->dsModel->FacultyID = $data["FacultyID"];
+			$this->dsModel->Acknowledge = $data["Acknowledge"];
+		}
+        $response = $this->dsModel->insert_acknowledgement();
+    }
 		echo json_encode($response);
 	}
 }

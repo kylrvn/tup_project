@@ -71,6 +71,19 @@ class Dashboard_services_model extends CI_Model
                     'ForVerif' => $this->ForVerif,
                     'ForVerifReason' => $this->ForVerifReason
                 );
+                $this->db->trans_start();
+                           
+                $this->db->insert($this->Table->acknowledge,$data);
+    
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE)
+                {                
+                    $this->db->trans_rollback();
+                    throw new Exception(ERROR_PROCESSING, true);	
+                }else{
+                    $this->db->trans_commit();
+                    return array('message' => "Request For Verification Sent", 'has_error' => false);
+                }
             }
             else if(!empty($this->Acknowledge)){
                 $data = array(
@@ -78,22 +91,23 @@ class Dashboard_services_model extends CI_Model
                     'FacultyID' => $this->FacultyID,
                     'Acknowledged' => $this->Acknowledge
                 );
+                $this->db->trans_start();
+                           
+                $this->db->insert($this->Table->acknowledge,$data);
+    
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE)
+                {                
+                    $this->db->trans_rollback();
+                    throw new Exception(ERROR_PROCESSING, true);	
+                }else{
+                    $this->db->trans_commit();
+                    return array('message' => "DTR Schedule Acknowledged", 'has_error' => false);
+                }
             }
           
 
-            $this->db->trans_start();
-                           
-            $this->db->insert($this->Table->acknowledge,$data);
-
-            $this->db->trans_complete();
-            if ($this->db->trans_status() === FALSE)
-            {                
-                $this->db->trans_rollback();
-                throw new Exception(ERROR_PROCESSING, true);	
-            }else{
-                $this->db->trans_commit();
-                return array('message'=>SAVED_SUCCESSFUL, 'has_error'=>false);
-            }
+          
         }
         catch(Exception$msg){
             return (array('message'=>$msg->getMessage(), 'has_error'=>true));
