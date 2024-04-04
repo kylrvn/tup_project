@@ -1,51 +1,56 @@
 <?php
 main_header(['Dashboard']);
-// Get data from the controller
-$week_sched_dtr = $week_sched_dtr;
+
+// Get the current month and year
+$currentMonth = date('m');
+$currentYear = date('Y');
+
+// Get the number of days in the current month
+$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
 
 // Initialize an array to store grouped data
 $groupedData = [];
 
-// Iterate through each data item
-foreach ($week_sched_dtr as $item) {
-    // Skip items for Sundays
-    if (date('w', strtotime($item->date_log)) == 0) {
+// Initialize start and end dates for the first week
+$startDate = null;
+$endDate = null;
+
+// Iterate through each day of the month
+for ($day = 1; $day <= $daysInMonth; $day++) {
+    // Get the day of the week for the current date
+    $currentDate = "$currentYear-$currentMonth-$day";
+    $dayOfWeek = date('w', strtotime($currentDate));
+
+    // Skip Sundays
+    if ($dayOfWeek == 0) {
         continue;
     }
 
-    // Get the week number of the year for the current item's date
-    $weekNumber = date('W', strtotime($item->date_log));
-
-    // Group data by week number
-    if (!isset($groupedData[$weekNumber])) {
-        $groupedData[$weekNumber] = [];
+    // If start date is not set, set it to the current date
+    if ($startDate === null) {
+        $startDate = $currentDate;
     }
-    $groupedData[$weekNumber][] = $item;
+
+    // Set the end date to the current date
+    $endDate = $currentDate;
+
+    // If the end date is a Saturday or the last day of the month, store the week
+    if ($dayOfWeek == 6 || $day == $daysInMonth) {
+        $groupedData[] = ['start' => $startDate, 'end' => $endDate];
+        // Reset start and end dates for the next week
+        $startDate = null;
+        $endDate = null;
+    }
 }
+
 $formattedWeeks = [];
 // Iterate through grouped data and display
-foreach ($groupedData as $weekNumber => $weekData) {
-    // Calculate Monday and Saturday dates for the week
-    $startDate = null;
-    $endDate = null;
-
-    foreach ($weekData as $data) {
-        $currentDate = date('Y-m-d', strtotime($data->date_log));
-        $dayOfWeek = date('w', strtotime($currentDate));
-        if ($dayOfWeek == 1 && $startDate === null) {
-            $startDate = date('M j, Y', strtotime($currentDate));
-        } elseif ($dayOfWeek == 6 && $endDate === null) {
-            $endDate = date('M j, Y', strtotime($currentDate));
-        }
-    }
-
-    // Display the week range if both start and end dates are found
-    if ($startDate !== null && $endDate !== null) {
-        $formattedWeeks[] = "$startDate - $endDate";
-    }
+foreach ($groupedData as $weekData) {
+    $formattedWeeks[] = date('M j, Y', strtotime($weekData['start'])) . " - " . date('M j, Y', strtotime($weekData['end']));
 }
-// echo json_encode($week_sched_dtr);
 ?>
+
+
 <!-- ############ PAGE START-->
 
 

@@ -98,37 +98,39 @@ $('#save_schedule').click(function () {
 
         $('#confirm').click(function() {
             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            var dataId;
-            var FacID;
-            var acknowledgeValue;
-            var forVerifValue;
-            var acknowledgeReason;
-            var forVerifReason;
+            var checkedData = [];
+            
             checkboxes.forEach(function(checkbox){
                 if(checkbox.checked){
-                    dataId = checkbox.getAttribute('data-week');
-                    FacID = checkbox.getAttribute('data-FacID');
+                    var data = {};
+                    data.dataID = checkbox.getAttribute('data-week');
+                    data.FacultyID = checkbox.getAttribute('data-FacID');
                     if (checkbox.classList.contains('acknowledgement')) {
-                        acknowledgeValue = checkbox.value;
+                        data.Acknowledge = checkbox.value;
                         // acknowledgeReason = checkbox.parentElement.nextElementSibling.nextElementSibling.querySelector('input[type="text"]').value;
                     } else if (checkbox.classList.contains('forVerif')) {
-                        forVerifValue = checkbox.value;
-                        forVerifReason = checkbox.parentElement.nextElementSibling.querySelector('input[type="text"]').value;
+                        data.ForVerif = checkbox.value;
+                        data.ForVerifReason = checkbox.parentElement.nextElementSibling.querySelector('input[type="text"]').value;
                     }
+                    checkedData.push(data);
                 }
             });
-            // console.log(forVerifReason+' '+forVerifValue);
+            // console.log(checkedData);
             // return
-            $.post({
-                url: 'dashboard/service/Dashboard_service/insert_acknowledgement',
-                data: {
-                    dataID: dataId,
-                    FacultyID: FacID,
-                    Acknowledge: acknowledgeValue,
-                    ForVerif: forVerifValue,
-                    // AcknowledgeReason: acknowledgeReason,
-                    ForVerifReason: forVerifReason
-                },
+            $.post('dashboard/service/Dashboard_service/insert_acknowledgement', {
+                data: checkedData
+            }, function(response) {
+                // Handle success response
+                var jsonResponse = JSON.parse(response);
+                if(jsonResponse.has_error == false){
+                    toastr.success(jsonResponse.message);
+                } else {
+                    toastr.error(jsonResponse.message); 
+                }
+            }).fail(function(xhr, status, error) {
+                // Handle any errors that occur during the AJAX request
+                var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : "An error occurred.";
+                toastr.error(errorMessage);
             });
         });
         

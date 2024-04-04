@@ -169,6 +169,16 @@ function main_header($menubar = [])
                                 </a>
                             </li>
                         </ul>
+                        <ul class="nav nav-item">
+                            <li class="nav-item">
+                                <a style="color:<?= (sidebar($menubar, ['program_head'])) ? 'white' : 'black' ?>;"
+                                    href="<?= base_url() ?>program_head"
+                                    class="nav-link <?= (sidebar($menubar, ['program_head'])) ? 'active' : '' ?>">
+                                    <i class="fas fa-calendar-alt nav-icon"></i>
+                                    <p>Program Head</p>
+                                </a>
+                            </li>
+                        </ul>
 
                         <ul class="nav nav-item hover-effect">
                             <li class="nav-item">
