@@ -11,7 +11,7 @@ function main_header($menubar = [])
 
 <head>
     <style type="text/css">
-    .nav-item:hover {
+    .hover-effect:hover {
         background-color: #FFB1B3;
         border-radius: 5px;
         color: white;
@@ -54,6 +54,10 @@ function main_header($menubar = [])
     <!-- Ekko Lightbox -->
     <link rel="stylesheet"
         href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/ekko-lightbox/ekko-lightbox.css">
+
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet"
+        href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- Ionicons -->
     <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
 </head>
@@ -143,7 +147,7 @@ function main_header($menubar = [])
                         data-accordion="false">
                         <li class="nav-item menu-open">
 
-                            <ul class="nav nav-item">
+                            <ul class="nav nav-item hover-effect">
                                 <li class="nav-item">
                                     <a style="color:<?= (sidebar($menubar, ['Dashboard'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "HR" ? 'none' : '' ?>;"
                                         href="<?= base_url() ?>Dashboard"
@@ -155,7 +159,7 @@ function main_header($menubar = [])
                             </ul>
                         </li>
 
-                        <ul class="nav nav-item">
+                        <ul class="nav nav-item hover-effect">
                             <li class="nav-item">
                                 <a style="color:<?= (sidebar($menubar, ['schedule'])) ? 'white' : 'black' ?>;"
                                     href="<?= base_url() ?>schedule"
@@ -166,7 +170,7 @@ function main_header($menubar = [])
                             </li>
                         </ul>
 
-                        <ul class="nav nav-item">
+                        <ul class="nav nav-item hover-effect">
                             <li class="nav-item">
                                 <a style="color:<?= (sidebar($menubar, ['request'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
                                     href="<?= base_url() ?>request"
@@ -177,7 +181,7 @@ function main_header($menubar = [])
                             </li>
                         </ul>
 
-                        <li class="nav-item">
+                        <li class="nav-item hover-effect">
                             <ul class="nav nav-item">
                                 <a style="color:<?= (sidebar($menubar, ['Faculty_schedule'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "HR" ? 'none' : '' ?>;"
                                     href="<?= base_url() ?>faculty_schedule"
@@ -188,7 +192,7 @@ function main_header($menubar = [])
                             </ul>
                         </li>
 
-                        <ul class="nav nav-item">
+                        <ul class="nav nav-item hover-effect">
                             <li class="nav-item">
                                 <a style="color:<?= (sidebar($menubar, ['upload_attachments'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "HR" ? 'none' : '' ?>"
                                     href="<?= base_url() ?>upload_attachments"
@@ -209,7 +213,7 @@ function main_header($menubar = [])
                 </ul>
               </li> -->
 
-                        <li class="nav-item">
+                        <li class="nav-item hover-effect">
                             <ul class="nav nav-item">
                                 <a style="color:<?= (sidebar($menubar, ['Reports'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
                                     href="<?= base_url() ?>Reports"
@@ -231,9 +235,10 @@ function main_header($menubar = [])
                             </li>
                         </ul> -->
 
-                        <li class="nav-item <?= (sidebar($menubar, ['Create_User'])) ? 'menu-open' : '' ?>">
+                        <li
+                            class="nav-item <?= (sidebar($menubar, ['Create_User'])) || sidebar($menubar, ['Manage_Departments']) || sidebar($menubar, ['Manage_Subjects']) ? 'menu-open' : '' ?>">
                             <a href="#" class="nav-link"
-                                style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>;">
+                                style="color:<?= (sidebar($menubar, ['Create_User'])) || sidebar($menubar, ['Manage_Departments']) || sidebar($menubar, ['Manage_Subjects']) ? 'white' : 'black' ?>;">
                                 <i class="fas fa-user-tie"></i>
                                 <p>
                                     Management
@@ -241,12 +246,28 @@ function main_header($menubar = [])
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                                <li class="nav-item hover-effect">
                                     <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
                                         href="<?= base_url() ?>create_user"
                                         class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
                                         <i class="fas fa-user-plus nav-icon"></i>
                                         <p>Create User</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item hover-effect">
+                                    <a style="color:<?= (sidebar($menubar, ['Manage_Subjects'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
+                                        href="<?= base_url() ?>subjects"
+                                        class="nav-link <?= (sidebar($menubar, ['Manage_Subjects'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-book nav-icon"></i>
+                                        <p>Subjects</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item hover-effect">
+                                    <a style="color:<?= (sidebar($menubar, ['Manage_Departments'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
+                                        href="<?= base_url() ?>departments"
+                                        class="nav-link <?= (sidebar($menubar, ['Manage_Departments'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-building nav-icon"></i>
+                                        <p>Departments</p>
                                     </a>
                                 </li>
                             </ul>
@@ -396,6 +417,11 @@ function main_footer()
     <script src="<?= base_url() ?>assets/js/noPostBack.js"></script>
     <script src="<?= base_url() ?>assets/js/service.js"></script>
 
+    <!-- bootstrap color picker -->
+    <script
+        src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js">
+    </script>
+
 
     <script>
     var base_url = '<?= base_url() ?>';
@@ -411,6 +437,15 @@ function main_footer()
     //Date range picker
     $('#reservation').daterangepicker()
     var base_url = <?php echo json_encode(base_url()) ?>;
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+        $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    })
 
     $('#signout').on('click', function() {
         window.location = base_url;
