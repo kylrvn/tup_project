@@ -14,8 +14,8 @@ if (!empty($details)) {
     <td>
         <?= (@$value->Subject_name) ?>
     </td>
-    <td class="text-center">
-        <span><i class="fas fa-square" style="color:<?= @$value->color ?>"></i></span>
+    <td style="display:flex; justify-content: left;">
+        <span><i class="fas fa-square" style="color:<?= @$value->color ?>;"></i></span>
     </td>
     <td>
         <?= (@$value->department_name) ?>

@@ -1,5 +1,11 @@
 // alert();
 
+function mirror_form() {
+    var mirrorContent = document.getElementById('mirror').innerHTML;
+
+    document.getElementById('load_mirror').innerHTML = mirrorContent;
+}
+
 var load_dtr_summary = () => {
     $.ajax({
         type: 'POST',
@@ -46,6 +52,7 @@ var load_dtr = () => {
 
         success: function (data) {
             $('#dtr_form').html(data);
+            mirror_form()
         },
         error: function (xhr, status, error) {
             console.error(xhr.responseText);
@@ -57,6 +64,7 @@ $(document).ready(function () {
     load_dtr_summary();
     load_deduction_summary();
     load_dtr();
+    mirror_form()
 });
 
 $('#select_month1').change(function () {
