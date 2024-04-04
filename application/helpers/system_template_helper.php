@@ -1,15 +1,22 @@
 <?php
 function main_header($menubar = [])
 {
-  defined('BASEPATH') or exit('No direct script access allowed');
-  $session = (object) get_userdata(USER);
-  // var_dump($session);
-  $ci = &get_instance();
-  ?>
+    defined('BASEPATH') or exit('No direct script access allowed');
+    $session = (object) get_userdata(USER);
+    // var_dump($session);
+    $ci = &get_instance();
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <style type="text/css">
+    .hover-effect:hover {
+        background-color: #FFB1B3;
+        border-radius: 5px;
+        color: white;
+    }
+    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TUPDTR_Portal</title>
@@ -47,6 +54,10 @@ function main_header($menubar = [])
     <!-- Ekko Lightbox -->
     <link rel="stylesheet"
         href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/ekko-lightbox/ekko-lightbox.css">
+
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet"
+        href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- Ionicons -->
     <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
 </head>
@@ -97,6 +108,7 @@ function main_header($menubar = [])
 
             <!-- Sidebar -->
             <div class="sidebar" style="background-color:white;">
+                <!-- <div class="sidebar"> -->
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <!--     <div class="image">
@@ -134,16 +146,10 @@ function main_header($menubar = [])
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item menu-open">
-                            <!-- <a href="#" class="nav-link">
-                  <p style="color:black; font-weight:bold;">
-                    Primary Menu
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a> -->
 
-                            <ul class="nav nav-item">
+                            <ul class="nav nav-item hover-effect">
                                 <li class="nav-item">
-                                    <a style="color:<?= (sidebar($menubar, ['Dashboard'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "HR"? 'none' : '' ?>;"
+                                    <a style="color:<?= (sidebar($menubar, ['Dashboard'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "HR" ? 'none' : '' ?>;"
                                         href="<?= base_url() ?>Dashboard"
                                         class="nav-link <?= (sidebar($menubar, ['Dashboard'])) ? 'active' : '' ?>">
                                         <i class="fas fa-home nav-icon"></i>
@@ -153,7 +159,7 @@ function main_header($menubar = [])
                             </ul>
                         </li>
 
-                        <ul class="nav nav-item">
+                        <ul class="nav nav-item hover-effect">
                             <li class="nav-item">
                                 <a style="color:<?= (sidebar($menubar, ['schedule'])) ? 'white' : 'black' ?>;"
                                     href="<?= base_url() ?>schedule"
@@ -174,9 +180,9 @@ function main_header($menubar = [])
                             </li>
                         </ul>
 
-                        <ul class="nav nav-item">
+                        <ul class="nav nav-item hover-effect">
                             <li class="nav-item">
-                                <a style="color:<?= (sidebar($menubar, ['request'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty" ? 'none' : '' ?>;"
+                                <a style="color:<?= (sidebar($menubar, ['request'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
                                     href="<?= base_url() ?>request"
                                     class="nav-link <?= (sidebar($menubar, ['request'])) ? 'active' : '' ?>">
                                     <i class="fas fa-envelope nav-icon"></i>
@@ -185,9 +191,9 @@ function main_header($menubar = [])
                             </li>
                         </ul>
 
-                        <li class="nav-item">
+                        <li class="nav-item hover-effect">
                             <ul class="nav nav-item">
-                                <a style="color:<?= (sidebar($menubar, ['Faculty_schedule'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "HR"? 'none' : '' ?>;"
+                                <a style="color:<?= (sidebar($menubar, ['Faculty_schedule'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "HR" ? 'none' : '' ?>;"
                                     href="<?= base_url() ?>faculty_schedule"
                                     class="nav-link <?= (sidebar($menubar, ['Faculty_schedule'])) ? 'active' : '' ?>">
                                     <i class="far fa-clock nav-icon"></i>
@@ -196,9 +202,9 @@ function main_header($menubar = [])
                             </ul>
                         </li>
 
-                        <ul class="nav nav-item">
+                        <ul class="nav nav-item hover-effect">
                             <li class="nav-item">
-                                <a style="color:<?= (sidebar($menubar, ['upload_attachments'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "HR"? 'none' : '' ?>"
+                                <a style="color:<?= (sidebar($menubar, ['upload_attachments'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "HR" ? 'none' : '' ?>"
                                     href="<?= base_url() ?>upload_attachments"
                                     class="nav-link <?= (sidebar($menubar, ['upload_attachments'])) ? 'active' : '' ?>">
                                     <i class="fas fa-upload nav-icon"></i>
@@ -207,20 +213,9 @@ function main_header($menubar = [])
                             </li>
                         </ul>
 
-                        <li class="nav-item">
-                            <ul class="nav nav-item">
-                                <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty" ? 'none' : '' ?>;"
-                                    href="<?= base_url() ?>create_user"
-                                    class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
-                                    <i class="fas fa-user-plus nav-icon"></i>
-                                    <p>Create User</p>
-                                </a>
-                            </ul>
-                        </li>
-
                         <!-- <li class="nav-item">
                 <ul class="nav nav-item">
-                  <a style="color:<?= (sidebar($menubar, ['Scan'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty"? 'none' : '' ?>;" href="<?= base_url() ?>scan"
+                  <a style="color:<?= (sidebar($menubar, ['Scan'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;" href="<?= base_url() ?>scan"
                     class="nav-link <?= (sidebar($menubar, ['Scan'])) ? 'active' : '' ?>">
                     <i class="fas fa-qrcode nav-icon"></i>
                     <p>Scan</p>
@@ -228,14 +223,63 @@ function main_header($menubar = [])
                 </ul>
               </li> -->
 
-                        <li class="nav-item">
+                        <li class="nav-item hover-effect">
                             <ul class="nav nav-item">
-                                <a style="color:<?= (sidebar($menubar, ['Reports'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "faculty"? 'none' : '' ?>;"
+                                <a style="color:<?= (sidebar($menubar, ['Reports'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
                                     href="<?= base_url() ?>Reports"
                                     class="nav-link <?= (sidebar($menubar, ['Reports'])) ? 'active' : '' ?>">
                                     <i class="fas fa-chart-bar nav-icon"></i> <!-- Change the icon class here -->
                                     <p>Reports</p>
                                 </a>
+                            </ul>
+                        </li>
+
+                        <!-- <ul class="nav nav-item">
+                            <li class="nav-item">
+                                <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
+                                    href="<?= base_url() ?>create_user"
+                                    class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
+                                    <i class="fas fa-user-plus nav-icon"></i>
+                                    <p>Create User</p>
+                                </a>
+                            </li>
+                        </ul> -->
+
+                        <li
+                            class="nav-item <?= (sidebar($menubar, ['Create_User'])) || sidebar($menubar, ['Manage_Departments']) || sidebar($menubar, ['Manage_Subjects']) ? 'menu-open' : '' ?>">
+                            <a href="#" class="nav-link"
+                                style="color:<?= (sidebar($menubar, ['Create_User'])) || sidebar($menubar, ['Manage_Departments']) || sidebar($menubar, ['Manage_Subjects']) ? 'white' : 'black' ?>;">
+                                <i class="fas fa-user-tie"></i>
+                                <p>
+                                    Management
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item hover-effect">
+                                    <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
+                                        href="<?= base_url() ?>create_user"
+                                        class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-user-plus nav-icon"></i>
+                                        <p>Create User</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item hover-effect">
+                                    <a style="color:<?= (sidebar($menubar, ['Manage_Subjects'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
+                                        href="<?= base_url() ?>subjects"
+                                        class="nav-link <?= (sidebar($menubar, ['Manage_Subjects'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-book nav-icon"></i>
+                                        <p>Subjects</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item hover-effect">
+                                    <a style="color:<?= (sidebar($menubar, ['Manage_Departments'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;"
+                                        href="<?= base_url() ?>departments"
+                                        class="nav-link <?= (sidebar($menubar, ['Manage_Departments'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-building nav-icon"></i>
+                                        <p>Departments</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -281,8 +325,8 @@ function main_header($menubar = [])
 
 function main_footer()
 {
-  $ci = &get_instance();
-  ?>
+    $ci = &get_instance();
+    ?>
         </div>
         <!-- /.content-wrapper -->
 
@@ -383,6 +427,11 @@ function main_footer()
     <script src="<?= base_url() ?>assets/js/noPostBack.js"></script>
     <script src="<?= base_url() ?>assets/js/service.js"></script>
 
+    <!-- bootstrap color picker -->
+    <script
+        src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js">
+    </script>
+
 
     <script>
     var base_url = '<?= base_url() ?>';
@@ -398,6 +447,15 @@ function main_footer()
     //Date range picker
     $('#reservation').daterangepicker()
     var base_url = <?php echo json_encode(base_url()) ?>;
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+        $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    })
 
     $('#signout').on('click', function() {
         window.location = base_url;

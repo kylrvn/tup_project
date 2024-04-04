@@ -80,7 +80,7 @@ main_header(['Create_User']);
                         <div class="form-group">
                             <label for="">Sex</label>
                             <select id="Sex" class="form-control inpt" placeholder="Sex">
-                                <option value="" selected disabled>Select Sex</option>
+                                <option value="" selected disabled>Select</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
@@ -99,6 +99,7 @@ main_header(['Create_User']);
                                 <option value="" selected disabled>Select Status</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
+                                <!-- <option value="Widowed">Widowed</option> -->
                             </select>
                         </div>
                     </div>
@@ -116,8 +117,10 @@ main_header(['Create_User']);
                             <label for="">Department</label>
                             <select type="text" id="Department" class="form-control inpt" placeholder="Department">
                                 <?php
-                                foreach($departments as $key=>$dept){?>
-                                    <option value="<?=$dept->department_name?>"><?=$dept->department_name?></option>
+                                foreach ($departments as $key => $dept) { ?>
+                                    <option value="<?= $dept->department_name ?>">
+                                        <?= $dept->department_name ?>
+                                    </option>
                                     <?php
                                 }
                                 ?>
@@ -166,71 +169,6 @@ main_header(['Create_User']);
                 <!-- Footer Details Here -->
             </div>
         </div>
-
-
-
-
-        <section class="content">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="card card-primary">
-                        <div class="card-header" style="background-color:#9F3A3B;">
-                            <h3 class="card-title">Department Management</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group w-100">
-                                    <div class="form-group w-100">
-                                        <label for="">Department Name:</label>
-                                        <input type="text" id="dept_name" class="form-control"
-                                            placeholder="Enter Dept. Name">
-                                    </div>
-                                    <div class="form-group w-100">
-                                        <label for="">Department Status</label>
-                                        <select id="dept_status" class="form-control" placeholder="User_type">
-                                            <option value="" selected disabled>Select Status</option>
-                                            <option value="Active">Active</option>
-                                            <option value="In-active">In-active</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-footer">
-                            <button class="btn btn-success" id="add_department">Add Department</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TABLE -->
-                <div class="col-lg-3">
-                    <div class="card card-primary">
-                        <div class="card-header" style="background-color:#9F3A3B;">
-                            <h3 class="card-title">List of Departments</h3>
-                            
-                        </div>
-                        <div class="card-body">
-                        <table class="table border-in-table table-hover table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>DEPARTMENT NAME</th>
-                                        <th>STATUS</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="load_departments">
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-
     </div>
 </section>
 
