@@ -12,18 +12,24 @@ main_header(['Faculty_schedule']);
             <div class="col-sm-6">
                 <h1 class="m-0">Faculty schedule</h1>
             </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <div class="input-group"
-                        style="width:250px; position: absolute; right:0px; top:0px; margin-right:12px;">
-                        <!-- <select class="form-control" id="select">
-              <option value="Current_Documents">Current Documents</option>
-              <option value="Manage_Category">Manage Category</option>
-            </select> -->
+            <div class="col-sm-6" style="font-size:80%;">
+                <div class="row">
+                    <div class="col-6">
+                        <label style="font-size:100%;">For School Year:</label>
+                        <input type="text" class="form-control" name="schoolyearrange" id="school_year"
+                            style="text-align:center; font-size:130%; font-weight:550;" />
                     </div>
-
-                    <!-- <li class="breadcrumb-item active">Management</li> -->
-                </ol>
+                    <div class="col-6">
+                        <label style="font-size:100%;">School Term:</label>
+                        <select id="term" class="form-control"
+                            style="text-align:center; font-size:130%; font-weight:550;">
+                            <option value="" disabled selected>Select Term</option>
+                            <option value="1st">1st Term</option>
+                            <option value="2nd">2nd Term</option>
+                            <option value="3rd">3rd Term</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -82,7 +88,7 @@ main_header(['Faculty_schedule']);
                                         <div style="display: flex; align-items: center;">
                                             <select class="text-center" name="subject"
                                                 style="width:88%; height:1.8rem;">
-                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
                                                     <option value="<?= $data->Subject_name ?>">
@@ -134,7 +140,7 @@ main_header(['Faculty_schedule']);
                                         <div style="display: flex; align-items: center;">
                                             <select class="text-center" name="subject"
                                                 style="width:88%; height:1.8rem;">
-                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
                                                     <option value="<?= $data->Subject_name ?>">
@@ -185,7 +191,7 @@ main_header(['Faculty_schedule']);
                                         <div style="display: flex; align-items: center;">
                                             <select class="text-center" name="subject"
                                                 style="width:88%; height:1.8rem;">
-                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
                                                     <option value="<?= $data->Subject_name ?>">
@@ -236,7 +242,7 @@ main_header(['Faculty_schedule']);
                                         <div style="display: flex; align-items: center;">
                                             <select class="text-center" name="subject"
                                                 style="width:88%; height:1.8rem;">
-                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
                                                     <option value="<?= $data->Subject_name ?>">
@@ -287,7 +293,7 @@ main_header(['Faculty_schedule']);
                                         <div style="display: flex; align-items: center;">
                                             <select class="text-center" name="subject"
                                                 style="width:88%; height:1.8rem;">
-                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
                                                     <option value="<?= $data->Subject_name ?>">
@@ -338,7 +344,7 @@ main_header(['Faculty_schedule']);
                                         <div style="display: flex; align-items: center;">
                                             <select class="text-center" name="subject"
                                                 style="width:88%; height:1.8rem;">
-                                                <option value="" selected disabled>SELECT SUBJECT</option>
+                                                <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
                                                     <option value="<?= $data->Subject_name ?>">
@@ -366,10 +372,27 @@ main_header(['Faculty_schedule']);
                         </table>
                     </div>
                     <div class="card-footer" style="background-color:#9f3a3b;">
-                        <button type="button" class="btn btn-success" data-toggle="modal"
-                            style="margin-left:87%; width:10rem;" data-target="#modal-default" id="Save">
-                            Encode Schedule
-                        </button>
+                        <div class="row">
+                            <div class="col-3">
+                                &nbsp;
+                            </div>
+                            <div class="col-3">
+                                &nbsp;
+                            </div>
+                            <div class="col-3">
+                                <!-- <button type="button" class="btn btn-warning" style="width:80%; font-size:120%; "
+                                    id="Testing">
+                                    Testing Button
+                                </button> -->
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                    style="width:80%; font-size:120%; " data-target="#modal-default" id="Save">
+                                    Encode Schedule
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- <button type="button" class="btn btn-warning" id="debug">Debug</button> -->
                     </div>
                 </div>
@@ -412,7 +435,7 @@ main_header(['Faculty_schedule']);
       </div> -->
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="save_schedule"
+                <button type="button" class="btn btn-success" id="save_schedule"
                     data-samplefile="">Confirm/Save</button>
             </div>
         </div>

@@ -1,3 +1,6 @@
+$('#Testing').click(function () {
+    alert($('#school_year').val());
+});
 
 
 function check_am_time(inputElement) {
@@ -245,6 +248,11 @@ function return_subject(element) {
 
 $('#save_schedule').click(function () {
 
+    if ($('#term').val() == null) {
+        toastr.error('Select Term');
+        return;
+    }
+
     // Day Flag
     var day = $('[name="day"]').map(function () {
         return $(this).val();
@@ -269,8 +277,6 @@ $('#save_schedule').click(function () {
         return $(this).val();
     }).get();
 
-    // alert(time_frame);
-
     $.ajax({
         type: 'POST',
         url: baseUrl + 'faculty_schedule/service/Faculty_schedule_service/save_schedule',
@@ -281,12 +287,42 @@ $('#save_schedule').click(function () {
             end_time: end,
             subject: subject,
             room: room,
+            school_year: $('#school_year').val(),
+            school_term: $('#term').val(),
         },
         success: function (data) {
             toastr.success('Schedule Submitted Successfully');
         },
     });
 });
+
+
+$(function () {
+    $('input[name="schoolyearrange"]').daterangepicker({
+        opens: 'left', // or 'right' for RTL support
+        startDate: moment().subtract(1, 'years').startOf('year'),
+        endDate: moment().endOf('year'),
+        showDropdowns: true,
+        linkedCalendars: true,
+        locale: {
+            format: 'YYYY',
+            separator: ' to ',
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Custom',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
+        },
+        ranges: {
+            'Current School Year': [moment().subtract(1, 'years').startOf('year'), moment().endOf('year')],
+            'Next School Year': [moment().startOf('year'), moment().add(1, 'years').endOf('year')]
+        }
+    });
+});
+
 
 
 

@@ -8,7 +8,7 @@ class Faculty_schedule_service extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->session = (object)get_userdata(USER);
+		$this->session = (object) get_userdata(USER);
 
 		// if(is_empty_object($this->session)){
 		// 	redirect(base_url().'login/authentication', 'refresh');
@@ -20,7 +20,8 @@ class Faculty_schedule_service extends MY_Controller
 		$this->load->model($model_list);
 	}
 
-	public function save_schedule(){
+	public function save_schedule()
+	{
 
 		$day_array = $this->input->post("day");
 		$time_frame_array = $this->input->post("time_frame");
@@ -34,8 +35,11 @@ class Faculty_schedule_service extends MY_Controller
 		}, $day_array, $time_frame_array, $start_time_array, $end_time_array, $subject_array, $room_array);
 
 		$this->fsModel->faculty_id = $this->session->ID;
+		$this->fsModel->school_year = $this->input->post("school_year");
+		$this->fsModel->school_term = $this->input->post("school_term");
+
 		$this->fsModel->data = $data;
-	
+
 		// var_dump($data);
 
 		$response = $this->fsModel->save_schedule();
@@ -43,4 +47,3 @@ class Faculty_schedule_service extends MY_Controller
 	}
 
 }
-
