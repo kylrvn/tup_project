@@ -65,4 +65,3 @@ $numberOfDaysInMonth = $details['num_of_days'];
         </div>
     </div>
 </div>
-<button class="btn btn-sm btn-primary">Print</button>

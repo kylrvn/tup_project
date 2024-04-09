@@ -52,7 +52,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                     <?= $day ?>
                                 </th>
 
-                            <?php
+                                <?php
                             } ?>
                             <!-- <th class="center-text" style="border-left: solid black 1px;">SC</th>
                             <th class="center-text" style="border-left: solid black 1px;">FREQ. SC</th> -->
@@ -64,7 +64,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                     <tbody>
                         <?php
                         foreach ($details['data'] as $key => $value) {
-                        ?>
+                            ?>
                             <tr style="border-bottom: solid black 1px;">
                                 <td class="center-text">
                                     <b>
@@ -72,7 +72,11 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                     </b>
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
-                                    <b><?= $value->Lname ?>, <?= $value->Fname ?> <?= $value->Mname ?>.</b>
+                                    <b>
+                                        <?= $value->Lname ?>,
+                                        <?= $value->Fname ?>
+                                        <?= $value->Mname ?>.
+                                    </b>
                                 </td>
                                 <?php foreach ($daysArray as $day) { ?>
                                     <td class="center-text" style="border-left: solid black 1px;">
@@ -80,7 +84,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                         // Find the data for the specific day
                                         $dayData = [];
                                         foreach ($value->daily_ol as $dailyData) {
-                                            if (isset($dailyData['day']) && (int)$dailyData['day'] == $day) {
+                                            if (isset($dailyData['day']) && (int) $dailyData['day'] == $day) {
                                                 $dayData = $dailyData;
                                                 break;
                                             }
@@ -95,7 +99,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                             // if($dayData['ut_daily']!=0){
                                             //     echo sprintf('%02d:%02d', floor($dayData['ut_daily'] / 60), $dayData['ut_daily'] % 60) . '<br>';
                                             // }
-
+                                
                                         } else {
                                             // If no data available for the day, display a placeholder
                                             echo '&nbsp;';
@@ -113,13 +117,17 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                     <b>0.21</b>
                                 </td> -->
                                 <td class="center-text" style="border-left: solid black 1px;">
-                                    <b><?= $value->ol?></b>
+                                    <b>
+                                        <?= $value->ol ?>
+                                    </b>
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
-                                    <b><?= $value->ol?></b>
+                                    <b>
+                                        <?= $value->ol ?>
+                                    </b>
                                 </td>
                             </tr>
-                        <?php
+                            <?php
                         }
                         ?>
                     </tbody>
@@ -128,4 +136,3 @@ $daysArray = range(1, $numberOfDaysInMonth);
         </div>
     </div>
 </div>
-<button class="btn btn-sm btn-primary">Print</button>

@@ -5,29 +5,29 @@ main_header(['Reports']);
 
 <head>
     <style>
-    .center-text {
-        text-align: center;
-    }
+        .center-text {
+            text-align: center;
+        }
 
-    .table-black {
-        border: 1px solid black;
-    }
+        .table-black {
+            border: 1px solid black;
+        }
 
-    .border-all-no-bottom {
-        border-top: 1px solid black;
-        border-left: 1px solid black;
-        border-right: 1px solid black;
-        display: flex;
-    }
+        .border-all-no-bottom {
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            display: flex;
+        }
 
-    .text-center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        margin: 0;
-        /* Reset margin for the paragraph */
-    }
+        .text-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 0;
+            /* Reset margin for the paragraph */
+        }
     </style>
 </head>
 
@@ -72,6 +72,9 @@ main_header(['Reports']);
         <div class="card-body" id="load_summary">
             <!-- Content Loaded here -->
         </div>
+        <div class="card-footer" style="background-color:#transparent;">
+            <button class="btn btn-primary float-right">Print</button>
+        </div>
         <div class="card-footer" style="background-color:#9F3A3B; color: white;">
             <!-- Footer -->
         </div>
@@ -105,6 +108,9 @@ main_header(['Reports']);
         <div class="card-body" id="deduction_summary">
             <!-- Content Here -->
         </div>
+        <div class="card-footer" style="background-color:#transparent;">
+            <button class="btn btn-primary float-right">Print</button>
+        </div>
         <div class="card-footer" style="background-color:#9F3A3B; color: white;">
             <!-- Footer -->
         </div>
@@ -131,12 +137,12 @@ main_header(['Reports']);
                         <?php
                         foreach ($faculty as $key => $value) {
                             ?>
-                        <option value="<?= $value->ID ?>">
-                            <?= $value->Lname ?>,
-                            <?= $value->Fname ?>
-                            <?= substr($value->Mname, 0, 1) ?>.
-                        </option>
-                        <?php
+                            <option value="<?= $value->ID ?>">
+                                <?= $value->Lname ?>,
+                                <?= $value->Fname ?>
+                                <?= substr($value->Mname, 0, 1) ?>.
+                            </option>
+                            <?php
                         }
                         ?>
                     </select>
@@ -150,6 +156,9 @@ main_header(['Reports']);
         </div>
         <div class="card-body" id="dtr_form">
             <!-- Content Here -->
+        </div>
+        <div class="card-footer" style="background-color:#transparent;">
+            <button class="btn btn-primary float-right">Print</button>
         </div>
         <div class="card-footer" style="background-color:#9F3A3B; color: white;">
             <!-- Footer -->

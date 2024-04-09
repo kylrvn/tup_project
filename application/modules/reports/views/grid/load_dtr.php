@@ -9,9 +9,9 @@ $daysArray = range(1, $number_of_days);
 
 <head>
     <style>
-    #print_DTR {
-        font-family: 'Times New Roman', Times, serif;
-    }
+        #print_DTR {
+            font-family: 'Times New Roman', Times, serif;
+        }
     </style>
 </head>
 
@@ -85,30 +85,30 @@ $daysArray = range(1, $number_of_days);
                             <?php
                             foreach ($daysArray as $key => $day) {
                                 ?>
-                            <tr style="border-bottom: solid black 1px;">
-                                <td class="center-text" colspan="0.5">
-                                    <?= $day ?>
-                                </td>
-                                <td class="center-text" colspan="1.5" style="border-left: solid black 1px;">
-                                    Place_Holder
-                                </td>
-                                <td class="center-text" colspan="2" style="border-left: solid black 1px;">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td class="center-text" colspan="2" style="border-left: solid black 1px;">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td class="center-text" colspan="2" style="border-left: solid black 1px;">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td class="center-text" colspan="2" style="border-left: solid black 1px;">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                                <td class="center-text" colspan="2" style="border-left: solid black 1px;">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                </td>
-                            </tr>
-                            <?php
+                                <tr style="border-bottom: solid black 1px;">
+                                    <td class="center-text" colspan="0.5">
+                                        <?= $day ?>
+                                    </td>
+                                    <td class="center-text" colspan="1.5" style="border-left: solid black 1px;">
+                                        Place_Holder
+                                    </td>
+                                    <td class="center-text" colspan="2" style="border-left: solid black 1px;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td class="center-text" colspan="2" style="border-left: solid black 1px;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td class="center-text" colspan="2" style="border-left: solid black 1px;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td class="center-text" colspan="2" style="border-left: solid black 1px;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td class="center-text" colspan="2" style="border-left: solid black 1px;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                </tr>
+                                <?php
                             }
                             ?>
                         </tbody>
@@ -183,4 +183,3 @@ $daysArray = range(1, $number_of_days);
     </div>
 
 </div>
-<button class=" btn btn-sm btn-primary">Print</button>

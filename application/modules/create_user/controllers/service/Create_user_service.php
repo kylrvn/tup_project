@@ -8,7 +8,7 @@ class Create_user_service extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->session = (object)get_userdata(USER);
+		$this->session = (object) get_userdata(USER);
 
 		// if(is_empty_object($this->session)){
 		// 	redirect(base_url().'login/authentication', 'refresh');
@@ -43,10 +43,11 @@ class Create_user_service extends MY_Controller
 
 	public function update()
 	{
+		$this->csModel->ID = $this->input->post("ID");
 		$this->csModel->fname = $this->input->post("fname");
 		$this->csModel->lname = $this->input->post("lname");
 		$this->csModel->mname = $this->input->post("mname");
-		$this->csModel->Department = $this->input->post("Departmemt");
+		$this->csModel->Department = $this->input->post("Department");
 		$this->csModel->Rank = $this->input->post("Rank");
 		$this->csModel->Sex = $this->input->post("Sex");
 		$this->csModel->Faculty_number = $this->input->post("Faculty_number");
@@ -58,11 +59,12 @@ class Create_user_service extends MY_Controller
 		$this->csModel->Contact_Number = $this->input->post("Contact_Number");
 		$this->csModel->Age = $this->input->post("Age");
 
-		$response = $this->csModel->update();
+		$response = $this->csModel->update_user();
 		echo json_encode($response);
 	}
 
-	public function add_department(){
+	public function add_department()
+	{
 		$this->csModel->dept_name = $this->input->post("dept_name");
 		$this->csModel->status = $this->input->post("status");
 
@@ -71,7 +73,7 @@ class Create_user_service extends MY_Controller
 	}
 
 
-	
 
-	
+
+
 }
