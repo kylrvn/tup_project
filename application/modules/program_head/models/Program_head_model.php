@@ -27,7 +27,49 @@ class Program_head_model extends CI_Model
         $this->db->where('Acknowledged', '1');
         $this->db->where('FacultyID', $this->faculty_id);
         $query = $this->db->get()->result();
-        return $query;
+        $results = [];
+        foreach($query as $key => $value){
+            $result = $this->get_dtr_logs_daily($value->Schedule);
+            if(!empty($result) || $result != null){
+                $results[] = $result;
+            }
+          
+        }
+    
+        return ['query' => $query, 'result' => $results];
+    }
+    public function get_dtr_logs_daily($schedule){
+        $dateRangesString = $schedule;
+        $processedResults = [];
+        // Remove extra double quotation marks to properly separate date ranges
+        $dateRangesString = str_replace('""', '" "', $dateRangesString);
+        
+        // Split the string into an array using the delimiter " "
+        $dateRangesArray = explode('" "', $dateRangesString);
+
+        foreach ($dateRangesArray as $dateRange) {
+            // Split each date range into start and end dates
+            $dates = explode(' - ', $dateRange);
+            
+            // Add start and end dates to the processed array
+            $processedDateRanges[] = [
+                'start_date' => $dates[0],
+                'end_date' => $dates[1]
+            ];
+        }
+        foreach($processedDateRanges as $dates){
+            $startDate = date('Y-m-d', strtotime($dates['start_date']));
+            $endDate = date('Y-m-d', strtotime($dates['end_date']));
+            
+            $this->db->select('date_log');
+            $this->db->from($this->Table->logs);
+            $this->db->where('date_log >=', $startDate);
+            $this->db->where('date_log <=', $endDate);
+            $result = $this->db->get()->result();
+            // echo json_encode($result);
+            return $result;
+        }
+       
     }
     public function get_faculty()
     {
@@ -61,7 +103,8 @@ class Program_head_model extends CI_Model
         $this->db->where('FacultyID', $this->session->ID);
         $query = $this->db->get()->result();
         return $query;
+     
         // echo json_encode($query);
     }
-    
+ 
 }

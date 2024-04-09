@@ -248,7 +248,7 @@ function main_header($menubar = [])
                         <li
                             class="nav-item <?= (sidebar($menubar, ['Create_User'])) || sidebar($menubar, ['Manage_Departments']) || sidebar($menubar, ['Manage_Subjects']) ? 'menu-open' : '' ?>">
                             <a href="#" class="nav-link"
-                                style="color:<?= (sidebar($menubar, ['Create_User'])) || sidebar($menubar, ['Manage_Departments']) || sidebar($menubar, ['Manage_Subjects']) ? 'white' : 'black' ?>;">
+                                style="color:<?= (sidebar($menubar, ['Create_User'])) || sidebar($menubar, ['Manage_Departments']) || sidebar($menubar, ['Manage_Subjects']) ? 'white' : 'black' ?>; display:<?= $session->User_type == "faculty" ? 'none' : '' ?>;" >
                                 <i class="fas fa-user-tie"></i>
                                 <p>
                                     Management

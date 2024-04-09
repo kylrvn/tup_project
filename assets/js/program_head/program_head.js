@@ -15,6 +15,7 @@ $(document).ready(function () {
     load_dtr_schedule();
     // load_calendar();
     //  alert();
+    
 });
 function load_calendar(element){
     $.ajax({
