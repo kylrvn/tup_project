@@ -4,15 +4,18 @@ $ci = &get_instance();
 if (!empty($details)) {
     foreach ($details as $key => $value) {
         ?>
-<tr>
+<tr onclick="click_subject(this)" data-subject="<?= $value->Subject_name ?>" data-ID="<?= $value->ID ?>"
+    data-color="<?= $value->color ?>" data-department="<?= $value->Department ?>" data-status="<?= $value->Active ?>">
     <td>
-        <?= @$key + 1 ?>
+        <b>
+            <?= @$key + 1 ?>
+        </b>
     </td>
     <td>
         <?= (@$value->Subject_name) ?>
     </td>
-    <td class="text-center">
-        <span><i class="fas fa-square" style="color:<?=@$value->color?>"></i></span>
+    <td style="display:flex; justify-content: left;">
+        <span><i class="fas fa-square" style="color:<?= @$value->color ?>;"></i></span>
     </td>
     <td>
         <?= (@$value->department_name) ?>

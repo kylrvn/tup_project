@@ -22,11 +22,10 @@ class Schedule_model extends CI_Model
         $this->db->select('*');
         $this->db->from($this->Table->user);
 
-        if($this->session->User_type == "faculty"){
+        if ($this->session->User_type == "1") {
             $this->db->where('ID', $this->session->ID);
-        }
-        else if($this->session->User_type == "HR"){
-            // Do nothing
+        } else if ($this->session->User_type == "3") {
+            // No Filter
         }
         $query = $this->db->get()->result();
 
@@ -38,7 +37,7 @@ class Schedule_model extends CI_Model
         $this->db->select('*');
         $this->db->from($this->Table->sched);
         $this->db->where('Faculty_id', $this->faculty_id);
-        
+
         $query = $this->db->get()->result();
 
         return $query;

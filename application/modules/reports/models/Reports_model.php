@@ -97,7 +97,7 @@ class Reports_model extends CI_Model
                                 $amtimein = date("H:i:s", strtotime($log->timein_am));
                                 $a = strtotime($amsched); // am schedule start 
                                 $b = strtotime($amtimein); // am timein
-                                $tardiness_minutes = (int)(($b - $a) / 60); // divide by 60 to get minutes format
+                                $tardiness_minutes = (int) (($b - $a) / 60); // divide by 60 to get minutes format
 
                                 if ($subject['subject_am'] !== null && $tardiness_minutes > 0) {
                                     // echo '[am] day ' . $day . ' : late '.$tardiness_minutes.'<br>';
@@ -107,18 +107,18 @@ class Reports_model extends CI_Model
 
                                 //for am undertime
 
-                                    $amsched_out = date("H:i:s", strtotime($subject['end_am']));
-                                    $amtime_out = date("H:i:s", strtotime($log->timeout_am));
-                                    $e = strtotime($amsched_out); // am schedule done
-                                    $f = strtotime($amtime_out); // am timeout
-                                    $undertime_minutes = floor((($e - $f) / 60)); // divide by 60 to get minutes format. Also solving for time is weird so we used floor to round DOWN not up. eg user is 1min and 1 second late, resulting in a 1.98 where if u round it up, it gives the value of 2 instead of one.
-                                    // echo $e.' '.$f.' undertime '.$undertime_minutes.'<br>';
-                                    $quota_checker += ($f - $b);
-                                    if ($quota_checker < $quota && $undertime_minutes > 0) {
-                                        // echo $quota_checker .' [am] day ' . $day . ' : undertime '.$undertime_minutes.'<br>';
-                                        $undertime_total += $undertime_minutes;
-                                        $ut += $undertime_minutes;
-                                    }
+                                $amsched_out = date("H:i:s", strtotime($subject['end_am']));
+                                $amtime_out = date("H:i:s", strtotime($log->timeout_am));
+                                $e = strtotime($amsched_out); // am schedule done
+                                $f = strtotime($amtime_out); // am timeout
+                                $undertime_minutes = floor((($e - $f) / 60)); // divide by 60 to get minutes format. Also solving for time is weird so we used floor to round DOWN not up. eg user is 1min and 1 second late, resulting in a 1.98 where if u round it up, it gives the value of 2 instead of one.
+                                // echo $e.' '.$f.' undertime '.$undertime_minutes.'<br>';
+                                $quota_checker += ($f - $b);
+                                if ($quota_checker < $quota && $undertime_minutes > 0) {
+                                    // echo $quota_checker .' [am] day ' . $day . ' : undertime '.$undertime_minutes.'<br>';
+                                    $undertime_total += $undertime_minutes;
+                                    $ut += $undertime_minutes;
+                                }
 
                             } else {
                                 //for pm late detection
@@ -126,7 +126,7 @@ class Reports_model extends CI_Model
                                 $pmtimein = date("H:i:s", strtotime($log->timein_pm));
                                 $c = strtotime($pmsched);
                                 $d = strtotime($pmtimein);
-                                $tardiness_afternoon_minutes = (int)(($d - $c) / 60);
+                                $tardiness_afternoon_minutes = (int) (($d - $c) / 60);
 
                                 if ($subject['subject_pm'] !== null && $tardiness_afternoon_minutes > 0) {
                                     // echo '[pm] day ' . $day . ' :late '.$tardiness_afternoon_minutes.'<br>';
@@ -182,7 +182,7 @@ class Reports_model extends CI_Model
                         break;
 
                     } //if checker
-                    
+
                 } //end log foreach loop
                 // $val->daily[] = $undertime_tard_daily;
                 // var_dump($undertime_tard_daily);
@@ -246,9 +246,9 @@ class Reports_model extends CI_Model
     {
         $x = $y = 0;
         $x = round($pts / 3600, 2); //divide per hr then round off
-        $y = $x - (int)$x; //get decimal 1.80 -1.00 = 0.80
+        $y = $x - (int) $x; //get decimal 1.80 -1.00 = 0.80
         $y = $y >= 0.25 ? ($y >= 0.5 ? ($y >= 0.75 ? 0.75 : 0.25) : 0.5) : 0; //round off to specific point
-        $x = (int)$x + $y; //finalize point 1.00 + 0.75
+        $x = (int) $x + $y; //finalize point 1.00 + 0.75
         return $x;
     }
 
@@ -263,6 +263,17 @@ class Reports_model extends CI_Model
         return $logs;
     }
 
+    public function get_faculty()
+    {
+        $this->db->select(
+            '*'
+        );
+        $this->db->from($this->Table->user);
+        $this->db->where('User_type', 'faculty');
+        $query = $this->db->get()->result();
+        return $query;
+    }
+
     public function get_sched($ID)
     {
         $this->db->select(
@@ -275,5 +286,38 @@ class Reports_model extends CI_Model
         //add modification to cater order
         $query = $this->db->get()->result();
         return $query;
+    }
+
+    public function get_csf_48()
+    {
+        $data_to_send = [];
+
+        $selected_month = $this->month;
+
+        $date_parts = explode("-", $selected_month);
+
+        $year = $date_parts[0];
+        $month = $date_parts[1];
+
+        $days_in_selected_month = date('t', mktime(0, 0, 0, $month, 1, $year));
+
+        $data_to_send = [];
+
+        $dateObj = DateTime::createFromFormat('!m', $month);
+        $monthInWords = $dateObj->format('F');
+        $monthInAbbv = $dateObj->format('M');
+
+        $data_to_send['selected_month'] = "$monthInWords 1 - $days_in_selected_month, $year";
+        $data_to_send['num_of_days'] = $days_in_selected_month;
+
+        $this->db->select(
+            '*'
+        );
+        $this->db->from($this->Table->user);
+        $this->db->where('User_type', 'faculty');
+        $this->db->where('ID', $this->faculty);
+        $data_to_send['faculty_details'] = $this->db->get()->row();
+
+        return $data_to_send;
     }
 }

@@ -33,6 +33,7 @@ class Create_user_services_model extends CI_Model
                 'Lname' => $this->lname,
                 'Mname' => $this->mname,
                 'Department' => $this->Department,
+                'Address' => $this->Address,
                 'Rank' => $this->Rank,
                 'Sex' => $this->Sex,
                 'Faculty_number' => $this->Faculty_number,
@@ -60,7 +61,47 @@ class Create_user_services_model extends CI_Model
                 return array('message' => SAVED_SUCCESSFUL, 'has_error' => false);
             }
         } catch (Exception $msg) {
-            return(array('message' => $msg->getMessage(), 'has_error' => true));
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
+        }
+    }
+
+    public function update_user()
+    {
+        try {
+
+            $data = array
+            (
+                'Fname' => $this->fname,
+                'Lname' => $this->lname,
+                'Mname' => $this->mname,
+                'Department' => $this->Department,
+                'Address' => $this->Address,
+                'Rank' => $this->Rank,
+                'Sex' => $this->Sex,
+                'Faculty_number' => $this->Faculty_number,
+                'Username' => $this->Username,
+                'User_type' => $this->User_type,
+                'Contact_Number' => $this->Contact_Number,
+                'Age' => $this->Age,
+                'Estatus' => $this->Estatus,
+                'Suffix' => $this->Suffix,
+            );
+
+            $this->db->trans_start();
+
+            $this->db->where('ID', $this->ID);
+            $this->db->update($this->Table->user, $data);
+
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                throw new Exception(ERROR_PROCESSING, true);
+            } else {
+                $this->db->trans_commit();
+                return array('message' => SAVED_SUCCESSFUL, 'has_error' => false);
+            }
+        } catch (Exception $msg) {
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
         }
     }
 
@@ -87,7 +128,7 @@ class Create_user_services_model extends CI_Model
                 return array('message' => SAVED_SUCCESSFUL, 'has_error' => false);
             }
         } catch (Exception $msg) {
-            return(array('message' => $msg->getMessage(), 'has_error' => true));
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
         }
     }
 }

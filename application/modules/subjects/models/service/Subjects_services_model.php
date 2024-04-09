@@ -47,4 +47,34 @@ class Subjects_services_model extends CI_Model
             return (array('message' => $msg->getMessage(), 'has_error' => true));
         }
     }
+
+    public function update_subject()
+    {
+        try {
+
+            $data = array
+            (
+                'Subject_name' => $this->subject_name,
+                'color' => $this->color,
+                'Department' => $this->department,
+                'Active' => $this->status,
+            );
+
+            $this->db->trans_start();
+
+            $this->db->where("ID", $this->ID);
+            $this->db->update($this->Table->subjects, $data);
+
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                throw new Exception(ERROR_PROCESSING, true);
+            } else {
+                $this->db->trans_commit();
+                return array('message' => SAVED_SUCCESSFUL, 'has_error' => false);
+            }
+        } catch (Exception $msg) {
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
+        }
+    }
 }

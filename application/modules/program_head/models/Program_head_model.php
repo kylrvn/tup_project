@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') or exit ('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 class Program_head_model extends CI_Model
 {
     public $Table;
@@ -74,12 +74,14 @@ class Program_head_model extends CI_Model
     public function get_faculty()
     {
         // var_dump($this->session);
+        $user_types_allowed = ["1", "2"];
         $this->db->select(
             '*'
         );
         $this->db->from($this->Table->user);
         // $this->db->where('Acknowledged', '1');
         // $this->db->where('FacultyID', $this->session->ID);
+        $this->db->where_in('User_type', $user_types_allowed);
         $query = $this->db->get()->result();
         return $query;
     }
@@ -88,12 +90,13 @@ class Program_head_model extends CI_Model
         $this->db->select('*');
         $this->db->from($this->Table->sched);
         $this->db->where('Faculty_id', $this->faculty_id);
-        
+
         $query = $this->db->get()->result();
 
         return $query;
     }
-    public function get_dtr_logs(){
+    public function get_dtr_logs()
+    {
         $this->db->select('*');
         $this->db->from($this->Table->logs);
         $this->db->where('timein_am !=', NULL);
@@ -106,5 +109,4 @@ class Program_head_model extends CI_Model
      
         // echo json_encode($query);
     }
- 
 }

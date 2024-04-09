@@ -6,6 +6,8 @@ main_header(['Manage_Subjects']);
 <style>
 </style>
 
+<input hidden id="subject_id" value="">
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -50,7 +52,8 @@ main_header(['Manage_Subjects']);
                                             <input type="text" class="form-control" id="color">
 
                                             <div class="input-group-append">
-                                                <span class="input-group-text"><i class="fas fa-square"></i></span>
+                                                <span class="input-group-text"><i class="fas fa-square"
+                                                        id="color_box"></i></span>
                                             </div>
                                         </div>
                                         <!-- /.input group -->
@@ -61,10 +64,10 @@ main_header(['Manage_Subjects']);
                                             <option value="" selected disabled>Select Department</option>
                                             <?php
                                             foreach ($departments as $key => $value) { ?>
-                                            <option value="<?= $value->ID ?>">
-                                                <?= $value->department_name ?>
-                                            </option>
-                                            <?php
+                                                <option value="<?= $value->ID ?>">
+                                                    <?= $value->department_name ?>
+                                                </option>
+                                                <?php
                                             }
                                             ?>
                                         </select>
@@ -78,11 +81,14 @@ main_header(['Manage_Subjects']);
                                         </select>
                                     </div>
                                 </div>
+                                <button class="btn btn-success" id="add_subject">Add Subject</button>
+                                <button class="btn btn-primary" hidden id="update_subject">Update
+                                    Subject</button>
                             </div>
                         </div>
 
                         <div class="card-footer">
-                            <button class="btn btn-success" id="add_subject">Add Subject</button>
+
                         </div>
                     </div>
                 </div>

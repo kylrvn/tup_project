@@ -8,7 +8,7 @@ class Create_user extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->session = (object)get_userdata(USER);
+		$this->session = (object) get_userdata(USER);
 
 		$model_list = [
 			'create_user/Create_user_model' => 'cModel',
@@ -24,9 +24,10 @@ class Create_user extends MY_Controller
 		$this->load->view('layout', $this->data);
 	}
 
-	public function load_departments(){
-		$this->data['details'] = $this->cModel->get_departments();
-		$this->data['content'] = 'grid/load_departments';
+	public function load_users()
+	{
+		$this->data['details'] = $this->cModel->get_users();
+		$this->data['content'] = 'grid/load_users';
 		$this->load->view('layout', $this->data);
 	}
 

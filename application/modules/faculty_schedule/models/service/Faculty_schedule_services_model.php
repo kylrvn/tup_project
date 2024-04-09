@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') or exit ('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 class Faculty_schedule_services_model extends CI_Model
 {
     public $ID;
@@ -25,9 +25,18 @@ class Faculty_schedule_services_model extends CI_Model
 
         try {
             foreach ($this->data as $key => $value) {
+                echo "subject = " . $key . " ";
+                var_dump($value['subject']);
+                echo "room = " . $key . " ";
+                var_dump($value['room']);
+                echo "day = " . $key . " ";
+                var_dump($value['day']);
+                echo "\n";
 
                 $data = array(
                     'Faculty_id' => $this->faculty_id,
+                    'school_year' => $this->school_year,
+                    'school_term' => $this->school_term,
 
                     'time_frame' => $value['time_frame'],
 
@@ -41,12 +50,12 @@ class Faculty_schedule_services_model extends CI_Model
                 );
 
                 if (
-                    empty ($value['day']) || $value['day'] == "" &&
-                    empty ($value['time_frame']) || $value['time_frame'] == "" &&
-                    empty ($value['start_time']) || $value['start_time'] == "" &&
-                    empty ($value['end_time']) || $value['end_time'] == "" &&
-                    empty ($value['subject']) || $value['subject'] == "" &&
-                    empty ($value['room']) || $value['room'] == ""
+                    empty($value['day']) || $value['day'] == "" &&
+                    empty($value['time_frame']) || $value['time_frame'] == "" &&
+                    empty($value['start_time']) || $value['start_time'] == "" &&
+                    empty($value['end_time']) || $value['end_time'] == "" &&
+                    empty($value['subject']) || $value['subject'] == "" &&
+                    empty($value['room']) || $value['room'] == ""
                 ) {
                     // Do Nothing
                 } else {
