@@ -58,6 +58,8 @@ function main_header($menubar = [])
     <!-- Bootstrap Color Picker -->
     <link rel="stylesheet"
         href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/fullcalendar/main.css">
     <!-- Ionicons -->
     <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
 </head>
@@ -214,19 +216,9 @@ function main_header($menubar = [])
                             </li>
                         </ul>
 
-                        <!-- <li class="nav-item">
-                <ul class="nav nav-item">
-                  <a style="color:<?= (sidebar($menubar, ['Scan'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "1" ? 'none' : '' ?>;" href="<?= base_url() ?>scan"
-                    class="nav-link <?= (sidebar($menubar, ['Scan'])) ? 'active' : '' ?>">
-                    <i class="fas fa-qrcode nav-icon"></i>
-                    <p>Scan</p>
-                  </a>
-                </ul>
-              </li> -->
-
                         <li class="nav-item hover-effect">
                             <ul class="nav nav-item">
-                                <a style="color:<?= (sidebar($menubar, ['Reports'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "1" ? 'none' : '' ?>;"
+                                <a style="color:<?= (sidebar($menubar, ['Reports'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "3" ? '' : 'none' ?>;"
                                     href="<?= base_url() ?>Reports"
                                     class="nav-link <?= (sidebar($menubar, ['Reports'])) ? 'active' : '' ?>">
                                     <i class="fas fa-chart-bar nav-icon"></i> <!-- Change the icon class here -->
@@ -234,17 +226,6 @@ function main_header($menubar = [])
                                 </a>
                             </ul>
                         </li>
-
-                        <!-- <ul class="nav nav-item">
-                            <li class="nav-item">
-                                <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "1" ? 'none' : '' ?>;"
-                                    href="<?= base_url() ?>create_user"
-                                    class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
-                                    <i class="fas fa-user-plus nav-icon"></i>
-                                    <p>Create User</p>
-                                </a>
-                            </li>
-                        </ul> -->
 
                         <li
                             class="nav-item
@@ -285,6 +266,16 @@ function main_header($menubar = [])
                             </ul>
                         </li>
 
+                        <li class="nav-item hover-effect">
+                            <ul class="nav nav-item">
+                                <a style="color:<?= (sidebar($menubar, ['exam_schedule'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "2" ? '' : 'none' ?>;"
+                                    href="<?= base_url() ?>schedule/exam_schedule"
+                                    class="nav-link <?= (sidebar($menubar, ['exam_schedule'])) ? 'active' : '' ?>">
+                                    <i class="fas fa-chart-bar nav-icon"></i> <!-- Change the icon class here -->
+                                    <p>Exam Schedule</p>
+                                </a>
+                            </ul>
+                        </li>
 
                     </ul>
                     </li>
@@ -352,6 +343,8 @@ function main_footer()
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
     <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Bootstrap -->
     <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- overlayScrollbars -->
@@ -433,6 +426,10 @@ function main_footer()
     <script
         src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js">
     </script>
+
+    <!-- fullCalendar 2.2.5 -->
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/moment/moment.min.js"></script>
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/fullcalendar/main.js"></script>
 
 
     <script>
