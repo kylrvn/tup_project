@@ -34,9 +34,9 @@ class Create_user_model extends CI_Model
             'u.*,' .
             'd.department_name,'
         );
-        $this->db->where_in('User_type', $user_type_filter);
         $this->db->from($this->Table->user . ' u');
         $this->db->join($this->Table->department . ' d', 'u.Department = d.ID', 'left');
+        $this->db->where_in('u.User_type', $user_type_filter);
 
         $query = $this->db->get()->result();
         return $query;

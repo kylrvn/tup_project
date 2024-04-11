@@ -18,10 +18,10 @@ class Schedule extends MY_Controller
 	}
 
 	/** load main page 
-				   
-				   
-					   
-					   */
+										   
+										   
+											   
+											   */
 	public function index()
 	{
 		// $this->data['session'] =  $this->session;
@@ -44,11 +44,24 @@ class Schedule extends MY_Controller
 		$this->load->view('layout', $this->data);
 	}
 
+	public function load_dynamic_calendar()
+	{
+		$this->data['content'] = 'grid/load_dynamic_sched_calendar';
+		$this->load->view('layout', $this->data);
+	}
+
+	// public function load_calendar()
+	// {
+	// 	$this->sModel->faculty_id = $this->input->post('faculty_id');
+	// 	$this->data['details'] = $this->sModel->get_schedule();
+	// 	$this->data['content'] = 'grid/load_sched_calendar';
+	// 	$this->load->view('layout', $this->data);
+	// }
+
 	public function load_calendar()
 	{
 		$this->sModel->faculty_id = $this->input->post('faculty_id');
 		$this->data['details'] = $this->sModel->get_schedule();
-		$this->data['content'] = 'grid/load_sched_calendar';
-		$this->load->view('layout', $this->data);
+		echo json_encode($this->data['details']);
 	}
 }

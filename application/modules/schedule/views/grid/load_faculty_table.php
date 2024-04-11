@@ -6,15 +6,7 @@
     <h3 class="card-title"><b>Select Faculty</b></h3>
 
     <div class="card-tools">
-        <div class="input-group input-group-sm" style="width: 150px;">
-            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-default">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
     </div>
 </div>
 <div class="card-body table-responsive p-0">
@@ -30,13 +22,15 @@
         <tbody>
             <?php
             foreach ($details as $key => $value) {
+                // var_dump($value);
                 ?>
                 <tr>
-                    <td><b><?=@$key+1?></b></td>
-                    <td><?=ucfirst($value->Lname)?>, <?=ucfirst($value->Fname)?> <?=ucfirst($value->Mname)?></td>
-                    <td><?=$value->Department?></td>
+                    <td><b><?= @$key + 1 ?></b></td>
+                    <td><?= ucfirst($value->Lname) ?>, <?= ucfirst($value->Fname) ?>     <?= ucfirst($value->Mname) ?></td>
+                    <td><?= $value->department_name ?></td>
                     <td>
-                        <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?=$value->ID?>"><i class="fas fa-calendar"></i></button>
+                        <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?= $value->ID ?>"><i
+                                class="fas fa-calendar"></i></button>
                     </td>
                 </tr>
                 <?php

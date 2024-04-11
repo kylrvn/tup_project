@@ -30,10 +30,45 @@ main_header(['Create_User']);
     <div class="container-fluid">
         <!-- SELECT2 EXAMPLE -->
         <div class="row">
-            <div class="col-7">
+            <div class="col-12">
+                <div class="card card-default collapsed-card">
+                    <div class="card-header" style="background-color:#9F3A3B; color: white;">
+                        <h3 class="card-title">Current Users</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool expand1" data-card-widget="collapse"
+                                title="Collapse">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body" style="font-size:100%;">
+                        <table class="table border-in-table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>FACULTY #</th>
+                                    <th>USER NAME</th>
+                                    <th>USER TYPE</th>
+                                    <th>DEPARTMENT</th>
+                                </tr>
+                            </thead>
+                            <tbody id="load_users">
+                                <!-- Content Here loaded via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer" style="background-color:#9F3A3B; color: white;">
+                        <!-- Footer Details Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
                 <div class="card card-default">
                     <div class="card-header" style="background-color:#9F3A3B; color: white;">
-                        <h3 class="card-title">User Details</h3>
+                        <h3 class="card-title">Create User Account</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -74,7 +109,7 @@ main_header(['Create_User']);
                                 <div class="form-group">
                                     <label for="">Contact Number</label>
                                     <input type="number" id="Contact_Number" class="form-control inpt"
-                                        placeholder="Contact Number">
+                                        placeholder="Contact #">
                                 </div>
                             </div>
                         </div>
@@ -112,7 +147,7 @@ main_header(['Create_User']);
                                 <div class="form-group">
                                     <label for="">Faculty Number</label>
                                     <input type="text" id="Faculty_number" class="form-control inpt"
-                                        placeholder="Faculty Number">
+                                        placeholder="Faculty #">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -122,10 +157,10 @@ main_header(['Create_User']);
                                         placeholder="Department">
                                         <?php
                                         foreach ($departments as $key => $dept) { ?>
-                                        <option value="<?= $dept->ID ?>">
-                                            <?= $dept->department_name ?>
-                                        </option>
-                                        <?php
+                                            <option value="<?= $dept->ID ?>">
+                                                <?= $dept->department_name ?>
+                                            </option>
+                                            <?php
                                         }
                                         ?>
                                     </select>
@@ -163,7 +198,7 @@ main_header(['Create_User']);
                                         <label for="">Password</label>
                                         <cont id="password_container">
                                             <input type="text" disabled id="Username" class="form-control inpt"
-                                                placeholder="Default Password is 123456">
+                                                placeholder="Default 123456">
                                         </cont>
                                     </div>
                                 </div>
@@ -173,33 +208,6 @@ main_header(['Create_User']);
                             id="Save">Create User</button>
 
                         <button type="button" class="btn btn-primary" hidden id="Update">Update User</button>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer" style="background-color:#9F3A3B; color: white;">
-                        <!-- Footer Details Here -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-5">
-                <div class="card card-default">
-                    <div class="card-header" style="background-color:#9F3A3B; color: white;">
-                        <h3 class="card-title">Current Users</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body" style="font-size:90%;">
-                        <table class="table border-in-table table-hover table-sm">
-                            <thead>
-                                <tr>
-                                    <th>FACULTY #</th>
-                                    <th>USER NAME</th>
-                                    <th>USER TYPE</th>
-                                    <th>DEPARTMENT</th>
-                                </tr>
-                            </thead>
-                            <tbody id="load_users">
-                                <!-- Content Here loaded via JS -->
-                            </tbody>
-                        </table>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer" style="background-color:#9F3A3B; color: white;">
