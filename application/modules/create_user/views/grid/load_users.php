@@ -9,7 +9,7 @@ if (!empty($details)) {
             data-Sex="<?= $value->Sex ?>" data-Age="<?= $value->Age ?>" data-Estatus="<?= $value->Estatus ?>"
             data-Faculty_number="<?= $value->Faculty_number ?>" data-Department="<?= $value->Department ?>"
             data-Rank="<?= $value->Rank ?>" data-User_type="<?= $value->User_type ?>" data-Username="<?= $value->Username ?>">
-            <td>
+            <td style="font-weight:600;">
                 <?= $value->Faculty_number ?>
             </td>
             <td>

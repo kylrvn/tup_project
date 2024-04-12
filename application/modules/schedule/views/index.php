@@ -4,10 +4,10 @@ main_header(['schedule']);
 
 <head>
     <style>
-        .custom-modal-width {
-            max-width: 90%;
-            /* Adjust the percentage or use a fixed pixel value as needed */
-        }
+    .custom-modal-width {
+        max-width: 90%;
+        /* Adjust the percentage or use a fixed pixel value as needed */
+    }
     </style>
 </head>
 <!-- ############ PAGE START-->
@@ -24,8 +24,8 @@ main_header(['schedule']);
 
 <!-- /.row -->
 <div class="row" style="display:flex;">
-    <div class="col-12" >
-        <div class="card" >
+    <div class="col-12">
+        <div class="card">
             <div class="container col-12" id="load_faculty_table">
                 <!-- Faculty Table Loaded Here -->
             </div>
@@ -35,6 +35,7 @@ main_header(['schedule']);
 
 <div class="modal fade" id="calendar_modal" tabindex="-1" role="dialog" aria-labelledby="calendar_modal">
     <div class="modal-dialog custom-modal-width calendar_modal-modal" role="document">
+
         <div class="modal-content">
             <div class="modal-header">
                 <b>FACULTY (NAME) SCHEDULE</b>

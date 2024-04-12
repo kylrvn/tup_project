@@ -19,11 +19,15 @@ class Schedule_model extends CI_Model
 
     public function get_faculty()
     {
-        $this->db->select('*');
-        $this->db->from($this->Table->user);
+        $this->db->select(
+            'u. *,' .
+            'd. department_name,'
+        );
+        $this->db->from($this->Table->user . ' u');
+        $this->db->join($this->Table->department . ' d', 'u.Department = d.ID', 'left');
 
-        if ($this->session->User_type == "1") {
-            $this->db->where('ID', $this->session->ID);
+        if ($this->session->User_type == "1" || $this->session->User_type == "2") {
+            $this->db->where('u.ID', $this->session->ID);
         } else if ($this->session->User_type == "3") {
             // No Filter
         }
@@ -34,9 +38,14 @@ class Schedule_model extends CI_Model
 
     public function get_schedule()
     {
-        $this->db->select('*');
-        $this->db->from($this->Table->sched);
-        $this->db->where('Faculty_id', $this->faculty_id);
+        $this->db->select(
+            's.*,' .
+            'su.Subject_name,' .
+            'su.color'
+        );
+        $this->db->from($this->Table->sched . ' s');
+        $this->db->where('s.Faculty_id', $this->faculty_id);
+        $this->db->join($this->Table->subjects . ' su', 's.Subject = su.ID', 'left');
 
         $query = $this->db->get()->result();
 

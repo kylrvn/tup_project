@@ -9,26 +9,26 @@ $(document).ready(function () {
                 username: $('#username').val(),
                 password: $('#password').val(),
             },
-            success: function(response) {
+            success: function (response) {
                 if (response.has_error) {
                     toastr.error(response.error_message);
                 } else {
                     // console.log(response.session.User_type);
-                    if(response.session.User_type == "faculty"){
+                    if (response.session.User_type == "1" || response.session.User_type == "2") {
                         window.location = base_url + "dashboard";
                     }
-                    else if (response.session.User_type == "HR"){
+                    else if (response.session.User_type == "3") {
                         window.location = base_url + "schedule";
                     }
-                    else{
+                    else {
                         window.location = base_url + "dashboard";
                     }
 
-                    
+
                 }
             }
         });
-        
+
     });
 
     $('#password').on('keyup', function (e) {

@@ -8,7 +8,8 @@ class Schedule extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->session = (object)get_userdata(USER);
+		$this->session = (object) get_userdata(USER);
+		$this->load->library('calendar');
 
 		$model_list = [
 			'schedule/Schedule_model' => 'sModel',
@@ -17,27 +18,50 @@ class Schedule extends MY_Controller
 	}
 
 	/** load main page 
-	
-	
-		
-		*/
+										   
+										   
+											   
+											   */
 	public function index()
 	{
 		// $this->data['session'] =  $this->session;
 		$this->data['content'] = 'index';
 		$this->load->view('layout', $this->data);
 	}
-	
-	public function load_faculty(){
-		$this->data['details'] = $this->sModel->get_faculty();
-		$this->data['content'] = 'grid/load_faculty_table';
-		$this->load->view('layout',$this->data);
+
+	public function exam_schedule()
+	{
+		// $this->data['session'] =  $this->session;
+		$this->data['content'] = 'exam_schedule';
+		$this->data['calendar'] = $this->load->view('grid/calendar_view', NULL, TRUE); // Load the calendar view and pass it as data
+		$this->load->view('layout', $this->data);
 	}
 
-	public function load_calendar(){
+	public function load_faculty()
+	{
+		$this->data['details'] = $this->sModel->get_faculty();
+		$this->data['content'] = 'grid/load_faculty_table';
+		$this->load->view('layout', $this->data);
+	}
+
+	public function load_dynamic_calendar()
+	{
+		$this->data['content'] = 'grid/load_dynamic_sched_calendar';
+		$this->load->view('layout', $this->data);
+	}
+
+	// public function load_calendar()
+	// {
+	// 	$this->sModel->faculty_id = $this->input->post('faculty_id');
+	// 	$this->data['details'] = $this->sModel->get_schedule();
+	// 	$this->data['content'] = 'grid/load_sched_calendar';
+	// 	$this->load->view('layout', $this->data);
+	// }
+
+	public function load_calendar()
+	{
 		$this->sModel->faculty_id = $this->input->post('faculty_id');
 		$this->data['details'] = $this->sModel->get_schedule();
-		$this->data['content'] = 'grid/load_sched_calendar';
-		$this->load->view('layout',$this->data);
+		echo json_encode($this->data['details']);
 	}
 }
