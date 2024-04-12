@@ -28,12 +28,12 @@ calendar_header();
         </div>
     </div>
 </div>
-<button class="btn btn-warning" id="print_button" onclick="printCalendar(this)">Print</button>
-<div class="row" id="print_calendar">
+<button class="btn btn-warning" id="print_button">Print</button>
+<div class="row">
     <!-- /.col -->
     <div class="col-md-12">
         <div class="card card-primary">
-            <div class="card-body p-0">
+            <div class="card-body p-0" id="print_calendar" style="zoom:80%;">
                 <!-- THE CALENDAR -->
                 <div id="calendar"></div>
             </div>
@@ -47,4 +47,6 @@ calendar_header();
 <?php
 calendar_footer();
 ?>
+<!-- printThis Function -->
+<script src="<?= base_url() ?>assets/js/printThis/printThis.js"></script>
 <script src="<?php echo base_url() ?>/assets/js/schedule/schedule.js"></script>

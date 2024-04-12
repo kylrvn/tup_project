@@ -50,12 +50,12 @@ $(function () {
         headerToolbar: {
             right: 'timeGridWeek'
         },
-        columnHeaderFormat: {
-            weekdays: 'long'
-        },
         initialView: 'timeGridWeek',
         themeSystem: 'bootstrap',
         slotDuration: '00:15:00',
+        slotMinTime: '06:00',
+        slotMaxTime: '20:00',
+        height: 'auto',
 
         events: [
             {
@@ -131,9 +131,15 @@ var load_schedule = () => {
 }
 
 var load_dynamic_calendar = () => {
-    $(document).gmLoadPage({
-        url: 'schedule/load_dynamic_calendar',
-        load_on: '#load_faculty_table'
+    $.ajax({
+        url: baseUrl + 'schedule/load_dynamic_calendar',
+        method: 'GET',
+        success: function (data) {
+            $('#load_faculty_table').html(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(`AJAX error: ${textStatus}`, errorThrown);
+        }
     });
 }
 
@@ -190,7 +196,9 @@ function load_calendar(element) {
                     };
                     calendar.addEvent(newEvent);
                 });
-            }, 1000); // Delay the execution by 1000 milliseconds (1 second)
+            }, 1000);
+
+            calendar.render();
 
         },
         error: function (xhr, status, error) {
@@ -220,6 +228,19 @@ $('#save_exam_sched').click(function () {
     });
 
 });
+
+$('#print_button').click(function () {
+    // alert(baseUrl);
+    // return;
+    $('#print_calendar').printThis({
+        debug: false,
+        importCSS: true,
+        importStyle: true,
+        copyTagClasses: true,
+        loadCSS: baseUrl + "assets/theme/adminlte/AdminLTE/plugins/fullcalendar/main.css",
+    });
+});
+
 
 
 

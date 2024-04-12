@@ -467,6 +467,9 @@ function main_footer()
         <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/moment/moment.min.js"></script>
         <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/fullcalendar/main.js"></script>
 
+        <!-- printThis Function -->
+        <script src="<?= base_url() ?>assets/js/printThis/printThis.js"></script>
+
 
         <script>
             var base_url = '<?= base_url() ?>';
