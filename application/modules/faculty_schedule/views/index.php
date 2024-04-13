@@ -91,10 +91,10 @@ main_header(['Faculty_schedule']);
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                    <option value="<?= $data->Subject_name ?>">
-                                                        <?= $data->Subject_name ?>
-                                                    </option>
-                                                    <?php
+                                                <option value="<?= $data->ID ?>">
+                                                    <?= $data->Subject_name ?>
+                                                </option>
+                                                <?php
                                                 }
                                                 ?>
                                             </select>
@@ -143,10 +143,10 @@ main_header(['Faculty_schedule']);
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                    <option value="<?= $data->ID ?>">
-                                                        <?= $data->Subject_name ?>
-                                                    </option>
-                                                    <?php
+                                                <option value="<?= $data->ID ?>">
+                                                    <?= $data->Subject_name ?>
+                                                </option>
+                                                <?php
                                                 }
                                                 ?>
                                             </select>
@@ -194,10 +194,10 @@ main_header(['Faculty_schedule']);
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                    <option value="<?= $data->Subject_name ?>">
-                                                        <?= $data->Subject_name ?>
-                                                    </option>
-                                                    <?php
+                                                <option value="<?= $data->ID ?>">
+                                                    <?= $data->Subject_name ?>
+                                                </option>
+                                                <?php
                                                 }
                                                 ?>
                                             </select>
@@ -245,10 +245,10 @@ main_header(['Faculty_schedule']);
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                    <option value="<?= $data->Subject_name ?>">
-                                                        <?= $data->Subject_name ?>
-                                                    </option>
-                                                    <?php
+                                                <option value="<?= $data->ID ?>">
+                                                    <?= $data->Subject_name ?>
+                                                </option>
+                                                <?php
                                                 }
                                                 ?>
                                             </select>
@@ -296,10 +296,10 @@ main_header(['Faculty_schedule']);
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                    <option value="<?= $data->Subject_name ?>">
-                                                        <?= $data->Subject_name ?>
-                                                    </option>
-                                                    <?php
+                                                <option value="<?= $data->ID ?>">
+                                                    <?= $data->Subject_name ?>
+                                                </option>
+                                                <?php
                                                 }
                                                 ?>
                                             </select>
@@ -347,10 +347,10 @@ main_header(['Faculty_schedule']);
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                    <option value="<?= $data->Subject_name ?>">
-                                                        <?= $data->Subject_name ?>
-                                                    </option>
-                                                    <?php
+                                                <option value="<?= $data->ID ?>">
+                                                    <?= $data->Subject_name ?>
+                                                </option>
+                                                <?php
                                                 }
                                                 ?>
                                             </select>

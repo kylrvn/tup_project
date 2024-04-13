@@ -130,6 +130,30 @@ var load_schedule = () => {
     });
 }
 
+var load_faculty_list = () => {
+    $(document).gmLoadPage({
+        url: 'schedule/load_faculty_list',
+        load_on: '#load_faculty_list'
+    });
+}
+
+var load_set_exam = (ID, dept_ID) => {
+    $.ajax({
+        url: baseUrl + 'schedule/load_exam_schedule',
+        method: 'POST',
+        data: {
+            ID: ID,
+            dept_ID: dept_ID,
+        },
+        success: function (data) {
+            $('#load_set_exam').html(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(`AJAX error: ${textStatus}`, errorThrown);
+        }
+    });
+}
+
 var load_dynamic_calendar = () => {
     $.ajax({
         url: baseUrl + 'schedule/load_dynamic_calendar',
@@ -143,30 +167,15 @@ var load_dynamic_calendar = () => {
     });
 }
 
+// -------------------------> DOCUMENT READY HERE <--------------------------------
 $(document).ready(function () {
     load_schedule();
+    load_faculty_list();
 });
 
 function testing(element) {
 
 }
-
-// function load_calendar(element) {
-//     $.ajax({
-//         type: 'POST',
-//         url: baseUrl + 'schedule/load_calendar',
-//         data: {
-//             faculty_id: element.getAttribute('data-id'),
-//         },
-//         success: function (data) {
-//             $('#modal_data').html(data);
-//             $('#calendar_modal').modal('show');
-//         },
-//         error: function (xhr, status, error) {
-//             console.error(xhr.responseText);
-//         }
-//     });
-// }
 
 function load_calendar(element) {
     // alert(element.getAttribute('data-id'));
@@ -207,27 +216,7 @@ function load_calendar(element) {
     });
 }
 
-$('#save_exam_sched').click(function () {
-    // console.log(
-    //     $('#reservation').val() + '\n' +
-    //     $('#school_year').val() + '\n' +
-    //     $('#term').val()
-    // );
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'schedule/service/Schedule_service/save_exam_sched',
-        data: {
-            date_range: $('#reservation').val(),
-            school_year: $('#school_year').val(),
-            term: $('#term').val(),
-        },
-        success: function (data) {
-            let e = JSON.parse(data);
-            toastr.success(e.message);
-        },
-    });
 
-});
 
 $('#print_button').click(function () {
     // alert(baseUrl);
@@ -240,6 +229,14 @@ $('#print_button').click(function () {
         loadCSS: baseUrl + "assets/theme/adminlte/AdminLTE/plugins/fullcalendar/main.css",
     });
 });
+
+function set_exam_schedule(element){
+    let ID = element.getAttribute('data-id'); 
+    let dept_ID = element.getAttribute('data-dept_id');
+    // alert(ID);
+    $('#exam_sched_modal').modal('show');
+    load_set_exam(ID,dept_ID);
+}
 
 
 

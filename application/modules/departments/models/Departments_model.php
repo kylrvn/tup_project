@@ -21,7 +21,6 @@ class Departments_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from($this->Table->department);
-
         $query = $this->db->get()->result();
         return $query;
     }

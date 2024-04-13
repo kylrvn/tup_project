@@ -265,11 +265,13 @@ class Reports_model extends CI_Model
 
     public function get_faculty()
     {
+        $user_type = ["1", "2"];
+
         $this->db->select(
             '*'
         );
         $this->db->from($this->Table->user);
-        $this->db->where('User_type', 'faculty');
+        $this->db->where_in('User_type', $user_type);
         $query = $this->db->get()->result();
         return $query;
     }
@@ -310,11 +312,12 @@ class Reports_model extends CI_Model
         $data_to_send['selected_month'] = "$monthInWords 1 - $days_in_selected_month, $year";
         $data_to_send['num_of_days'] = $days_in_selected_month;
 
+        $user_type = ["1", "2"];
         $this->db->select(
             '*'
         );
         $this->db->from($this->Table->user);
-        $this->db->where('User_type', 'faculty');
+        $this->db->where_in('User_type', $user_type);
         $this->db->where('ID', $this->faculty);
         $data_to_send['faculty_details'] = $this->db->get()->row();
 

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') or exit ('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 class Faculty_schedule_model extends CI_Model
 {
     public $Table;
@@ -33,7 +33,8 @@ class Faculty_schedule_model extends CI_Model
     public function get_subjects()
     {
         $this->db->select(
-            'Subject_name'
+            'Subject_name,' .
+            'ID'
         );
         $this->db->from($this->Table->subjects);
         $this->db->where('Active', '1');

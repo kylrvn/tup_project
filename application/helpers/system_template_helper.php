@@ -1,5 +1,4 @@
 <?php
-
 function calendar_header()
 { ?>
 
@@ -32,6 +31,70 @@ function calendar_footer()
     <!-- fullCalendar 2.2.5 -->
     <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/moment/moment.min.js"></script>
     <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/fullcalendar/main.js"></script>
+    <?php
+} ?>
+
+<?php
+function exam_schedule_header()
+{ ?>
+
+    <head>
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet"
+            href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+        <!-- SweetAlert -->
+        <link rel="stylesheet"
+            href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+        <!-- Toastr -->
+        <link rel="stylesheet" href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/toastr/toastr.min.css">
+        <!-- daterange picker -->
+        <link rel="stylesheet"
+            href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/daterangepicker/daterangepicker.css">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/select2/css/select2.min.css">
+        <link rel="stylesheet"
+            href="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+        <link rel="icon" href="<?php echo base_url() ?>assets/images/Logo/logo.jpg">
+    </head>
+
+    <?php
+}
+
+function exam_schedule_footer()
+{ ?>
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/dist/js/adminlte.js"></script>
+
+    <!-- jQuery Mapael -->
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/jquery-mousewheel/jquery.mousewheel.js">
+    </script>
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/raphael/raphael.min.js"></script>
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <!-- Sweetalert -->
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/toastr/toastr.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
+
+    <script>
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+        //Date range picker
+        $('#reservation').daterangepicker()
+        var base_url = <?php echo json_encode(base_url()) ?>;
+    </script>
     <?php
 }
 
@@ -304,7 +367,7 @@ function main_header($menubar = [])
 
                             <li class="nav-item hover-effect">
                                 <ul class="nav nav-item">
-                                    <a style="color:<?= (sidebar($menubar, ['exam_schedule'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "2" ? '' : 'none' ?>;"
+                                    <a style="color:<?= (sidebar($menubar, ['exam_schedule'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "2" || $session->User_type == "4" ? '' : 'none' ?>;"
                                         href="<?= base_url() ?>schedule/exam_schedule"
                                         class="nav-link <?= (sidebar($menubar, ['exam_schedule'])) ? 'active' : '' ?>">
                                         <i class="fas fa-chart-bar nav-icon"></i> <!-- Change the icon class here -->

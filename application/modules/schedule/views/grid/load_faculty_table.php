@@ -1,5 +1,4 @@
 <?php
-// var_dump($details);
 ?>
 
 <div class="card-header">
@@ -26,11 +25,13 @@
                 ?>
                 <tr>
                     <td><b><?= @$key + 1 ?></b></td>
-                    <td><?= ucfirst($value->Lname) ?>, <?= ucfirst($value->Fname) ?>     <?= ucfirst($value->Mname) ?></td>
+                    <td><?= ucfirst($value->Lname) ?>, <?= ucfirst($value->Fname) ?>    <?= ucfirst($value->Mname) ?></td>
                     <td><?= $value->department_name ?></td>
                     <td>
-                        <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?= $value->ID ?>"><i
+                        <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?= @$value->ID ?>" style="display:<?=@$loaded_from == "load_faculty_list" ? 'none' : '' ?>"><i
                                 class="fas fa-calendar"></i></button>
+                        <button class="btn btn-sm btn-primary" onclick="set_exam_schedule(this)" data-id="<?= @$value->ID ?>" data-dept_id="<?= @$value->department_id ?>" style="display:<?=@$loaded_from == "load_faculty_list" ? '' : 'none' ?>"><i
+                            class="fas fa-eye"></i></button>
                     </td>
                 </tr>
                 <?php
