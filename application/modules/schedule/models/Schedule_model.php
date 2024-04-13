@@ -36,6 +36,25 @@ class Schedule_model extends CI_Model
         return $query;
     }
 
+    public function get_faculty_all(){
+        $this->db->select(
+            'u.*,' .
+            'd.department_name,' .
+            'd.ID as department_id,' 
+        );
+        $this->db->from($this->Table->user . ' u');
+        $this->db->join($this->Table->department . ' d', 'u.Department = d.ID', 'left');
+
+        if ($this->session->User_type == "1" || $this->session->User_type == "2") {
+            $this->db->where('u.ID', $this->session->ID);
+        } else if ($this->session->User_type == "3" || $this->session->User_type == "4") {
+            $this->db->where('u.Department', $this->session->Department);
+        }
+        $query = $this->db->get()->result();
+
+        return $query;
+    }
+
     public function get_schedule()
     {
         $this->db->select(

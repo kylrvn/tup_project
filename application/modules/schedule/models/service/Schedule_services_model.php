@@ -24,6 +24,10 @@ class Schedule_services_model extends CI_Model
         try {
 
             $data = array(
+
+                'faculty_id' => $this->faculty_id,
+                'department_id' => $this->department_id,
+
                 'term' => $this->term,
                 'school_year' => $this->school_year,
                 'from_date' => date('Y-m-d', strtotime($this->date_from)),

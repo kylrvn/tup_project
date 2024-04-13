@@ -108,7 +108,7 @@ function add_row_am(element) {
                         <select class="text-center" name="subject" style="width:88%; height:1.8rem;">
                             <option value="" disabled selected>SELECT SUBJECT</option>
                             ${subject_data.map(item => `
-                                <option value="${item.Subject_name}">
+                                <option value="${item.ID}">
                                     ${item.Subject_name}
                                 </option>
                             `).join('')}
@@ -180,7 +180,7 @@ function add_row_pm(element) {
                         <select class="text-center" name="subject" style="width:88%; height:1.8rem;">
                             <option value="" disabled selected>SELECT SUBJECT</option>
                             ${subject_data.map(item => `
-                                <option value="${item.Subject_name}">
+                                <option value="${item.ID}">
                                     ${item.Subject_name}
                                 </option>
                             `).join('')}
