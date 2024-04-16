@@ -6,8 +6,6 @@ $(function () {
     function ini_events(ele) {
         ele.each(function () {
 
-            // create an Event Object (https://fullcalendar.io/docs/event-object)
-            // it doesn't need to have a start or end
             var eventObject = {
                 title: $.trim($(this).text()) // use the element's text as the event title
             }
@@ -47,15 +45,20 @@ $(function () {
     });
 
     calendar = new Calendar(calendarEl, {
-        headerToolbar: {
-            right: 'timeGridWeek'
-        },
+        headerToolbar: null,
         initialView: 'timeGridWeek',
         themeSystem: 'bootstrap',
         slotDuration: '00:15:00',
         slotMinTime: '06:00',
         slotMaxTime: '20:00',
         height: 'auto',
+        allDaySlot: false,
+
+        views: {
+            timeGridWeek: {
+                dayHeaderFormat: { weekday: 'long' }
+            }
+        },
 
         events: [
             {
@@ -226,16 +229,17 @@ $('#print_button').click(function () {
         importCSS: true,
         importStyle: true,
         copyTagClasses: true,
+        removeScripts: false,
         loadCSS: baseUrl + "assets/theme/adminlte/AdminLTE/plugins/fullcalendar/main.css",
     });
 });
 
-function set_exam_schedule(element){
-    let ID = element.getAttribute('data-id'); 
+function set_exam_schedule(element) {
+    let ID = element.getAttribute('data-id');
     let dept_ID = element.getAttribute('data-dept_id');
     // alert(ID);
     $('#exam_sched_modal').modal('show');
-    load_set_exam(ID,dept_ID);
+    load_set_exam(ID, dept_ID);
 }
 
 
