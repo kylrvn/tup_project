@@ -189,7 +189,7 @@ main_header(['Create_User']);
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Username</label>
-                                    <input type="text" id="Username" class="form-control inpt" placeholder="Username">
+                                    <input type="text" id="Username" class="form-control inpt" placeholder="Username" disabled>
                                 </div>
                             </div>
                             <div class="col-md-4">
