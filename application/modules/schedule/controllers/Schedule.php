@@ -24,16 +24,16 @@ class Schedule extends MY_Controller
 											   */
 	public function index()
 	{
-		// $this->data['session'] =  $this->session;
+		$this->data['session'] =  $this->session;
 		$this->data['content'] = 'index';
 		$this->load->view('layout', $this->data);
 	}
 
 	public function exam_schedule()
 	{
-		// $this->data['session'] =  $this->session;
-		$this->data['content'] = 'exam_schedule';
+		$this->data['session'] =  $this->session;
 		$this->data['calendar'] = $this->load->view('grid/calendar_view', NULL, TRUE); // Load the calendar view and pass it as data
+		$this->data['content'] = 'exam_schedule';
 		$this->load->view('layout', $this->data);
 	}
 
@@ -50,18 +50,32 @@ class Schedule extends MY_Controller
 		$this->load->view('layout', $this->data);
 	}
 
-	// public function load_calendar()
-	// {
-	// 	$this->sModel->faculty_id = $this->input->post('faculty_id');
-	// 	$this->data['details'] = $this->sModel->get_schedule();
-	// 	$this->data['content'] = 'grid/load_sched_calendar';
-	// 	$this->load->view('layout', $this->data);
-	// }
-
 	public function load_calendar()
 	{
 		$this->sModel->faculty_id = $this->input->post('faculty_id');
 		$this->data['details'] = $this->sModel->get_schedule();
 		echo json_encode($this->data['details']);
 	}
+
+
+	public function load_faculty_list()
+	{
+		$this->data['loaded_from'] = $this->uri->segment(3);
+
+		$this->data['details'] = $this->sModel->get_faculty_all();
+		$this->data['content'] = 'grid/load_faculty_table';
+		$this->load->view('layout', $this->data);
+	}
+
+	public function load_exam_schedule()
+	{
+		$this->data['faculty_id'] = $this->input->post('ID');
+		$this->data['department_id'] = $this->input->post('dept_ID');
+
+		$this->data['calendar'] = $this->load->view('grid/calendar_view', NULL, TRUE); // Load the calendar view and pass it as data
+		$this->data['content'] = 'grid/load_exam_schedule';
+		$this->load->view('layout', $this->data);
+	}
+
+
 }

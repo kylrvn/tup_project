@@ -31,6 +31,9 @@ class Schedule_service extends MY_Controller
 		$dateFrom = trim($dateParts[0]);
 		$dateTo = trim($dateParts[1]);
 
+		$this->SsModel->faculty_id = $this->input->post("faculty_id");
+		$this->SsModel->department_id = $this->input->post("department_id");
+
 		$this->SsModel->date_from = $dateFrom;
 		$this->SsModel->date_to = $dateTo;
 		$this->SsModel->school_year = $this->input->post("school_year");

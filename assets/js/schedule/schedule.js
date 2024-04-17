@@ -6,8 +6,6 @@ $(function () {
     function ini_events(ele) {
         ele.each(function () {
 
-            // create an Event Object (https://fullcalendar.io/docs/event-object)
-            // it doesn't need to have a start or end
             var eventObject = {
                 title: $.trim($(this).text()) // use the element's text as the event title
             }
@@ -47,15 +45,20 @@ $(function () {
     });
 
     calendar = new Calendar(calendarEl, {
-        headerToolbar: {
-            right: 'timeGridWeek'
-        },
-        columnHeaderFormat: {
-            weekdays: 'long'
-        },
+        headerToolbar: null,
         initialView: 'timeGridWeek',
         themeSystem: 'bootstrap',
         slotDuration: '00:15:00',
+        slotMinTime: '06:00',
+        slotMaxTime: '20:00',
+        height: 'auto',
+        allDaySlot: false,
+
+        views: {
+            timeGridWeek: {
+                dayHeaderFormat: { weekday: 'long' }
+            }
+        },
 
         events: [
             {
@@ -130,37 +133,52 @@ var load_schedule = () => {
     });
 }
 
-var load_dynamic_calendar = () => {
+var load_faculty_list = () => {
     $(document).gmLoadPage({
-        url: 'schedule/load_dynamic_calendar',
-        load_on: '#load_faculty_table'
+        url: 'schedule/load_faculty_list',
+        load_on: '#load_faculty_list'
     });
 }
 
+var load_set_exam = (ID, dept_ID) => {
+    $.ajax({
+        url: baseUrl + 'schedule/load_exam_schedule',
+        method: 'POST',
+        data: {
+            ID: ID,
+            dept_ID: dept_ID,
+        },
+        success: function (data) {
+            $('#load_set_exam').html(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(`AJAX error: ${textStatus}`, errorThrown);
+        }
+    });
+}
+
+var load_dynamic_calendar = () => {
+    $.ajax({
+        url: baseUrl + 'schedule/load_dynamic_calendar',
+        method: 'GET',
+        success: function (data) {
+            $('#load_faculty_table').html(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(`AJAX error: ${textStatus}`, errorThrown);
+        }
+    });
+}
+
+// -------------------------> DOCUMENT READY HERE <--------------------------------
 $(document).ready(function () {
     load_schedule();
+    load_faculty_list();
 });
 
 function testing(element) {
 
 }
-
-// function load_calendar(element) {
-//     $.ajax({
-//         type: 'POST',
-//         url: baseUrl + 'schedule/load_calendar',
-//         data: {
-//             faculty_id: element.getAttribute('data-id'),
-//         },
-//         success: function (data) {
-//             $('#modal_data').html(data);
-//             $('#calendar_modal').modal('show');
-//         },
-//         error: function (xhr, status, error) {
-//             console.error(xhr.responseText);
-//         }
-//     });
-// }
 
 function load_calendar(element) {
     // alert(element.getAttribute('data-id'));
@@ -190,7 +208,9 @@ function load_calendar(element) {
                     };
                     calendar.addEvent(newEvent);
                 });
-            }, 1000); // Delay the execution by 1000 milliseconds (1 second)
+            }, 1000);
+
+            calendar.render();
 
         },
         error: function (xhr, status, error) {
@@ -199,27 +219,29 @@ function load_calendar(element) {
     });
 }
 
-$('#save_exam_sched').click(function () {
-    // console.log(
-    //     $('#reservation').val() + '\n' +
-    //     $('#school_year').val() + '\n' +
-    //     $('#term').val()
-    // );
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'schedule/service/Schedule_service/save_exam_sched',
-        data: {
-            date_range: $('#reservation').val(),
-            school_year: $('#school_year').val(),
-            term: $('#term').val(),
-        },
-        success: function (data) {
-            let e = JSON.parse(data);
-            toastr.success(e.message);
-        },
-    });
 
+
+$('#print_button').click(function () {
+    // alert(baseUrl);
+    // return;
+    $('#print_calendar').printThis({
+        debug: false,
+        importCSS: true,
+        importStyle: true,
+        copyTagClasses: true,
+        removeScripts: false,
+        loadCSS: baseUrl + "assets/theme/adminlte/AdminLTE/plugins/fullcalendar/main.css",
+    });
 });
+
+function set_exam_schedule(element) {
+    let ID = element.getAttribute('data-id');
+    let dept_ID = element.getAttribute('data-dept_id');
+    // alert(ID);
+    $('#exam_sched_modal').modal('show');
+    load_set_exam(ID, dept_ID);
+}
+
 
 
 

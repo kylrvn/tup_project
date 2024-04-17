@@ -7,9 +7,17 @@ var load_users = () => {
   });
 }
 
+var load_departments = () => {
+  $(document).gmLoadPage({
+    url: 'departments/load_departments',
+    load_on: '#load_departments'
+  });
+}
+
 
 $(document).ready(function () {
   load_users();
+  load_departments();
 });
 
 $("#lname").on("input", function () {

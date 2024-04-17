@@ -1,5 +1,6 @@
 <?php
 main_header(['exam_schedule']);
+// var_dump($session);
 ?>
 
 <head>
@@ -27,55 +28,35 @@ main_header(['exam_schedule']);
         <h3 class="card-title">Set Exam Schedule</h3>
     </div>
     <!-- /.card-header -->
-    <div class="card-body" style="font-size:90%;">
-        <div class="row">
-            <div class="col-2">
-                <div class="col-12 d-flex justify-content-center">
-                    <?= $calendar ?>
-                </div>
-            </div>
-            <div class="col-9">
-                <div class="row">
-                    <div class="col-4">
-                        <label>Exam Date Range:</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="far fa-calendar-alt"></i>
-                                </span>
-                            </div>
-                            <input type="text" class="form-control float-right" id="reservation">
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <label style="font-size:100%;">For School Year:</label>
-                        <input type="text" class="form-control" name="schoolyearrange" id="school_year"
-                            style="text-align:center; font-size:130%; font-weight:550;" />
-                    </div>
-                    <div class="col-4">
-                        <label style="font-size:100%;">School Term:</label>
-                        <select id="term" class="form-control"
-                            style="text-align:center; font-size:130%; font-weight:550;">
-                            <option value="" disabled selected>Select Term</option>
-                            <option value="1st">1st Term</option>
-                            <option value="2nd">2nd Term</option>
-                            <option value="3rd">3rd Term</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-1">
-                <div class="row">
-                    <label>&nbsp;</label>
-                    <button class="form-control btn btn-success" id="save_exam_sched">Save</button>
-                </div>
-            </div>
-        </div>
+    <div class="card-body" style="font-size:90%;" id="load_faculty_list">
 
     </div>
     <!-- /.card-body -->
     <div class="card-footer" style="background-color:#9F3A3B; color: white;">
         <!-- Footer Details Here -->
+    </div>
+</div>
+
+
+<div class="modal fade" id="exam_sched_modal" tabindex="-1" role="dialog" aria-labelledby="calendar_modal">
+    <div class="modal-dialog custom-modal-width calendar_modal-modal" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <b>FACULTY (NAME) SCHEDULE</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="load_set_exam">
+                <!-- Content Loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger flat " data-dismiss="modal">
+                    <i class="fa fa-times"></i> Close
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 

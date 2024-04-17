@@ -116,35 +116,6 @@ main_header(['Create_User']);
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="">Sex</label>
-                                    <select id="Sex" class="form-control inpt" placeholder="Sex">
-                                        <option value="" selected disabled>Select</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">Age</label>
-                                    <input type="number" id="Age" class="form-control inpt" placeholder="Age">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">Civil Status</label>
-                                    <select id="Estatus" class="form-control inpt" placeholder="Sex">
-                                        <option value="" selected disabled>Select Status</option>
-                                        <option value="Single">Single</option>
-                                        <option value="Married">Married</option>
-                                        <!-- <option value="Widowed">Widowed</option> -->
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
                                     <label for="">Faculty Number</label>
                                     <input type="text" id="Faculty_number" class="form-control inpt"
                                         placeholder="Faculty #">

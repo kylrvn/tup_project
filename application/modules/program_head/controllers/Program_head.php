@@ -28,6 +28,7 @@ class Program_head extends MY_Controller
 	{
 		// var_dump($this->cModel->get_schedule());
 		$this->data['details'] = $this->pModel->get_faculty();
+		
 		$this->data['content'] = 'grid/load_grid';
 		$this->load->view('layout', $this->data);
 	}
@@ -39,7 +40,10 @@ class Program_head extends MY_Controller
 	}
 	public function get_dtr(){
 		$this->pModel->faculty_id = $this->input->post('faculty_id');
-		$this->data['details'] = $this->pModel->get_dtr();
+		$data = $this->pModel->get_dtr();
+		$this->data['details'] =  $data['query'];
+		$this->data['results'] =  $data['result'];
+		// echo json_encode($this->data['details']);
 		$this->data['content'] = 'grid/load_dtr_schedule';
 		$this->load->view('layout', $this->data);
 	}

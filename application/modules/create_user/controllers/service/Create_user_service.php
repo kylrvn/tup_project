@@ -27,15 +27,12 @@ class Create_user_service extends MY_Controller
 		$this->csModel->mname = $this->input->post("mname");
 		$this->csModel->Department = $this->input->post("Department");
 		$this->csModel->Rank = $this->input->post("Rank");
-		$this->csModel->Sex = $this->input->post("Sex");
 		$this->csModel->Faculty_number = $this->input->post("Faculty_number");
 		$this->csModel->Username = $this->input->post("Username");
 		$this->csModel->User_type = $this->input->post("User_type");
 		$this->csModel->Address = $this->input->post("Address");
 		$this->csModel->Suffix = $this->input->post("Suffix");
-		$this->csModel->Estatus = $this->input->post("Estatus");
 		$this->csModel->Contact_Number = $this->input->post("Contact_Number");
-		$this->csModel->Age = $this->input->post("Age");
 
 		$response = $this->csModel->save_method_from_model();
 		echo json_encode($response);
@@ -49,15 +46,12 @@ class Create_user_service extends MY_Controller
 		$this->csModel->mname = $this->input->post("mname");
 		$this->csModel->Department = $this->input->post("Department");
 		$this->csModel->Rank = $this->input->post("Rank");
-		$this->csModel->Sex = $this->input->post("Sex");
 		$this->csModel->Faculty_number = $this->input->post("Faculty_number");
 		$this->csModel->Username = $this->input->post("Username");
 		$this->csModel->User_type = $this->input->post("User_type");
 		$this->csModel->Address = $this->input->post("Address");
 		$this->csModel->Suffix = $this->input->post("Suffix");
-		$this->csModel->Estatus = $this->input->post("Estatus");
 		$this->csModel->Contact_Number = $this->input->post("Contact_Number");
-		$this->csModel->Age = $this->input->post("Age");
 
 		$response = $this->csModel->update_user();
 		echo json_encode($response);
