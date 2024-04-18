@@ -20,6 +20,25 @@ $(document).ready(function () {
   load_departments();
 });
 
+$("#lname").on("input", function () {
+  var l = $(this).val();
+  $("#fname").on("input", function () {
+    var f = $(this).val();
+    var uname = generate_username(f, l);
+    $("#Username").val(uname);
+  });
+});
+
+function generate_username(f, l) {
+  var string = "";
+  var x = Array.from(f)[0].toUpperCase();
+  //  + Array.from(f)[1];
+  var y = l.charAt(0).toUpperCase() + l.slice(1);
+  string = x + y;
+  //  + Math.floor(Math.random() * 100);
+  return string;
+}
+
 $(document).on('click', '#save_doc', function () {
   $.ajax({
     url: 'create_user/service/Create_user_service/save',
