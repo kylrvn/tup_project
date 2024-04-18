@@ -29,6 +29,10 @@ class Departments_services_model extends CI_Model
                 'status' => $this->status,
             );
 
+            if($this->status == null || empty($this->status)){
+                return (array('message' => "Select Status", 'has_error' => true));
+            }
+
             $this->db->trans_start();
 
             $this->db->insert($this->Table->department, $data);
@@ -45,4 +49,35 @@ class Departments_services_model extends CI_Model
             return (array('message' => $msg->getMessage(), 'has_error' => true));
         }
     }
+
+    public function update_dept(){
+        try {
+            $data = array
+            (
+                'department_name' => $this->department_name,
+                'status' => $this->department_status,
+            );
+
+            if($this->department_status == null || empty($this->department_status)){
+                return (array('message' => "Select Status", 'has_error' => true));
+            }
+
+            $this->db->trans_start();
+
+            $this->db->where("ID", $this->ID);
+            $this->db->update($this->Table->department, $data);
+
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                throw new Exception(ERROR_PROCESSING, true);
+            } else {
+                $this->db->trans_commit();
+                return array('message' => SAVED_SUCCESSFUL, 'has_error' => false);
+            }
+        } catch (Exception $msg) {
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
+        }
+    }
+
 }

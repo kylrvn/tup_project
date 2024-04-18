@@ -6,15 +6,16 @@ var load_attachements = () => {
     });
 }
 
-// var load_verified_attachements = () => {
-//     $(document).gmLoadPage({
-//         url: 'schedule/load_faculty',
-//         load_on: '#load_faculty_table'
-//     });
-// }
+var load_dtr_request = () => {
+    $(document).gmLoadPage({
+        url: 'request/load_dtr_requests',
+        load_on: '#load_dtr_verify'
+    });
+}
 
 $(document).ready(function () {
     load_attachements();
+    load_dtr_request();
 });
 
 function view_file(element){

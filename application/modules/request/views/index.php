@@ -33,6 +33,16 @@ main_header(['request']);
     </div>
 </div>
 
+<div class="row" style="display:flex;">
+    <div class="col-12" >
+        <div class="card" >
+            <div class="container col-12" id="load_dtr_verify">
+                <!-- Faculty Table Loaded Here -->
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 

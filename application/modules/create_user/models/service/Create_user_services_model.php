@@ -109,6 +109,10 @@ class Create_user_services_model extends CI_Model
                 'status' => $this->status,
             );
 
+            if($this->status == null || empty($this->status)){
+                return (array('message' => "Select Status", 'has_error' => true));
+            }
+
             $this->db->trans_start();
 
             $this->db->insert($this->Table->department, $data);

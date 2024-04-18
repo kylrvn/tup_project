@@ -3,7 +3,7 @@
 ?>
 
 <div class="card-header" style="background-color:#9F3A3B; color: white;">
-    <h3 class="card-title"><b>List of Request w/ Attachments</b></h3>
+    <h3 class="card-title"><b>List DTR Verification Requests</b></h3>
 </div>
 <div class="card-body table-responsive p-0">
     <table class="table table-hover text-nowrap">
@@ -50,11 +50,11 @@
     <!-- Footer -->
 </div>
 <!-- MODAL -->
-<div class="modal fade" id="view_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="view_dtr_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            <div id="modal_content"></div>
+            <div id="dtr_modal_content"></div>
         </div>
     </div>
 </div>

@@ -6,6 +6,8 @@ main_header(['Manage_Departments']);
 <style>
 </style>
 
+<input hidden type="text" id="department_id" value="">
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -57,6 +59,7 @@ main_header(['Manage_Departments']);
 
                         <div class="card-footer">
                             <button class="btn btn-success" id="add_department">Add Department</button>
+                            <button class="btn btn-primary" id="update_department" hidden>Update Department</button>
                         </div>
                     </div>
                 </div>

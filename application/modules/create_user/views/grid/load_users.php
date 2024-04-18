@@ -6,7 +6,6 @@ if (!empty($details)) {
         <tr onclick="click_user(this)" data-ID="<?= $value->ID ?>" data-Lname="<?= $value->Lname ?>"
             data-Fname="<?= $value->Fname ?>" data-Mname="<?= $value->Mname ?>" data-Suffix="<?= $value->Suffix ?>"
             data-Address="<?= $value->Address ?>" data-Contact_Number="<?= $value->Contact_Number ?>"
-            data-Sex="<?= $value->Sex ?>" data-Age="<?= $value->Age ?>" data-Estatus="<?= $value->Estatus ?>"
             data-Faculty_number="<?= $value->Faculty_number ?>" data-Department="<?= $value->Department ?>"
             data-Rank="<?= $value->Rank ?>" data-User_type="<?= $value->User_type ?>" data-Username="<?= $value->Username ?>">
             <td style="font-weight:600;">

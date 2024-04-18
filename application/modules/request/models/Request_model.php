@@ -27,6 +27,7 @@ class Request_model extends CI_Model
         );
         $this->db->from($this->Table->file_attachments . ' fa');
         $this->db->join($this->Table->user . ' u', 'u.ID = fa.FacultyID', 'left');
+        $this->db->limit(50);
 
         $query = $this->db->get()->result();
 
