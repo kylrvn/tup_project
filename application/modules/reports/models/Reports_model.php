@@ -84,7 +84,8 @@ class Reports_model extends CI_Model
                 }
                 @$arrsize = sizeof(@$tempschedarr);
                 foreach ($logs as $k => $log) {
-                    if (date("j", strtotime($log->date_log)) == $day) {
+                    // if (date("j", strtotime($log->date_log)) == $day) {
+                        if ($this->month . '-' . $day == date("Y-m-j", strtotime($log->DateScanned))) {
                         $quota = 18000;
                         $quota_checker = 0;
 
