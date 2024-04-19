@@ -22,12 +22,19 @@ $(document).ready(function () {
 
 $("#lname").on("input", function () {
   var l = $(this).val();
-  $("#fname").on("input", function () {
-    var f = $(this).val();
-    var uname = generate_username(f, l);
-    $("#Username").val(uname);
-  });
+  var f = $('#lname').val();
+  var uname = generate_username(f, l);
+  $("#Username").val(uname);
+
 });
+
+$("#fname").on("input", function () {
+  var f = $(this).val();
+  var l = $('#lname').val();
+  var uname = generate_username(f, l);
+  $("#Username").val(uname);
+});
+
 
 function generate_username(f, l) {
   var string = "";
