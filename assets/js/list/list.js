@@ -78,7 +78,7 @@ $(document).on('click', '#save_doc', function () {
 
 $(document).on('click', '#add_department', function () {
   $.ajax({
-    url: baseUrl + 'create_user/service/Create_user_service/add_department',
+    url: baseUrl + 'departments/service/Departments_service/add_department',
     type: 'POST',
     data: {
       dept_name: $('#dept_name').val(),
@@ -110,13 +110,10 @@ function click_user(element) {
   document.getElementById('Suffix').value = element.getAttribute('data-Suffix');
   document.getElementById('Address').value = element.getAttribute('data-Address');
   document.getElementById('Contact_Number').value = element.getAttribute('data-Contact_Number');
-  document.getElementById('Sex').selectedIndex = element.getAttribute('data-Sex') == "Male" ? 1 : 2;
-  document.getElementById('Age').value = element.getAttribute('data-Age');
-  document.getElementById('Estatus').selectedIndex = element.getAttribute('data-Estatus') == "Single" ? 1 : 2;
   document.getElementById('Faculty_number').value = element.getAttribute('data-Faculty_number');
   document.getElementById('Department').selectedIndex = element.getAttribute('data-Department') - 1;
   document.getElementById('Rank').value = element.getAttribute('data-Rank');
-  document.getElementById('User_type').value = element.getAttribute('data-User_type');
+  document.getElementById('User_type').selectedIndex = element.getAttribute('data-User_type');
   document.getElementById('Username').value = element.getAttribute('data-Username');
 
   document.getElementById('password_container').innerHTML = `<button class="btn btn-warning" id="reset_password" style="display:block">Reset Password</button>`;
@@ -124,6 +121,45 @@ function click_user(element) {
 
   document.getElementById('Update').removeAttribute('hidden');
 }
+
+function click_department(element) {
+  // alert(element.getAttribute('data-department') + ' ' + element.getAttribute('data-ID') + ' ' + element.getAttribute('data-status'));
+  
+  document.getElementById('department_id').value = element.getAttribute('data-id');
+  document.getElementById('dept_name').value = element.getAttribute('data-department');
+  document.getElementById('dept_status').selectedIndex = element.getAttribute('data-status') == "Active" ? 1 : 2;
+
+  document.getElementById('add_department').setAttribute('hidden', true);
+  document.getElementById('update_department').removeAttribute('hidden');
+}
+
+$(document).on('click', '#update_department', function () {
+  $.ajax({
+    url: 'departments/service/Departments_service/update_department',
+    type: 'POST',
+    data: {
+      ID: $('#department_id').val(),
+      department_name: $('#dept_name').val(),
+      department_status: $('#dept_status').val(),
+    },
+
+    success: function (e) {
+      var e = JSON.parse(e);
+      if (e.has_error == false) {
+        toastr.success(e.message);
+
+        document.getElementById('update_department').setAttribute('hidden', true);
+        document.getElementById('add_department').removeAttribute('hidden');
+        document.getElementById('dept_name').value = "";
+        document.getElementById('dept_status').selectedIndex = 0;
+      
+        load_departments();
+      } else {
+        toastr.error(e.message);
+      }
+    },
+  })
+});
 
 $(document).on('click', '#Update', function () {
 

@@ -24,6 +24,7 @@ class Upload_attachments_service extends MY_Controller
 	{
 		$this->usModel->Date_Uploaded = $this->input->post("date");
 		$this->usModel->Concern_Type = $this->input->post("concernType");
+		$this->usModel->remarks = $this->input->post("remarks");
 		$this->usModel->FacultyID = $this->session->ID;
 		
 		 // Handle file upload

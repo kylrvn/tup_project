@@ -31,6 +31,7 @@ class Dashboard extends MY_Controller
 	
 	public function get_calendar(){
 		$this->data['details'] = $this->cModel->get_schedule();
+		$this->data['exam_Schedule'] = $this->cModel->get_exam_schedule();
 		$this->data['dtr_logs'] = $this->cModel->get_dtr_logs();
 		// echo json_encode($this->data['dtr_logs']);
 		$this->data['content'] = 'grid/load_calendar';
@@ -41,10 +42,12 @@ class Dashboard extends MY_Controller
 		if(!empty($this->cModel->date)){
 		$this->data['details'] = $this->cModel->filter_calendar();
 		$this->data['dtr_logs'] = $this->cModel->filter_dtr_logs();
+		$this->data['exam_Schedule'] = $this->cModel->get_exam_schedule_filter();
 		}
 		else{
 			$this->data['details'] = $this->cModel->get_schedule();
 			$this->data['dtr_logs'] = $this->cModel->get_dtr_logs();
+			$this->data['exam_Schedule'] = $this->cModel->get_exam_schedule();
 		}
 		// echo json_encode($this->data['dtr_logs']);
 		$calendar_html = $this->load->view('grid/load_calendar', $this->data, true); // Load the view with filtered data and capture it as a string

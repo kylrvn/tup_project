@@ -69,6 +69,7 @@ $array = array(
     'file_attachments' => 'tbl_file_attachment',
     'subjects' => 'tbl_subjects',
     'exam_schedule' => 'tbl_exam_schedule',
+    'leave_type' => 'tbl_leavetype'
 
 );
 define('TABLE', json_encode($array));

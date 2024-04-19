@@ -35,6 +35,12 @@ class Request extends MY_Controller
 		$this->load->view('layout',$this->data);
 	}
 
+	public function load_dtr_requests(){
+		$this->data['details'] = $this->rModel->dtr_request_list();
+		$this->data['content'] = 'grid/load_dtr_request';
+		$this->load->view('layout',$this->data);
+	}
+
 	public function view_file(){
 		$this->rModel->ID = $this->input->post('ID');
 		$this->data['image'] = $this->rModel->get_file_to_view();

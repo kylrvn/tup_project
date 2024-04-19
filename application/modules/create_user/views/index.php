@@ -139,7 +139,7 @@ main_header(['Create_User']);
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="">Position</label>
+                                    <label for="">Rank</label>
                                     <input type="text" id="Rank" class="form-control inpt" placeholder="Position">
                                 </div>
                             </div>

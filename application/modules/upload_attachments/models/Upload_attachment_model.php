@@ -16,7 +16,12 @@ class Upload_attachment_model extends CI_Model
         $this->load->model($model_list);
         $this->Table = json_decode(TABLE);
     }
-
+    public function retrieve_leave_type(){
+        $this->db->select('*');
+        $this->db->from($this->Table->leave_type);
+        $query = $this->db->get()->result();
+        return $query;
+    }
     // public function get_user(){
     //     $this->db->select('*');
     //     $this->db->from($this->Table->user);
