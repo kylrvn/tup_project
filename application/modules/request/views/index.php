@@ -24,20 +24,66 @@ main_header(['request']);
 
 <!-- /.row -->
 <div class="row" style="display:flex;">
-    <div class="col-12" >
-        <div class="card" >
-            <div class="container col-12" id="load_file_table">
-                <!-- Faculty Table Loaded Here -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header" style="background-color:#9F3A3B; color: white;">
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="card-title"><b>List of Request w/ Attachments</b></h3>
+                    </div>
+                    <div class="col-3">
+                        &nbsp;
+                    </div>
+                    <div class="col-3">
+                        <input type="date" class="form-control" id="request_filter_date" value="">
+                    </div>
+                </div>
             </div>
+            <div class="card-body table-responsive p-0">
+                <div class="container col-12" id="load_file_table">
+                    <!-- Faculty Table Loaded Here -->
+                </div>
+            </div>
+            <div class="card-footer" style="background-color:#9F3A3B; color: white;">
+                <!-- Footer -->
+            </div>
+
         </div>
     </div>
 </div>
 
 <div class="row" style="display:flex;">
-    <div class="col-12" >
-        <div class="card" >
-            <div class="container col-12" id="load_dtr_verify">
-                <!-- Faculty Table Loaded Here -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header" style="background-color:#9F3A3B; color: white;">
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="card-title"><b>List DTR Verification Requests</b></h3>
+                    </div>
+                    <div class="col-3">
+                        &nbsp;
+                    </div>
+                    <div class="col-3">
+                        <input type="date" class="form-control" id="dtr_filter_date" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <div class="container col-12" id="load_dtr_verify">
+                    <!-- Faculty Table Loaded Here -->
+                </div>
+            </div>
+            <div class="card-footer" style="background-color:#9F3A3B; color: white;">
+                <!-- Footer -->
+            </div>
+            <!-- MODAL -->
+            <div class="modal fade" id="view_dtr_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div id="dtr_modal_content"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

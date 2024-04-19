@@ -36,7 +36,7 @@ class Request extends MY_Controller
 	}
 
 	public function load_dtr_requests(){
-		// $this->data['details'] = $this->rModel->get_files();
+		$this->data['details'] = $this->rModel->dtr_request_list();
 		$this->data['content'] = 'grid/load_dtr_request';
 		$this->load->view('layout',$this->data);
 	}
