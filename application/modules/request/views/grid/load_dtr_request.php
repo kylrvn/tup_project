@@ -2,7 +2,6 @@
 // var_dump($details);
 ?>
 
-
     <table class="table table-hover text-nowrap">
         <thead>
             <tr>
@@ -20,7 +19,8 @@
                 <tr>
                     <td><b>
                             <?= @$key + 1 ?>
-                        </b></td>
+                        </b>
+                    </td>
                     <td>
                         <?= ucfirst($value->Lname) ?>,
                         <?= ucfirst($value->Fname) ?>

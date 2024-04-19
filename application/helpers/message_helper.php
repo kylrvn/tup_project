@@ -69,6 +69,7 @@ $array = array(
     'file_attachments' => 'tbl_file_attachment',
     'subjects' => 'tbl_subjects',
     'exam_schedule' => 'tbl_exam_schedule',
+    'active_term' => 'tbl_active_term',
     'leave_type' => 'tbl_leavetype'
 
 );

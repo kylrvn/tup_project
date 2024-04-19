@@ -219,15 +219,34 @@ function main_header($menubar = [])
                             <a style="font-weight:bold;color:black;"
                                 href="<?= base_url() ?>/user_profile/index/<?= $session->U_ID ?>" class="d-block"> Welcome,
                                 <br>
-                                <?= $session->Fname ?>
-                                <?= $session->Mname ?>
-                                <?= $session->Lname ?>
+                                <?= strtoupper($session->Fname) ?>
+                                <?= strtoupper($session->Mname) ?>
+                                <?= strtoupper($session->Lname) ?>
                             </a>
+                        </div>
+                    </div>
+                    <div class="pt-3 pb-3 rounded"
+                        style="display:<?= $session->User_type == "3" || $session->User_type == "4" ? '' : 'none' ?>; background-color:#9F3A3B;">
+                        <div class="row ml-2 mr-2">
+                            <label style="font-size:100%; color:white;">Active School Year:</label>
+                            <input type="text" class="form-control" name="schoolyearrange1" id="active_school_year"
+                                value="<?= $session->term_data->active_school_year ?>"
+                                style="text-align:center; font-size:130%; font-weight:550;" disabled/>
 
                         </div>
-
-
-
+                        <div class="row ml-2 mr-2">
+                            <label style="font-size:100%; color:white;">Active Term:</label>
+                            <select id="active_term" class="form-control"
+                                style="text-align:center; font-size:130%; font-weight:550;" disabled>
+                                <option value="" disabled selected>Select Term</option>
+                                <option value="1st" <?= $session->term_data->active_term == "1st" ? "selected" : '' ?>>1st Term
+                                </option>
+                                <option value="2nd" <?= $session->term_data->active_term == "2nd" ? "selected" : '' ?>>2nd Term
+                                </option>
+                                <option value="3rd" <?= $session->term_data->active_term == "3rd" ? "selected" : '' ?>>3rd Term
+                                </option>
+                            </select>
+                        </div>
                     </div>
                     <!-- <button class="btn btn-sm btn-flat btn-primary" id="change" value="Cebu">Change</button> -->
                     <!-- SidebarSearch Form 
@@ -360,6 +379,14 @@ function main_header($menubar = [])
                                             class="nav-link <?= (sidebar($menubar, ['Manage_Departments'])) ? 'active' : '' ?>">
                                             <i class="fas fa-building nav-icon"></i>
                                             <p>Departments</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item hover-effect">
+                                        <a style="color:<?= (sidebar($menubar, ['Manage_Actives'])) ? 'white' : 'black' ?>;"
+                                            href="<?= base_url() ?>update_actives"
+                                            class="nav-link <?= (sidebar($menubar, ['Manage_Actives'])) ? 'active' : '' ?>">
+                                            <i class="fas fa-building nav-icon"></i>
+                                            <p>Manage Actives</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -585,6 +612,29 @@ function main_footer()
 
             //     setTimeout(refresh, 1000); //initiates the recursion
             // });
+            $(function () {
+                $('input[name="schoolyearrange1"]').daterangepicker({
+                    opens: 'left', // or 'right' for RTL support
+                    showDropdowns: true,
+                    linkedCalendars: true,
+                    locale: {
+                        format: 'YYYY',
+                        separator: ' to ',
+                        applyLabel: 'Apply',
+                        cancelLabel: 'Cancel',
+                        fromLabel: 'From',
+                        toLabel: 'To',
+                        customRangeLabel: 'Custom',
+                        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        firstDay: 1
+                    },
+                    ranges: {
+                        'Current School Year': [moment().subtract(1, 'years').startOf('year'), moment().endOf('year')],
+                        'Next School Year': [moment().startOf('year'), moment().add(1, 'years').endOf('year')]
+                    }
+                });
+            });
         </script>
     </body>
 

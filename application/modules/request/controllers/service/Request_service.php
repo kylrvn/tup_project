@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+// defined('BASEPATH') or exit('No direct script access allowed');
 
 class Request_service extends MY_Controller
 {
@@ -18,6 +18,10 @@ class Request_service extends MY_Controller
 			'request/service/Request_services_model' => 'rsModel'
 		];
 		$this->load->model($model_list);
+	}
+
+	public function update_actives(){
+
 	}
 
 

@@ -124,7 +124,7 @@ function click_user(element) {
 
 function click_department(element) {
   // alert(element.getAttribute('data-department') + ' ' + element.getAttribute('data-ID') + ' ' + element.getAttribute('data-status'));
-  
+
   document.getElementById('department_id').value = element.getAttribute('data-id');
   document.getElementById('dept_name').value = element.getAttribute('data-department');
   document.getElementById('dept_status').selectedIndex = element.getAttribute('data-status') == "Active" ? 1 : 2;
@@ -152,7 +152,7 @@ $(document).on('click', '#update_department', function () {
         document.getElementById('add_department').removeAttribute('hidden');
         document.getElementById('dept_name').value = "";
         document.getElementById('dept_status').selectedIndex = 0;
-      
+
         load_departments();
       } else {
         toastr.error(e.message);
@@ -201,5 +201,27 @@ $(document).on('click', '#Update', function () {
   })
 });
 
+function update_actives(elements) {
+  $.ajax({
+    url: baseUrl + 'update_actives/update_actives_data',
+    type: 'POST',
+    data: {
+      active_term: $('#active_term1').val(),
+      active_school_year: $('#active_school_year1').val()
+    },
+    success: function (data) {
+      console.log(data);
+      e = JSON.parse(data);
+      if (e.has_error == false) {
+        toastr.success(e.message);
+        setTimeout(function () {
+          window.location.reload();
+        }, 2000);
+      } else {
+        toastr.error(e.message);
+      }
+    },
+  });
+}
 
 
