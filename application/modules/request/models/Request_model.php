@@ -26,6 +26,10 @@ class Request_model extends CI_Model
             'u.Mname,'
         );
         $this->db->from($this->Table->file_attachments . ' fa');
+        if($this->dateFrom != null && $this->dateTo != null){
+            $this->db->where('Date_Uploaded >=', date('Y-m-d', strtotime($this->dateFrom)));
+            $this->db->where('Date_Uploaded <=', date('Y-m-d', strtotime($this->dateTo)));
+        }
         $this->db->join($this->Table->user . ' u', 'u.ID = fa.FacultyID', 'left');
         $this->db->order_by('fa.Date_Uploaded', 'DESC');
         $this->db->limit(10);
@@ -46,6 +50,8 @@ class Request_model extends CI_Model
         $this->db->from($this->Table->acknowledge . ' a');
         $this->db->where('ForVerif', 1);
         $this->db->join($this->Table->user . ' u', 'u.ID = a.FacultyID', 'left');
+        $this->db->order_by('a.ID', 'DESC');
+        $this->db->limit(10);
 
         $query = $this->db->get()->result();
 

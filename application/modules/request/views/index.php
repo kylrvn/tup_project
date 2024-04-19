@@ -35,7 +35,18 @@ main_header(['request']);
                         &nbsp;
                     </div>
                     <div class="col-3">
-                        <input type="date" class="form-control" id="request_filter_date" value="">
+                        <div class="form-group">
+                            <label>Date range:</label>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control float-right" id="request_filter_date">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,7 +75,18 @@ main_header(['request']);
                         &nbsp;
                     </div>
                     <div class="col-3">
-                        <input type="date" class="form-control" id="dtr_filter_date" value="">
+                        <!-- <div class="form-group">
+                            <label>Date range:</label>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control float-right " id="dtr_filter_date">
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -76,13 +98,23 @@ main_header(['request']);
             <div class="card-footer" style="background-color:#9F3A3B; color: white;">
                 <!-- Footer -->
             </div>
-            <!-- MODAL -->
-            <div class="modal fade" id="view_dtr_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-xl" role="document">
-                    <div class="modal-content">
-                        <div id="dtr_modal_content"></div>
-                    </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="view_dtr_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header " style="background-color:#9F3A3B; color: white;">
+                <b>Edit DTR Entry:</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="load_dtr_modal">
+                    <!-- Content Loaded Her via JS -->
                 </div>
             </div>
         </div>

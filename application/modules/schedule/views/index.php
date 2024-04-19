@@ -1,5 +1,6 @@
 <?php
 main_header(['schedule']);
+// var_dump($session->term_data->ID);
 ?>
 
 <head>

@@ -29,7 +29,19 @@ class Request extends MY_Controller
 	}
 	
 	public function load_files(){
-		// var_dump($this->rModel->get_files());
+		$dateFrom = null;
+		$dateTo = null;
+		if ($this->input->post('dateRange') != null){
+			$parts = explode("-", $this->input->post('dateRange'));
+			$dateFrom = trim($parts[0]);
+			$dateTo = trim($parts[1]);
+		}
+		else{
+			$dateFrom = null;
+			$dateTo = null;
+		}
+		$this->rModel->dateFrom = $dateFrom;
+		$this->rModel->dateTo = $dateTo;
 		$this->data['details'] = $this->rModel->get_files();
 		$this->data['content'] = 'grid/load_attachments';
 		$this->load->view('layout',$this->data);

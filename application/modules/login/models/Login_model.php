@@ -26,6 +26,12 @@ class Login_model extends CI_Model
             $this->db->from($this->Table->user);
             $this->db->where('Username', $this->username);
             $query = $this->db->get()->row();
+
+            $this->db->select('*');
+            $this->db->from($this->Table->active_term);
+            $term_data = $this->db->get()->row();
+
+            $query->term_data = $term_data;
             
             // if($query->Active == 0){
             //     throw new Exception(DISABLED_ACCOUNT, true);
@@ -46,10 +52,9 @@ class Login_model extends CI_Model
             if($query->Password !== sha1(password_generator($this->password,$query->Salt)) ){
                 throw new Exception(NOT_MATCH, true);
             }
-            // $query->from = $from;
+
             set_userdata(USER,(array)$query);
             $this->session = (object)get_userdata(USER);
-            // set_userdata(SAMPLE,(array)$sample);
 
             return array('has_error' => false, 'message' => 'Login Success', 'session' => $this->session);
         } catch (Exception $ex) {
