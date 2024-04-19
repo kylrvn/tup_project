@@ -5,7 +5,7 @@
         // Retrieve the selected date and concern type
         var selectedDate = $('#date_upload').val();
         var concernType = $('#concernType').val();
-        
+        var remarks = $('#remarks').val();
         // Retrieve the file
         var fileInput = document.getElementById('file_attachments');
         var file = fileInput.files[0];
@@ -14,6 +14,7 @@
         var formData = new FormData();
         formData.append('date', selectedDate);
         formData.append('concernType', concernType);
+        formData.append('remarks', remarks);
         formData.append('file', file);
         // console.log(selectedDate+' '+concernType+' '+file+' '+ filename);
         // return

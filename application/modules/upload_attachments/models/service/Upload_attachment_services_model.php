@@ -26,6 +26,7 @@ class Upload_attachment_services_model extends CI_Model
             (
                'FacultyID' => $this->FacultyID,
                'Date_Uploaded' => $this->Date_Uploaded,
+               'Remarks' => $this->remarks,
                'Concern_Type' => $this->Concern_Type,
                'Filename' => $this->Filename
             );

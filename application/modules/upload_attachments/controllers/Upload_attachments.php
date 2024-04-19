@@ -19,6 +19,7 @@ class Upload_attachments extends MY_Controller
 	/** load main page */
 	public function index()
 	{
+		$this->data['leave_type'] = $this->uModel->retrieve_leave_type();
 		$this->data['content'] = 'index';
 		$this->load->view('layout', $this->data);
 	}

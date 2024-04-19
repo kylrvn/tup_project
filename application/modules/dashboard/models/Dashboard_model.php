@@ -39,6 +39,32 @@ class Dashboard_model extends CI_Model
         
         return $query;
     }
+    public function get_exam_schedule(){
+        $this->db->select('*');
+        // $this->db->where('Date >=',date('Y-m-d', strtotime('monday this week')));
+        // $this->db->where('Faculty_id', $this->session->ID);
+        // $this->db->where('Date <=',date('Y-m-d', strtotime('sunday this week')));
+        $this->db->from($this->Table->exam_schedule);
+
+        $query = $this->db->get()->result();
+        
+        return $query;
+    }
+    public function get_exam_schedule_filter(){
+        $this->db->select('*');
+        $this->db->from($this->Table->exam_schedule);
+        $this->db->where('from_date',date('Y-m-d', strtotime($this->date)));
+        $this->db->or_where('to_date',date('Y-m-d',strtotime($this->date)));
+
+        
+        // $this->db->where('Faculty_id', $this->session->ID);
+        // $this->db->where('Date <=',date('Y-m-d', strtotime('sunday this week')));
+       
+
+        $query = $this->db->get()->result();
+        // echo json_encode($query);
+        return $query;
+    }
     public function get_dtr_logs(){
         $this->db->select('*');
         $this->db->from($this->Table->logs);
@@ -55,6 +81,7 @@ class Dashboard_model extends CI_Model
         $this->db->select('*');
         $this->db->from($this->Table->sched);
         $this->db->where('Day',strtolower(date('l',strtotime($this->date))));
+        $this->db->where('Date',strtolower(date('Y-m-d',strtotime($this->date))));
         $this->db->where('Faculty_id', $this->session->ID);
         $query = $this->db->get()->result();
         
