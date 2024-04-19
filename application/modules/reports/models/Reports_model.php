@@ -109,9 +109,30 @@ class Reports_model extends CI_Model
                         $quota = 18000;
                         $quota_checker = 0;
                         if (in_array($this->month . '-' . $day, $exam_sched_arrdays)) {
-                            echo 'examday<br>';
+                            $quota = 18000;
+                            $quota_checker = 0;
+
+                            //checks for undertime
+                            $timein =  date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
+                            $timeout =  date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
+                            $time_in = strtotime($timein);
+                            $time_out = strtotime($timeout);
+                            $quota_checker = $time_out - $time_in;
+                            if ($quota_checker < $quota) {
+                                $ut += floor((($quota - $quota_checker) / 60));
+                                $undertime_total += floor((($quota - $quota_checker) / 60));
+                            }
+                            $undertime_tard_daily[$day] = [
+                                "day" => $day,
+                                "ut_daily" => $ut,
+                                "t_daily" => $t,
+                            ];
+                            $overload_daily[$day] = [
+                                "day" => $day,
+                                "ol_daily" => $ov,
+                            ];
                             break;
-                        }else {
+                        } else {
                             //checker to check if current schedule of the day contains any AM subject.
                             if (strpos(@$tempschedarr[0]['time_frame'], 'AM') !== false) {
                                 $b = 0;
