@@ -36,14 +36,27 @@ main_header(['upload_attachments']);
             <div class="form-group row">
                 <label for="date_upload" class="col-sm-2 col-form-label">Date:</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" id="date_upload">
+                    <!-- <input type="date" class="form-control" id="date_upload"> -->
+                    <input type="datetime-local" class="form-control" id="date_upload">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="concernType" class="col-sm-2 col-form-label-sm">Type of Concern:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="concernType" placeholder="Enter Type of Concern">
+                    <!-- <input type="text" class="form-control" id="concernType" placeholder="Enter Type of Concern"> -->
+                    <select class="form-control" id="concernType">
+                        <option>Select leave type</option>
+                        <?php foreach($leave_type as $key => $value){ ?>
+                        <option value="<?=$value->ID?>"><?=$value->LeaveType?></option>
+                        <?php } ?>
+                    </select>
                 </div>
+            </div>
+            <div class="form-group row">
+                <label for="remarks" class="col-sm-2 col-form-label-sm">Remarks:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="remarks" placeholder="Enter Description">
+                    </div>
             </div>
             <div class="form-group row">
                 <label for="file_attachments" class="col-sm-2 col-form-label-sm">File Attachments:</label>
