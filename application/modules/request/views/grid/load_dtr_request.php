@@ -32,7 +32,7 @@
                     <td class="text-center"><?= $value->ForVerifStatus == "0"? '<label style="color: red;">UNVERIFIED</label>' : '<label style="color: green;">VERIFIED</label>' ?></td>
                     <td>
                         <button class="btn btn-primary btn-sm" data-faculty_id="<?= $value->FacultyID ?>" data-schedule="<?= $value->Schedule ?>" onclick="view_dtr(this)"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-success btn-sm" <?= $value->ForVerifStatus == "1"? 'disabled' : ''?> data-id="<?= $value->ID ?>" onclick=""><i class="fas fa-check"></i> VERIFY</button>
+                        <button class="btn btn-success btn-sm" <?= $value->ForVerifStatus == "1" ? 'disabled' : ''?> data-id="<?= $value->ID ?>" onclick="verify_dtr_request(this)"><i class="fas fa-check"></i> VERIFY</button>
                     </td>
                 </tr>
                 <?php

@@ -176,9 +176,6 @@ $(document).ready(function () {
     load_faculty_list();
 });
 
-function testing(element) {
-
-}
 
 function load_calendar(element) {
     // alert(element.getAttribute('data-id'));
