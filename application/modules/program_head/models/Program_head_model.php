@@ -76,12 +76,13 @@ class Program_head_model extends CI_Model
         // var_dump($this->session);
         $user_types_allowed = ["1", "2"];
         $this->db->select(
-            '*'
+            'u.*,'.
+            'd.department_name,'
         );
-        $this->db->from($this->Table->user);
-        // $this->db->where('Acknowledged', '1');
-        // $this->db->where('FacultyID', $this->session->ID);
+        $this->db->from($this->Table->user . ' u');
         $this->db->where_in('User_type', $user_types_allowed);
+        $this->db->join($this->Table->department . ' d' , 'u.Department = d.ID', ' left');
+
         $query = $this->db->get()->result();
         return $query;
     }

@@ -292,7 +292,7 @@ function main_header($menubar = [])
                             </ul>
                             <ul class="nav nav-item hover-effect">
                                 <li class="nav-item">
-                                    <a style="color:<?= (sidebar($menubar, ['program_head'])) ? 'white' : 'black' ?>;"
+                                    <a style="color:<?= (sidebar($menubar, ['program_head'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "2" ? '' : 'none' ?>;"
                                         href="<?= base_url() ?>program_head"
                                         class="nav-link <?= (sidebar($menubar, ['program_head'])) ? 'active' : '' ?>">
                                         <i class="fas fa-calendar-alt nav-icon"></i>

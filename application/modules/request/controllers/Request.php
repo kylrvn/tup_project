@@ -53,6 +53,28 @@ class Request extends MY_Controller
 		$this->load->view('layout',$this->data);
 	}
 
+	public function load_request_dtr(){
+		$dateFrom = null;
+		$dateTo = null;
+
+		$parts = explode("-", $this->input->post('date_range'));
+		$dateFrom = trim($parts[0]);
+		$dateTo = trim($parts[1]);
+
+		// var_dump($dateTo . " " . $dateFrom);
+
+		$this->rModel->dateFrom = $dateFrom;
+		$this->rModel->dateTo = $dateTo;
+		$this->rModel->facultyID = $this->input->post('facultyID');
+
+		$this->data['data'] = $this->rModel->get_request_dtr();
+		$this->data['content'] = 'grid/load_editable_dtr';
+		$this->load->view('layout',$this->data);
+		// $response = $this->rModel->get_request_dtr();
+		// echo json_encode($response);
+
+	}
+
 	public function view_file(){
 		$this->rModel->ID = $this->input->post('ID');
 		$this->data['image'] = $this->rModel->get_file_to_view();
@@ -64,6 +86,29 @@ class Request extends MY_Controller
 		$this->rModel->ID = $this->input->post('ID');
 
 		$response = $this->rModel->verify_request();
+		echo json_encode($response);
+	}
+
+	public function update_entry(){
+		$this->rModel->time_in_am = $this->input->post('time_in_am');
+		$this->rModel->time_out_am = $this->input->post('time_out_am');
+		$this->rModel->time_in_pm = $this->input->post('time_in_pm');
+		$this->rModel->time_out_pm = $this->input->post('time_out_pm');
+
+		$this->rModel->date_in_am = $this->input->post('date_in_am');
+		$this->rModel->date_out_am = $this->input->post('date_out_am');
+		$this->rModel->date_in_pm = $this->input->post('date_in_pm');
+		$this->rModel->date_out_pm = $this->input->post('date_out_pm');
+
+		$this->rModel->ID = $this->input->post('ID');
+		$response = $this->rModel->update_dtr_entry();
+		echo json_encode($response);
+	}
+
+	public function verify_dtr_request(){
+		$this->rModel->ID = $this->input->post('ID');
+
+		$response = $this->rModel->verify_dtr_request();
 		echo json_encode($response);
 	}
 

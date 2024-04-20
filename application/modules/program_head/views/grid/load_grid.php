@@ -34,10 +34,10 @@
                 <tr>
                     <td><b><?=@$key+1?></b></td>
                     <td><?=ucfirst($value->Lname)?>, <?=ucfirst($value->Fname)?> <?=ucfirst($value->Mname)?></td>
-                    <td><?=$value->Department?></td>
+                    <td><?=$value->department_name?></td>
                     <td>
                         <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?=$value->ID?>"><i class="fas fa-calendar"></i></button>
-                        <button class="btn btn-sm btn-success" onclick="load_dtr(this)" data-id="<?=$value->ID?>"><i class="fas fa-calendar"></i></button>
+                        <button class="btn btn-sm btn-primary" onclick="load_dtr(this)" data-id="<?=$value->ID?>"><i class="fas fa-calendar"></i></button>
                         <!-- <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?=$value->ID?>"><i class="fas fa-calendar"></i></button> -->
                     </td>
                 </tr>
