@@ -385,7 +385,7 @@ function main_header($menubar = [])
                                         <a style="color:<?= (sidebar($menubar, ['Manage_Actives'])) ? 'white' : 'black' ?>;"
                                             href="<?= base_url() ?>update_actives"
                                             class="nav-link <?= (sidebar($menubar, ['Manage_Actives'])) ? 'active' : '' ?>">
-                                            <i class="fas fa-building nav-icon"></i>
+                                            <i class="fas fa-cogs nav-icon"></i>
                                             <p>Manage Actives</p>
                                         </a>
                                     </li>

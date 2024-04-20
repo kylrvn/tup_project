@@ -73,7 +73,7 @@ main_header(['Reports']);
             <!-- Content Loaded here -->
         </div>
         <div class="card-footer" style="background-color:#transparent;">
-            <button class="btn btn-primary float-right">Print</button>
+            <button class="btn btn-primary float-right" id="print_dtr_summary">Print</button>
         </div>
         <div class="card-footer" style="background-color:#9F3A3B; color: white;">
             <!-- Footer -->
@@ -109,7 +109,7 @@ main_header(['Reports']);
             <!-- Content Here -->
         </div>
         <div class="card-footer" style="background-color:#transparent;">
-            <button class="btn btn-primary float-right">Print</button>
+            <button class="btn btn-primary float-right" id="print_report_on_deduction">Print</button>
         </div>
         <div class="card-footer" style="background-color:#9F3A3B; color: white;">
             <!-- Footer -->
@@ -158,7 +158,7 @@ main_header(['Reports']);
             <!-- Content Here -->
         </div>
         <div class="card-footer" style="background-color:#transparent;">
-            <button class="btn btn-primary float-right">Print</button>
+            <button class="btn btn-primary float-right" id="print_csf_48">Print</button>
         </div>
         <div class="card-footer" style="background-color:#9F3A3B; color: white;">
             <!-- Footer -->
@@ -173,6 +173,3 @@ main_header(['Reports']);
 main_footer();
 ?>
 <script src="<?php echo base_url() ?>/assets/js/reports/reports.js"></script>
-<script>
-
-</script>

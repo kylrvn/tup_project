@@ -77,8 +77,8 @@ $daysArray = range(1, $number_of_days);
                                 <th class="center-text" colspan="2" style="border-left: solid black 1px;">Departure</th>
                                 <th class="center-text" colspan="2" style="border-left: solid black 1px;">Arrival</th>
                                 <th class="center-text" colspan="2" style="border-left: solid black 1px;">Departure</th>
-                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">Arrival</th>
-                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">Departure</th>
+                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">Hours</th>
+                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">Minutes</th>
                             </tr>
                         </thead>
                         <tbody>
