@@ -32,7 +32,7 @@ $daysArray = range(1, $number_of_days);
             </div>
             <div style="margin-top:1rem;">
                 <label class="text-center" style="font-size: 170%;" id="faculty">
-                    <?= $details["faculty_details"] == null ? "CHOOSE FACULTY" : strtoupper($details["faculty_details"]->Lname) . ", " . strtoupper($details["faculty_details"]->Fname) . " " . strtoupper(substr($details["faculty_details"]->Mname, 0, 1)) . "." ?>
+                    <?= @$details["faculty_details"] == null ? "CHOOSE FACULTY" : strtoupper(@$details["faculty_details"]->Lname) . ", " . strtoupper(@$details["faculty_details"]->Fname) . " " . strtoupper(substr(@$details["faculty_details"]->Mname, 0, 1)) . "." ?>
                 </label>
             </div>
             <div class="d-flex justify-content-center">
@@ -77,8 +77,8 @@ $daysArray = range(1, $number_of_days);
                                 <th class="center-text" colspan="2" style="border-left: solid black 1px;">Departure</th>
                                 <th class="center-text" colspan="2" style="border-left: solid black 1px;">Arrival</th>
                                 <th class="center-text" colspan="2" style="border-left: solid black 1px;">Departure</th>
-                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">Arrival</th>
-                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">Departure</th>
+                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">HOUR</th>
+                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">MINUTE</th>
                             </tr>
                         </thead>
                         <tbody>
