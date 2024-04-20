@@ -130,3 +130,36 @@ $('#selected_faculty, #select_month3').change(function () {
     load_dtr();
 });
 
+$('#print_dtr_summary').click(function () {
+    $('#load_summary').printThis({
+        debug: false,
+        importCSS: true,
+        importStyle: true,
+        copyTagClasses: true,
+        removeScripts: false,
+    });
+});
+
+$('#print_report_on_deduction').click(function () {
+    $('#deduction_summary').printThis({
+        debug: false,
+        importCSS: true,
+        importStyle: true,
+        copyTagClasses: true,
+        removeScripts: false,
+    });
+});
+
+
+$('#print_csf_48').click(function () {
+    $('#dtr_form').printThis({
+        debug: false,
+        importCSS: true,
+        importStyle: true,
+        copyTagClasses: true,
+        removeScripts: false,
+    });
+});
+
+
+

@@ -65,11 +65,17 @@ class Dashboard_services_model extends CI_Model
             //     throw new Exception(MISSING_DETAILS, true);
             // }   
             if(empty($this->Acknowledge)){
+                $this->db->select('*');
+                $this->db->from($this->Table->active_term);
+                $active_term = $this->db->get()->row();
+
                 $data = array(
                     'Schedule' => $this->dataID,
                     'FacultyID' => $this->FacultyID,
                     'ForVerif' => $this->ForVerif,
-                    'ForVerifReason' => $this->ForVerifReason
+                    'ForVerifReason' => $this->ForVerifReason,
+                    'school_term' => $active_term->active_term,
+                    'school_year' => $active_term->active_school_year
                 );
                 $this->db->trans_start();
                            
@@ -86,10 +92,15 @@ class Dashboard_services_model extends CI_Model
                 }
             }
             else if(!empty($this->Acknowledge)){
+                $this->db->select('*');
+                $this->db->from($this->Table->active_term);
+                $active_term = $this->db->get()->row();
                 $data = array(
                     'Schedule' => $this->dataID,
                     'FacultyID' => $this->FacultyID,
-                    'Acknowledged' => $this->Acknowledge
+                    'Acknowledged' => $this->Acknowledge,
+                    'school_term' => $active_term->active_term,
+                    'school_year' => $active_term->active_school_year
                 );
                 $this->db->trans_start();
                            

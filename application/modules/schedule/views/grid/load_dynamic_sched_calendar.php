@@ -28,7 +28,6 @@ calendar_header();
         </div>
     </div>
 </div>
-<button class="btn btn-warning" id="print_button">Print</button>
 <div class="row">
     <!-- /.col -->
     <div class="col-md-12">
@@ -43,6 +42,7 @@ calendar_header();
     </div>
     <!-- /.col -->
 </div>
+<button class="btn btn-primary float-right" id="print_button" style="width:30%;">Print</button>
 
 <?php
 calendar_footer();
