@@ -32,7 +32,12 @@ $endOfWeek = $currentDate->format('Y-m-d');
 
 foreach ($dtr_logs as $log) {
 
-    $day = date('l', strtotime($log->timein_am));
+    if(!empty($log->timein_am)){
+        $day = date('l', strtotime($log->timein_am));
+    }
+    else{
+        $day = date('l', strtotime($log->timein_pm));
+    }
     
 
     $logDate = date('Y-m-d', strtotime($log->date_log));
@@ -40,11 +45,15 @@ foreach ($dtr_logs as $log) {
  
     if ($logDate >= $startOfWeek && $logDate <= $endOfWeek && date('N', strtotime($logDate)) != 7) {
         $timein_am[$day] = $log->timein_am;
+        $timeout_am[$day] = $log->timeout_am;
+        $timein_pm[$day] = $log->timein_pm;
         $timeout_pm[$day] = $log->timeout_pm;
         $day_dtr[$day] = $logDate; 
     }
     else{
         $timein_am[$day] = $log->timein_am;
+        $timeout_am[$day] = $log->timeout_am;
+        $timein_pm[$day] = $log->timein_pm;
         $timeout_pm[$day] = $log->timeout_pm;
         $day_dtr[$day] = $logDate;
     }
@@ -58,40 +67,68 @@ foreach ($exam_schedule as $key => $value) {
         $timein_am[$key] = isset($timein_am[$key]) ? $timein_am[$key] : '';
         $timeout_pm[$key] = isset($timeout_pm[$key]) ? $timeout_pm[$key] : '';
         $monday_timein_am = isset($timein_am['Monday']) ? $timein_am['Monday'] : '';
+        $monday_timeout_am = isset($timeout_am['Monday']) ? $timeout_am['Monday'] : '';
+        
+        $monday_timein_pm = isset($timein_pm['Monday']) ? $timein_pm['Monday'] : '';
         $monday_timeout_pm = isset($timeout_pm['Monday']) ? $timeout_pm['Monday'] : '';
-
+        
         $tuesday_timein_am = isset($timein_am['Tuesday']) ? $timein_am['Tuesday'] : '';
+        $tuesday_timeout_am = isset($timeout_am['Tuesday']) ? $timeout_am['Tuesday'] : '';
+        $tuesday_timein_pm = isset($timein_pm['Tuesday']) ? $timein_pm['Tuesday'] : '';
         $tuesday_timeout_pm = isset($timeout_pm['Tuesday']) ? $timeout_pm['Tuesday'] : '';
+        
         $wednesday_timein_am = isset($timein_am['Wednesday']) ? $timein_am['Wednesday'] : '';
+        $wednesday_timeout_am = isset($timeout_am['Wednesday']) ? $timeout_am['Wednesday'] : '';
+        $wednesday_timein_pm = isset($timein_pm['Wednesday']) ? $timein_pm['Wednesday'] : '';
         $wednesday_timeout_pm = isset($timeout_pm['Wednesday']) ? $timeout_pm['Wednesday'] : '';
-
+        
         $thursday_timein_am = isset($timein_am['Thursday']) ? $timein_am['Thursday'] : '';
+        $thursday_timeout_am = isset($timeout_am['Thursday']) ? $timeout_am['Thursday'] : '';
+        $thursday_timein_pm = isset($timein_pm['Thursday']) ? $timein_pm['Thursday'] : '';
         $thursday_timeout_pm = isset($timeout_pm['Thursday']) ? $timeout_pm['Thursday'] : '';
-
+        
         $friday_timein_am = isset($timein_am['Friday']) ? $timein_am['Friday'] : '';
+        $friday_timeout_am = isset($timeout_am['Friday']) ? $timeout_am['Friday'] : '';
         $friday_timeout_pm = isset($timeout_pm['Friday']) ? $timeout_pm['Friday'] : '';
-
+        $friday_timein_pm = isset($timein_pm['Friday']) ? $timein_pm['Friday'] : '';
+        
         $saturday_timein_am = isset($timein_am['Saturday']) ? $timein_am['Saturday'] : '';
+        $saturday_timeout_am = isset($timeout_am['Saturday']) ? $timeout_am['Saturday'] : '';
+        $saturday_timein_pm = isset($timein_pm['Saturday']) ? $timein_pm['Saturday'] : '';
         $saturday_timeout_pm = isset($timeout_pm['Saturday']) ? $timeout_pm['Saturday'] : '';
     }  
 }
 // $timein_am[$key] = isset($timein_am[$key]) ? $timein_am[$key] : '';
 // $timeout_pm[$key] = isset($timeout_pm[$key]) ? $timeout_pm[$key] : '';
 $monday_timein_am = isset($timein_am['Monday']) ? $timein_am['Monday'] : '';
-$monday_timeout_pm = isset($timeout_pm['Monday']) ? $timeout_pm['Monday'] : '';
+$monday_timeout_am = isset($timeout_am['Monday']) ? $timeout_am['Monday'] : '';
 
+$monday_timein_pm = isset($timein_pm['Monday']) ? $timein_pm['Monday'] : '';
+$monday_timeout_pm = isset($timeout_pm['Monday']) ? $timeout_pm['Monday'] : '';
+// echo json_encode($monday_timein_pm);
 $tuesday_timein_am = isset($timein_am['Tuesday']) ? $timein_am['Tuesday'] : '';
+$tuesday_timeout_am = isset($timeout_am['Tuesday']) ? $timeout_am['Tuesday'] : '';
+$tuesday_timein_pm = isset($timein_pm['Tuesday']) ? $timein_pm['Tuesday'] : '';
 $tuesday_timeout_pm = isset($timeout_pm['Tuesday']) ? $timeout_pm['Tuesday'] : '';
+
 $wednesday_timein_am = isset($timein_am['Wednesday']) ? $timein_am['Wednesday'] : '';
+$wednesday_timeout_am = isset($timeout_am['Wednesday']) ? $timeout_am['Wednesday'] : '';
+$wednesday_timein_pm = isset($timein_pm['Wednesday']) ? $timein_pm['Wednesday'] : '';
 $wednesday_timeout_pm = isset($timeout_pm['Wednesday']) ? $timeout_pm['Wednesday'] : '';
 
 $thursday_timein_am = isset($timein_am['Thursday']) ? $timein_am['Thursday'] : '';
+$thursday_timeout_am = isset($timeout_am['Thursday']) ? $timeout_am['Thursday'] : '';
+$thursday_timein_pm = isset($timein_pm['Thursday']) ? $timein_pm['Thursday'] : '';
 $thursday_timeout_pm = isset($timeout_pm['Thursday']) ? $timeout_pm['Thursday'] : '';
 
 $friday_timein_am = isset($timein_am['Friday']) ? $timein_am['Friday'] : '';
+$friday_timeout_am = isset($timeout_am['Friday']) ? $timeout_am['Friday'] : '';
 $friday_timeout_pm = isset($timeout_pm['Friday']) ? $timeout_pm['Friday'] : '';
+$friday_timein_pm = isset($timein_pm['Friday']) ? $timein_pm['Friday'] : '';
 
 $saturday_timein_am = isset($timein_am['Saturday']) ? $timein_am['Saturday'] : '';
+$saturday_timeout_am = isset($timeout_am['Saturday']) ? $timeout_am['Saturday'] : '';
+$saturday_timein_pm = isset($timein_pm['Saturday']) ? $timein_pm['Saturday'] : '';
 $saturday_timeout_pm = isset($timeout_pm['Saturday']) ? $timeout_pm['Saturday'] : '';
 $dayDetails = [];
 foreach ($details as $detail) {
@@ -156,8 +193,10 @@ function calculateEndTime($startTime) {
             <td>
                 <strong>Start Time:<br></strong><label><?= !empty($firstMondayItem->Start_time) ? date('h:i a', strtotime($firstMondayItem->Start_time)) : '' ?></label><br><br>
                 <strong>End Time:<br></strong><label><?= !empty($lastMondayItem->End_time) ? date('h:i a', strtotime($lastMondayItem->End_time)) : '' ?></label><br><br>
-                <strong>Time In: <br><?= !empty($monday_timein_am) ? date('h:i a', strtotime($monday_timein_am)) : '' ?></strong> <br><br>
-                <strong>Time Out: <br><?= !empty($monday_timeout_pm) ? date('h:i a', strtotime($monday_timeout_pm)) : '' ?></strong> <br><br><br><br>
+                <strong>Time In: <br><?= !empty($monday_timein_am) ? date('h:i a', strtotime($monday_timein_am)) : (!empty($monday_timein_pm) ? date('h:i a', strtotime($monday_timein_pm)) : ' ') ?></strong> <br><br>
+                <strong>Time Out: <br><?= !empty($monday_timeout_pm) ? date('h:i a', strtotime($monday_timeout_pm)) : (!empty($monday_timeout_am) ? date('h:i a', strtotime($monday_timeout_am)) : ' ') ?></strong> <br><br><br><br>
+
+
                 <strong>Status: <?php echo @(reset($mondayDetails)->Active== 1) ? '<label style="color:green">ACTIVE</label>' : ''?></strong>
             </td>
           
@@ -165,40 +204,40 @@ function calculateEndTime($startTime) {
                 <strong>Start Time:<br></strong><label><?=!empty($firstTuesdayItem->Start_time) ? calculateEndTime($lastTuesdayItem->Start_time) : ''?></label><br><br>
                 <strong>End Time:<br></strong><label><?=!empty($lastTuesdayItem->End_time) ? calculateEndTime($firstTuesdayItem->End_time) : ''?></label><br><br>
             
-                <strong>Time In: <br><?= !(empty($tuesday_timein_am)) ? date('h:i:a', strtotime($tuesday_timein_am)) : '' ?></strong> <br><br>
-                <strong>Time Out: <br><?= !(empty($tuesday_timeout_pm)) ? date('h:i:a', strtotime($tuesday_timeout_pm)) : '' ?></strong> <br><br><br><br>
+                <strong>Time In: <br><?= !empty($tuesday_timein_am) ? date('h:i a', strtotime($tuesday_timein_am)) : (!empty($tuesday_timein_pm) ? date('h:i a', strtotime($tuesday_timein_pm)) : ' ') ?></strong> <br><br>
+                <strong>Time Out: <br><?= !empty($tuesday_timeout_pm) ? date('h:i a', strtotime($tuesday_timeout_pm)) : (!empty($tuesday_timeout_am) ? date('h:i a', strtotime($tuesday_timeout_am)) : ' ') ?></strong> <br><br><br><br>
                 <strong>Status: <?php echo @(reset($tuesdayDetails)->Active== 1) ? '<label style="color:green">ACTIVE</label>' : ''?></strong>
             </td>
           
             <td>
                 <strong>Start Time:<br></strong><label><?=!empty($firstWednesdayItem->Start_time) ? calculateEndTime($lastWednesdayItem->Start_time) : ''?></label><br><br>
                 <strong>End Time:<br></strong><label><?=!empty($lastWednesdayItem->End_time) ? calculateEndTime($firstWednesdayItem->End_time) : ''?></label><br><br>
-                <strong>Time In: <br><?= !(empty($wednesday_timein_am)) ? @date('h:i:a', strtotime( @$wednesday_timein_am)) : '' ?></strong> <br><br>
-                <strong>Time Out: <br><?= !(empty($wednesday_timeout_pm)) ? @date('h:i:a', strtotime( @$wednesday_timeout_pm)) : '' ?></strong> <br><br><br><br>
+                <strong>Time In: <br><?= !empty($wednesday_timein_am) ? date('h:i a', strtotime($wednesday_timein_am)) : (!empty($wednesday_timein_pm) ? date('h:i a', strtotime($wednesday_timein_pm)) : ' ') ?></strong> <br><br>
+                <strong>Time Out: <br><?= !empty($wednesday_timeout_pm) ? date('h:i a', strtotime($wednesday_timeout_pm)) : (!empty($wednesday_timeout_am) ? date('h:i a', strtotime($wednesday_timeout_am)) : ' ') ?></strong> <br><br><br><br>
                 <strong>Status: <?php echo @(reset($wednesdayDetails)->Active== 1) ? '<label style="color:green">ACTIVE</label>' : ''?></strong>
             </td>
            
             <td>
                 <strong>Start Time:<br></strong><label><?=!empty($firstThursdayItem->Start_time) ? calculateEndTime($lastThursdayItem->Start_time) : ''?></label><br><br>
                 <strong>End Time:<br></strong><label><?=!empty($lastThursdayItem->End_time) ? calculateEndTime($firstThursdayItem->End_time) : ''?></label><br><br>
-                <strong>Time In: <br><?= !(empty($thursday_timein_am)) ? @date('h:i:a', strtotime( @$thursday_timein_am)) : '' ?></strong> <br><br>
-                <strong>Time Out: <br><?= !(empty($thursday_timeout_pm)) ? @date('h:i:a', strtotime( @$thursday_timeout_pm)) : '' ?></strong> <br><br><br><br>
+                <strong>Time In: <br><?= !empty($thursday_timein_am) ? date('h:i a', strtotime($thursday_timein_am)) : (!empty($thursday_timein_pm) ? date('h:i a', strtotime($thursday_timein_pm)) : ' ') ?></strong> <br><br>
+                <strong>Time Out: <br><?= !empty($thursday_timeout_pm) ? date('h:i a', strtotime($thursday_timeout_pm)) : (!empty($thursday_timeout_am) ? date('h:i a', strtotime($thursday_timeout_am)) : ' ') ?></strong> <br><br><br><br>
                 <strong>Status: <?php echo @(reset($thursdayDetails)->Active== 1) ? '<label style="color:green">ACTIVE</label>' : ''?></strong>
             </td>
 
             <td>
                 <strong>Start Time:<br></strong><label><?=!empty($firstFridayItem->Start_time) ? calculateEndTime($lastFridayItem->Start_time) : ''?></label><br><br>
                 <strong>End Time:<br></strong><label><?=!empty($lastFridayItem->End_time) ? calculateEndTime($firstFridayItem->End_time) : ''?></label><br><br>
-                <strong>Time In: <br><?= !(empty($friday_timein_am)) ? @date('h:i:a', strtotime( @$friday_timein_am)) : '' ?></strong> <br><br>
-                <strong>Time Out: <br><?= !(empty($friday_timeout_pm)) ? @date('h:i:a', strtotime( @$friday_timeout_pm)) : '' ?></strong> <br><br><br><br>
+                <strong>Time In: <br><?= !empty($friday_timein_am) ? date('h:i a', strtotime($friday_timein_am)) : (!empty($friday_timein_pm) ? date('h:i a', strtotime($friday_timein_pm)) : ' ') ?></strong> <br><br>
+                <strong>Time Out: <br><?= !empty($friday_timeout_pm) ? date('h:i a', strtotime($friday_timeout_pm)) : (!empty($friday_timeout_am) ? date('h:i a', strtotime($friday_timeout_am)) : ' ') ?></strong> <br><br><br><br>
                 <strong>Status: <?php echo @(reset($fridayDetails)->Active== 1) ? '<label style="color:green">ACTIVE</label>' : ''?></strong>
             </td>
 
             <td>
                 <strong>Start Time:<br></strong><label><?=!empty($firstSaturdayItem->Start_time) ? calculateEndTime($lastSaturdayItem->Start_time) : ''?></label><br><br>
                 <strong>End Time:<br></strong><label><?=!empty($lastSaturdayItem->End_time) ? calculateEndTime($firstSaturdayItem->End_time) : ''?></label><br><br>
-                <strong>Time In: <br><?= !(empty($saturday_timein_am)) ? @date('h:i:a', strtotime( @$saturday_timein_am)) : '' ?></strong> <br><br>
-                <strong>Time Out: <br><?= !(empty($saturday_timeout_pm)) ? @date('h:i:a', strtotime( @$saturday_timeout_pm)) : '' ?></strong> <br><br><br><br>
+                <strong>Time In: <br><?= !empty($saturday_timein_am) ? date('h:i a', strtotime($saturday_timein_am)) : (!empty($saturday_timein_pm) ? date('h:i a', strtotime($saturday_timein_pm)) : ' ') ?></strong> <br><br>
+                <strong>Time Out: <br><?= !empty($saturday_timeout_pm) ? date('h:i a', strtotime($saturday_timeout_pm)) : (!empty($saturday_timeout_am) ? date('h:i a', strtotime($saturday_timeout_am)) : ' ') ?></strong> <br><br><br><br>
                 <strong>Status: <?php echo @(reset($saturdayDetails)->Active== 1) ? '<label style="color:green">ACTIVE</label>' : ''?></strong>
             </td>
 	
