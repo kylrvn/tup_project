@@ -72,8 +72,8 @@ class Reports_model extends CI_Model
             // echo $sql;
 
             $exam_sched_arrdays = array();
-            $start_exam_day = date('j', strtotime($exam_sched[0]->from_date));
-            $end_exam_day = date('j', strtotime($exam_sched[0]->to_date));
+            @$start_exam_day = date('j', strtotime($exam_sched[0]->from_date));
+            @$end_exam_day = date('j', strtotime($exam_sched[0]->to_date));
 
             for ($start_exam_day; $start_exam_day <= $end_exam_day; $start_exam_day++) {
                 $exam_sched_arrdays[] = $year . '-' . $month . '-' . $start_exam_day;
@@ -371,11 +371,6 @@ class Reports_model extends CI_Model
         return $query;
     }
 
-
-
-
-
-
     public function get_csf_48()
     {
         $data_to_send = [];
@@ -405,7 +400,8 @@ class Reports_model extends CI_Model
         $this->db->from($this->Table->user);
         $this->db->where_in('User_type', $user_type);
         $this->db->where('ID', $this->faculty);
-        $data_to_send['faculty_details'] = $this->db->get()->row();
+        $faculty_deets = $this->db->get()->row();
+        $data_to_send['faculty_details'] = $faculty_deets;
 
         return $data_to_send;
     }
