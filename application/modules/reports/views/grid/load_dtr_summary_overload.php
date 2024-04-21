@@ -93,12 +93,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                         if (!empty($dayData)) {
                                             // Display undertime and tardiness for the specific day
                                             echo $dayData['ol_daily'];
-                                            // if($dayData['ut_daily']!=0){
-                                            //     echo sprintf('%02d:%02d', floor($dayData['t_daily'] / 60), $dayData['t_daily'] % 60) . '<br>';
-                                            // }
-                                            // if($dayData['ut_daily']!=0){
-                                            //     echo sprintf('%02d:%02d', floor($dayData['ut_daily'] / 60), $dayData['ut_daily'] % 60) . '<br>';
-                                            // }
+
                                 
                                         } else {
                                             // If no data available for the day, display a placeholder
@@ -107,15 +102,6 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                         ?>
                                     </td>
                                 <?php } ?>
-                                <!-- <td class="center-text" style="border-left: solid black 1px;">
-                                    2.503
-                                </td>
-                                <td class="center-text" style="border-left: solid black 1px;">
-                                    0.0
-                                </td>
-                                <td class="center-text" style="border-left: solid black 1px;">
-                                    <b>0.21</b>
-                                </td> -->
                                 <td class="center-text" style="border-left: solid black 1px;">
                                     <b>
                                         <?= $value->ol ?>

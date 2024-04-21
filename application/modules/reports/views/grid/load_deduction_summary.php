@@ -42,23 +42,56 @@ $numberOfDaysInMonth = $details['num_of_days'];
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom: solid black 1px;">
+                        <!-- <tr style="border-bottom: solid black 1px;">
                             <td class="center-text">
-                                <b>1</b>
+                                <b>
+                                    k
+                                </b>
                             </td>
                             <td class="center-text" style="border-left: solid black 1px;">
-                                <b>ALOB, KARL MARIE P.</b>
+                                <b>
+                                    namaewa
+                                </b>
                             </td>
                             <td class="center-text" style="border-left: solid black 1px;">
-                                2.503
+                                    undertimu tardu total desu
                             </td>
-                            <td class="center-text" style="border-left: solid black 1px;">
-                                &nbsp;
-                            </td>
-                            <td class="center-text" style="border-left: solid black 1px;">
-                                &nbsp;
-                            </td>
-                        </tr>
+                            <td class="center-text" style="border-left: solid black 1px;">Inclusivo Date</td>
+                            <td class="center-text" style="border-left: solid black 1px;"># of days</td>
+                        </tr> -->
+                        <?php
+                        foreach (@$details['data'] as $key => $value) {
+                        ?>
+                            <tr style="border-bottom: solid black 1px;">
+                                <td class="center-text">
+                                    <b>
+                                        <?= @$key + 1 ?>
+                                    </b>
+                                </td>
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                    <b>
+                                        <?= @$value->Lname ?>,
+                                        <?= @$value->Fname ?>
+                                        <?= @$value->Mname ?>.
+                                    </b>
+                                </td>
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                    <?= sprintf('%02d:%02d', floor(@$value->utt / 60), @$value->utt % 60) ?>
+                                </td>
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                    <?php
+                                    foreach ($value->dates_absent as $absent) {
+                                        echo $absent.' ';
+                                    }
+                                    ?>
+                                </td>
+                                <td class="center-text" style="border-left: solid black 1px;">
+                                <?=@$value->absent_count?>
+                                </td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
