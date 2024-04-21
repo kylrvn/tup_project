@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Reports_model extends CI_Model
 {
     public $Table;
+    public $user_type = ["1", "2"];
     public function __construct()
     {
         parent::__construct();
@@ -52,7 +53,7 @@ class Reports_model extends CI_Model
             // 'd.Date_time,'.
         );
         $this->db->from($this->Table->user . ' u');
-        $this->db->where('u.User_type', '1');
+        $this->db->where_in('u.User_type', $this->user_type);
         // $this->db->join($this->Table->dtr.' d', 'u.ID=d.Faculty_id','left');
         // $this->db->join($this->Table->sched.' s', 'u.ID=s.Faculty_id','left');
 
@@ -339,7 +340,7 @@ class Reports_model extends CI_Model
             // 'd.Date_time,'.
         );
         $this->db->from($this->Table->user . ' u');
-        $this->db->where('u.User_type', '1');
+        $this->db->where_in('u.User_type', $this->user_type);
         $data_to_send["data"] = $this->db->get()->result();
         foreach ($data_to_send["data"] as $val) {
 
@@ -814,13 +815,11 @@ class Reports_model extends CI_Model
 
     public function get_faculty()
     {
-        $user_type = ["1", "2"];
-
         $this->db->select(
             '*'
         );
         $this->db->from($this->Table->user);
-        $this->db->where_in('User_type', $user_type);
+        $this->db->where_in('User_type', $this->user_type);
         $query = $this->db->get()->result();
         return $query;
     }
