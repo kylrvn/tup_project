@@ -34,7 +34,7 @@ class Reports_model extends CI_Model
         $t = 0;
         $ov = 0;
         $undertime_tard_daily = array();
-        $overload_daily = array();
+        $logs_data = array();
 
         $days_in_selected_month = date('t', mktime(0, 0, 0, $month, 1, $year));
 
@@ -254,7 +254,6 @@ class Reports_model extends CI_Model
                                 }
                             }
 
-
                             $undertime_tard_daily[$day] = [
                                 "day" => $day,
                                 "ut_daily" => $ut,
@@ -293,8 +292,12 @@ class Reports_model extends CI_Model
             $tard_total = 0;
             $undertime_tard_total = 0;
             $overtime_total = 0;
-        } /* end of faculty foreach loop */
+            $undertime_tard_daily = [];
+            $overload_daily = [];
 
+            // $data_to_send["data"][] = $val;
+        } /* end of faculty foreach loop */
+        // var_dump(@$data_to_send["data"]);
         return $data_to_send;
     }
 
@@ -342,6 +345,7 @@ class Reports_model extends CI_Model
         $this->db->from($this->Table->log);
         $this->db->where('FacultyID', $ID);
         $logs = $this->db->get()->result();
+        // var_dump($logs);
         return $logs;
     }
 
@@ -367,7 +371,7 @@ class Reports_model extends CI_Model
         $this->db->from($this->Table->sched);
         // Moved 'ASC' outside STR_TO_DATE() function
         $query = $this->db->get()->result();
-        // var_dump($query);
+
         return $query;
     }
 
@@ -388,6 +392,7 @@ class Reports_model extends CI_Model
         $undertime_total = 0;
         $ut = 0;
         $undertime_tard_daily = array();
+        $logs_data = array();
 
         $dateObj = DateTime::createFromFormat('!m', $month);
         $monthInWords = $dateObj->format('F');
@@ -410,7 +415,7 @@ class Reports_model extends CI_Model
         if ($faculty_deets) {
             $logs = $this->get_logs($data_to_send['faculty_details']->ID);
             $sched = $this->get_sched($data_to_send['faculty_details']->ID);
-
+            // var_dump($logs);
             $this->db->select('*');
             $this->db->where('faculty_id', $data_to_send['faculty_details']->ID);
             $this->db->where('MONTH(from_date)', $month);
@@ -428,7 +433,9 @@ class Reports_model extends CI_Model
 
             $numberOfDaysInMonth = $data_to_send['num_of_days'];
             $daysArray = range(1, $numberOfDaysInMonth);
+
             foreach ($daysArray as $day) {
+                // echo $day.'<br>';
                 $am_count = 0;
                 $tempschedarr = array();
                 $dayOfWeek = strtolower(date("l", strtotime($day . "-" . $month . "-" . $year))); //Use any date from $selected_month
@@ -450,8 +457,17 @@ class Reports_model extends CI_Model
                 // var_dump($tempschedarr);
                 @$arrsize = sizeof(@$tempschedarr);
                 foreach ($logs as $k => $log) {
+                    // echo $this->month . '-' . $day .' == '.date("Y-m-j", strtotime($log->date_log)). '<br>';
                     // if (date("j", strtotime($log->date_log)) == $day) {
-                    if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
+                    if ($this->month . '-' . $day == date("Y-m-j", strtotime($log->date_log))) {
+
+                        $logs_data[$day] = [
+                            "am_in" => $log->timein_am ?? '-',
+                            "am_out" => $log->timeout_am ?? '-',
+                            "pm_in" => $log->timein_pm ?? '-',
+                            "pm_out" => $log->timeout_pm ?? '-',
+                        ];
+                        // var_dump($logs_data[$day]);
                         // echo '<br>'.$day.'- ';
                         $quota = 18000;
                         $quota_checker = 0;
@@ -469,10 +485,7 @@ class Reports_model extends CI_Model
                                 $ut += floor((($quota - $quota_checker) / 60));
                                 $undertime_total += floor((($quota - $quota_checker) / 60));
                             }
-                            $undertime_tard_daily[$day] = [
-                                "day" => $day,
-                                "ut_daily" => $ut,
-                            ];
+                            $undertime_tard_daily[$day] = $ut;
                             break;
                         } else {
                             //checker to check if current schedule of the day contains any AM subject.
@@ -554,11 +567,7 @@ class Reports_model extends CI_Model
                                 }
                             }
 
-
-                            $undertime_tard_daily[$day] = [
-                                "day" => $day,
-                                "ut_daily" => $ut,
-                            ];
+                            $undertime_tard_daily[$day] = $ut;
 
                             break;
                         }
@@ -567,20 +576,28 @@ class Reports_model extends CI_Model
                 } //end log foreach loop
 
                 if (!isset($undertime_tard_daily[$day])) {
-                    $undertime_tard_daily[$day] = [];
-                }
-                if (!isset($overload_daily[$day])) {
-                    $overload_daily[$day] = [];
+                    $undertime_tard_daily[$day] = 0;
                 }
 
-                $ov = 0;
+                if (!isset($logs_data[$day])) {
+                    $logs_data[$day] = [
+                        "am_in" => '-',
+                        "am_out" => '-',
+                        "pm_in" => '-',
+                        "pm_out" => '-',
+                    ];
+                }
+
                 $ut = 0;
-                $t = 0;
+                // break;
             }
 
             $data_to_send['faculty_details']->ut = $undertime_total;
             $data_to_send['faculty_details']->daily = $undertime_tard_daily;
+            $data_to_send['faculty_details']->logs = $logs_data;
+            // var_dump($data_to_send['faculty_details']->daily);
         }
+
         return $data_to_send;
     }
 }

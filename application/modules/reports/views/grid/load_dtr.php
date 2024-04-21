@@ -36,8 +36,7 @@ $daysArray = range(1, $number_of_days);
                 </label>
             </div>
             <div class="d-flex justify-content-center">
-                <label class="text-center"
-                    style="font-size: 130%; border-top: solid black 2px; padding-top: 2px; width: 80%;">
+                <label class="text-center" style="font-size: 130%; border-top: solid black 2px; padding-top: 2px; width: 80%;">
                     (Name)
                 </label>
             </div>
@@ -52,7 +51,7 @@ $daysArray = range(1, $number_of_days);
 
                         Official hours for regular days &nbsp;
                         <cont style="border-bottom: solid black 1px; padding-bottom: 1px;">
-                            9999
+
                         </cont><br>
 
                         Arrival and departure on regular days &nbsp;
@@ -65,18 +64,20 @@ $daysArray = range(1, $number_of_days);
                     <table class="table-black" style="width: 100%;">
                         <thead>
                             <tr style="border-bottom: solid black 1px;">
-                                <th class="center-text" colspan="4" style="">AM</th>
-                                <th class="center-text" colspan="4" style="border-left: solid black 1px;">PM</th>
+                                <th class="center-text" colspan="2" style=""> </th>
+                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">AM</th>
+                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">PM</th>
                                 <th class="center-text" colspan="4" style="border-left: solid black 1px;">
                                     UNDERTIMES</th>
                             </tr>
                         </thead>
                         <thead>
                             <tr style="border-bottom: solid black 1px;">
-                                <th class="center-text" colspan="2" style="">Arrival</th>
-                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">Departure</th>
-                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">Arrival</th>
-                                <th class="center-text" colspan="2" style="border-left: solid black 1px;">Departure</th>
+                                <th class="center-text" colspan="2" style="">-</th>
+                                <th class="center-text" style="border-left: solid black 1px;">Arrival</th>
+                                <th class="center-text" style="border-left: solid black 1px;">Departure</th>
+                                <th class="center-text" style="border-left: solid black 1px;">Arrival</th>
+                                <th class="center-text" style="border-left: solid black 1px;">Departure</th>
                                 <th class="center-text" colspan="2" style="border-left: solid black 1px;">Hours</th>
                                 <th class="center-text" colspan="2" style="border-left: solid black 1px;">Minutes</th>
                             </tr>
@@ -84,31 +85,43 @@ $daysArray = range(1, $number_of_days);
                         <tbody>
                             <?php
                             foreach ($daysArray as $key => $day) {
-                                ?>
+
+                            ?>
                                 <tr style="border-bottom: solid black 1px;">
-                                    <td class="center-text" colspan="0.5">
+                                    <td class="center-text" colspan="2">
                                         <?= $day ?>
                                     </td>
-                                    <td class="center-text" colspan="1.5" style="border-left: solid black 1px;">
-                                        Place_Holder
+                                    <td class="center-text" style="border-left: solid black 1px;">
+                                        <?= isset($details['faculty_details']->logs[$day]['am_in']) ? (strtotime($details['faculty_details']->logs[$day]['am_in']) !== false ? date('g:i A', strtotime($details['faculty_details']->logs[$day]['am_in'])) : '-') : '-' ?>
                                     </td>
-                                    <td class="center-text" colspan="2" style="border-left: solid black 1px;">
+                                    <td class="center-text" style="border-left: solid black 1px;">
+                                        <?= isset($details['faculty_details']->logs[$day]['am_out']) ? (strtotime($details['faculty_details']->logs[$day]['am_out']) !== false ? date('g:i A', strtotime($details['faculty_details']->logs[$day]['am_out'])) : '-') : '-' ?>
+                                    </td>
+                                    <td class="center-text" style="border-left: solid black 1px;">
+                                        <?= isset($details['faculty_details']->logs[$day]['pm_in']) ? (strtotime($details['faculty_details']->logs[$day]['pm_in']) !== false ? date('g:i A', strtotime($details['faculty_details']->logs[$day]['pm_in'])) : '-') : '-' ?>
+                                    </td>
+                                    <td class="center-text" style="border-left: solid black 1px;">
+                                        <?= isset($details['faculty_details']->logs[$day]['pm_out']) ? (strtotime($details['faculty_details']->logs[$day]['pm_out']) !== false ? date('g:i A', strtotime($details['faculty_details']->logs[$day]['pm_out'])) : '-') : '-' ?>
+                                    </td>
+                                    <td class="center-text" colspan="4" style="border-left: solid black 1px;">
+                                        <?php
+                                        if (is_numeric(@$details['faculty_details']->daily[$day])) {
+                                            $undertime_minutes = @$details['faculty_details']->daily[$day];
+                                            // Format the undertime value as hours and minutes
+                                            $formatted_undertime = sprintf('%02d:%02d', floor($undertime_minutes / 60), $undertime_minutes % 60);
+                                            echo $formatted_undertime;
+                                        } else {
+                                            // If it's neither an array nor numeric, display an error message
+                                            echo '-';
+                                        }
+                                        ?>
+                                    </td>
+
+                                    <!-- <td class="center-text" colspan="2" style="border-left: solid black 1px;">
                                         &nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-                                    <td class="center-text" colspan="2" style="border-left: solid black 1px;">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-                                    <td class="center-text" colspan="2" style="border-left: solid black 1px;">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-                                    <td class="center-text" colspan="2" style="border-left: solid black 1px;">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
-                                    <td class="center-text" colspan="2" style="border-left: solid black 1px;">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                    </td>
+                                    </td> -->
                                 </tr>
-                                <?php
+                            <?php
                             }
                             ?>
                         </tbody>
@@ -123,8 +136,7 @@ $daysArray = range(1, $number_of_days);
                         <label style="font-size: 130%;">
                             TOTAL
                         </label>
-                        <input type="text"
-                            style="border-top: none; border-right: none; border-left: none; border-bottom: solid black 1px; padding-bottom: 1px;text-align: center; width:50%;">
+                        <input type="text" style="border-top: none; border-right: none; border-left: none; border-bottom: solid black 1px; padding-bottom: 1px;text-align: center; width:50%;">
 
                     </div>
 
@@ -144,8 +156,7 @@ $daysArray = range(1, $number_of_days);
                     </div>
 
                     <div style=" text-align:right;">
-                        <input type="text"
-                            style="border-top: none; border-right: none; border-left: none; border-bottom: solid black 2px; padding-bottom: 1px;text-align: center; width:40%;">
+                        <input type="text" style="border-top: none; border-right: none; border-left: none; border-bottom: solid black 2px; padding-bottom: 1px;text-align: center; width:40%;">
                     </div>
 
                     <div>
@@ -163,8 +174,7 @@ $daysArray = range(1, $number_of_days);
                     </div>
 
                     <div style="text-align:right;">
-                        <input type="text"
-                            style="border-top: none; border-right: none; border-left: none; border-bottom: solid black 2px; padding-bottom: 1px;text-align: center; width:40%;">
+                        <input type="text" style="border-top: none; border-right: none; border-left: none; border-bottom: solid black 2px; padding-bottom: 1px;text-align: center; width:40%;">
                         <div style="text-align: right; margin-right:9%;">
                             <p>Immediate Supervisor</p>
                         </div>

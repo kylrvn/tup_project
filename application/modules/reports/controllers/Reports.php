@@ -29,6 +29,7 @@ class Reports extends MY_Controller
 		$this->rModel->faculty = $this->input->post('selected_faculty');
 
 		$this->data['details'] = $this->rModel->get_csf_48();
+		// var_dump(@$this->rModel->get_csf_48());
 		$this->data['content'] = 'grid/load_dtr';
 		$this->load->view('layout', $this->data);
 	}
