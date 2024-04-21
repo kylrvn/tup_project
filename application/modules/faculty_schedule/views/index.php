@@ -59,7 +59,7 @@ main_header(['Faculty_schedule']);
                                     <th class="text-center">TIME</th>
                                     <th class="text-center">SUBJECT</th>
                                     <th class="text-center">ROOM</th>
-                                    <th class="text-center"># OF HRS.</th>
+                                    <th class="text-center">SCHEME</th>
                                 </tr>
                             </thead>
                             <tbody id="table_monday">
@@ -110,7 +110,7 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                        <input  class="text-center" name="scheme" type="number" placeholder="0" id="monday_scheme" style="width:20%;">
                                     </td>
                                 </tr>
                             </tbody>
@@ -161,7 +161,7 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                        <input  class="text-center" name="scheme" type="number" placeholder="0" id="tuesday_scheme" style="width:20%;">
                                     </td>
                                 </tr>
                             </tbody>
@@ -212,7 +212,7 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                        <input  class="text-center" name="scheme" type="number" placeholder="0" id="wednesday_scheme" style="width:20%;">
                                     </td>
                                 </tr>
                             </tbody>
@@ -263,7 +263,7 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                        <input  class="text-center" name="scheme" type="number" placeholder="0" id="thursday_scheme" style="width:20%;">
                                     </td>
                                 </tr>
                             </tbody>
@@ -314,7 +314,7 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                        <input  class="text-center" name="scheme" type="number" placeholder="0" id="friday_scheme" style="width:20%;">
                                     </td>
                                 </tr>
                             </tbody>
@@ -365,7 +365,7 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
-                                        <input type="text" disabled id="total_time" style="width:20%;">
+                                        <input  class="text-center" name="scheme" type="number" placeholder="0" id="saturday_scheme" style="width:20%;">
                                     </td>
                                 </tr>
                             </tbody>

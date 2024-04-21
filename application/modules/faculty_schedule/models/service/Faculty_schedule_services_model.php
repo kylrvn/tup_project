@@ -25,13 +25,13 @@ class Faculty_schedule_services_model extends CI_Model
 
         try {
             foreach ($this->data as $key => $value) {
-                echo "subject = " . $key . " ";
-                var_dump($value['subject']);
-                echo "room = " . $key . " ";
-                var_dump($value['room']);
-                echo "day = " . $key . " ";
-                var_dump($value['day']);
-                echo "\n";
+                // echo "subject = " . $key . " ";
+                // var_dump($value['subject']);
+                // echo "room = " . $key . " ";
+                // var_dump($value['room']);
+                // echo "day = " . $key . " ";
+                // var_dump($value['day']);
+                // echo "\n";
 
                 $data = array(
                     'Faculty_id' => $this->faculty_id,
@@ -44,6 +44,7 @@ class Faculty_schedule_services_model extends CI_Model
 
                     'Room' => $value['room'],
                     'Day' => $value['day'],
+                    'scheme' => $value['scheme'],
 
                     'Start_time' => $value['start_time'],
                     'End_time' => $value['end_time'],

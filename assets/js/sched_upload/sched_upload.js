@@ -2,6 +2,60 @@ $('#Testing').click(function () {
     alert($('#school_year').val());
 });
 
+$('#monday_scheme').on('input', function () {
+    var tableMonday = document.getElementById("table_monday");
+
+    var inputs = tableMonday.querySelectorAll(".duplicate_monday");
+    inputs.forEach(function (currentInput, index) {
+        currentInput.value = $('#monday_scheme').val();
+    });
+});
+
+$('#tuesday_scheme').on('input', function () {
+    var tableMonday = document.getElementById("table_tuesday");
+
+    var inputs = tableMonday.querySelectorAll(".duplicate_tuesday");
+    inputs.forEach(function (currentInput, index) {
+        currentInput.value = $('#tuesday_scheme').val();
+    });
+});
+
+$('#wednesday_scheme').on('input', function () {
+    var tableMonday = document.getElementById("table_wednesday");
+
+    var inputs = tableMonday.querySelectorAll(".duplicate_wednesday");
+    inputs.forEach(function (currentInput, index) {
+        currentInput.value = $('#wednesday_scheme').val();
+    });
+});
+
+$('#thursday_scheme').on('input', function () {
+    var tableMonday = document.getElementById("table_thursday");
+
+    var inputs = tableMonday.querySelectorAll(".duplicate_thursday");
+    inputs.forEach(function (currentInput, index) {
+        currentInput.value = $('#thursday_scheme').val();
+    });
+});
+
+$('#friday_scheme').on('input', function () {
+    var tableMonday = document.getElementById("table_friday");
+
+    var inputs = tableMonday.querySelectorAll(".duplicate_friday");
+    inputs.forEach(function (currentInput, index) {
+        currentInput.value = $('#friday_scheme').val();
+    });
+});
+
+$('#saturday_scheme').on('input', function () {
+    var tableMonday = document.getElementById("table_saturday");
+
+    var inputs = tableMonday.querySelectorAll(".duplicate_saturday");
+    inputs.forEach(function (currentInput, index) {
+        currentInput.value = $('#saturday_scheme').val();
+    });
+});
+
 
 function check_am_time(inputElement) {
     var inputValue = inputElement.value;
@@ -123,7 +177,7 @@ function add_row_am(element) {
                     <br>
                 </td>
                 <td class="text-center">
-                    &nbsp;
+                    <input class="text-center duplicate_${day}" name="scheme" type="number" placeholder="0" id="monday_scheme" style="width:20%;" hidden>
                 </td>
             `;
 
@@ -195,7 +249,7 @@ function add_row_pm(element) {
                     <br>
                 </td>
                 <td class="text-center">
-                    &nbsp;
+                    <input class="text-center duplicate_${day}" name="scheme" type="number" placeholder="0" id="monday_scheme" style="width:20%;" hidden>
                 </td>
                 `;
 
@@ -258,6 +312,11 @@ $('#save_schedule').click(function () {
         return $(this).val();
     }).get();
 
+    // Scheme Data
+    var scheme = $('[name="scheme"]').map(function () {
+        return $(this).val();
+    }).get();
+
     // Start/End Data
     var time_frame = $('[name="time_frame"]').map(function () {
         return $(this).val();
@@ -282,6 +341,7 @@ $('#save_schedule').click(function () {
         url: baseUrl + 'faculty_schedule/service/Faculty_schedule_service/save_schedule',
         data: {
             day: day,
+            scheme: scheme,
             time_frame: time_frame,
             start_time: start,
             end_time: end,
