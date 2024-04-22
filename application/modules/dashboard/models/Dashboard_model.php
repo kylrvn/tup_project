@@ -85,9 +85,9 @@ class Dashboard_model extends CI_Model
         return $query;
     }
     public function get_dtr_logs(){
-        $this->db->select('*');
-        $this->db->from($this->Table->active_term);
-        $active_term = $this->db->get()->row();
+        // $this->db->select('*');
+        // $this->db->from($this->Table->active_term);
+        // $active_term = $this->db->get()->row();
 
         $this->db->select('*');
         $this->db->from($this->Table->logs);
@@ -96,8 +96,8 @@ class Dashboard_model extends CI_Model
         // $this->db->where('timein_pm !=', NULL);
         // $this->db->where('timeout_pm !=', NULL);
         $this->db->where('FacultyID', $this->session->ID);
-        $this->db->where('school_term', $active_term->active_term);
-        $this->db->where('school_year', $active_term->active_school_year);
+        // $this->db->where('school_term', $active_term->active_term);
+        // $this->db->where('school_year', $active_term->active_school_year);
         $query = $this->db->get()->result();
         return $query;
         // echo json_encode($query);
@@ -120,16 +120,16 @@ class Dashboard_model extends CI_Model
         return $query;
     }
     public function filter_dtr_logs(){
-        $this->db->select('*');
-        $this->db->from($this->Table->active_term);
-        $active_term = $this->db->get()->row();
+        // $this->db->select('*');
+        // $this->db->from($this->Table->active_term);
+        // $active_term = $this->db->get()->row();
 
         $this->db->select('*');
         $this->db->from($this->Table->logs);
         $this->db->where("DATE(date_log)",$this->date);
         $this->db->where('FacultyID', $this->session->ID);
-        $this->db->where('school_term', $active_term->active_term);
-        $this->db->where('school_year', $active_term->active_school_year);
+        // $this->db->where('school_term', $active_term->active_term);
+        // $this->db->where('school_year', $active_term->active_school_year);
         $query = $this->db->get()->result();
 
         // echo json_encode($query);
