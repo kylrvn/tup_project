@@ -60,6 +60,7 @@ define('MB', 1048576);
 $array = array(
     'user' => 'tbl_user',
     'sched' => 'tbl_schedule',
+    'sched_verification' => 'tbl_schedule_for_verification',
     'scan' => 'tbl_dtr',
     'logs' => 'tbl_logs',
     'log' => 'tbl_logs',

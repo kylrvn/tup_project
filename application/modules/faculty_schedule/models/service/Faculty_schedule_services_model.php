@@ -68,6 +68,19 @@ class Faculty_schedule_services_model extends CI_Model
                 }
 
             }
+
+            $verification_data = array(
+                'facultyID' => $this->faculty_id,
+                'schoolYear' => $this->school_year,
+                'schoolTerm' => $this->school_term,
+            );
+
+            $this->db->trans_start();
+
+            $this->db->insert($this->Table->sched_verification, $verification_data);
+
+            $this->db->trans_complete();
+
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 throw new Exception(ERROR_PROCESSING, true);
