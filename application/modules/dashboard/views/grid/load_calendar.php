@@ -304,7 +304,7 @@ function get_overtime($ti, $sti, $to, $sto)
     }
 }
 
-var_dump(@$mondayDetails);
+// var_dump(@$mondayDetails);
 ?>
 
 <div id="schedule_container">
