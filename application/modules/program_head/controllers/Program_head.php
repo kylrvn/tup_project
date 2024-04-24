@@ -47,18 +47,14 @@ class Program_head extends MY_Controller
 		$this->data['content'] = 'grid/load_dtr_schedule';
 		$this->load->view('layout', $this->data);
 	}
-	// public function get_calendar(){
-	// 	$this->data['details'] = $this->pModel->get_schedule();
-	// 	$this->data['dtr_logs'] = $this->pModel->get_dtr_logs();
-	// 	// echo json_encode($this->data['dtr_logs']);
-	// 	$this->data['content'] = 'grid/load_calendar';
-	// 	$this->load->view('layout',$this->data);
-	// }
-	// public function get_subjects()
-	// {
-	// 	$response = $this->pModel->get_subjects();
-	// 	echo json_encode($response);
-	// }
+
+	public function approve_schedule(){
+		$this->pModel->facultyID = $this->input->post('facultyID');
+		$this->pModel->schoolYear = $this->input->post('schoolYear');
+		$this->pModel->schoolTerm = $this->input->post('schoolTerm');
+		$response = $this->pModel->approve_schedule();
+		echo json_encode($response);
+	}
 
 
 }
