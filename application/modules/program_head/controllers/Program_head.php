@@ -19,7 +19,7 @@ class Program_head extends MY_Controller
 	/** load main page */
 	public function index()
 	{
-		// $this->data['subjects'] = $this->pModel->get_subjects();
+		$this->data['session'] =  $this->session;
 		$this->data['content'] = 'index';
 		$this->load->view('layout', $this->data);
 	}
@@ -27,6 +27,7 @@ class Program_head extends MY_Controller
 	public function load_dtr_schedule()
 	{
 		// var_dump($this->cModel->get_schedule());
+		$this->data['session'] =  $this->session;
 		$this->data['details'] = $this->pModel->get_faculty();
 		
 		$this->data['content'] = 'grid/load_grid';

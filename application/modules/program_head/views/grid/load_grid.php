@@ -1,5 +1,5 @@
 <?php
-// var_dump($details);
+// var_dump($session);
 ?>
 
 <div class="card-header">

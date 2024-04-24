@@ -25,11 +25,13 @@ class Schedule_model extends CI_Model
         );
         $this->db->from($this->Table->user . ' u');
         $this->db->join($this->Table->department . ' d', 'u.Department = d.ID', 'left');
+        $this->db->join($this->Table->sched_verification . ' sv', 'u.ID = sv.facultyID', 'left');
+
 
         if ($this->session->User_type == "1" || $this->session->User_type == "2") {
             $this->db->where('u.ID', $this->session->ID);
         } else if ($this->session->User_type == "3") {
-            // No Filter
+            $this->db->where('sv.verified', '1');
         }
         $query = $this->db->get()->result();
 

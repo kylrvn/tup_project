@@ -86,7 +86,8 @@ class Program_head_model extends CI_Model
             'sv.edited,'
         );
         $this->db->from($this->Table->user . ' u');
-        $this->db->where_in('User_type', $user_types_allowed);
+        $this->db->where_in('u.User_type', $user_types_allowed);
+        $this->db->where('u.Department', $this->session->Department);
         $this->db->join($this->Table->department . ' d', 'u.Department = d.ID', ' left');
         $this->db->join($this->Table->sched_verification . ' sv', 'u.ID = sv.facultyID', ' left');
         // $this->db->where('verified', '0');
