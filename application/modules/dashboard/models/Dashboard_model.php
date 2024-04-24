@@ -25,8 +25,6 @@ class Dashboard_model extends CI_Model
         
         return $query;
         
-
-
     }
     public function get_schedule(){
         $this->db->select('*');

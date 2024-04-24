@@ -1,5 +1,5 @@
 <?php
-
+// test 
 // var_dump($details["num_of_days"]);
 
 $number_of_days = $details["num_of_days"];
