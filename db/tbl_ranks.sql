@@ -1,0 +1,107 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 29, 2024 at 04:24 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 7.4.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `dtr_tup_db`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ranks`
+--
+
+CREATE TABLE `tbl_ranks` (
+  `ID` int(11) NOT NULL,
+  `rankName` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_ranks`
+--
+
+INSERT INTO `tbl_ranks` (`ID`, `rankName`) VALUES
+(1, 'PROFESSOR I'),
+(2, 'ASSOCIATE PROF. V'),
+(3, 'ASSOCIATE PROF. IV'),
+(4, 'ASSOCIATE PROF. III'),
+(5, 'ASSOCIATE PROF. II'),
+(6, 'ASSOCIATE PROF. I'),
+(7, 'ASSISTANT PROF. IV'),
+(8, 'ASSISTANT PROF. III'),
+(9, 'ASSISTANT PROF. II'),
+(10, 'ASSISTANT PROF. I'),
+(11, 'INSTRUCTOR III'),
+(12, 'INSTRUCTOR II'),
+(13, 'INSTRUCTOR I'),
+(14, 'DIRECTOR II'),
+(15, 'CHIEF ADMIN OFFICER'),
+(16, 'ACCOUNTANT III'),
+(17, 'ADMIN OFFICER V'),
+(18, 'ADMIN OFFICER IV'),
+(19, 'ADMIN OFFICER III'),
+(20, 'ADMIN OFFICER II'),
+(21, 'ADMIN OFFICER I'),
+(22, 'ADMIN ASSISTANT III'),
+(23, 'ADMIN ASSISTANT II'),
+(24, 'ADMIN ASSISTANT I'),
+(25, 'ADMIN AIDE VI'),
+(26, 'ADMIN AIDE V'),
+(27, 'ADMIN AIDE IV'),
+(28, 'ADMIN AIDE III'),
+(29, 'ADMIN AIDE II'),
+(30, 'ADMIN AIDE I'),
+(31, 'PLANNING OFFICER IV'),
+(32, 'SR. SCIENCE RESEARCH SPECIALIST'),
+(33, 'SCIENCE RESEARCH SPECIALIST II'),
+(34, 'SCIENCE RESEARCH ANALYST'),
+(35, 'COLLEGE LIBRARIAN III'),
+(36, 'COLLEGE LIBRARIAN II'),
+(37, 'COLLEGE LIBRARIAN I'),
+(38, 'MEDICAL OFFICER III'),
+(39, 'DENTIST II'),
+(40, 'NURSE II'),
+(41, 'NURSING ATTENDANT I'),
+(42, 'REGISTRAR III'),
+(43, 'GUIDANCE COORDINATOR III');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbl_ranks`
+--
+ALTER TABLE `tbl_ranks`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_ranks`
+--
+ALTER TABLE `tbl_ranks`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

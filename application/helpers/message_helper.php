@@ -67,6 +67,7 @@ $array = array(
     'acknowledge' => 'tbl_acknowledged',
     'dtr' => 'tbl_dtr',
     'department' => 'tbl_departments',
+    'ranks' => 'tbl_ranks',
     'file_attachments' => 'tbl_file_attachment',
     'subjects' => 'tbl_subjects',
     'exam_schedule' => 'tbl_exam_schedule',
