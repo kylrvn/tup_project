@@ -158,7 +158,8 @@ main_header(['Create_User']);
                                     <label for="">User Type</label>
                                     <select type="text" id="User_type" class="form-control inpt"
                                         placeholder="User_type">
-                                        <option value="1">Faculty</option>
+                                        <option value="1">Faculty (Full-time)</option>
+                                        <option value="5">Faculty (Part-time)</option>
                                         <option value="2">Program Head</option>
                                         <option value="3">HR Officer</option>
                                         <option value="4">Admin</option>

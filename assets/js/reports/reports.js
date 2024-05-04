@@ -11,6 +11,7 @@ var load_dtr_summary = () => {
         type: 'POST',
         url: baseUrl + 'reports/load_dtr_summary',
         data: {
+            faculty_type: $('#faculty_type').val(),
             selected_month: $('#select_month1').val(),
             report_type: $('#report_type').val(),
         },
@@ -29,6 +30,7 @@ var load_deduction_summary = () => {
         type: 'POST',
         url: baseUrl + 'reports/load_deduction_summary',
         data: {
+            facultyType: $('#facultyType').val(),
             selected_month: $('#select_month2').val(),
         },
 
@@ -74,6 +76,7 @@ $('#select_month1').change(function () {
         type: 'POST',
         url: baseUrl + 'reports/load_dtr_summary',
         data: {
+            faculty_type: $('#faculty_type').val(),
             selected_month: $('#select_month1').val(),
             report_type: $('#report_type').val(),
         },
@@ -87,13 +90,14 @@ $('#select_month1').change(function () {
     });
 });
 
-$('#select_month2').change(function () {
+$('#select_month2, #facultyType').change(function () {
     // alert($('#select_month').val());
 
     $.ajax({
         type: 'POST',
         url: baseUrl + 'reports/load_deduction_summary',
         data: {
+            facultyType: $('#facultyType').val(),
             selected_month: $('#select_month2').val(),
         },
 
@@ -106,13 +110,14 @@ $('#select_month2').change(function () {
     });
 });
 
-$('#report_type').change(function () {
+$('#report_type, #faculty_type').change(function () {
     // alert($('#report_type').val());
 
     $.ajax({
         type: 'POST',
         url: baseUrl + 'reports/load_dtr_summary',
         data: {
+            faculty_type: $('#faculty_type').val(),
             selected_month: $('#select_month1').val(),
             report_type: $('#report_type').val(),
         },

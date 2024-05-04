@@ -72,6 +72,7 @@ $array = array(
     'subjects' => 'tbl_subjects',
     'exam_schedule' => 'tbl_exam_schedule',
     'active_term' => 'tbl_active_term',
+    'non_working_days' => 'tbl_non_working_days',
     'leave_type' => 'tbl_leavetype'
 
 );

@@ -29,6 +29,13 @@ class Schedule extends MY_Controller
 		$this->load->view('layout', $this->data);
 	}
 
+	public function non_working_calendar()
+	{
+		$this->data['session'] =  $this->session;
+		$this->data['content'] = 'non_working_days';
+		$this->load->view('layout', $this->data);
+	}
+
 	public function exam_schedule()
 	{
 		$this->data['session'] =  $this->session;

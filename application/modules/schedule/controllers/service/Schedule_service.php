@@ -43,4 +43,11 @@ class Schedule_service extends MY_Controller
 		echo json_encode($response);
 	}
 
+	public function save_events(){
+		// var_dump($this->input->post("eventsArray"));
+		$this->SsModel->eventsArray = $this->input->post("eventsArray");
+		$response = $this->SsModel->save_events();
+		echo json_encode($response);
+	}
+
 }

@@ -52,8 +52,15 @@ main_header(['Reports']);
                 </button>
             </div>
             <div class="row mt-3 mr-3 ml-3">
-                <div class="col-6">
+                <div class="col-3">
                     &nbsp;
+                </div>
+                <div class="col-3">
+                    <h6>Select Faculty type:</h6>
+                    <select class="form-control" id="faculty_type">
+                        <option selected value="1">Full-time</option>
+                        <option value="5">Part-time</option>
+                    </select>
                 </div>
                 <div class="col-3">
                     <h6>Select Type of Report:</h6>
@@ -96,7 +103,11 @@ main_header(['Reports']);
                     &nbsp;
                 </div>
                 <div class="col-4">
-                    &nbsp;
+                    <h6>Select Faculty type:</h6>
+                    <select class="form-control" id="facultyType">
+                        <option selected value="1">Full-time</option>
+                        <option value="5">Part-time</option>
+                    </select>
                 </div>
                 <div class="col-4">
                     <h6>Select Month/Year:</h6>
