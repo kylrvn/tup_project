@@ -201,7 +201,7 @@ function calculateEndTime($startTime) {
             </td>
           
             <td>
-                <strong>Start Time:<br></strong><label><?=!empty($firstTuesdayItem->Start_time) ? calculateEndTime($lastTuesdayItem->Start_time) : ''?></label><br><br>
+                <strong>Start Time:<br></strong><label><?=!empty($firstTuesdayItem->Start_time) ? date('h:i:a', strtotime($firstTuesdayItem->Start_time)) : ''?></label><br><br>
                 <strong>End Time:<br></strong><label><?=!empty($lastTuesdayItem->End_time) ? calculateEndTime($firstTuesdayItem->End_time) : ''?></label><br><br>
             
                 <strong>Time In: <br><?= !empty($tuesday_timein_am) ? date('h:i a', strtotime($tuesday_timein_am)) : (!empty($tuesday_timein_pm) ? date('h:i a', strtotime($tuesday_timein_pm)) : ' ') ?></strong> <br><br>
@@ -210,7 +210,7 @@ function calculateEndTime($startTime) {
             </td>
           
             <td>
-                <strong>Start Time:<br></strong><label><?=!empty($firstWednesdayItem->Start_time) ? calculateEndTime($lastWednesdayItem->Start_time) : ''?></label><br><br>
+                <strong>Start Time:<br></strong><label><?=!empty($firstWednesdayItem->Start_time) ? date('h:i:a', strtotime($firstWednesdayItem->Start_time)) : ''?></label><br><br>
                 <strong>End Time:<br></strong><label><?=!empty($lastWednesdayItem->End_time) ? calculateEndTime($firstWednesdayItem->End_time) : ''?></label><br><br>
                 <strong>Time In: <br><?= !empty($wednesday_timein_am) ? date('h:i a', strtotime($wednesday_timein_am)) : (!empty($wednesday_timein_pm) ? date('h:i a', strtotime($wednesday_timein_pm)) : ' ') ?></strong> <br><br>
                 <strong>Time Out: <br><?= !empty($wednesday_timeout_pm) ? date('h:i a', strtotime($wednesday_timeout_pm)) : (!empty($wednesday_timeout_am) ? date('h:i a', strtotime($wednesday_timeout_am)) : ' ') ?></strong> <br><br><br><br>
@@ -218,7 +218,7 @@ function calculateEndTime($startTime) {
             </td>
            
             <td>
-                <strong>Start Time:<br></strong><label><?=!empty($firstThursdayItem->Start_time) ? calculateEndTime($lastThursdayItem->Start_time) : ''?></label><br><br>
+                <strong>Start Time:<br></strong><label><?=!empty($firstThursdayItem->Start_time) ? date('h:i:a', strtotime($firstThursdayItem->Start_time)) : ''?></label><br><br>
                 <strong>End Time:<br></strong><label><?=!empty($lastThursdayItem->End_time) ? calculateEndTime($firstThursdayItem->End_time) : ''?></label><br><br>
                 <strong>Time In: <br><?= !empty($thursday_timein_am) ? date('h:i a', strtotime($thursday_timein_am)) : (!empty($thursday_timein_pm) ? date('h:i a', strtotime($thursday_timein_pm)) : ' ') ?></strong> <br><br>
                 <strong>Time Out: <br><?= !empty($thursday_timeout_pm) ? date('h:i a', strtotime($thursday_timeout_pm)) : (!empty($thursday_timeout_am) ? date('h:i a', strtotime($thursday_timeout_am)) : ' ') ?></strong> <br><br><br><br>
@@ -226,7 +226,7 @@ function calculateEndTime($startTime) {
             </td>
 
             <td>
-                <strong>Start Time:<br></strong><label><?=!empty($firstFridayItem->Start_time) ? calculateEndTime($lastFridayItem->Start_time) : ''?></label><br><br>
+                <strong>Start Time:<br></strong><label><?=!empty($firstFridayItem->Start_time) ? date('h:i:a', strtotime($firstFridayItem->Start_time)) : ''?></label><br><br>
                 <strong>End Time:<br></strong><label><?=!empty($lastFridayItem->End_time) ? calculateEndTime($firstFridayItem->End_time) : ''?></label><br><br>
                 <strong>Time In: <br><?= !empty($friday_timein_am) ? date('h:i a', strtotime($friday_timein_am)) : (!empty($friday_timein_pm) ? date('h:i a', strtotime($friday_timein_pm)) : ' ') ?></strong> <br><br>
                 <strong>Time Out: <br><?= !empty($friday_timeout_pm) ? date('h:i a', strtotime($friday_timeout_pm)) : (!empty($friday_timeout_am) ? date('h:i a', strtotime($friday_timeout_am)) : ' ') ?></strong> <br><br><br><br>
@@ -234,7 +234,7 @@ function calculateEndTime($startTime) {
             </td>
 
             <td>
-                <strong>Start Time:<br></strong><label><?=!empty($firstSaturdayItem->Start_time) ? calculateEndTime($lastSaturdayItem->Start_time) : ''?></label><br><br>
+                <strong>Start Time:<br></strong><label><?=!empty($firstSaturdayItem->Start_time) ? date('h:i:a', strtotime($firstSaturdayItem->Start_time)) : ''?></label><br><br>
                 <strong>End Time:<br></strong><label><?=!empty($lastSaturdayItem->End_time) ? calculateEndTime($firstSaturdayItem->End_time) : ''?></label><br><br>
                 <strong>Time In: <br><?= !empty($saturday_timein_am) ? date('h:i a', strtotime($saturday_timein_am)) : (!empty($saturday_timein_pm) ? date('h:i a', strtotime($saturday_timein_pm)) : ' ') ?></strong> <br><br>
                 <strong>Time Out: <br><?= !empty($saturday_timeout_pm) ? date('h:i a', strtotime($saturday_timeout_pm)) : (!empty($saturday_timeout_am) ? date('h:i a', strtotime($saturday_timeout_am)) : ' ') ?></strong> <br><br><br><br>
