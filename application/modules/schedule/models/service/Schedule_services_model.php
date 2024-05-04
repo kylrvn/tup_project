@@ -68,7 +68,7 @@ class Schedule_services_model extends CI_Model
                     'to_date' => ($value["end"] == "" ? null : $value["end"]),
                 );
 
-                // Check if the record already exists
+                // Check existing data
                 $this->db->where('type', $data['type']);
                 $this->db->where('from_date', $data['from_date']);
                 if (!empty($data['to_date'])) {
@@ -79,10 +79,10 @@ class Schedule_services_model extends CI_Model
                 $query = $this->db->get($this->Table->non_working_days);
 
                 if ($query->num_rows() == 0) {
-                    // Record doesn't exist, so insert
+                    //If data doesnt exist
                     $this->db->insert($this->Table->non_working_days, $data);
                 } else {
-                    // Record already exists
+                    // if data exists
                 }
 
             }

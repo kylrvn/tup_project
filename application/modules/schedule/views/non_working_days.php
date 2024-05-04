@@ -1,12 +1,12 @@
 <?php
-main_header();
+main_header(['calendar']);
 ?>
 <div class="row ml-2">
     <div class="col-md-3">
         <div class="sticky-top">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Draggable Events</h4>
+                    <h4 class="card-title"><b>Events</b></h4>
                 </div>
                 <div class="card-body">
                     <!-- the events -->

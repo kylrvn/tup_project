@@ -290,6 +290,19 @@ function main_header($menubar = [])
                                     </a>
                                 </li>
                             </ul>
+
+                            <ul class="nav nav-item hover-effect">
+                                <li class="nav-item">
+                                    <a style="color:<?= (sidebar($menubar, ['calendar'])) ? 'white' : 'black' ?>;"
+                                        href="<?= base_url() ?>schedule/non_working_calendar"
+                                        class="nav-link <?= (sidebar($menubar, ['calendar'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-calendar nav-icon"></i>
+
+                                        <p>View Calendar</p>
+                                    </a>
+                                </li>
+                            </ul>
+
                             <ul class="nav nav-item hover-effect">
                                 <li class="nav-item">
                                     <a style="color:<?= (sidebar($menubar, ['program_head'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "2" ? '' : 'none' ?>;"
