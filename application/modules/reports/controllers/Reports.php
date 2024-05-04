@@ -38,6 +38,7 @@ class Reports extends MY_Controller
 		// $this->data['details'] = $this->  cModel->get_schedule();
 
 		$this->rModel->month = $this->input->post('selected_month');
+		$this->rModel->facultyType = $this->input->post('faculty_type');
 
 		$this->data['details'] = $this->rModel->get_dtr_summary();
 
@@ -52,6 +53,7 @@ class Reports extends MY_Controller
 	public function load_deduction_summary()
 	{
 		$this->rModel->month = $this->input->post('selected_month');
+		$this->rModel->facultyType = $this->input->post('facultyType');
 
 		$this->data['details'] = $this->rModel->get_deduction_summary();
 		$this->data['content'] = 'grid/load_deduction_summary';

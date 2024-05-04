@@ -26,6 +26,15 @@ class Create_user_model extends CI_Model
         return $query;
     }
 
+    public function get_ranks()
+    {
+        $this->db->select('*');
+        $this->db->from($this->Table->ranks);
+
+        $query = $this->db->get()->result();
+        return $query;
+    }
+
     public function get_users()
     {
         $user_type_filter = ["1", "2", "3"];

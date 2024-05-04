@@ -290,6 +290,19 @@ function main_header($menubar = [])
                                     </a>
                                 </li>
                             </ul>
+
+                            <ul class="nav nav-item hover-effect">
+                                <li class="nav-item">
+                                    <a style="color:<?= (sidebar($menubar, ['calendar'])) ? 'white' : 'black' ?>;"
+                                        href="<?= base_url() ?>schedule/non_working_calendar"
+                                        class="nav-link <?= (sidebar($menubar, ['calendar'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-calendar nav-icon"></i>
+
+                                        <p>View Calendar</p>
+                                    </a>
+                                </li>
+                            </ul>
+
                             <ul class="nav nav-item hover-effect">
                                 <li class="nav-item">
                                     <a style="color:<?= (sidebar($menubar, ['program_head'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "2" ? '' : 'none' ?>;"
@@ -303,7 +316,7 @@ function main_header($menubar = [])
 
                             <ul class="nav nav-item hover-effect">
                                 <li class="nav-item">
-                                    <a style="color:<?= (sidebar($menubar, ['request'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "1" ? 'none' : '' ?>;"
+                                    <a style="color:<?= (sidebar($menubar, ['request'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "1" || $session->User_type == "2" || $session->User_type == "5" ? 'none' : '' ?>;"
                                         href="<?= base_url() ?>request"
                                         class="nav-link <?= (sidebar($menubar, ['request'])) ? 'active' : '' ?>">
                                         <i class="fas fa-envelope nav-icon"></i>

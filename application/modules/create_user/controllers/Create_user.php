@@ -20,6 +20,7 @@ class Create_user extends MY_Controller
 	public function index()
 	{
 		$this->data['departments'] = $this->cModel->get_departments();
+		$this->data['ranks'] = $this->cModel->get_ranks();
 		$this->data['content'] = 'index';
 		$this->load->view('layout', $this->data);
 	}

@@ -1,5 +1,5 @@
 <?php
-// var_dump($details);
+// var_dump($session);
 ?>
 
 <div class="card-header">
@@ -24,26 +24,52 @@
                 <th>#</th>
                 <th>FACULTY NAME</th>
                 <th>DEPARTMENT</th>
-                <th>ACTION</th>
+                <th>SCHEDULE STATUS</th>
+                <th>ACTIONS</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            foreach ($details as $key => $value) {
+            if (!empty($details)) {
+
+                foreach ($details as $key => $value) {
+                    ?>
+                    <tr>
+                        <td><b><?= @$key + 1 ?></b></td>
+                        <td><?= ucfirst($value->Lname) ?>, <?= ucfirst($value->Fname) ?>         <?= ucfirst($value->Mname) ?></td>
+                        <td><?= $value->department_name ?></td>
+                        <td><?= $value->verified == "0" || empty($value->verified) ? '<label style="color: red;">UNVERIFIED</label>' : '<label style="color: green;">APPROVED</label>' ?>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?= $value->ID ?>"><i
+                                    class="fas fa-calendar"></i></button>
+                            <button class="btn btn-sm btn-success" onclick="confirmation(this)" data-id="<?= $value->ID ?>" data-year="<?= $value->schoolYear ?>" data-term="<?= $value->schoolTerm ?>"><i
+                                    class="fas fa-check"></i> Approve Schedule</button>
+                            <button class="btn btn-sm btn-primary" onclick="load_dtr(this)" data-id="<?= $value->ID ?>"><i
+                                    class="fas fa-eye"></i> View DTR</button>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                <?php
+
+            } else {
                 ?>
                 <tr>
-                    <td><b><?=@$key+1?></b></td>
-                    <td><?=ucfirst($value->Lname)?>, <?=ucfirst($value->Fname)?> <?=ucfirst($value->Mname)?></td>
-                    <td><?=$value->department_name?></td>
-                    <td>
-                        <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?=$value->ID?>"><i class="fas fa-calendar"></i></button>
-                        <button class="btn btn-sm btn-primary" onclick="load_dtr(this)" data-id="<?=$value->ID?>"><i class="fas fa-calendar"></i></button>
-                        <!-- <button class="btn btn-sm btn-success" onclick="load_calendar(this)" data-id="<?=$value->ID?>"><i class="fas fa-calendar"></i></button> -->
+                    <td colspan="8">
+                        <div>
+                            <center>
+                                <h6 style="color:red">No Data Found.</h6>
+                            </center>
+                        </div>
                     </td>
                 </tr>
                 <?php
+
             }
             ?>
+
         </tbody>
     </table>
 </div>

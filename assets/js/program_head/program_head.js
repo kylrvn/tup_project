@@ -210,3 +210,42 @@ $('#approveBtn').click(function() {
         toastr.error(errorMessage);
     });
 });
+
+var schoolYear = null;
+var schoolTerm = null;
+var facultyID = null;
+
+function confirmation(element){
+    
+    schoolYear = element.getAttribute('data-year');
+    schoolTerm = element.getAttribute('data-term');
+    facultyID = element.getAttribute('data-id');
+
+    $('#confirmation').modal('show');
+}
+
+$('#confirm_yes').click(function() {
+    // alert(schoolYear + " " + schoolTerm + " " + facultyID);
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'program_head/approve_schedule',
+        data: {
+            facultyID: facultyID,
+            schoolYear: schoolYear,
+            schoolTerm: schoolTerm,
+        },
+        success: function (data) {
+            let e = JSON.parse(data);
+            if (e.has_error == false) 
+            {
+                toastr.success(e.message);
+                $('#confirmation').modal('hide');
+                load_dtr_schedule();
+            }
+            else{
+                toastr.error(e.message);
+            }
+        },
+    });
+});

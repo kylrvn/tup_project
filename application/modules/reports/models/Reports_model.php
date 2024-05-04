@@ -53,7 +53,13 @@ class Reports_model extends CI_Model
             // 'd.Date_time,'.
         );
         $this->db->from($this->Table->user . ' u');
-        $this->db->where_in('u.User_type', $this->user_type);
+
+        if($this->facultyType == "1"){
+            $this->db->where_in('u.User_type', $this->user_type);
+        }
+        else if($this->facultyType == "5"){
+            $this->db->where('u.User_type', $this->facultyType);
+        }
         // $this->db->join($this->Table->dtr.' d', 'u.ID=d.Faculty_id','left');
         // $this->db->join($this->Table->sched.' s', 'u.ID=s.Faculty_id','left');
 
@@ -340,7 +346,13 @@ class Reports_model extends CI_Model
             // 'd.Date_time,'.
         );
         $this->db->from($this->Table->user . ' u');
-        $this->db->where_in('u.User_type', $this->user_type);
+
+        if($this->facultyType == "1"){
+            $this->db->where_in('u.User_type', $this->user_type);
+        }
+        else if ($this->facultyType == "5"){
+            $this->db->where('u.User_type', $this->facultyType);
+        }
         $data_to_send["data"] = $this->db->get()->result();
         foreach ($data_to_send["data"] as $val) {
 

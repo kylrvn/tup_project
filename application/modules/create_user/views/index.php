@@ -140,7 +140,17 @@ main_header(['Create_User']);
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Rank</label>
-                                    <input type="text" id="Rank" class="form-control inpt" placeholder="Position">
+                                    <select type="text" id="Rank" class="form-control inpt">
+                                        <option value="" disabled selected>SELECT RANK</option>
+                                        <?php
+                                        foreach ($ranks as $key => $value) { ?>
+                                            <option value="<?= $value->ID ?>">
+                                                <?= $value->rankName ?>
+                                            </option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -148,7 +158,8 @@ main_header(['Create_User']);
                                     <label for="">User Type</label>
                                     <select type="text" id="User_type" class="form-control inpt"
                                         placeholder="User_type">
-                                        <option value="1">Faculty</option>
+                                        <option value="1">Faculty (Full-time)</option>
+                                        <option value="5">Faculty (Part-time)</option>
                                         <option value="2">Program Head</option>
                                         <option value="3">HR Officer</option>
                                         <option value="4">Admin</option>
@@ -160,7 +171,8 @@ main_header(['Create_User']);
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Username</label>
-                                    <input type="text" id="Username" class="form-control inpt" placeholder="Username" disabled>
+                                    <input type="text" id="Username" class="form-control inpt" placeholder="Username"
+                                        disabled>
                                 </div>
                             </div>
                             <div class="col-md-4">

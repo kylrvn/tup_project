@@ -24,8 +24,8 @@ main_header(['program_head']);
 
 <!-- /.row -->
 <div class="row" style="display:flex;">
-    <div class="col-12" >
-        <div class="card" >
+    <div class="col-12">
+        <div class="card">
             <div class="container col-12" id="load_dtr_schedule">
                 <!-- Faculty Table Loaded Here -->
             </div>
@@ -55,6 +55,7 @@ main_header(['program_head']);
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="dtr_modal" tabindex="-1" role="dialog" aria-labelledby="dtr_modal">
     <div class="modal-dialog custom-modal-width dtr_modal-modal" role="document">
         <div class="modal-content">
@@ -70,7 +71,6 @@ main_header(['program_head']);
                 </div>
             </div>
             <div class="modal-footer">
-              
                 <button type="button" id="approveBtn" class="btn btn-success flat ">
                     <i class="fa fa-times"></i> Approve
                 </button>
@@ -82,6 +82,27 @@ main_header(['program_head']);
     </div>
 </div>
 
+<div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header " style="background-color:#9F3A3B; color: white;">
+                <b>Confirm Action:</b>
+            </div>
+            <div class="modal-body">
+                <label>You're about to <b style="color:green">APPROVE</b> a schedule. please confirm action:</label>
+            </div>
+            <div class="modal-footer " style="background-color:#9F3A3B; color: white;">
+                <button type="button" id="confirm_yes" class="btn btn-success flat ">
+                    <i class="fa fa-times"></i> Approve
+                </button>
+                <button type="button" class="btn btn-danger flat " data-dismiss="modal">
+                    <i class="fa fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
