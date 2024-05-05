@@ -26,7 +26,7 @@ class Reports_model extends CI_Model
 
         $year = $date_parts[0];
         $month = $date_parts[1];
-
+        $holiday = [];
         $undertime_total = 0;
         $tard_total = 0;
         $undertime_tard_total = 0;
@@ -54,17 +54,16 @@ class Reports_model extends CI_Model
         );
         $this->db->from($this->Table->user . ' u');
 
-        if($this->facultyType == "1"){
+        if ($this->facultyType == "1") {
             $this->db->where_in('u.User_type', $this->user_type);
-        }
-        else if($this->facultyType == "5"){
+        } else if ($this->facultyType == "5") {
             $this->db->where('u.User_type', $this->facultyType);
         }
         // $this->db->join($this->Table->dtr.' d', 'u.ID=d.Faculty_id','left');
         // $this->db->join($this->Table->sched.' s', 'u.ID=s.Faculty_id','left');
 
         $data_to_send["data"] = $this->db->get()->result();
-
+        $holiday = $this->get_holidays($year, $month);
         foreach ($data_to_send["data"] as $val) {
             $logs = $this->get_logs($val->ID);
             $sched = $this->get_sched($val->ID);
@@ -111,6 +110,20 @@ class Reports_model extends CI_Model
                 @$arrsize = sizeof(@$tempschedarr);
                 foreach ($logs as $k => $log) {
                     // if (date("j", strtotime($log->date_log)) == $day) {
+                    // if (in_array(date("Y-m-j", strtotime(@$log->date_log))), $holiday) {
+                    // }
+                    if (in_array($this->month . '-' . $day, $holiday)) {
+                        // $undertime_tard_daily[$day] = [
+                        //     "day" => $day,
+                        //     "ut_daily" => 0,
+                        //     "t_daily" => 0,
+                        // ];
+                        // $overload_daily[$day] = [
+                        //     "day" => $day,
+                        //     "ol_daily" => 0,
+                        // ];
+                        break;
+                    }
                     if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
                         // echo '<br>'.$day.'- ';
                         $quota = 18000;
@@ -341,19 +354,22 @@ class Reports_model extends CI_Model
         $data_to_send["month"] = $monthInAbbv;
         $data_to_send["year"] = $year;
 
+
+
         $this->db->select(
             'u.*,'
             // 'd.Date_time,'.
         );
         $this->db->from($this->Table->user . ' u');
 
-        if($this->facultyType == "1"){
+        if ($this->facultyType == "1") {
             $this->db->where_in('u.User_type', $this->user_type);
-        }
-        else if ($this->facultyType == "5"){
+        } else if ($this->facultyType == "5") {
             $this->db->where('u.User_type', $this->facultyType);
         }
         $data_to_send["data"] = $this->db->get()->result();
+        $holiday = $this->get_holidays($year, $month);
+        var_dump($holiday);
         foreach ($data_to_send["data"] as $val) {
 
             $logs = $this->get_logs($val->ID);
@@ -407,6 +423,23 @@ class Reports_model extends CI_Model
                         @$arrsize = sizeof(@$tempschedarr);
                         foreach ($logs as $k => $log) {
                             // if (date("j", strtotime($log->date_log)) == $day) {
+                            if (in_array($this->month . '-' . $day, $holiday)) {
+                                // echo 'AAA';
+
+
+                                $undertime_tard_daily[$day] = [
+                                    "day" => $day,
+                                    "ut_daily" => 0,
+                                    "t_daily" => 0,
+                                ];
+                                $overload_daily[$day] = [
+                                    "day" => $day,
+                                    "ol_daily" => 0,
+                                ];
+                                $absent_count--;
+                                // $absent_checker = true;
+                                break;
+                            }
                             if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
                                 $absent_checker = true;
                                 $absent_count--;
@@ -570,6 +603,11 @@ class Reports_model extends CI_Model
                             } // end of if date checker
 
                         } //end log foreach loop
+                    }
+                    if (!$absent_checker) {
+                        $bi = strlen($day) < 2 ? 0 . $day : $day;
+                        $date_absent = $month . '-' . $bi;
+                        array_push($absent_dates, $date_absent);
                     }
                 } elseif ($month != date('m')) {
                     if ($dayOfWeek == 'saturday' || $dayOfWeek == 'sunday') {
@@ -760,8 +798,18 @@ class Reports_model extends CI_Model
 
                         } //end log foreach loop
                     }
+                    if (!$absent_checker) {
+                        $bi = strlen($day) < 2 ? 0 . $day : $day;
+                        $date_absent = $month . '-' . $bi;
+                        array_push($absent_dates, $date_absent);
+                    }
                 } else {
                     $absent_count--;
+                    if (!$absent_checker) {
+                        $bi = strlen($day) < 2 ? 0 . $day : $day;
+                        $date_absent = $month . '-' . $bi;
+                        array_push($absent_dates, $date_absent);
+                    }
                 }
 
 
@@ -774,11 +822,6 @@ class Reports_model extends CI_Model
                 $ov = 0;
                 $ut = 0;
                 $t = 0;
-                if (!$absent_checker) {
-                    $bi = strlen($day) < 2 ? 0 . $day : $day ;
-                    $date_absent = $month . '-' . $bi;
-                    array_push($absent_dates, $date_absent);
-                }
             }
 
             $undertime_tard_total = $undertime_total + $tard_total;
@@ -874,7 +917,7 @@ class Reports_model extends CI_Model
 
         $data_to_send['selected_month'] = "$monthInWords 1 - $days_in_selected_month, $year";
         $data_to_send['num_of_days'] = $days_in_selected_month;
-
+        $holiday = $this->get_holidays($year, $month);
         $user_type = ["1", "2"];
         $this->db->select(
             '*'
@@ -933,6 +976,18 @@ class Reports_model extends CI_Model
                 foreach ($logs as $k => $log) {
                     // echo $this->month . '-' . $day .' == '.date("Y-m-j", strtotime($log->date_log)). '<br>';
                     // if (date("j", strtotime($log->date_log)) == $day) {
+                    if (in_array($this->month . '-' . $day, $holiday)) {
+                        $undertime_tard_daily[$day] = [
+                            "day" => $day,
+                            "ut_daily" => 0,
+                            "t_daily" => 0,
+                        ];
+                        $overload_daily[$day] = [
+                            "day" => $day,
+                            "ol_daily" => 0,
+                        ];
+                        break;
+                    }
                     if ($this->month . '-' . $day == date("Y-m-j", strtotime($log->date_log))) {
 
                         $logs_data[$day] = [
@@ -1073,5 +1128,30 @@ class Reports_model extends CI_Model
         }
 
         return $data_to_send;
+    }
+
+    public function get_holidays($y, $m)
+    {
+        $this->db->select('*');
+        $this->db->where('MONTH(from_date)', $m);
+        $this->db->where('YEAR(from_date)', $y);
+        $this->db->where('MONTH(to_date)', $m);
+        $this->db->where('YEAR(to_date)', $y);
+        $this->db->from($this->Table->non_working_days);
+        $result = $this->db->get()->result();
+        $arr = [];
+        foreach ($result as $key => $value) {
+
+            @$start_hold = date('j', strtotime($value->from_date));
+            @$end_hold = date('j', strtotime($value->to_date));
+            if ($start_hold == $end_hold) {
+                $arr[] = $y . '-' . $m . '-' . $start_hold;
+            } else {
+                for ($start_hold; $start_hold <= $end_hold; $start_hold++) {
+                    $arr[] = $y . '-' . $m . '-' . $start_hold;
+                }
+            }
+        }
+        return $arr;
     }
 }
