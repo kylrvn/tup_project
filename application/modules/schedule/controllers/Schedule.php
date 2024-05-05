@@ -84,5 +84,12 @@ class Schedule extends MY_Controller
 		$this->load->view('layout', $this->data);
 	}
 
+	public function get_all_events()
+	{
+		$this->data['details'] = $this->sModel->get_all_events();
+		// var_dump($this->sModel->get_all_events());
+		echo json_encode($this->data['details']);
+	}
+
 
 }
