@@ -137,3 +137,45 @@ $('#save_dates').click(function () {
     });
 
 });
+
+function load_calendar() {
+    // alert(element.getAttribute('data-id'));
+    // return
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'schedule/get_all_events',
+        success: function (data) {
+
+            let e = JSON.parse(data);
+
+            console.log(e);
+
+            setTimeout(() => {
+                e.forEach(element => {
+                    var startDate = new Date(element.from_date);
+                    var endDate = new Date(element.to_date);
+                    var newEvent = {
+                        title: element.type,
+                        start: startDate,
+                        end: endDate,
+                        backgroundColor: '#6F7588',
+                        borderColor: '#6F7588',
+                        editable: false
+                    };
+                    calendar.addEvent(newEvent);
+                });
+            }, 1000);
+
+            calendar.render();
+
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+// <----------------------------------------------> DOM READY HERE <---------------------------------------------->
+$(document).ready(function () {
+    load_calendar();
+});

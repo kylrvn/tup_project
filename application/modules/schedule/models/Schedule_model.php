@@ -72,4 +72,17 @@ class Schedule_model extends CI_Model
 
         return $query;
     }
+
+    public function get_all_events()
+    {
+        $this->db->select(
+            '*'
+        );
+        $this->db->from($this->Table->non_working_days);
+        $this->db->where("YEAR(from_date) =", date('Y'));
+
+        $query = $this->db->get()->result();
+
+        return $query;
+    }
 }

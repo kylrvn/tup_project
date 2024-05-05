@@ -25,6 +25,8 @@ class Dashboard extends MY_Controller
 	{
 		$this->data['session'] =  $this->session;
 		$this->data['week_sched_dtr'] = $this->cModel->get_acknowledgement_dtr_week();
+		$this->data['approved'] = $this->cModel->get_approved();
+		$this->data['forVerif'] = $this->cModel->get_records_forverif();
 		$this->data['content'] = 'index';
 		$this->load->view('layout', $this->data);
 	}
@@ -57,6 +59,11 @@ class Dashboard extends MY_Controller
 	public function get_account(){
 		$this->data['details'] = $this->cModel->get_user_details();
 		$this->data['content'] = 'grid/load_account';
+		$this->load->view('layout',$this->data);
+	}
+	public function qr_faculty(){
+		$this->data['details'] = $this->cModel->get_user_details();
+		$this->data['content'] = 'qr_faculty';
 		$this->load->view('layout',$this->data);
 	}
 }
