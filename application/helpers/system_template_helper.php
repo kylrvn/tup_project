@@ -295,7 +295,7 @@ function main_header($menubar = [])
 
                             <ul class="nav nav-item hover-effect">
                                 <li class="nav-item">
-                                    <a style="color:<?= (sidebar($menubar, ['calendar'])) ? 'white' : 'black' ?>;"
+                                    <a style="color:<?= (sidebar($menubar, ['calendar'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "3" ? '' : 'none' ?>;"
                                         href="<?= base_url() ?>schedule/non_working_calendar"
                                         class="nav-link <?= (sidebar($menubar, ['calendar'])) ? 'active' : '' ?>">
                                         <i class="fas fa-calendar nav-icon"></i>
