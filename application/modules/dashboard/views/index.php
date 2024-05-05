@@ -10,7 +10,8 @@ $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
 
 // Initialize an array to store grouped data
 $groupedData = [];
-
+$groupedApproved = [];
+$groupedForVerif = [];
 // Initialize start and end dates for the first week
 $startDate = null;
 $endDate = null;
@@ -47,6 +48,12 @@ $formattedWeeks = [];
 // Iterate through grouped data and display
 foreach ($groupedData as $weekData) {
     $formattedWeeks[] = date('M j, Y', strtotime($weekData['start'])) . " - " . date('M j, Y', strtotime($weekData['end']));
+}
+foreach($approved as $key => $value){
+    $groupedApproved[] = $value->Schedule;
+}
+foreach($forVerif as $key => $value){
+    $groupedForVerif[] = $value->Schedule;
 }
 ?>
 
@@ -164,8 +171,16 @@ foreach ($groupedData as $weekData) {
                 <?php foreach ($formattedWeeks  as $week) {  ?>
                  <tr>   
                 <td><?=$week?></td>
-                <td> <input type="checkbox" value="1" class="acknowledgement" data-week="<?=$week?>" data-FacID="<?=$session->ID?>" name="acknowledgement[]"></td>
-                <td> <input type="checkbox" value="1" class="forVerif" data-week="<?=$week?>" data-FacID="<?=$session->ID?>" name="forVerif[]"></td>
+                <td> <input type="checkbox" value="1" class="acknowledgement"  data-week="<?=$week?>" data-FacID="<?=$session->ID?>" name="acknowledgement[]" <?php foreach($groupedApproved as $approvedSched){
+                    if($approvedSched == $week){
+                        echo 'checked';
+                    }
+                }?>></td>
+                <td> <input type="checkbox" value="1" class="forVerif" data-week="<?=$week?>" data-FacID="<?=$session->ID?>" name="forVerif[]" <?php foreach($groupedForVerif as $forVerif){
+                    if($forVerif == $week){
+                        echo 'checked';
+                    }
+                }?>></td>
                 <td><input type="text" id="reason"></td>
                  </tr>
                 <?php }?>

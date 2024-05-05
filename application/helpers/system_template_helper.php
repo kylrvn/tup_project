@@ -293,7 +293,7 @@ function main_header($menubar = [])
 
                             <ul class="nav nav-item hover-effect">
                                 <li class="nav-item">
-                                    <a style="color:<?= (sidebar($menubar, ['calendar'])) ? 'white' : 'black' ?>;"
+                                    <a style="color:<?= (sidebar($menubar, ['calendar'])) ? 'white' : 'black' ?>;display:<?= $session->User_type == "3" ? '' : 'none' ?>;"
                                         href="<?= base_url() ?>schedule/non_working_calendar"
                                         class="nav-link <?= (sidebar($menubar, ['calendar'])) ? 'active' : '' ?>">
                                         <i class="fas fa-calendar nav-icon"></i>
@@ -332,6 +332,36 @@ function main_header($menubar = [])
                                         class="nav-link <?= (sidebar($menubar, ['Faculty_schedule'])) ? 'active' : '' ?>">
                                         <i class="fas fa-calendar-alt nav-icon"></i>
                                         <p>Encode Schedule</p>
+                                    </a>
+                                </ul>
+                            </li>
+                            <li class="nav-item hover-effect">
+                                <ul class="nav nav-item">
+                                    <a style="color:<?= (sidebar($menubar, ['Generate_QR'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "3" ? '' : 'none' ?>;"
+                                        href="<?= base_url() ?>qr/generate_qr"
+                                        class="nav-link <?= (sidebar($menubar, ['Generate_QR'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-calendar-alt nav-icon"></i>
+                                        <p>Generate Faculty QR Code</p>
+                                    </a>
+                                </ul>
+                            </li>
+                            <li class="nav-item hover-effect">
+                                <ul class="nav nav-item">
+                                    <a style="color:<?= (sidebar($menubar, ['QR_faculty'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "1" ? '' : 'none' ?>;"
+                                        href="<?= base_url() ?>dashboard/qr_faculty"
+                                        class="nav-link <?= (sidebar($menubar, ['QR_faculty'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-calendar-alt nav-icon"></i>
+                                        <p>View Faculty QR Code</p>
+                                    </a>
+                                </ul>
+                            </li>
+                            <li class="nav-item hover-effect">
+                                <ul class="nav nav-item">
+                                    <a style="color:<?= (sidebar($menubar, ['QR'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "3" ? '' : 'none' ?>;"
+                                        href="<?= base_url() ?>QR"
+                                        class="nav-link <?= (sidebar($menubar, ['QR'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-calendar-alt nav-icon"></i>
+                                        <p>Scan QR Code</p>
                                     </a>
                                 </ul>
                             </li>
