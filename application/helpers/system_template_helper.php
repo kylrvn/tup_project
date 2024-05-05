@@ -1,4 +1,6 @@
 <?php
+require_once 'vendor/autoload.php'; // required for the qr code generation.
+
 function calendar_header()
 { ?>
 
