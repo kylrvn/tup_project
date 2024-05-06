@@ -62,6 +62,7 @@ class Schedule_model extends CI_Model
         $this->db->select(
             's.*,' .
             'su.Subject_name,' .
+            'su.subject_code,' .
             'su.color'
         );
         $this->db->from($this->Table->sched . ' s');

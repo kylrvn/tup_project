@@ -49,10 +49,11 @@ $(function () {
         initialView: 'timeGridWeek',
         themeSystem: 'bootstrap',
         slotDuration: '00:15:00',
-        slotMinTime: '06:00',
-        slotMaxTime: '20:00',
-        height: 'auto',
+        slotMinTime: '08:00',
+        slotMaxTime: '21:00',
         allDaySlot: false,
+        height: 'auto',
+        
 
         views: {
             timeGridWeek: {
@@ -195,7 +196,7 @@ function load_calendar(element) {
             setTimeout(() => {
                 e.forEach(element => {
                     var newEvent = {
-                        title: element.Subject_name,
+                        title: element.subject_code + element.Subject_name,
                         startTime: element.Start_time,
                         endTime: element.End_time,
                         daysOfWeek: element.Day == "sunday" ? [0] : element.Day == "monday" ? [1] : element.Day == "tuesday" ? [2] : element.Day == "wednesday" ? [3] : element.Day == "thursday" ? [4] : element.Day == "friday" ? [5] : element.Day == "saturday" ? [6] : "",
@@ -203,6 +204,7 @@ function load_calendar(element) {
                         borderColor: element.color,
                         editable: false
                     };
+
                     calendar.addEvent(newEvent);
                 });
             }, 1000);
