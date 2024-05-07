@@ -23,7 +23,7 @@ class QR extends MY_Controller
 		$this->load->view('layout', $this->data);
 	}
 	public function generate_qr(){
-		// $this->data['details'] = $this->cModel->get_user_details();
+		$this->data['details'] = $this->qModel->get_faculty_list();
 		$this->data['content'] = 'generate_qr';
 		$this->load->view('layout',$this->data);
 	}

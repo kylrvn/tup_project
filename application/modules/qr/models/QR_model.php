@@ -16,4 +16,17 @@ class QR_model extends CI_Model
         $this->load->model($model_list);
         $this->Table = json_decode(TABLE);
     }
+
+    public function get_faculty_list()
+    {
+        $this->db->select('*');
+        $this->db->from($this->Table->user);
+        $this->db->group_start();
+        $this->db->where('User_type', 1);
+        $this->db->or_where('User_type', 5);
+        $this->db->group_end();
+        $query = $this->db->get()->result();
+        // var_dump($query);
+        return $query;
+    }
 }

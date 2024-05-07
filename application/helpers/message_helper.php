@@ -73,7 +73,8 @@ $array = array(
     'exam_schedule' => 'tbl_exam_schedule',
     'active_term' => 'tbl_active_term',
     'non_working_days' => 'tbl_non_working_days',
-    'leave_type' => 'tbl_leavetype'
+    'leave_type' => 'tbl_leavetype',
+    'qr' => 'tbl_qr'
 
 );
 define('TABLE', json_encode($array));
