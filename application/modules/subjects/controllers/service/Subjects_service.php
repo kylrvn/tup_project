@@ -23,6 +23,8 @@ class Subjects_service extends MY_Controller
 	public function add_subject()
 	{
 		$this->SsModel->subject_name = $this->input->post("subject_name");
+		$this->SsModel->subject_code = $this->input->post("subject_code");
+
 		$this->SsModel->color = $this->input->post("color");
 		$this->SsModel->department = $this->input->post("department");
 		$this->SsModel->status = $this->input->post("status");
@@ -36,6 +38,8 @@ class Subjects_service extends MY_Controller
 
 		$this->SsModel->ID = $this->input->post("id");
 		$this->SsModel->subject_name = $this->input->post("subject_name");
+		$this->SsModel->subject_code = $this->input->post("subject_code");
+
 		$this->SsModel->color = $this->input->post("color");
 		$this->SsModel->department = $this->input->post("department");
 		$this->SsModel->status = $this->input->post("status");

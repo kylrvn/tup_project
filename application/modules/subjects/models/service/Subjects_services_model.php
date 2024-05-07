@@ -26,6 +26,8 @@ class Subjects_services_model extends CI_Model
             $data = array
             (
                 'Subject_name' => $this->subject_name,
+                'subject_code' => $this->subject_code,
+
                 'color' => $this->color,
                 'Department' => $this->department,
                 'Active' => $this->status,
@@ -55,6 +57,8 @@ class Subjects_services_model extends CI_Model
             $data = array
             (
                 'Subject_name' => $this->subject_name,
+                'subject_code' => $this->subject_code,
+
                 'color' => $this->color,
                 'Department' => $this->department,
                 'Active' => $this->status,

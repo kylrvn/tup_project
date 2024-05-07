@@ -26,7 +26,7 @@ class Schedule_model extends CI_Model
         $this->db->from($this->Table->user . ' u');
         $this->db->join($this->Table->department . ' d', 'u.Department = d.ID', 'left');
         $this->db->join($this->Table->sched_verification . ' sv', 'u.ID = sv.facultyID', 'left');
-
+        $this->db->group_by('u.ID');
 
         if ($this->session->User_type == "1" || $this->session->User_type == "2") {
             $this->db->where('u.ID', $this->session->ID);
@@ -62,11 +62,14 @@ class Schedule_model extends CI_Model
         $this->db->select(
             's.*,' .
             'su.Subject_name,' .
-            'su.color'
+            'su.subject_code,' .
+            'su.color,'.
+            'u.Lname,'
         );
         $this->db->from($this->Table->sched . ' s');
         $this->db->where('s.Faculty_id', $this->faculty_id);
         $this->db->join($this->Table->subjects . ' su', 's.Subject = su.ID', 'left');
+        $this->db->join($this->Table->user . ' u', 's.Faculty_id = u.ID', 'left');
 
         $query = $this->db->get()->result();
 
