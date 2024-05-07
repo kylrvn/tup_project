@@ -30,7 +30,7 @@ $(function () {
 
     var containerEl = document.getElementById('external-events');
     var checkbox = document.getElementById('drop-remove');
-    var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendar_schedule');
 
     new Draggable(containerEl, {
         itemSelector: '.external-event',
@@ -53,7 +53,7 @@ $(function () {
         slotMaxTime: '21:00',
         allDaySlot: false,
         height: 'auto',
-        
+
 
         views: {
             timeGridWeek: {
@@ -83,7 +83,7 @@ $(function () {
 
     calendar.render();
 
-    $('#calendar').fullCalendar();
+    $('#calendar_schedule').fullCalendar();
 
     /* ADDING EVENTS */
     var currColor = '#3c8dbc' //Red by default
@@ -192,11 +192,21 @@ function load_calendar(element) {
             let e = JSON.parse(data);
             load_dynamic_calendar();
 
+            console.log(e);
 
             setTimeout(() => {
                 e.forEach(element => {
                     var newEvent = {
-                        title: element.subject_code + element.Subject_name,
+                        title: element.subject_code 
+                        + '\n' 
+                        + element.Subject_name
+                        + '\n'
+                        + '\n'
+                        + element.Section
+                        + '\n'
+                        + element.Lname
+                        + '\n'
+                        + element.Room,
                         startTime: element.Start_time,
                         endTime: element.End_time,
                         daysOfWeek: element.Day == "sunday" ? [0] : element.Day == "monday" ? [1] : element.Day == "tuesday" ? [2] : element.Day == "wednesday" ? [3] : element.Day == "thursday" ? [4] : element.Day == "friday" ? [5] : element.Day == "saturday" ? [6] : "",

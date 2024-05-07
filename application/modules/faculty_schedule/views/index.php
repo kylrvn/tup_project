@@ -41,7 +41,7 @@ main_header(['Faculty_schedule']);
         <div class="row">
 
             <div class="col-sm-12">
-                <div class="card card-primary" style="zoom:75%;">
+                <div class="card card-primary" style="zoom:68%;">
                     <div class="card-header" style="background-color:#9f3a3b;">
                         <h6 style="font-size: 100%;"><i class="fa fa-info"></i><b> NOTE:</b>
                             Empty rows will not be added to schedule.
@@ -59,6 +59,7 @@ main_header(['Faculty_schedule']);
                                     <th class="text-center">TIME</th>
                                     <th class="text-center">SUBJECT</th>
                                     <th class="text-center">ROOM</th>
+                                    <th class="text-center">SECTION CODE</th>
                                     <th class="text-center">SCHEME</th>
                                 </tr>
                             </thead>
@@ -107,6 +108,11 @@ main_header(['Faculty_schedule']);
                                     <td class="text-center">
                                         <input class="text-center" type="text" name="room" style="width:60%;"
                                             placeholder="ROOM #">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -161,6 +167,11 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
                                         <input  class="text-center" name="scheme" type="number" placeholder="0" id="tuesday_scheme" style="width:20%;">
                                     </td>
                                 </tr>
@@ -209,6 +220,11 @@ main_header(['Faculty_schedule']);
                                     <td class="text-center">
                                         <input class="text-center" type="text" name="room" style="width:60%;"
                                             placeholder="ROOM #">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -263,6 +279,11 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
                                         <input  class="text-center" name="scheme" type="number" placeholder="0" id="thursday_scheme" style="width:20%;">
                                     </td>
                                 </tr>
@@ -314,6 +335,11 @@ main_header(['Faculty_schedule']);
                                         <br>
                                     </td>
                                     <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
                                         <input  class="text-center" name="scheme" type="number" placeholder="0" id="friday_scheme" style="width:20%;">
                                     </td>
                                 </tr>
@@ -362,6 +388,11 @@ main_header(['Faculty_schedule']);
                                     <td class="text-center">
                                         <input class="text-center" type="text" name="room" style="width:60%;"
                                             placeholder="ROOM #">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
                                         <br>
                                     </td>
                                     <td class="text-center">

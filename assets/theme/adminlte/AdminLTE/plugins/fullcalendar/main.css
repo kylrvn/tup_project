@@ -871,7 +871,6 @@ A HORIZONTAL event
   }
 .fc-daygrid-event { /* make root-level, because will be dragged-and-dropped outside of a component root */
   position: relative; /* for z-indexes assigned later */
-  white-space: nowrap;
   border-radius: 3px; /* dot event needs this to when selected */
   font-size: .85em;
   font-size: var(--fc-small-font-size, .85em);
@@ -1082,7 +1081,6 @@ A VERTICAL event
   }
 .fc .fc-timegrid-slot-label-cushion {
     display: inline-block;
-    white-space: nowrap;
   }
 .fc .fc-timegrid-slot-label {
     vertical-align: middle; /* vertical align the slots */
@@ -1237,7 +1235,6 @@ A VERTICAL event
     padding: 1px 1px 0;
   }
 .fc-timegrid-event .fc-event-time {
-    white-space: nowrap;
     font-size: .85em;
     font-size: var(--fc-small-font-size, .85em);
     margin-bottom: 1px;
@@ -1428,7 +1425,6 @@ A VERTICAL event
 }
 .fc .fc-list-event-graphic,
   .fc .fc-list-event-time {
-    white-space: nowrap;
     width: 1px;
   }
 .fc .fc-list-event-dot {

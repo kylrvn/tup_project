@@ -5,7 +5,7 @@ if (!empty($details)) {
     foreach ($details as $key => $value) {
         ?>
 <tr onclick="click_subject(this)" data-subject="<?= $value->Subject_name ?>" data-ID="<?= $value->ID ?>"
-    data-color="<?= $value->color ?>" data-department="<?= $value->Department ?>" data-status="<?= $value->Active ?>">
+    data-color="<?= $value->color ?>" data-department="<?= $value->Department ?>" data-status="<?= $value->Active ?>" data-code="<?= $value->subject_code ?>">
     <td>
         <b>
             <?= @$key + 1 ?>

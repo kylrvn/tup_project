@@ -21,6 +21,8 @@ class Subjects_model extends CI_Model
     {
         $this->db->select(
             's.Subject_name,' .
+            's.subject_code,' .
+
             's.color,' .
             's.Department,' .
             's.Active,' .

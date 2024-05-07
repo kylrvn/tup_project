@@ -83,27 +83,27 @@ function check_pm_time(inputElement) {
     calculateTotalTime()
 }
 
-function calculateTotalTime() {
-    var amStartTime = $('#start').val();
-    var amEndTime = $('#end').val();
-    var pmStartTime = $('#pm_start').val();
-    var pmEndTime = $('#pm_end').val();
+// function calculateTotalTime() {
+//     var amStartTime = $('#start').val();
+//     var amEndTime = $('#end').val();
+//     var pmStartTime = $('#pm_start').val();
+//     var pmEndTime = $('#pm_end').val();
 
-    var amStartDate = new Date('2000-01-01 ' + amStartTime);
-    var amEndDate = new Date('2000-01-01 ' + amEndTime);
-    var pmStartDate = new Date('2000-01-01 ' + pmStartTime);
-    var pmEndDate = new Date('2000-01-01 ' + pmEndTime);
+//     var amStartDate = new Date('2000-01-01 ' + amStartTime);
+//     var amEndDate = new Date('2000-01-01 ' + amEndTime);
+//     var pmStartDate = new Date('2000-01-01 ' + pmStartTime);
+//     var pmEndDate = new Date('2000-01-01 ' + pmEndTime);
 
-    // Calculate time differences in milliseconds
-    var amTimeDiff = amEndDate - amStartDate;
-    var pmTimeDiff = pmEndDate - pmStartDate;
+//     // Calculate time differences in milliseconds
+//     var amTimeDiff = amEndDate - amStartDate;
+//     var pmTimeDiff = pmEndDate - pmStartDate;
 
-    // Calculate total time in hours
-    var totalHours = (amTimeDiff + pmTimeDiff) / (1000 * 60 * 60);
+//     // Calculate total time in hours
+//     var totalHours = (amTimeDiff + pmTimeDiff) / (1000 * 60 * 60);
 
-    // Display the total time in the desired format
-    document.getElementById('total_time').value = totalHours.toFixed(1) + ' hours';
-}
+//     // Display the total time in the desired format
+//     document.getElementById('total_time').value = totalHours.toFixed(1) + ' hours';
+// }
 
 
 var load_schedule = () => {
@@ -177,6 +177,11 @@ function add_row_am(element) {
                     <br>
                 </td>
                 <td class="text-center">
+                    <input class="text-center" type="text" name="section" style="width:80%;"
+                        placeholder="SECTION CODE">
+                    <br>
+                </td>
+                <td class="text-center">
                     <input class="text-center duplicate_${day}" name="scheme" type="number" placeholder="0" id="monday_scheme" style="width:20%;" hidden>
                 </td>
             `;
@@ -246,6 +251,11 @@ function add_row_pm(element) {
                 </td>
                 <td class="text-center">
                     <input class="text-center" type="text" name="room" style="width:60%;" placeholder="ROOM #">
+                    <br>
+                </td>
+                <td class="text-center">
+                    <input class="text-center" type="text" name="section" style="width:80%;"
+                        placeholder="SECTION CODE">
                     <br>
                 </td>
                 <td class="text-center">
@@ -328,11 +338,14 @@ $('#save_schedule').click(function () {
         return $(this).val();
     }).get();
 
-    // Subject/Room Data
+    // Subject/Room Data/Section
     var subject = $('[name="subject"]').map(function () {
         return $(this).val();
     }).get();
     var room = $('[name="room"]').map(function () {
+        return $(this).val();
+    }).get();
+    var section = $('[name="section"]').map(function () {
         return $(this).val();
     }).get();
 
@@ -347,6 +360,7 @@ $('#save_schedule').click(function () {
             end_time: end,
             subject: subject,
             room: room,
+            section: section,
             school_year: $('#school_year').val(),
             school_term: $('#term').val(),
         },

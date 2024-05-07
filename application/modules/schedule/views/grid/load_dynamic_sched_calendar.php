@@ -9,7 +9,12 @@ calendar_header();
             align-items: center;
             justify-content: center;
             text-align: center;
-            font-size: 100%;
+            font-size: 80%;
+        }
+
+        .fc-event-title.fc-sticky {
+            padding-top: 30%;
+            white-space: pre-line;
         }
     </style>
 </head>
@@ -48,7 +53,7 @@ calendar_header();
         <!-- THE CALENDAR -->
         <div class="row">
             <div class="col-md-12">
-                <div id="calendar"></div>
+                <div id="calendar_schedule"></div>
             </div>
         </div>
     </paper>

@@ -45,6 +45,11 @@ main_header(['Manage_Subjects']);
                                         <input type="text" id="subject_name" class="form-control"
                                             placeholder="Enter Subject Name">
                                     </div>
+                                    <div class="form-group w-100">
+                                        <label for="">Subject Code:</label>
+                                        <input type="text" id="subject_code" class="form-control"
+                                            placeholder="Enter Subject Code">
+                                    </div>
                                     <div class="form-group">
                                         <label>Subject Color:</label>
 
