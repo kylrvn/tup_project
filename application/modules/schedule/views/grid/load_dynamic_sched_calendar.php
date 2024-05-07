@@ -13,9 +13,13 @@ calendar_header();
         }
 
         .fc-event-title.fc-sticky {
-            padding-top: 30%;
+            padding-top: 20%;
             white-space: pre-line;
         }
+
+        /* .fc.fc-media-screen.fc-direction-ltr.fc-theme-bootstrap {
+            height:150vh;
+        } */
     </style>
 </head>
 
@@ -48,8 +52,22 @@ calendar_header();
         </div>
     </div>
 
-    <paper class="row" style="width:8.5in;" id="print_calendar">
-
+    <paper class="row" id="print_calendar">
+        <!-- <div style="justify-content: center; align-text:center; width:100%;">
+            <div class="card-header text-center border-all-no-bottom">
+                <img src="<?= base_url() ?>assets/images/Logo/tuplogo.png" width="15%" height="15%">
+                <label>
+                    Technological University of the Philippines Visayas
+                    <br>
+                    Capt. Sabi St., City of Talisay, Negros Occidental
+                    <br>
+                    <br>
+                    FACULTY DAILY ATTENDANCE CHART
+                    <br>
+                    TARDINESS/UNDERTIME
+                </label>
+            </div>
+        </div> -->
         <!-- THE CALENDAR -->
         <div class="row">
             <div class="col-md-12">

@@ -53,7 +53,7 @@ $(function () {
         slotMaxTime: '21:00',
         allDaySlot: false,
         height: 'auto',
-
+        width: 'auto',
 
         views: {
             timeGridWeek: {
@@ -63,12 +63,12 @@ $(function () {
 
         events: [
             {
-                title: 'Lunch',
+                title: 'Lunch Break',
                 startTime: '12:00',
                 endTime: '13:00',
                 daysOfWeek: [0, 1, 2, 3, 4, 5, 6], // Monday
-                backgroundColor: '#BDBDBD',
-                borderColor: '#BDBDBD',
+                backgroundColor: '#A2A2A2',
+                borderColor: '#A2A2A2',
                 editable: false
             }
         ],
