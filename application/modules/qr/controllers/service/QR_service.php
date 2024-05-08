@@ -44,4 +44,12 @@ class QR_service extends MY_Controller
 		$response = $this->qsModel->generate_rn();
 		echo json_encode($response);
 	}
+
+	public function submit_attendance()
+	{
+		$this->qsModel->status = $this->input->post("status");
+		$this->qsModel->qrdata = $this->input->post("qr");
+		$response = $this->qsModel->submit_attendance();
+		echo json_encode($response);
+	}
 }

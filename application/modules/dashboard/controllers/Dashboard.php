@@ -90,8 +90,23 @@ class Dashboard extends MY_Controller
 	{
 		// $this->data['details'] = $this->cModel->get_user_details();
 		// $data_obj = $this->cModel->get_qr_data($this->session->ID);
-		// var_dump($data_obj);
+		// var_dump($data_obj);$this->data['session'] = $this->session;
 		$this->data['session'] =  $this->session;
+		$data_obj = $this->cModel->get_qr_data($this->session->ID);
+		$qr_data = $data_obj->qr;
+
+		// Create QR code instance
+		$qrCode = new \Endroid\QrCode\QrCode($qr_data);
+
+		// Write QR code to PNG format
+		$result = (new \Endroid\QrCode\Writer\PngWriter())->write($qrCode);
+
+		// Convert the image data to base64 encoding
+		$base64Image = base64_encode($result->getString());
+
+		// Pass the base64-encoded image data to the view
+		$this->data['base64Image'] = $base64Image;
+		
 		$this->data['content'] = 'qr_faculty';
 		$this->load->view('layout', $this->data);
 	}

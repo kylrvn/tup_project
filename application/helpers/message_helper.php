@@ -31,6 +31,8 @@ define('VERIFIED', 'Online Payment has been Verified');
 define('CANCELLED', 'Order has been Cancelled');
 define('VOID_EXP', 'Expense has been Voided');
 define('MOBILE_DEVICE', 'You are not permitted to login in any mobile devices.');
+define('INVALID_SCAN', 'YOU HAVE ALREADY SCANNED FOR TODAY. PLEASE TRY AGAIN LATER.');
+define('INVALID_QRCODE', 'QR IS INVALID. PLEASE TRY AGAIN.');
 
 /** user messages */
 define('DEFAULT_PASSWORD', 'Do not use the default password. Please create new password.');

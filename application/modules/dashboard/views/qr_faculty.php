@@ -75,7 +75,7 @@ main_header(['QR_faculty']);
 <div class="container">
   <div class="placeholder">
     <!-- <p>Placeholder for QR Code</p> -->
-    <img src="<?= site_url('dashboard/generate_qr') ?>" alt="QR Code not generated. Contact the admin for this issue.">
+    <img id="qr-image" src="data:image/png;base64,<?= $base64Image ?>" alt="QR Code not generated. Contact the admin for this issue.">
   </div>
   <!-- Actual QR Code container (for demonstration) -->
   <!-- Replace this with your QR Code implementation -->
