@@ -19,6 +19,7 @@ class Subjects extends MY_Controller
 	/** load main page */
 	public function index()
 	{
+		$this->data['session'] = $this->session;
 		$this->data['departments'] = $this->sModel->get_departments();
 		$this->data['content'] = 'index';
 		$this->load->view('layout', $this->data);
@@ -26,6 +27,7 @@ class Subjects extends MY_Controller
 
 	public function load_subjects()
 	{
+		$this->sModel->department = $this->session->Department;
 		$this->data['details'] = $this->sModel->get_subjects();
 		$this->data['content'] = 'grid/load_subjects';
 		$this->load->view('layout', $this->data);

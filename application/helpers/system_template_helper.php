@@ -233,12 +233,15 @@ function main_header($menubar = [])
                             <label style="font-size:100%; color:white;">Active School Year:</label>
                             <input type="text" class="form-control" name="schoolyearrange1" id="active_school_year"
                                 value="<?= $session->term_data->active_school_year ?>"
-                                style="text-align:center; font-size:130%; font-weight:550;" disabled/>
+                                style="text-align:center; font-size:130%; font-weight:550;" disabled />
 
                         </div>
                         <div class="row ml-2 mr-2">
                             <label style="font-size:100%; color:white;">Active Term:</label>
-                            <select id="active_term" class="form-control"
+                            <input type="text" class="form-control" id="active_term"
+                                value="<?= $session->term_data->active_term . " Term" ?>"
+                                style="text-align:center; font-size:130%; font-weight:550;" disabled />
+                            <!-- <select id="active_term" class="form-control"
                                 style="text-align:center; font-size:130%; font-weight:550;" disabled>
                                 <option value="" disabled selected>Select Term</option>
                                 <option value="1st" <?= $session->term_data->active_term == "1st" ? "selected" : '' ?>>1st Term
@@ -247,7 +250,7 @@ function main_header($menubar = [])
                                 </option>
                                 <option value="3rd" <?= $session->term_data->active_term == "3rd" ? "selected" : '' ?>>3rd Term
                                 </option>
-                            </select>
+                            </select> -->
                         </div>
                     </div>
                     <!-- <button class="btn btn-sm btn-flat btn-primary" id="change" value="Cebu">Change</button> -->
@@ -390,6 +393,17 @@ function main_header($menubar = [])
                                 </ul>
                             </li>
 
+                            <li class="nav-item hover-effect">
+                                <ul class="nav nav-item">
+                                    <a style="color:<?= (sidebar($menubar, ['Manage_Subjects'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "2" ? '' : 'none' ?>;"
+                                        href="<?= base_url() ?>subjects"
+                                        class="nav-link <?= (sidebar($menubar, ['Manage_Subjects'])) ? 'active' : '' ?>">
+                                        <i class="fas fa-book nav-icon"></i>
+                                        <p>Subjects</p>
+                                    </a>
+                                </ul>
+                            </li>
+
                             <li
                                 class="nav-item
                             <?= (sidebar($menubar, ['Create_User'])) || sidebar($menubar, ['Manage_Departments']) || sidebar($menubar, ['Manage_Subjects']) ? 'menu-open' : '' ?>">
@@ -403,7 +417,7 @@ function main_header($menubar = [])
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item hover-effect">
-                                        <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>;"
+                                        <a style="color:<?= (sidebar($menubar, ['Create_User'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "3" ? '' : 'none' ?>"
                                             href="<?= base_url() ?>create_user"
                                             class="nav-link <?= (sidebar($menubar, ['Create_User'])) ? 'active' : '' ?>">
                                             <i class="fas fa-user-plus nav-icon"></i>
@@ -411,15 +425,7 @@ function main_header($menubar = [])
                                         </a>
                                     </li>
                                     <li class="nav-item hover-effect">
-                                        <a style="color:<?= (sidebar($menubar, ['Manage_Subjects'])) ? 'white' : 'black' ?>;"
-                                            href="<?= base_url() ?>subjects"
-                                            class="nav-link <?= (sidebar($menubar, ['Manage_Subjects'])) ? 'active' : '' ?>">
-                                            <i class="fas fa-book nav-icon"></i>
-                                            <p>Subjects</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item hover-effect">
-                                        <a style="color:<?= (sidebar($menubar, ['Manage_Departments'])) ? 'white' : 'black' ?>;"
+                                        <a style="color:<?= (sidebar($menubar, ['Manage_Departments'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "3" ? '' : 'none' ?>"
                                             href="<?= base_url() ?>departments"
                                             class="nav-link <?= (sidebar($menubar, ['Manage_Departments'])) ? 'active' : '' ?>">
                                             <i class="fas fa-building nav-icon"></i>
@@ -427,7 +433,7 @@ function main_header($menubar = [])
                                         </a>
                                     </li>
                                     <li class="nav-item hover-effect">
-                                        <a style="color:<?= (sidebar($menubar, ['Manage_Actives'])) ? 'white' : 'black' ?>;"
+                                        <a style="color:<?= (sidebar($menubar, ['Manage_Actives'])) ? 'white' : 'black' ?>; display:<?=$session->User_type == "3" ? '' : 'none' ?>"
                                             href="<?= base_url() ?>update_actives"
                                             class="nav-link <?= (sidebar($menubar, ['Manage_Actives'])) ? 'active' : '' ?>">
                                             <i class="fas fa-cogs nav-icon"></i>

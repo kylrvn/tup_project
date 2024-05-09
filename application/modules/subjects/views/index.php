@@ -1,6 +1,6 @@
 <?php
 main_header(['Manage_Subjects']);
-// var_dump($category);
+// var_dump($session->Department);
 ?>
 <!-- ############ PAGE START-->
 <style>
@@ -63,7 +63,8 @@ main_header(['Manage_Subjects']);
                                         </div>
                                         <!-- /.input group -->
                                     </div>
-                                    <div class="form-group w-100">
+                                    <input hidden type="text" id="department" value="<?=$session->Department?>">
+                                    <!-- <div class="form-group w-100">
                                         <label for="">Department</label>
                                         <select id="department" class="form-control" placeholder="User_type">
                                             <option value="" selected disabled>Select Department</option>
@@ -76,7 +77,7 @@ main_header(['Manage_Subjects']);
                                             }
                                             ?>
                                         </select>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group w-100">
                                         <label for="">Subject Status</label>
                                         <select id="subject_status" class="form-control" placeholder="User_type">
