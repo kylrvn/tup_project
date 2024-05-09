@@ -502,7 +502,9 @@ function main_footer()
 
             <!-- Main Footer -->
             <footer class="main-footer">
-                <strong>Copyright &copy; 2023 <a href="https://gelomorancil.github.io/">Gelo</a>.</strong>
+                <strong>Copyright &copy; 2024 
+                    <!-- <a href="https://gelomorancil.github.io/">Gelo</a> -->
+                    .</strong>
                 All rights reserved.
                 <div class="float-right d-none d-sm-inline-block">
                     <b>Version</b> 1.1.0

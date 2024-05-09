@@ -18,7 +18,7 @@ class Reports_model extends CI_Model
         $this->Table = json_decode(TABLE);
     }
 
-    public function get_dtr_summary()
+    public function get_dtr_summary() // overall calculation
     {
         $selected_month = $this->month;
 
@@ -324,7 +324,7 @@ class Reports_model extends CI_Model
         return $data_to_send;
     }
 
-    public function get_deduction_summary()
+    public function get_deduction_summary() // absents
     {
         $selected_month = $this->month;
 
@@ -895,7 +895,7 @@ class Reports_model extends CI_Model
         return $query;
     }
 
-    public function get_csf_48()
+    public function get_csf_48() // DTR
     {
         $data_to_send = [];
 
