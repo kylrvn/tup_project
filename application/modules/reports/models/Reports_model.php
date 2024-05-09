@@ -97,7 +97,7 @@ class Reports_model extends CI_Model
                     // Check if the day of the week matches the 'Day' field in the schedule
                     if (strtolower($schedule->Day) === $dayOfWeek) {
                         $am_count += substr_count(strtolower($schedule->time_frame), 'am');
-                        $quota = $quota == 0 ? $schedule->scheme : $quota; 
+                        $quota = $quota == 0 ? $schedule->scheme : $quota;
                         // echo "Time Frame: {$schedule->time_frame}, AM Count: {$am_count}\n";
                         $tempschedarr[] = array(
                             'start_time' => $schedule->Start_time,
@@ -126,13 +126,13 @@ class Reports_model extends CI_Model
                     }
                     if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
                         // echo '<br>'.$day.'- ';
-                        $quota = 18000;
-                        // $quota = $quota * 3600;
+                        // $quota = 18000;
+                        $quota = $quota * 3600;
                         $quota_checker = 0;
                         if (in_array($this->month . '-' . $day, $exam_sched_arrdays)) {
                             $quota = 18000;
                             $quota_checker = 0;
-                            
+
                             //checks for undertime
                             $timein =  date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
                             $timeout =  date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
@@ -158,25 +158,29 @@ class Reports_model extends CI_Model
                             //checker to check if current schedule of the day contains any AM subject.
                             if (strpos(@$tempschedarr[0]['time_frame'], 'AM') !== false) {
                                 $b = 0;
+                                // var_dump($tempschedarr);
                                 foreach ($tempschedarr as $key => $subject) {
                                     // $b = 0;
                                     // $h = 0;
+
+                                    // gettype($subject);
                                     if ($subject['time_frame'] == "AM") {
                                         //for am late detection
-                                        $amsched = date("H:i:s", strtotime($subject['start_time']));
+                                        $amsched = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
                                         $amschedout = date("H:i:s", strtotime($subject['end_time']));
                                         $amtimein = date("H:i:s", strtotime($log->timein_am));
                                         $a = strtotime($amsched); // am schedule start 
                                         $b = strtotime($amtimein); // am timein
                                         $eto = strtotime($amschedout);
                                         $tardiness_minutes = (int) (($b - $a) / 60); // divide by 60 to get minutes format
-
+                                        // echo 'DAY '.$day.' - '.$amsched.' '.$amschedout.'<br>';
+                                        // echo 'DAY '.$day.' - '.$tardiness_minutes.'<br>';
                                         // if ($subject['subject_am'] !== null && $tardiness_minutes > 0) {
-                                        if ($tardiness_minutes > 0) { // updated code to check only if late
+                                        if ($tardiness_minutes > 0 && @$tempschedarr[0]['start_time'] != $subject['start_time']) { // updated code to check only if late
                                             $t += $tardiness_minutes; //total daily
                                             $tard_total += $tardiness_minutes;
                                         }
-
+                                        // echo 'DAY '.$day.' - '.$t.'<br>';
                                         //checker if user decides to time out in the morning
 
                                         // $time_out = date("H:i:s", strtotime($log->timeout_pm == null ? $log->timeout_am : $log->timeout_pm));
@@ -231,7 +235,7 @@ class Reports_model extends CI_Model
                                     }
                                 }
                                 // echo $quota_checker;
-                            } else {
+                            } else { //AFTERNOON SUBJECT CHECKER
 
                                 foreach (@$tempschedarr as $key => $subject) {
 
@@ -411,7 +415,7 @@ class Reports_model extends CI_Model
                             // Check if the day of the week matches the 'Day' field in the schedule
                             if (strtolower($schedule->Day) === $dayOfWeek) {
                                 $am_count += substr_count(strtolower($schedule->time_frame), 'am');
-                                $quota = $quota == 0 ? $schedule->scheme : $quota; 
+                                $quota = $quota == 0 ? $schedule->scheme : $quota;
                                 // echo "Time Frame: {$schedule->time_frame}, AM Count: {$am_count}\n";
                                 $tempschedarr[] = array(
                                     'start_time' => $schedule->Start_time,
@@ -606,11 +610,11 @@ class Reports_model extends CI_Model
 
                         } //end log foreach loop
                     }
-                    if (!$absent_checker) {
-                        $bi = strlen($day) < 2 ? 0 . $day : $day;
-                        $date_absent = $month . '-' . $bi;
-                        array_push($absent_dates, $date_absent);
-                    }
+                    // if (!$absent_checker) {
+                    //     $bi = strlen($day) < 2 ? 0 . $day : $day;
+                    //     $date_absent = $month . '-' . $bi;
+                    //     array_push($absent_dates, $date_absent);
+                    // }
                 } elseif ($month != date('m')) {
                     if ($dayOfWeek == 'saturday' || $dayOfWeek == 'sunday') {
                         $absent_count--;
@@ -675,7 +679,7 @@ class Reports_model extends CI_Model
                                             // $h = 0;
                                             if ($subject['time_frame'] == "AM") {
                                                 //for am late detection
-                                                $amsched = date("H:i:s", strtotime($subject['start_time']));
+                                                $amsched = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
                                                 $amschedout = date("H:i:s", strtotime($subject['end_time']));
                                                 $amtimein = date("H:i:s", strtotime($log->timein_am));
                                                 $a = strtotime($amsched); // am schedule start 
@@ -684,7 +688,7 @@ class Reports_model extends CI_Model
                                                 $tardiness_minutes = (int) (($b - $a) / 60); // divide by 60 to get minutes format
 
                                                 // if ($subject['subject_am'] !== null && $tardiness_minutes > 0) {
-                                                if ($tardiness_minutes > 0) { // updated code to check only if late
+                                                if ($tardiness_minutes > 0 && @$tempschedarr[0]['start_time'] != $subject['start_time']) { 
                                                     $t += $tardiness_minutes; //total daily
                                                     $tard_total += $tardiness_minutes;
                                                 }
@@ -800,20 +804,20 @@ class Reports_model extends CI_Model
 
                         } //end log foreach loop
                     }
-                    if (!$absent_checker) {
-                        $bi = strlen($day) < 2 ? 0 . $day : $day;
-                        $date_absent = $month . '-' . $bi;
-                        array_push($absent_dates, $date_absent);
-                    }
-                } else {
+                    // if (!$absent_checker) {
+                    //     $bi = strlen($day) < 2 ? 0 . $day : $day;
+                    //     $date_absent = $month . '-' . $bi;
+                    //     array_push($absent_dates, $date_absent);
+                    // }
+                } elseif ($month == date('m') && $day > date('j')) {
                     $absent_count--;
-                    if (!$absent_checker) {
-                        $bi = strlen($day) < 2 ? 0 . $day : $day;
-                        $date_absent = $month . '-' . $bi;
-                        array_push($absent_dates, $date_absent);
-                    }
+                    $absent_checker=true;
+                } 
+                if (!$absent_checker) {
+                    $bi = strlen($day) < 2 ? 0 . $day : $day;
+                    $date_absent = $month . '-' . $bi;
+                    array_push($absent_dates, $date_absent);
                 }
-
 
                 if (!isset($undertime_tard_daily[$day])) {
                     $undertime_tard_daily[$day] = [];
@@ -965,7 +969,7 @@ class Reports_model extends CI_Model
                     // Check if the day of the week matches the 'Day' field in the schedule
                     if (strtolower($schedule->Day) === $dayOfWeek) {
                         $am_count += substr_count(strtolower($schedule->time_frame), 'am');
-                        $quota = $quota == 0 ? $schedule->scheme : $quota; 
+                        $quota = $quota == 0 ? $schedule->scheme : $quota;
                         // echo "Time Frame: {$schedule->time_frame}, AM Count: {$am_count}\n";
                         $tempschedarr[] = array(
                             'start_time' => $schedule->Start_time,
