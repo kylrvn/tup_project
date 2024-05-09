@@ -61,7 +61,7 @@ $numberOfDaysInMonth = $details['num_of_days'];
                         </tr> -->
                         <?php
                         foreach (@$details['data'] as $key => $value) {
-                        ?>
+                            ?>
                             <tr style="border-bottom: solid black 1px;">
                                 <td class="center-text">
                                     <b>
@@ -80,16 +80,57 @@ $numberOfDaysInMonth = $details['num_of_days'];
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
                                     <?php
+
+                                    $monthDays = array(
+                                        '01' => null,
+                                        '02' => null,
+                                        '03' => null,
+                                        '04' => null,
+                                        '05' => null,
+                                        '06' => null,
+                                        '07' => null,
+                                        '08' => null,
+                                        '09' => null,
+                                        '10' => null,
+                                        '11' => null,
+                                        '12' => null
+                                    );
+
                                     foreach ($value->dates_absent as $absent) {
-                                        echo $absent.' ';
+                                        $parts = explode('-', $absent);
+                                        $month = $parts[0];
+                                        $day = $parts[1];
+
+                                        if (!isset($monthDays[$month])) {
+                                            $monthDays[$month] = array();
+                                        }
+
+                                        $monthDays[$month][] = $day;
+                                    }
+                                    foreach ($monthDays as $key => $month) {
+                                        if ($month != null) {
+
+                                            $dateObj = DateTime::createFromFormat('!m', $key);
+
+                                            echo $dateObj->format('F') . ". ";
+
+                                            $count = count($month);
+                                            
+                                            foreach ($month as $key => $days) {
+                                                echo $days;
+                                                if ($key < $count - 1) {
+                                                    echo ", "; // Add comma only if it's not the last element
+                                                }
+                                            }
+                                        }
                                     }
                                     ?>
                                 </td>
                                 <td class="center-text" style="border-left: solid black 1px;">
-                                <?=@$value->absent_count?>
+                                    <?= @$value->absent_count ?>
                                 </td>
                             </tr>
-                        <?php
+                            <?php
                         }
                         ?>
                     </tbody>

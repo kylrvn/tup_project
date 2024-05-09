@@ -9,7 +9,8 @@ calendar_header();
             align-items: center;
             justify-content: center;
             text-align: center;
-            font-size: 80%;
+            font-size: 95%;
+            font-weight: 500;
         }
 
         .fc-event-title.fc-sticky {

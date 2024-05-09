@@ -55,6 +55,11 @@ class Reports extends MY_Controller
 		$this->rModel->month = $this->input->post('selected_month');
 		$this->rModel->facultyType = $this->input->post('facultyType');
 
+		// $testing = $this->rModel->get_deduction_summary();
+		// foreach ($testing as $key => $value){
+		// 	var_dump($value->dates_absent);
+		// }
+
 		$this->data['details'] = $this->rModel->get_deduction_summary();
 		$this->data['content'] = 'grid/load_deduction_summary';
 		$this->load->view('layout', $this->data);
