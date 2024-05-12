@@ -237,7 +237,7 @@ class Reports_model extends CI_Model
                                         if ($quota_checker > $quota) {
                                             $o = 0; // points for overload
                                             $o = $quota_checker - $quota;
-                                            echo 'DAY '.$day.'am - '.$o.'<br>';
+                                            // echo 'DAY '.$day.'am - '.$o.'<br>';
                                             // echo 'DAY '.$day.'am - '.$quota_checker.' - '.$quota.'<br>';
                                             $ov = $o >= 900 ? $this->calculate_daily_overload($o) : 0; //if 15 mins has passed, calculate overload
                                             $overtime_total += $ov;
@@ -868,9 +868,9 @@ class Reports_model extends CI_Model
         $x = $y = 0;
         $x = round($pts / 3600, 2); //divide per hr then round off
         $y = $x - (int) $x; //get decimal 1.80 -1.00 = 0.80
-        echo 'X-' . ($x - (int) $x ).'<br>';
+        // echo 'X-' . ($x - (int) $x ).'<br>';
         $y = $y >= 0.25 ? ($y >= 0.5 ? ($y >= 0.75 ? 0.75 : 0.5) : 0.25) : 0; //round off to specific point
-        echo $y .'<br>';
+        // echo $y .'<br>';
         $x = (int) $x + $y; //finalize point 1.00 + 0.75
         return $x;
     }
