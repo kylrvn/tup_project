@@ -1128,7 +1128,7 @@ class Reports_model extends CI_Model
                 // break;
                 $quota = 0;
                 $q = $this->calculate_daily_overload(@$quota_checker);
-                $quota_total += $q;
+                $quota_total += $q-1;
                 // $quota_total = 0;
             }
 
