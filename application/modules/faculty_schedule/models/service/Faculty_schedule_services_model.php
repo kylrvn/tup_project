@@ -57,8 +57,8 @@ class Faculty_schedule_services_model extends CI_Model
                     empty($value['start_time']) || $value['start_time'] == "" &&
                     empty($value['end_time']) || $value['end_time'] == "" &&
                     empty($value['subject']) || $value['subject'] == "" &&
-                    empty($value['section']) || $value['section'] == "" &&
-                    empty($value['room']) || $value['room'] == ""
+                    empty($value['section']) || $value['section'] == "" 
+                    // empty($value['room']) || $value['room'] == ""
                 ) {
                     // Do Nothing
                 } else {

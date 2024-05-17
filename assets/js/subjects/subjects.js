@@ -101,7 +101,6 @@ $(document).on('click', '#update_subject', function () {
                     document.getElementById('subject_name').value = "";
                     document.getElementById('subject_code').value = "";
                     document.getElementById('color').value = "";
-                    document.getElementById('department').value = "";
                     document.getElementById('subject_status').value = "";
                 } else {
                     toastr.error(e.message);

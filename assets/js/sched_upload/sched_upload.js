@@ -395,8 +395,23 @@ $(function () {
     });
 });
 
-function check_selected(element){
-    alert(element.getAttribute('data-sName'));
+function check_selected(element) {
+    // console.log(element.options[element.selectedIndex].getAttribute('data-sName'));
+    // alert(element.getAttribute('data-sName'));
+    if (element.options[element.selectedIndex].getAttribute('data-sName') == "LPT" ||
+        element.options[element.selectedIndex].getAttribute('data-sName') == "Consultation Time" ||
+        element.options[element.selectedIndex].getAttribute('data-sName') == "Must Time"
+    ) {
+        var closestTr = element.closest('tr');
+        var inputField = closestTr.querySelector('input[type="text"][name="room"]');
+        inputField.disabled = true;
+        inputField.value = "";
+    }
+    else{
+        var closestTr = element.closest('tr');
+        var inputField = closestTr.querySelector('input[type="text"][name="room"]');
+        inputField.disabled = false;
+    }
 }
 
 
