@@ -27,7 +27,7 @@
                     <?= ucfirst($value->Mname) ?>
                 </td>
                 <td>
-                    <?= $value->Concern_Type ?>
+                    <?= $value->LeaveType ?>
                 </td>
                 <td><?= $value->Date_Uploaded ?></td>
                 <td class="text-center">

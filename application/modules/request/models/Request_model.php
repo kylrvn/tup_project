@@ -23,7 +23,8 @@ class Request_model extends CI_Model
             'fa.*,' .
             'u.Fname,' .
             'u.Lname,' .
-            'u.Mname,'
+            'u.Mname,' . 
+            'lt.LeaveType,' 
         );
         $this->db->from($this->Table->file_attachments . ' fa');
         if ($this->dateFrom != null && $this->dateTo != null) {
@@ -31,6 +32,7 @@ class Request_model extends CI_Model
             $this->db->where('Date_Uploaded <=', date('Y-m-d', strtotime($this->dateTo)));
         }
         $this->db->join($this->Table->user . ' u', 'u.ID = fa.FacultyID', 'left');
+        $this->db->join($this->Table->leave_type . ' lt', 'lt.ID = fa.Concern_Type', 'left');
         $this->db->order_by('fa.Date_Uploaded', 'DESC');
         $this->db->limit(10);
 
