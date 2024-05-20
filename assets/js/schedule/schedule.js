@@ -30,7 +30,7 @@ $(function () {
 
     var containerEl = document.getElementById('external-events');
     var checkbox = document.getElementById('drop-remove');
-    var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendar_schedule');
 
     new Draggable(containerEl, {
         itemSelector: '.external-event',
@@ -49,10 +49,11 @@ $(function () {
         initialView: 'timeGridWeek',
         themeSystem: 'bootstrap',
         slotDuration: '00:15:00',
-        slotMinTime: '06:00',
-        slotMaxTime: '20:00',
-        height: 'auto',
+        slotMinTime: '08:00',
+        slotMaxTime: '21:00',
         allDaySlot: false,
+        height: 'auto',
+        width: 'auto',
 
         views: {
             timeGridWeek: {
@@ -62,12 +63,12 @@ $(function () {
 
         events: [
             {
-                title: 'Lunch',
+                title: 'Lunch Break',
                 startTime: '12:00',
                 endTime: '13:00',
                 daysOfWeek: [0, 1, 2, 3, 4, 5, 6], // Monday
-                backgroundColor: '#BDBDBD',
-                borderColor: '#BDBDBD',
+                backgroundColor: '#A2A2A2',
+                borderColor: '#A2A2A2',
                 editable: false
             }
         ],
@@ -82,7 +83,7 @@ $(function () {
 
     calendar.render();
 
-    $('#calendar').fullCalendar();
+    $('#calendar_schedule').fullCalendar();
 
     /* ADDING EVENTS */
     var currColor = '#3c8dbc' //Red by default
@@ -191,18 +192,30 @@ function load_calendar(element) {
             let e = JSON.parse(data);
             load_dynamic_calendar();
 
+            console.log(e);
 
             setTimeout(() => {
                 e.forEach(element => {
                     var newEvent = {
-                        title: element.Subject_name,
+                        title: element.subject_code 
+                        + '\n' 
+                        + element.Subject_name
+                        + '\n'
+                        + '\n'
+                        + element.Section
+                        + '\n'
+                        + element.Lname
+                        + '\n'
+                        + element.Room,
                         startTime: element.Start_time,
                         endTime: element.End_time,
                         daysOfWeek: element.Day == "sunday" ? [0] : element.Day == "monday" ? [1] : element.Day == "tuesday" ? [2] : element.Day == "wednesday" ? [3] : element.Day == "thursday" ? [4] : element.Day == "friday" ? [5] : element.Day == "saturday" ? [6] : "",
                         backgroundColor: element.color,
-                        borderColor: element.color,
+                        textColor: 'black',
+                        borderColor: 'black',
                         editable: false
                     };
+
                     calendar.addEvent(newEvent);
                 });
             }, 1000);

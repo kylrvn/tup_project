@@ -31,6 +31,8 @@ define('VERIFIED', 'Online Payment has been Verified');
 define('CANCELLED', 'Order has been Cancelled');
 define('VOID_EXP', 'Expense has been Voided');
 define('MOBILE_DEVICE', 'You are not permitted to login in any mobile devices.');
+define('INVALID_SCAN', 'YOU HAVE ALREADY SCANNED FOR TODAY. PLEASE TRY AGAIN LATER.');
+define('INVALID_QRCODE', 'QR IS INVALID. PLEASE TRY AGAIN.');
 
 /** user messages */
 define('DEFAULT_PASSWORD', 'Do not use the default password. Please create new password.');
@@ -73,7 +75,8 @@ $array = array(
     'exam_schedule' => 'tbl_exam_schedule',
     'active_term' => 'tbl_active_term',
     'non_working_days' => 'tbl_non_working_days',
-    'leave_type' => 'tbl_leavetype'
+    'leave_type' => 'tbl_leavetype',
+    'qr' => 'tbl_qr'
 
 );
 define('TABLE', json_encode($array));

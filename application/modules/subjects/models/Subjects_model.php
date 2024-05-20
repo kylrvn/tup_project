@@ -21,6 +21,7 @@ class Subjects_model extends CI_Model
     {
         $this->db->select(
             's.Subject_name,' .
+            's.subject_code,' .
             's.color,' .
             's.Department,' .
             's.Active,' .
@@ -28,6 +29,7 @@ class Subjects_model extends CI_Model
             'd.department_name'
         );
 
+        $this->db->where('Department', $this->department);
         $this->db->from($this->Table->subjects . ' s');
         $this->db->join($this->Table->department . ' d', 's.Department = d.ID', 'left');
 

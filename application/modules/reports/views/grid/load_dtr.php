@@ -49,14 +49,14 @@ $daysArray = range(1, $number_of_days);
                             <?= $details["selected_month"] ?>
                         </cont><br>
 
-                        Official hours for regular days &nbsp;
+                        Official hours for regular days : &nbsp;
                         <cont style="border-bottom: solid black 1px; padding-bottom: 1px;">
 
                         </cont><br>
 
-                        Arrival and departure on regular days &nbsp;
+                        Arrival and departure on regular days : &nbsp;
                         <cont style="border-bottom: solid black 1px; padding-bottom: 1px;">
-                            9999
+                           
                         </cont><br>
                     </label>
                 </div>
@@ -104,7 +104,7 @@ $daysArray = range(1, $number_of_days);
                                         <?= isset($details['faculty_details']->logs[$day]['pm_out']) ? (strtotime($details['faculty_details']->logs[$day]['pm_out']) !== false ? date('g:i A', strtotime($details['faculty_details']->logs[$day]['pm_out'])) : '-') : '-' ?>
                                     </td>
                                     <td class="center-text" colspan="4" style="border-left: solid black 1px;">
-                                        <?php
+                                        <!-- <?php
                                         if (is_numeric(@$details['faculty_details']->daily[$day])) {
                                             $undertime_minutes = @$details['faculty_details']->daily[$day];
                                             // Format the undertime value as hours and minutes
@@ -114,7 +114,7 @@ $daysArray = range(1, $number_of_days);
                                             // If it's neither an array nor numeric, display an error message
                                             echo '-';
                                         }
-                                        ?>
+                                        ?> -->
                                     </td>
 
                                     <!-- <td class="center-text" colspan="2" style="border-left: solid black 1px;">
@@ -136,7 +136,7 @@ $daysArray = range(1, $number_of_days);
                         <label style="font-size: 130%;">
                             TOTAL
                         </label>
-                        <input type="text" style="border-top: none; border-right: none; border-left: none; border-bottom: solid black 1px; padding-bottom: 1px;text-align: center; width:50%;">
+                        <input type="text" style="border-top: none; border-right: none; border-left: none; border-bottom: solid black 1px; padding-bottom: 1px;text-align: center; width:50%;" value="<?=@$details['faculty_details']->quota?>">
 
                     </div>
 

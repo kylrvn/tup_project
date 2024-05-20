@@ -41,7 +41,7 @@ main_header(['Faculty_schedule']);
         <div class="row">
 
             <div class="col-sm-12">
-                <div class="card card-primary" style="zoom:75%;">
+                <div class="card card-primary" style="zoom:68%;">
                     <div class="card-header" style="background-color:#9f3a3b;">
                         <h6 style="font-size: 100%;"><i class="fa fa-info"></i><b> NOTE:</b>
                             Empty rows will not be added to schedule.
@@ -59,6 +59,7 @@ main_header(['Faculty_schedule']);
                                     <th class="text-center">TIME</th>
                                     <th class="text-center">SUBJECT</th>
                                     <th class="text-center">ROOM</th>
+                                    <th class="text-center">SECTION CODE</th>
                                     <th class="text-center">SCHEME</th>
                                 </tr>
                             </thead>
@@ -86,20 +87,20 @@ main_header(['Faculty_schedule']);
                                     </td>
                                     <td class="text-center">
                                         <div style="display: flex; align-items: center;">
-                                            <select class="text-center" name="subject"
+                                            <select class="text-center" name="subject" onchange="check_selected(this)"
                                                 style="width:88%; height:1.8rem;">
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                <option value="<?= $data->ID ?>">
+                                                <option value="<?= $data->ID ?>" data-sName="<?= $data->Subject_name ?>">
                                                     <?= $data->Subject_name ?>
                                                 </option>
                                                 <?php
                                                 }
                                                 ?>
                                             </select>
-                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
-                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                            <!-- <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button> -->
                                         </div>
                                         <br>
                                     </td>
@@ -107,6 +108,11 @@ main_header(['Faculty_schedule']);
                                     <td class="text-center">
                                         <input class="text-center" type="text" name="room" style="width:60%;"
                                             placeholder="ROOM #">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -138,26 +144,31 @@ main_header(['Faculty_schedule']);
                                     </td>
                                     <td class="text-center">
                                         <div style="display: flex; align-items: center;">
-                                            <select class="text-center" name="subject"
+                                            <select class="text-center" name="subject" onchange="check_selected(this)"
                                                 style="width:88%; height:1.8rem;">
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                <option value="<?= $data->ID ?>">
+                                                <option value="<?= $data->ID ?>" data-sName="<?= $data->Subject_name ?>">
                                                     <?= $data->Subject_name ?>
                                                 </option>
                                                 <?php
                                                 }
                                                 ?>
                                             </select>
-                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
-                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                            <!-- <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button> -->
                                         </div>
                                         <br>
                                     </td>
                                     <td class="text-center">
                                         <input class="text-center" type="text" name="room" style="width:60%;"
                                             placeholder="ROOM #">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -189,26 +200,31 @@ main_header(['Faculty_schedule']);
                                     </td>
                                     <td class="text-center">
                                         <div style="display: flex; align-items: center;">
-                                            <select class="text-center" name="subject"
+                                            <select class="text-center" name="subject" onchange="check_selected(this)"
                                                 style="width:88%; height:1.8rem;">
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                <option value="<?= $data->ID ?>">
+                                                <option value="<?= $data->ID ?>" data-sName="<?= $data->Subject_name ?>">
                                                     <?= $data->Subject_name ?>
                                                 </option>
                                                 <?php
                                                 }
                                                 ?>
                                             </select>
-                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
-                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                            <!-- <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button> -->
                                         </div>
                                         <br>
                                     </td>
                                     <td class="text-center">
                                         <input class="text-center" type="text" name="room" style="width:60%;"
                                             placeholder="ROOM #">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -240,26 +256,31 @@ main_header(['Faculty_schedule']);
                                     </td>
                                     <td class="text-center">
                                         <div style="display: flex; align-items: center;">
-                                            <select class="text-center" name="subject"
+                                            <select class="text-center" name="subject" onchange="check_selected(this)"
                                                 style="width:88%; height:1.8rem;">
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                <option value="<?= $data->ID ?>">
+                                                <option value="<?= $data->ID ?>" data-sName="<?= $data->Subject_name ?>">
                                                     <?= $data->Subject_name ?>
                                                 </option>
                                                 <?php
                                                 }
                                                 ?>
                                             </select>
-                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
-                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                            <!-- <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button> -->
                                         </div>
                                         <br>
                                     </td>
                                     <td class="text-center">
                                         <input class="text-center" type="text" name="room" style="width:60%;"
                                             placeholder="ROOM #">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -291,26 +312,31 @@ main_header(['Faculty_schedule']);
                                     </td>
                                     <td class="text-center">
                                         <div style="display: flex; align-items: center;">
-                                            <select class="text-center" name="subject"
+                                            <select class="text-center" name="subject" onchange="check_selected(this)"
                                                 style="width:88%; height:1.8rem;">
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                <option value="<?= $data->ID ?>">
+                                                <option value="<?= $data->ID ?>" data-sName="<?= $data->Subject_name ?>">
                                                     <?= $data->Subject_name ?>
                                                 </option>
                                                 <?php
                                                 }
                                                 ?>
                                             </select>
-                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
-                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                            <!-- <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button> -->
                                         </div>
                                         <br>
                                     </td>
                                     <td class="text-center">
                                         <input class="text-center" type="text" name="room" style="width:60%;"
                                             placeholder="ROOM #">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
                                         <br>
                                     </td>
                                     <td class="text-center">
@@ -342,26 +368,31 @@ main_header(['Faculty_schedule']);
                                     </td>
                                     <td class="text-center">
                                         <div style="display: flex; align-items: center;">
-                                            <select class="text-center" name="subject"
+                                            <select class="text-center" name="subject" onchange="check_selected(this)"
                                                 style="width:88%; height:1.8rem;">
                                                 <option value="" selected>SELECT SUBJECT</option>
                                                 <?php
                                                 foreach ($subjects as $key => $data) { ?>
-                                                <option value="<?= $data->ID ?>">
+                                                <option value="<?= $data->ID ?>" data-sName="<?= $data->Subject_name ?>">
                                                     <?= $data->Subject_name ?>
                                                 </option>
                                                 <?php
                                                 }
                                                 ?>
                                             </select>
-                                            <button class="btn btn-sm btn-success" onclick="add_subject(this)"
-                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button>
+                                            <!-- <button class="btn btn-sm btn-success" onclick="add_subject(this)"
+                                                style="width:12%; height:1.8rem;"><i class="fas fa-list"></i></button> -->
                                         </div>
                                         <br>
                                     </td>
                                     <td class="text-center">
                                         <input class="text-center" type="text" name="room" style="width:60%;"
                                             placeholder="ROOM #">
+                                        <br>
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="text-center" type="text" name="section" style="width:80%;"
+                                            placeholder="SECTION CODE">
                                         <br>
                                     </td>
                                     <td class="text-center">

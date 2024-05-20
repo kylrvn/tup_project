@@ -18,7 +18,7 @@ class Reports_model extends CI_Model
         $this->Table = json_decode(TABLE);
     }
 
-    public function get_dtr_summary()
+    public function get_dtr_summary() // overall calculation
     {
         $selected_month = $this->month;
 
@@ -36,7 +36,7 @@ class Reports_model extends CI_Model
         $ov = 0;
         $undertime_tard_daily = array();
         $logs_data = array();
-
+        $quota = 0;
         $days_in_selected_month = date('t', mktime(0, 0, 0, $month, 1, $year));
 
         $data_to_send = [];
@@ -97,7 +97,7 @@ class Reports_model extends CI_Model
                     // Check if the day of the week matches the 'Day' field in the schedule
                     if (strtolower($schedule->Day) === $dayOfWeek) {
                         $am_count += substr_count(strtolower($schedule->time_frame), 'am');
-
+                        $quota = $quota == 0 ? $schedule->scheme : $quota;
                         // echo "Time Frame: {$schedule->time_frame}, AM Count: {$am_count}\n";
                         $tempschedarr[] = array(
                             'start_time' => $schedule->Start_time,
@@ -126,7 +126,8 @@ class Reports_model extends CI_Model
                     }
                     if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
                         // echo '<br>'.$day.'- ';
-                        $quota = 18000;
+                        // $quota = 18000;
+                        $quota = $quota * 3600;
                         $quota_checker = 0;
                         if (in_array($this->month . '-' . $day, $exam_sched_arrdays)) {
                             $quota = 18000;
@@ -153,28 +154,35 @@ class Reports_model extends CI_Model
                             ];
                             break;
                         } else {
+                            // echo $quota;
                             //checker to check if current schedule of the day contains any AM subject.
                             if (strpos(@$tempschedarr[0]['time_frame'], 'AM') !== false) {
                                 $b = 0;
+                                // $bb = 0;
+                                // var_dump($tempschedarr);
                                 foreach ($tempschedarr as $key => $subject) {
                                     // $b = 0;
                                     // $h = 0;
+                                    
+                                    // gettype($subject);
                                     if ($subject['time_frame'] == "AM") {
                                         //for am late detection
-                                        $amsched = date("H:i:s", strtotime($subject['start_time']));
+                                        $amsched = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
                                         $amschedout = date("H:i:s", strtotime($subject['end_time']));
                                         $amtimein = date("H:i:s", strtotime($log->timein_am));
                                         $a = strtotime($amsched); // am schedule start 
                                         $b = strtotime($amtimein); // am timein
+                                        // $bb = $bb==0? strtotime($amtimeinstart) : $bb;
                                         $eto = strtotime($amschedout);
                                         $tardiness_minutes = (int) (($b - $a) / 60); // divide by 60 to get minutes format
-
+                                        // echo 'DAY '.$day.' - '.$amsched.' '.$amschedout.'<br>';
+                                        
                                         // if ($subject['subject_am'] !== null && $tardiness_minutes > 0) {
-                                        if ($tardiness_minutes > 0) { // updated code to check only if late
+                                        if ($tardiness_minutes > 0 && @$tempschedarr[0]['start_time'] != $subject['start_time']) { // updated code to check only if late
                                             $t += $tardiness_minutes; //total daily
                                             $tard_total += $tardiness_minutes;
                                         }
-
+                                        // echo 'DAY '.$day.' - '.$t.'<br>';
                                         //checker if user decides to time out in the morning
 
                                         // $time_out = date("H:i:s", strtotime($log->timeout_pm == null ? $log->timeout_am : $log->timeout_pm));
@@ -182,18 +190,24 @@ class Reports_model extends CI_Model
                                         if (@$am_count == $key + 1) {
                                             // if (@$am_count == $key + 1 && date("H:i:s", strtotime('10:00:00')) >= $amsched || date("H:i:s", strtotime('12:00:00')) <= $amsched) {
                                             $time_out = date("H:i:s", strtotime($log->timeout_pm == null ? $log->timeout_am : $log->timeout_pm));
-                                            if ($time_out <= "13:00:00") {
+                                            // echo 'DAY '.$day.' - '.$amschedout.'<br>';
+                                            // echo 'DAY '.$day.' - '.$time_out.'<br>';
+                                            if ($time_out <= "12:00:00") {  
                                                 $h = strtotime($time_out);
                                                 $quota_checker += ($h - $a);
                                                 $undertime_earlyout_minutes = floor((($eto - $h) / 60));
+                                                // echo 'DAY '.$day.' - '.$quota_checker.'<br>';
+                                                // echo 'DAY '.$day.' - '.$quota.'<br>';
+                                                // echo 'DAY '.$day.' - '.$undertime_earlyout_minutes.'<br>';
                                                 // echo $quota_checker.' '.$quota;
                                                 if ($quota_checker < $quota) {
-                                                    $ut += floor(($quota - $quota_checker) / 60);
-                                                    $undertime_total += floor(($quota - $quota_checker) / 60);
+                                                    // $ut += floor(($quota - $quota_checker) / 60);
+                                                    // $undertime_total += floor(($quota - $quota_checker) / 60);
                                                     if ($undertime_earlyout_minutes > 0) {
                                                         $ut += $undertime_earlyout_minutes;
                                                         $undertime_total += $undertime_earlyout_minutes;
                                                         // echo $ut;
+                                                        
                                                     }
                                                     break;
                                                 }
@@ -213,23 +227,25 @@ class Reports_model extends CI_Model
                                         }
 
                                         //overload checker 
-
+                                        $quota_checker -= 3600; //LUNCH
                                         if (@$key == $arrsize - 1 && $h > $g) { //check if last subject for today
 
                                             $quota_checker -= ($h - $g); // subtracts the time hours spent based on the last subject time out
+                                            
                                         }
-
+                                        
                                         if ($quota_checker > $quota) {
                                             $o = 0; // points for overload
                                             $o = $quota_checker - $quota;
-
+                                            // echo 'DAY '.$day.'am - '.$o.'<br>';
+                                            // echo 'DAY '.$day.'am - '.$quota_checker.' - '.$quota.'<br>';
                                             $ov = $o >= 900 ? $this->calculate_daily_overload($o) : 0; //if 15 mins has passed, calculate overload
                                             $overtime_total += $ov;
                                         }
                                     }
                                 }
                                 // echo $quota_checker;
-                            } else {
+                            } else { //AFTERNOON SUBJECT CHECKER
 
                                 foreach (@$tempschedarr as $key => $subject) {
 
@@ -263,7 +279,7 @@ class Reports_model extends CI_Model
                                     if (@$arrsize == $key + 1 && $time_out > $sched_end) {
                                         $quota_checker -= ($time_out - $sched_end);
                                     }
-
+                                    echo 'DAY '.$day.'pm - '.$quota_checker.'<br>';
                                     if ($quota_checker > $quota) {
                                         $o = 0; // points for overload
                                         $o = $quota_checker - $quota;
@@ -298,6 +314,7 @@ class Reports_model extends CI_Model
                 $ov = 0;
                 $ut = 0;
                 $t = 0;
+                $quota = 0;
             }
 
             $undertime_tard_total = $undertime_total + $tard_total;
@@ -321,7 +338,7 @@ class Reports_model extends CI_Model
         return $data_to_send;
     }
 
-    public function get_deduction_summary()
+    public function get_deduction_summary() // absents
     {
         $selected_month = $this->month;
 
@@ -333,7 +350,7 @@ class Reports_model extends CI_Model
         $days_in_selected_month = date('t', mktime(0, 0, 0, $month, 1, $year));
 
         $data_to_send = [];
-
+        $quota = 0;
         $undertime_total = 0;
         $tard_total = 0;
         $undertime_tard_total = 0;
@@ -354,8 +371,6 @@ class Reports_model extends CI_Model
         $data_to_send["month"] = $monthInAbbv;
         $data_to_send["year"] = $year;
 
-
-
         $this->db->select(
             'u.*,'
             // 'd.Date_time,'.
@@ -369,7 +384,7 @@ class Reports_model extends CI_Model
         }
         $data_to_send["data"] = $this->db->get()->result();
         $holiday = $this->get_holidays($year, $month);
-        var_dump($holiday);
+        // var_dump($holiday);
         foreach ($data_to_send["data"] as $val) {
 
             $logs = $this->get_logs($val->ID);
@@ -410,7 +425,7 @@ class Reports_model extends CI_Model
                             // Check if the day of the week matches the 'Day' field in the schedule
                             if (strtolower($schedule->Day) === $dayOfWeek) {
                                 $am_count += substr_count(strtolower($schedule->time_frame), 'am');
-
+                                $quota = $quota == 0 ? $schedule->scheme : $quota;
                                 // echo "Time Frame: {$schedule->time_frame}, AM Count: {$am_count}\n";
                                 $tempschedarr[] = array(
                                     'start_time' => $schedule->Start_time,
@@ -444,7 +459,8 @@ class Reports_model extends CI_Model
                                 $absent_checker = true;
                                 $absent_count--;
                                 // echo '<br>'.$day.'- ';
-                                $quota = 18000;
+                                // $quota = 18000;
+                                $quota = $quota * 3600;
                                 $quota_checker = 0;
                                 if (in_array($this->month . '-' . $day, $exam_sched_arrdays)) {
                                     $quota = 18000;
@@ -604,11 +620,11 @@ class Reports_model extends CI_Model
 
                         } //end log foreach loop
                     }
-                    if (!$absent_checker) {
-                        $bi = strlen($day) < 2 ? 0 . $day : $day;
-                        $date_absent = $month . '-' . $bi;
-                        array_push($absent_dates, $date_absent);
-                    }
+                    // if (!$absent_checker) {
+                    //     $bi = strlen($day) < 2 ? 0 . $day : $day;
+                    //     $date_absent = $month . '-' . $bi;
+                    //     array_push($absent_dates, $date_absent);
+                    // }
                 } elseif ($month != date('m')) {
                     if ($dayOfWeek == 'saturday' || $dayOfWeek == 'sunday') {
                         $absent_count--;
@@ -673,7 +689,7 @@ class Reports_model extends CI_Model
                                             // $h = 0;
                                             if ($subject['time_frame'] == "AM") {
                                                 //for am late detection
-                                                $amsched = date("H:i:s", strtotime($subject['start_time']));
+                                                $amsched = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
                                                 $amschedout = date("H:i:s", strtotime($subject['end_time']));
                                                 $amtimein = date("H:i:s", strtotime($log->timein_am));
                                                 $a = strtotime($amsched); // am schedule start 
@@ -682,7 +698,7 @@ class Reports_model extends CI_Model
                                                 $tardiness_minutes = (int) (($b - $a) / 60); // divide by 60 to get minutes format
 
                                                 // if ($subject['subject_am'] !== null && $tardiness_minutes > 0) {
-                                                if ($tardiness_minutes > 0) { // updated code to check only if late
+                                                if ($tardiness_minutes > 0 && @$tempschedarr[0]['start_time'] != $subject['start_time']) {
                                                     $t += $tardiness_minutes; //total daily
                                                     $tard_total += $tardiness_minutes;
                                                 }
@@ -798,20 +814,20 @@ class Reports_model extends CI_Model
 
                         } //end log foreach loop
                     }
-                    if (!$absent_checker) {
-                        $bi = strlen($day) < 2 ? 0 . $day : $day;
-                        $date_absent = $month . '-' . $bi;
-                        array_push($absent_dates, $date_absent);
-                    }
-                } else {
+                    // if (!$absent_checker) {
+                    //     $bi = strlen($day) < 2 ? 0 . $day : $day;
+                    //     $date_absent = $month . '-' . $bi;
+                    //     array_push($absent_dates, $date_absent);
+                    // }
+                } elseif ($month == date('m') && $day > date('j')) {
                     $absent_count--;
-                    if (!$absent_checker) {
-                        $bi = strlen($day) < 2 ? 0 . $day : $day;
-                        $date_absent = $month . '-' . $bi;
-                        array_push($absent_dates, $date_absent);
-                    }
+                    $absent_checker = true;
                 }
-
+                if (!$absent_checker) {
+                    $bi = strlen($day) < 2 ? 0 . $day : $day;
+                    $date_absent = $month . '-' . $bi;
+                    array_push($absent_dates, $date_absent);
+                }
 
                 if (!isset($undertime_tard_daily[$day])) {
                     $undertime_tard_daily[$day] = [];
@@ -822,6 +838,7 @@ class Reports_model extends CI_Model
                 $ov = 0;
                 $ut = 0;
                 $t = 0;
+                $quota = 0;
             }
 
             $undertime_tard_total = $undertime_total + $tard_total;
@@ -851,7 +868,9 @@ class Reports_model extends CI_Model
         $x = $y = 0;
         $x = round($pts / 3600, 2); //divide per hr then round off
         $y = $x - (int) $x; //get decimal 1.80 -1.00 = 0.80
-        $y = $y >= 0.25 ? ($y >= 0.5 ? ($y >= 0.75 ? 0.75 : 0.25) : 0.5) : 0; //round off to specific point
+        // echo 'X-' . ($x - (int) $x ).'<br>';
+        $y = $y >= 0.25 ? ($y >= 0.5 ? ($y >= 0.75 ? 0.75 : 0.5) : 0.25) : 0; //round off to specific point
+        // echo $y .'<br>';
         $x = (int) $x + $y; //finalize point 1.00 + 0.75
         return $x;
     }
@@ -892,7 +911,7 @@ class Reports_model extends CI_Model
         return $query;
     }
 
-    public function get_csf_48()
+    public function get_csf_48() // DTR
     {
         $data_to_send = [];
 
@@ -904,13 +923,14 @@ class Reports_model extends CI_Model
         $month = $date_parts[1];
 
         $days_in_selected_month = date('t', mktime(0, 0, 0, $month, 1, $year));
-
+        $quota = 0;
         $data_to_send = [];
         $undertime_total = 0;
         $ut = 0;
         $undertime_tard_daily = array();
         $logs_data = array();
-
+        $quota_total = 0;
+        $quota_checker = 0;
         $dateObj = DateTime::createFromFormat('!m', $month);
         $monthInWords = $dateObj->format('F');
         $monthInAbbv = $dateObj->format('M');
@@ -958,12 +978,11 @@ class Reports_model extends CI_Model
                 $dayOfWeek = strtolower(date("l", strtotime($day . "-" . $month . "-" . $year))); //Use any date from $selected_month
 
                 foreach ($sched as $schedule) {
-                    // $am_count = substr_count(strtolower($schedule->time_frame), 'am');
                     // Check if the day of the week matches the 'Day' field in the schedule
                     if (strtolower($schedule->Day) === $dayOfWeek) {
                         $am_count += substr_count(strtolower($schedule->time_frame), 'am');
+                        $quota = $quota == 0 ? $schedule->scheme : $quota;
 
-                        // echo "Time Frame: {$schedule->time_frame}, AM Count: {$am_count}\n";
                         $tempschedarr[] = array(
                             'start_time' => $schedule->Start_time,
                             'end_time' => $schedule->End_time,
@@ -971,34 +990,22 @@ class Reports_model extends CI_Model
                         );
                     }
                 }
-                // var_dump($tempschedarr);
+
                 @$arrsize = sizeof(@$tempschedarr);
                 foreach ($logs as $k => $log) {
-                    // echo $this->month . '-' . $day .' == '.date("Y-m-j", strtotime($log->date_log)). '<br>';
-                    // if (date("j", strtotime($log->date_log)) == $day) {
+
                     if (in_array($this->month . '-' . $day, $holiday)) {
-                        $undertime_tard_daily[$day] = [
-                            "day" => $day,
-                            "ut_daily" => 0,
-                            "t_daily" => 0,
-                        ];
-                        $overload_daily[$day] = [
-                            "day" => $day,
-                            "ol_daily" => 0,
-                        ];
                         break;
                     }
                     if ($this->month . '-' . $day == date("Y-m-j", strtotime($log->date_log))) {
-
+                        $quota = $quota * 3600;
                         $logs_data[$day] = [
                             "am_in" => $log->timein_am ?? '-',
                             "am_out" => $log->timeout_am ?? '-',
                             "pm_in" => $log->timein_pm ?? '-',
                             "pm_out" => $log->timeout_pm ?? '-',
                         ];
-                        // var_dump($logs_data[$day]);
-                        // echo '<br>'.$day.'- ';
-                        $quota = 18000;
+
                         $quota_checker = 0;
                         if (in_array($this->month . '-' . $day, $exam_sched_arrdays)) {
                             $quota = 18000;
@@ -1017,12 +1024,12 @@ class Reports_model extends CI_Model
                             $undertime_tard_daily[$day] = $ut;
                             break;
                         } else {
+
                             //checker to check if current schedule of the day contains any AM subject.
                             if (strpos(@$tempschedarr[0]['time_frame'], 'AM') !== false) {
                                 $b = 0;
                                 foreach ($tempschedarr as $key => $subject) {
-                                    // $b = 0;
-                                    // $h = 0;
+
                                     if ($subject['time_frame'] == "AM") {
                                         //for am late detection
                                         $amsched = date("H:i:s", strtotime($subject['start_time']));
@@ -1119,13 +1126,17 @@ class Reports_model extends CI_Model
 
                 $ut = 0;
                 // break;
+                $quota = 0;
+                $q = $this->calculate_daily_overload(@$quota_checker);
+                $quota_total += $q-1;
+                // $quota_total = 0;
             }
 
             $data_to_send['faculty_details']->ut = $undertime_total;
             $data_to_send['faculty_details']->daily = $undertime_tard_daily;
             $data_to_send['faculty_details']->logs = $logs_data;
-            // var_dump($data_to_send['faculty_details']->daily);
         }
+        @$data_to_send['faculty_details']->quota = @$quota_total;
 
         return $data_to_send;
     }

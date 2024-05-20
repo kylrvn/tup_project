@@ -30,10 +30,11 @@ class Faculty_schedule_service extends MY_Controller
 		$end_time_array = $this->input->post("end_time");
 		$subject_array = $this->input->post("subject");
 		$room_array = $this->input->post("room");
+		$section_array = $this->input->post("section");
 
-		$data = array_map(function ($day, $scheme, $time_frame, $start_time, $end_time, $subject, $room) {
-			return compact('day', 'scheme', 'time_frame', 'start_time', 'end_time', 'subject', 'room');
-		}, $day_array, $scheme_array, $time_frame_array, $start_time_array, $end_time_array, $subject_array, $room_array);
+		$data = array_map(function ($day, $scheme, $time_frame, $start_time, $end_time, $subject, $room, $section) {
+			return compact('day', 'scheme', 'time_frame', 'start_time', 'end_time', 'subject', 'room', 'section');
+		}, $day_array, $scheme_array, $time_frame_array, $start_time_array, $end_time_array, $subject_array, $room_array, $section_array);
 
 		$this->fsModel->faculty_id = $this->session->ID;
 		$this->fsModel->school_year = $this->input->post("school_year");

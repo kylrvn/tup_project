@@ -83,27 +83,27 @@ function check_pm_time(inputElement) {
     calculateTotalTime()
 }
 
-function calculateTotalTime() {
-    var amStartTime = $('#start').val();
-    var amEndTime = $('#end').val();
-    var pmStartTime = $('#pm_start').val();
-    var pmEndTime = $('#pm_end').val();
+// function calculateTotalTime() {
+//     var amStartTime = $('#start').val();
+//     var amEndTime = $('#end').val();
+//     var pmStartTime = $('#pm_start').val();
+//     var pmEndTime = $('#pm_end').val();
 
-    var amStartDate = new Date('2000-01-01 ' + amStartTime);
-    var amEndDate = new Date('2000-01-01 ' + amEndTime);
-    var pmStartDate = new Date('2000-01-01 ' + pmStartTime);
-    var pmEndDate = new Date('2000-01-01 ' + pmEndTime);
+//     var amStartDate = new Date('2000-01-01 ' + amStartTime);
+//     var amEndDate = new Date('2000-01-01 ' + amEndTime);
+//     var pmStartDate = new Date('2000-01-01 ' + pmStartTime);
+//     var pmEndDate = new Date('2000-01-01 ' + pmEndTime);
 
-    // Calculate time differences in milliseconds
-    var amTimeDiff = amEndDate - amStartDate;
-    var pmTimeDiff = pmEndDate - pmStartDate;
+//     // Calculate time differences in milliseconds
+//     var amTimeDiff = amEndDate - amStartDate;
+//     var pmTimeDiff = pmEndDate - pmStartDate;
 
-    // Calculate total time in hours
-    var totalHours = (amTimeDiff + pmTimeDiff) / (1000 * 60 * 60);
+//     // Calculate total time in hours
+//     var totalHours = (amTimeDiff + pmTimeDiff) / (1000 * 60 * 60);
 
-    // Display the total time in the desired format
-    document.getElementById('total_time').value = totalHours.toFixed(1) + ' hours';
-}
+//     // Display the total time in the desired format
+//     document.getElementById('total_time').value = totalHours.toFixed(1) + ' hours';
+// }
 
 
 var load_schedule = () => {
@@ -159,21 +159,25 @@ function add_row_am(element) {
                 </td>
                 <td class="text-center">
                     <div style="display: flex; align-items: center;">
-                        <select class="text-center" name="subject" style="width:88%; height:1.8rem;">
-                            <option value="" disabled selected>SELECT SUBJECT</option>
+                        <select class="text-center" name="subject" onchange="check_selected(this)"
+                            style="width:88%; height:1.8rem;">
+                            <option value="" selected>SELECT SUBJECT</option>
                             ${subject_data.map(item => `
-                                <option value="${item.ID}">
+                                <option value="${item.ID}" data-sName="${item.Subject_name}">
                                     ${item.Subject_name}
                                 </option>
                             `).join('')}
                         </select>
-                        <button class="btn btn-sm btn-success" onclick="add_subject(this)" style="width:12%; height:1.8rem;"><i
-                                class="fas fa-list"></i></button>
                     </div>
                     <br>
                 </td>
                 <td class="text-center">
                     <input class="text-center" type="text" name="room" style="width:60%;" placeholder="ROOM #">
+                    <br>
+                </td>
+                <td class="text-center">
+                    <input class="text-center" type="text" name="section" style="width:80%;"
+                        placeholder="SECTION CODE">
                     <br>
                 </td>
                 <td class="text-center">
@@ -231,21 +235,25 @@ function add_row_pm(element) {
                 </td>
                 <td class="text-center">
                     <div style="display: flex; align-items: center;">
-                        <select class="text-center" name="subject" style="width:88%; height:1.8rem;">
-                            <option value="" disabled selected>SELECT SUBJECT</option>
+                        <select class="text-center" name="subject" onchange="check_selected(this)"
+                            style="width:88%; height:1.8rem;">
+                            <option value="" selected>SELECT SUBJECT</option>
                             ${subject_data.map(item => `
-                                <option value="${item.ID}">
-                                    ${item.Subject_name}
-                                </option>
+                            <option value="${item.ID}" data-sName="${item.Subject_name}">
+                                ${item.Subject_name}
+                            </option>
                             `).join('')}
                         </select>
-                        <button class="btn btn-sm btn-success" onclick="add_subject(this)" style="width:12%; height:1.8rem;"><i
-                                class="fas fa-list"></i></button>
                     </div>
                     <br>
                 </td>
                 <td class="text-center">
                     <input class="text-center" type="text" name="room" style="width:60%;" placeholder="ROOM #">
+                    <br>
+                </td>
+                <td class="text-center">
+                    <input class="text-center" type="text" name="section" style="width:80%;"
+                        placeholder="SECTION CODE">
                     <br>
                 </td>
                 <td class="text-center">
@@ -328,11 +336,14 @@ $('#save_schedule').click(function () {
         return $(this).val();
     }).get();
 
-    // Subject/Room Data
+    // Subject/Room Data/Section
     var subject = $('[name="subject"]').map(function () {
         return $(this).val();
     }).get();
     var room = $('[name="room"]').map(function () {
+        return $(this).val();
+    }).get();
+    var section = $('[name="section"]').map(function () {
         return $(this).val();
     }).get();
 
@@ -347,6 +358,7 @@ $('#save_schedule').click(function () {
             end_time: end,
             subject: subject,
             room: room,
+            section: section,
             school_year: $('#school_year').val(),
             school_term: $('#term').val(),
         },
@@ -383,6 +395,24 @@ $(function () {
     });
 });
 
+function check_selected(element) {
+    // console.log(element.options[element.selectedIndex].getAttribute('data-sName'));
+    // alert(element.getAttribute('data-sName'));
+    if (element.options[element.selectedIndex].getAttribute('data-sName') == "LPT" ||
+        element.options[element.selectedIndex].getAttribute('data-sName') == "Consultation Time" ||
+        element.options[element.selectedIndex].getAttribute('data-sName') == "Must Time"
+    ) {
+        var closestTr = element.closest('tr');
+        var inputField = closestTr.querySelector('input[type="text"][name="room"]');
+        inputField.disabled = true;
+        inputField.value = "";
+    }
+    else{
+        var closestTr = element.closest('tr');
+        var inputField = closestTr.querySelector('input[type="text"][name="room"]');
+        inputField.disabled = false;
+    }
+}
 
 
 
