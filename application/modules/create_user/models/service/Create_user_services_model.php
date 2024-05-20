@@ -23,6 +23,7 @@ class Create_user_services_model extends CI_Model
     {
         try {
             $U_ID = auth_token();
+            
             $Defaultpassword = "123456";
             $locker = locker();
             $password = sha1(password_generator($Defaultpassword, $locker));

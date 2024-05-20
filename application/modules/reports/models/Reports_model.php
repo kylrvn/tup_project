@@ -113,15 +113,15 @@ class Reports_model extends CI_Model
                     // if (in_array(date("Y-m-j", strtotime(@$log->date_log))), $holiday) {
                     // }
                     if (in_array($this->month . '-' . $day, $holiday)) {
-                        // $undertime_tard_daily[$day] = [
-                        //     "day" => $day,
-                        //     "ut_daily" => 0,
-                        //     "t_daily" => 0,
-                        // ];
-                        // $overload_daily[$day] = [
-                        //     "day" => $day,
-                        //     "ol_daily" => 0,
-                        // ];
+                        $undertime_tard_daily[$day] = [
+                            "day" => $day,
+                            "ut_daily" => 0,
+                            "t_daily" => 0,
+                        ];
+                        $overload_daily[$day] = [
+                            "day" => $day,
+                            "ol_daily" => 0,
+                        ];
                         break;
                     }
                     if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
@@ -158,6 +158,7 @@ class Reports_model extends CI_Model
                             //checker to check if current schedule of the day contains any AM subject.
                             if (strpos(@$tempschedarr[0]['time_frame'], 'AM') !== false) {
                                 $b = 0;
+                                $start_day = 0;
                                 // $bb = 0;
                                 // var_dump($tempschedarr);
                                 foreach ($tempschedarr as $key => $subject) {
@@ -174,6 +175,9 @@ class Reports_model extends CI_Model
                                         $b = strtotime($amtimein); // am timein
                                         // $bb = $bb==0? strtotime($amtimeinstart) : $bb;
                                         $eto = strtotime($amschedout);
+                                        $start_day = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
+                                        $start_day = strtotime($start_day);
+
                                         $tardiness_minutes = (int) (($b - $a) / 60); // divide by 60 to get minutes format
                                         // echo 'DAY '.$day.' - '.$amsched.' '.$amschedout.'<br>';
                                         
@@ -218,22 +222,25 @@ class Reports_model extends CI_Model
                                         $pmtime_out = date("H:i:s", strtotime($log->timeout_pm));
                                         $g = strtotime($pmsched_out);
                                         $h = strtotime($pmtime_out);
-                                        $undertime_afternoon_minutes = floor((($g - $h) / 60));
+                                        // $undertime_afternoon_minutes = floor((($g - $h) / 60));
+                                        // $undertime_afternoon_minutes = 0;
                                         $quota_checker += ($h - $b) - 3600; // end time - start time
+                                        $undertime_afternoon_minutes = floor((($quota - $quota_checker) / 60));
+                                        // echo 'day '. $day . ' - ' . $undertime_afternoon_minutes . '<br>';
                                         // echo $h.' - '.$b;
                                         if ($quota_checker < $quota && $undertime_afternoon_minutes > 0) {
                                             $undertime_total += $undertime_afternoon_minutes;
                                             $ut += $undertime_afternoon_minutes;
                                         }
-
+                                        $quota_checker = ($h - $start_day) - 3600;
                                         //overload checker 
-                                        $quota_checker -= 3600; //LUNCH
+                                        // $quota_checker -= 3600; //LUNCH
                                         if (@$key == $arrsize - 1 && $h > $g) { //check if last subject for today
-
                                             $quota_checker -= ($h - $g); // subtracts the time hours spent based on the last subject time out
                                             
                                         }
-                                        
+                                        // echo 'DAY '.$day.' - '.$quota_checker.' - '.$quota.'<br>';
+
                                         if ($quota_checker > $quota) {
                                             $o = 0; // points for overload
                                             $o = $quota_checker - $quota;
@@ -256,7 +263,7 @@ class Reports_model extends CI_Model
                                     $tardiness_minutes = (int) (($time_in - $sched_start) / 60);
 
                                     if ($tardiness_minutes > 0) { // updated code to check only if late
-                                        echo 'late?' . $tardiness_minutes;
+                                        // echo 'late?' . $tardiness_minutes;
                                         $t += $tardiness_minutes; //total daily
                                         $tard_total += $tardiness_minutes;
                                     }
@@ -279,7 +286,7 @@ class Reports_model extends CI_Model
                                     if (@$arrsize == $key + 1 && $time_out > $sched_end) {
                                         $quota_checker -= ($time_out - $sched_end);
                                     }
-                                    echo 'DAY '.$day.'pm - '.$quota_checker.'<br>';
+                                    // echo 'DAY '.$day.'pm - '.$quota_checker.'<br>';
                                     if ($quota_checker > $quota) {
                                         $o = 0; // points for overload
                                         $o = $quota_checker - $quota;
@@ -870,6 +877,7 @@ class Reports_model extends CI_Model
         $x = round($pts / 3600, 2); //divide per hr then round off
         $y = $x - (int) $x; //get decimal 1.80 -1.00 = 0.80
         // echo 'X-' . ($x - (int) $x ).'<br>';
+        // echo $x .'<br>';
         $y = $y >= 0.25 ? ($y >= 0.5 ? ($y >= 0.75 ? 0.75 : 0.5) : 0.25) : 0; //round off to specific point
         // echo $y .'<br>';
         $x = (int) $x + $y; //finalize point 1.00 + 0.75
