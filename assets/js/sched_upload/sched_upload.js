@@ -159,16 +159,15 @@ function add_row_am(element) {
                 </td>
                 <td class="text-center">
                     <div style="display: flex; align-items: center;">
-                        <select class="text-center" name="subject" style="width:88%; height:1.8rem;">
-                            <option value="" disabled selected>SELECT SUBJECT</option>
+                        <select class="text-center" name="subject" onchange="check_selected(this)"
+                            style="width:88%; height:1.8rem;">
+                            <option value="" selected>SELECT SUBJECT</option>
                             ${subject_data.map(item => `
-                                <option value="${item.ID}">
+                                <option value="${item.ID}" data-sName="${item.Subject_name}">
                                     ${item.Subject_name}
                                 </option>
                             `).join('')}
                         </select>
-                        <button class="btn btn-sm btn-success" onclick="add_subject(this)" style="width:12%; height:1.8rem;"><i
-                                class="fas fa-list"></i></button>
                     </div>
                     <br>
                 </td>
@@ -236,16 +235,15 @@ function add_row_pm(element) {
                 </td>
                 <td class="text-center">
                     <div style="display: flex; align-items: center;">
-                        <select class="text-center" name="subject" style="width:88%; height:1.8rem;">
-                            <option value="" disabled selected>SELECT SUBJECT</option>
+                        <select class="text-center" name="subject" onchange="check_selected(this)"
+                            style="width:88%; height:1.8rem;">
+                            <option value="" selected>SELECT SUBJECT</option>
                             ${subject_data.map(item => `
-                                <option value="${item.ID}">
-                                    ${item.Subject_name}
-                                </option>
+                            <option value="${item.ID}" data-sName="${item.Subject_name}">
+                                ${item.Subject_name}
+                            </option>
                             `).join('')}
                         </select>
-                        <button class="btn btn-sm btn-success" onclick="add_subject(this)" style="width:12%; height:1.8rem;"><i
-                                class="fas fa-list"></i></button>
                     </div>
                     <br>
                 </td>
@@ -397,6 +395,24 @@ $(function () {
     });
 });
 
+function check_selected(element) {
+    // console.log(element.options[element.selectedIndex].getAttribute('data-sName'));
+    // alert(element.getAttribute('data-sName'));
+    if (element.options[element.selectedIndex].getAttribute('data-sName') == "LPT" ||
+        element.options[element.selectedIndex].getAttribute('data-sName') == "Consultation Time" ||
+        element.options[element.selectedIndex].getAttribute('data-sName') == "Must Time"
+    ) {
+        var closestTr = element.closest('tr');
+        var inputField = closestTr.querySelector('input[type="text"][name="room"]');
+        inputField.disabled = true;
+        inputField.value = "";
+    }
+    else{
+        var closestTr = element.closest('tr');
+        var inputField = closestTr.querySelector('input[type="text"][name="room"]');
+        inputField.disabled = false;
+    }
+}
 
 
 

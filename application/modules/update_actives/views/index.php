@@ -1,6 +1,6 @@
 <?php
 main_header(['Manage_Actives']);
-// var_dump($session->term_data->active_school_year);
+// var_dump($session->term_data);
 ?>
 <!-- ############ PAGE START-->
 <style>

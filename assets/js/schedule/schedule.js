@@ -211,7 +211,8 @@ function load_calendar(element) {
                         endTime: element.End_time,
                         daysOfWeek: element.Day == "sunday" ? [0] : element.Day == "monday" ? [1] : element.Day == "tuesday" ? [2] : element.Day == "wednesday" ? [3] : element.Day == "thursday" ? [4] : element.Day == "friday" ? [5] : element.Day == "saturday" ? [6] : "",
                         backgroundColor: element.color,
-                        borderColor: element.color,
+                        textColor: 'black',
+                        borderColor: 'black',
                         editable: false
                     };
 

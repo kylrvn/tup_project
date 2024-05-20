@@ -115,11 +115,11 @@ $numberOfDaysInMonth = $details['num_of_days'];
                                             echo $dateObj->format('F') . ". ";
 
                                             $count = count($month);
-                                            
+
                                             foreach ($month as $key => $days) {
                                                 echo $days;
                                                 if ($key < $count - 1) {
-                                                    echo ", "; // Add comma only if it's not the last element
+                                                    echo ", ";
                                                 }
                                             }
                                         }

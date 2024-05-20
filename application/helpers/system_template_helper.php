@@ -345,7 +345,7 @@ function main_header($menubar = [])
                                     <a style="color:<?= (sidebar($menubar, ['Generate_QR'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "3" ? '' : 'none' ?>;"
                                         href="<?= base_url() ?>qr/generate_qr"
                                         class="nav-link <?= (sidebar($menubar, ['Generate_QR'])) ? 'active' : '' ?>">
-                                        <i class="fas fa-calendar-alt nav-icon"></i>
+                                        <i class="fas fa-qrcode nav-icon"></i>
                                         <p>Generate Faculty QR Code</p>
                                     </a>
                                 </ul>
@@ -355,7 +355,7 @@ function main_header($menubar = [])
                                     <a style="color:<?= (sidebar($menubar, ['QR_faculty'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "1" ? '' : 'none' ?>;"
                                         href="<?= base_url() ?>dashboard/qr_faculty"
                                         class="nav-link <?= (sidebar($menubar, ['QR_faculty'])) ? 'active' : '' ?>">
-                                        <i class="fas fa-calendar-alt nav-icon"></i>
+                                        <i class="fas fa-qrcode nav-icon"></i>
                                         <p>View Faculty QR Code</p>
                                     </a>
                                 </ul>
@@ -365,7 +365,7 @@ function main_header($menubar = [])
                                     <a style="color:<?= (sidebar($menubar, ['QR'])) ? 'white' : 'black' ?>; display:<?= $session->User_type == "3" ? '' : 'none' ?>;"
                                         href="<?= base_url() ?>QR"
                                         class="nav-link <?= (sidebar($menubar, ['QR'])) ? 'active' : '' ?>">
-                                        <i class="fas fa-calendar-alt nav-icon"></i>
+                                        <i class="fas fa-barcode nav-icon"></i>
                                         <p>Scan QR Code</p>
                                     </a>
                                 </ul>
