@@ -74,20 +74,28 @@ function view_file(element) {
     })
 }
 
+let selected_ID = null;
 function verify_file(element) {
     // alert(element.getAttribute('data-id'));
-    let ID = element.getAttribute('data-id');
-    $.post({
-        url: baseUrl + 'request/verify_file',
-        data: {
-            ID: ID,
-        },
-        success: function (response) {
-            toastr.success('Request Verified Successfuly');
-            load_attachements();
-        }
-    })
+    // let ID = element.getAttribute('data-id');
+    selected_ID = element.getAttribute('data-id');
+    $('#view_req_verif_modal').modal('show');
+    // $.post({
+    //     url: baseUrl + 'request/verify_file',
+    //     data: {
+    //         ID: ID,
+    //     },
+    //     success: function (response) {
+    //         toastr.success('Request Verified Successfuly');
+    //         load_attachements();
+    //     }
+    // })
 }
+
+$(document).on('click', '#approve_leave', function () {
+    alert(selected_ID);
+});
+
 
 $(document).on('change', '#request_filter_date', function () {
     load_attachements();

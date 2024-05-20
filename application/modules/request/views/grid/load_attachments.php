@@ -54,3 +54,39 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="view_req_verif_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header " style="background-color:#9F3A3B; color: white;">
+                <b>Request Vderfification</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <b>Select Leave Type:</b>
+                        <select class="form-control" id="leave_type">
+                            <option disabled selected>Select leave type</option>
+                            <?php foreach ($leaveType as $key => $value) { ?>
+                                <option value="<?= $value->ID ?>"><?= $value->LeaveType ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <b>Select Leave Date:</b>
+                        <input type="date" class="form-control" id="leave_date">
+                    </div>
+                    <div class="col-3">
+                        <b>&nbsp;</b><br>
+                        <button class="btn btn-success" id="approve_leave">Approve Leave</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

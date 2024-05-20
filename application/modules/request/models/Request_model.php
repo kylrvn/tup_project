@@ -41,6 +41,16 @@ class Request_model extends CI_Model
         return $query;
     }
 
+    public function get_leaveType(){
+        $this->db->select(
+            '*'
+        );
+        $this->db->from($this->Table->leave_type);
+        $query = $this->db->get()->result();
+
+        return $query;
+    }
+
     public function dtr_request_list()
     {
         $this->db->select(

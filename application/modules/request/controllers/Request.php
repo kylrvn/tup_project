@@ -43,6 +43,7 @@ class Request extends MY_Controller
 		$this->rModel->dateFrom = $dateFrom;
 		$this->rModel->dateTo = $dateTo;
 		$this->data['details'] = $this->rModel->get_files();
+		$this->data['leaveType'] = $this->rModel->get_leaveType();
 		$this->data['content'] = 'grid/load_attachments';
 		$this->load->view('layout',$this->data);
 	}
