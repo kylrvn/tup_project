@@ -415,6 +415,7 @@ class Reports_model extends CI_Model
                 $dayOfWeek = strtolower(date("l", strtotime($day . "-" . $month . "-" . $year))); //Use any date from $selected_month
                 if ($month == date('m') && $day <= date('j')) {
                     if ($dayOfWeek == 'saturday' || $dayOfWeek == 'sunday') {
+                        $absent_checker = true;
                         $absent_count--;
                     } else {
                         $am_count = 0;
@@ -440,8 +441,6 @@ class Reports_model extends CI_Model
                             // if (date("j", strtotime($log->date_log)) == $day) {
                             if (in_array($this->month . '-' . $day, $holiday)) {
                                 // echo 'AAA';
-
-
                                 $undertime_tard_daily[$day] = [
                                     "day" => $day,
                                     "ut_daily" => 0,
@@ -452,7 +451,7 @@ class Reports_model extends CI_Model
                                     "ol_daily" => 0,
                                 ];
                                 $absent_count--;
-                                // $absent_checker = true;
+                                $absent_checker = true;
                                 break;
                             }
                             if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
@@ -628,6 +627,7 @@ class Reports_model extends CI_Model
                 } elseif ($month != date('m')) {
                     if ($dayOfWeek == 'saturday' || $dayOfWeek == 'sunday') {
                         $absent_count--;
+                        $absent_checker = true;
                     } else {
                         $am_count = 0;
                         $tempschedarr = array();
@@ -823,6 +823,7 @@ class Reports_model extends CI_Model
                     $absent_count--;
                     $absent_checker = true;
                 }
+
                 if (!$absent_checker) {
                     $bi = strlen($day) < 2 ? 0 . $day : $day;
                     $date_absent = $month . '-' . $bi;
