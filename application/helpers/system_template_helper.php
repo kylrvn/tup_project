@@ -33,6 +33,8 @@ function calendar_footer()
     <!-- fullCalendar 2.2.5 -->
     <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/moment/moment.min.js"></script>
     <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/fullcalendar/main.js"></script>
+    <!-- Toastr -->
+    <script src="<?= base_url() ?>assets/theme/adminlte/AdminLTE/plugins/toastr/toastr.min.js"></script>
     <?php
 } ?>
 
