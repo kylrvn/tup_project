@@ -364,6 +364,7 @@ $('#save_schedule').click(function () {
         },
         success: function (data) {
             toastr.success('Schedule Submitted Successfully');
+            window.location.reload();
         },
     });
 });
