@@ -26,14 +26,7 @@
             contentType: false,
             processData: false,
             success: function(e) {
-                // Handle success response
-                var response = JSON.parse(e);
-                if(response.has_error == false){
-                    toastr.success(response.message);
-
-                } else {
-                    toastr.error(response.message); 
-                }
+                toastr.success("File Uploaded successfully");
             },
             error: function(xhr, status, error) {
                 // Handle any errors that occur during the AJAX request
