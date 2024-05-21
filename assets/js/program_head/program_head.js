@@ -29,7 +29,7 @@ $(function () {
 
     var containerEl = document.getElementById('external-events');
     var checkbox = document.getElementById('drop-remove');
-    var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendar_schedule');
 
     new Draggable(containerEl, {
         itemSelector: '.external-event',
@@ -48,10 +48,11 @@ $(function () {
         initialView: 'timeGridWeek',
         themeSystem: 'bootstrap',
         slotDuration: '00:15:00',
-        slotMinTime: '06:00',
-        slotMaxTime: '20:00',
-        height: 'auto',
+        slotMinTime: '08:00',
+        slotMaxTime: '21:00',
         allDaySlot: false,
+        height: 'auto',
+        width: 'auto',
 
         views: {
             timeGridWeek: {
@@ -61,12 +62,12 @@ $(function () {
 
         events: [
             {
-                title: 'Lunch',
+                title: 'Lunch Break',
                 startTime: '12:00',
                 endTime: '13:00',
                 daysOfWeek: [0, 1, 2, 3, 4, 5, 6], // Monday
-                backgroundColor: '#BDBDBD',
-                borderColor: '#BDBDBD',
+                backgroundColor: '#A2A2A2',
+                borderColor: '#A2A2A2',
                 editable: false
             }
         ],
@@ -81,7 +82,7 @@ $(function () {
 
     calendar.render();
 
-    $('#calendar').fullCalendar();
+    $('#calendar_schedule').fullCalendar();
 
     /* ADDING EVENTS */
     var currColor = '#3c8dbc' //Red by default
@@ -123,7 +124,7 @@ $(document).ready(function () {
     load_dtr_schedule();
     // load_calendar();
     //  alert();
-    
+
 });
 function load_calendar(element) {
     // alert(element.getAttribute('data-id'));
@@ -143,12 +144,22 @@ function load_calendar(element) {
             setTimeout(() => {
                 e.forEach(element => {
                     var newEvent = {
-                        title: element.Subject_name,
+                        title: element.subject_code 
+                        + '\n' 
+                        + element.Subject_name
+                        + '\n'
+                        + '\n'
+                        + element.Section
+                        + '\n'
+                        + element.Lname
+                        + '\n'
+                        + element.Room,
                         startTime: element.Start_time,
                         endTime: element.End_time,
                         daysOfWeek: element.Day == "sunday" ? [0] : element.Day == "monday" ? [1] : element.Day == "tuesday" ? [2] : element.Day == "wednesday" ? [3] : element.Day == "thursday" ? [4] : element.Day == "friday" ? [5] : element.Day == "saturday" ? [6] : "",
                         backgroundColor: element.color,
-                        borderColor: element.color,
+                        textColor: 'black',
+                        borderColor: 'black',
                         editable: false
                     };
                     calendar.addEvent(newEvent);
@@ -163,7 +174,7 @@ function load_calendar(element) {
         }
     });
 }
-function load_dtr(element){
+function load_dtr(element) {
     $.ajax({
         type: 'POST',
         url: baseUrl + 'program_head/get_dtr',
@@ -179,12 +190,12 @@ function load_dtr(element){
         }
     });
 }
-$('#approveBtn').click(function() {
+$('#approveBtn').click(function () {
     var checkboxes = document.querySelectorAll('input[type="checkbox"]');
     var checkedData = [];
 
-    checkboxes.forEach(function(checkbox){
-        if(checkbox.checked){
+    checkboxes.forEach(function (checkbox) {
+        if (checkbox.checked) {
             var data = {};
             data.dataID = checkbox.getAttribute('data-ID');
             data.facultyID = $('#faculty_id').val();
@@ -196,15 +207,15 @@ $('#approveBtn').click(function() {
     // return
     $.post('program_head/service/Program_head_service/approve_dtr_schedule', {
         data: checkedData
-    }, function(response) {
+    }, function (response) {
         // Handle success response
         var jsonResponse = JSON.parse(response);
-        if(jsonResponse.has_error == false){
+        if (jsonResponse.has_error == false) {
             toastr.success(jsonResponse.message);
         } else {
-            toastr.error(jsonResponse.message); 
+            toastr.error(jsonResponse.message);
         }
-    }).fail(function(xhr, status, error) {
+    }).fail(function (xhr, status, error) {
         // Handle any errors that occur during the AJAX request
         var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : "An error occurred.";
         toastr.error(errorMessage);
@@ -215,8 +226,8 @@ var schoolYear = null;
 var schoolTerm = null;
 var facultyID = null;
 
-function confirmation(element){
-    
+function confirmation(element) {
+
     schoolYear = element.getAttribute('data-year');
     schoolTerm = element.getAttribute('data-term');
     facultyID = element.getAttribute('data-id');
@@ -224,7 +235,7 @@ function confirmation(element){
     $('#confirmation').modal('show');
 }
 
-$('#confirm_yes').click(function() {
+$('#confirm_yes').click(function () {
     // alert(schoolYear + " " + schoolTerm + " " + facultyID);
 
     $.ajax({
@@ -237,13 +248,12 @@ $('#confirm_yes').click(function() {
         },
         success: function (data) {
             let e = JSON.parse(data);
-            if (e.has_error == false) 
-            {
+            if (e.has_error == false) {
                 toastr.success(e.message);
                 $('#confirmation').modal('hide');
                 load_dtr_schedule();
             }
-            else{
+            else {
                 toastr.error(e.message);
             }
         },
