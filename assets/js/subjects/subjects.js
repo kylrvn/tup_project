@@ -76,10 +76,10 @@ $(document).on('click', '#update_subject', function () {
         toastr.error("Color Value is Empty");
         return
     }
-    else if ($('#department').val() == null || $('#department').val() == "" || $('#department').val() == null) {
-        toastr.error("No Department Selected");
-        return
-    }
+    // else if ($('#department').val() == null || $('#department').val() == "" || $('#department').val() == null) {
+    //     toastr.error("No Department Selected");
+    //     return
+    // }
     else {
         $.ajax({
             url: baseUrl + 'subjects/service/Subjects_service/update_subject',
