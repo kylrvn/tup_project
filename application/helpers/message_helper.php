@@ -76,6 +76,7 @@ $array = array(
     'active_term' => 'tbl_active_term',
     'non_working_days' => 'tbl_non_working_days',
     'leave_type' => 'tbl_leavetype',
+    'leave_dates' => 'tbl_leave_dates',
     'qr' => 'tbl_qr'
 
 );
