@@ -42,6 +42,7 @@ $(function () {
                 textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color'),
             };
         }
+        
     });
 
     calendar = new Calendar(calendarEl, {
@@ -62,13 +63,18 @@ $(function () {
         },
 
         events: [
+
         ],
+        eventResizableFromStart: false,
         editable: true,
         droppable: true,
         drop: function (info) {
             if (checkbox.checked) {
                 info.draggedEl.parentNode.removeChild(info.draggedEl);
             }
+        },
+        eventResize: function(info) {
+            info.revert();
         }
     });
 
@@ -96,8 +102,13 @@ function formatDate(dateString) {
     if (dateString === null) {
         return null;
     }
+    console.log(dateString);
 
     const date = new Date(dateString);
+    date.setHours(8, 0, 0, 0);
+    // date.setDate(date.getDate() + 1);
+
+    console.log(date.toISOString().split('T')[0]);
     return date.toISOString().split('T')[0];
 }
 
@@ -130,6 +141,10 @@ $('#save_dates').click(function () {
             eventsArray: eventsArray,
         },
         success: function (data) {
+            toastr.success("Dates Saved Successfully");
+            setTimeout(function () { 
+                window.location.reload();
+            }, 1000)
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(`AJAX error: ${textStatus}`, errorThrown);

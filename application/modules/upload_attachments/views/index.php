@@ -34,7 +34,7 @@ main_header(['upload_attachments']);
     <form class="form-horizontal" enctype="multipart/form-data">
         <div class="card-body" style="background-color:#9f3a3b;">
             <div class="form-group row">
-                <label for="date_upload" class="col-sm-2 col-form-label">Date:</label>
+                <label for="date_upload" class="col-sm-2 col-form-label">Date of submission:</label>
                 <div class="col-sm-10">
                     <!-- <input type="date" class="form-control" id="date_upload"> -->
                     <input type="datetime-local" class="form-control" id="date_upload">

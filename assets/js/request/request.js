@@ -93,7 +93,34 @@ function verify_file(element) {
 }
 
 $(document).on('click', '#approve_leave', function () {
-    alert(selected_ID);
+    // alert(selected_ID);
+    $.post({
+        url: baseUrl + 'request/service/request_service/save_leave_date',
+        data: {
+            facultyID: selected_ID,
+            leaveType: $('#leave_type').val(),
+            leaveDate: $('#leave_date').val()
+        },
+        success: function (e) {
+            response = JSON.parse(e);
+            if (response.has_error == false) {
+                $.post({
+                    url: baseUrl + 'request/verify_file',
+                    data: {
+                        ID: selected_ID,
+                    },
+                    success: function (response) {
+                        // load_attachements();
+                    }
+                })
+                $('#view_req_verif_modal').modal('hide');
+                toastr.success(response.message);
+            }
+            else {
+                toastr.error(response.message);
+            }
+        }
+    })
 });
 
 
@@ -133,40 +160,40 @@ function update_entry(element) {
     let time_out_pm = element.closest('tr').querySelector('#time_out_pm').value;
 
     let date_in_am = null
-    if(element.closest('tr').querySelector('#dateTimeIn_am').value == "" && time_in_am != ""){
+    if (element.closest('tr').querySelector('#dateTimeIn_am').value == "" && time_in_am != "") {
         date_in_am = element.closest('tr').querySelector('#date_default').value;
     }
-    else{
+    else {
         date_in_am = element.closest('tr').querySelector('#dateTimeIn_am').value;
     }
-    
+
     let date_out_am = null;
-    if(element.closest('tr').querySelector('#dateTimeOut_am').value == "" && time_out_am != ""){
+    if (element.closest('tr').querySelector('#dateTimeOut_am').value == "" && time_out_am != "") {
         date_out_am = element.closest('tr').querySelector('#date_default').value;
     }
-    else{
+    else {
         date_out_am = element.closest('tr').querySelector('#dateTimeOut_am').value;
     }
 
     let date_in_pm = null;
-    if(element.closest('tr').querySelector('#dateTimeIn_pm').value == "" && time_in_pm != ""){
+    if (element.closest('tr').querySelector('#dateTimeIn_pm').value == "" && time_in_pm != "") {
         date_in_pm = element.closest('tr').querySelector('#date_default').value;
     }
-    else{
+    else {
         date_in_pm = element.closest('tr').querySelector('#dateTimeIn_pm').value;
     }
 
     let date_out_pm = null;
-    if(element.closest('tr').querySelector('#dateTimeOut_pm').value == "" && time_out_pm != ""){
+    if (element.closest('tr').querySelector('#dateTimeOut_pm').value == "" && time_out_pm != "") {
         date_out_pm = element.closest('tr').querySelector('#date_default').value;
     }
-    else{
+    else {
         date_out_pm = element.closest('tr').querySelector('#dateTimeOut_pm').value;
     }
 
 
     let ID = element.getAttribute('data-log_id');
-    
+
     // console.log(time_in_pm);
     // return;
     $.ajax({
@@ -217,7 +244,7 @@ function update_entry(element) {
     });
 }
 
-function verify_dtr_request(element){
+function verify_dtr_request(element) {
     let ID = element.getAttribute('data-id');
     $.post({
         url: baseUrl + 'request/verify_dtr_request',

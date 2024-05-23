@@ -20,4 +20,14 @@ class Request_service extends MY_Controller
 		$this->load->model($model_list);
 	}
 
+	public function save_leave_date(){
+		// var_dump("Test");.
+		$this->rsModel->facultyID = $this->input->post('facultyID');
+		$this->rsModel->leaveType = $this->input->post('leaveType');
+		$this->rsModel->leaveDate = $this->input->post('leaveDate');
+		$response = $this->rsModel->save_leave();
+		echo json_encode($response);
+
+	}
+
 }
