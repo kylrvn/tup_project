@@ -159,12 +159,13 @@ class Reports_model extends CI_Model
                             if (strpos(@$tempschedarr[0]['time_frame'], 'AM') !== false) {
                                 $b = 0;
                                 $start_day = 0;
+                                $late_time = 0;
                                 // $bb = 0;
                                 // var_dump($tempschedarr);
                                 foreach ($tempschedarr as $key => $subject) {
                                     // $b = 0;
                                     // $h = 0;
-                                    
+
                                     // gettype($subject);
                                     if ($subject['time_frame'] == "AM") {
                                         //for am late detection
@@ -180,10 +181,16 @@ class Reports_model extends CI_Model
 
                                         $tardiness_minutes = (int) (($b - $a) / 60); // divide by 60 to get minutes format
                                         // echo 'DAY '.$day.' - '.$amsched.' '.$amschedout.'<br>';
-                                        
+                                        // if($val->ID == '64'){
+                                        //     echo 'DAY '.$day.' - '.@$tempschedarr[0]['start_time'].' '.$subject['start_time'].'<br>';
+                                        // }
+
                                         // if ($subject['subject_am'] !== null && $tardiness_minutes > 0) {
-                                        if ($tardiness_minutes > 0 && @$tempschedarr[0]['start_time'] != $subject['start_time']) { // updated code to check only if late
+                                        if ($tardiness_minutes > 0 && @$tempschedarr[0]['start_time'] == $subject['start_time']) {
+                                            // if ($tardiness_minutes > 0 && @$tempschedarr[0]['start_time'] != $subject['start_time']) { // updated code to check only if late
                                             $t += $tardiness_minutes; //total daily
+                                            $late_time = $tardiness_minutes * 60;
+                                            // echo 'DAY ' . $day . ' - ' . $late_time . '<br>';
                                             $tard_total += $tardiness_minutes;
                                         }
                                         // echo 'DAY '.$day.' - '.$t.'<br>';
@@ -196,7 +203,7 @@ class Reports_model extends CI_Model
                                             $time_out = date("H:i:s", strtotime($log->timeout_pm == null ? $log->timeout_am : $log->timeout_pm));
                                             // echo 'DAY '.$day.' - '.$amschedout.'<br>';
                                             // echo 'DAY '.$day.' - '.$time_out.'<br>';
-                                            if ($time_out <= "12:00:00") {  
+                                            if ($time_out <= "12:00:00") {
                                                 $h = strtotime($time_out);
                                                 $quota_checker += ($h - $a);
                                                 $undertime_earlyout_minutes = floor((($eto - $h) / 60));
@@ -211,7 +218,7 @@ class Reports_model extends CI_Model
                                                         $ut += $undertime_earlyout_minutes;
                                                         $undertime_total += $undertime_earlyout_minutes;
                                                         // echo $ut;
-                                                        
+
                                                     }
                                                     break;
                                                 }
@@ -224,7 +231,14 @@ class Reports_model extends CI_Model
                                         $h = strtotime($pmtime_out);
                                         // $undertime_afternoon_minutes = floor((($g - $h) / 60));
                                         // $undertime_afternoon_minutes = 0;
-                                        $quota_checker += ($h - $b) - 3600; // end time - start time
+                                        // $quota_checker += ($h - $b) - 3600; // end time - start time
+                                        if( $b < @$start_day){
+                                            $quota_checker += ($h - ($b + ($start_day-$b))) - 3600;  
+                                        } 
+                                        else{
+                                            $quota_checker += ($h - $b) - 3600; // end time - start time
+                                        } 
+                                        // $quota_checker += ($h - ($start_day-$b)) - 3600; // end time - start time
                                         $undertime_afternoon_minutes = floor((($quota - $quota_checker) / 60));
                                         // echo 'day '. $day . ' - ' . $undertime_afternoon_minutes . '<br>';
                                         // echo $h.' - '.$b;
@@ -237,7 +251,10 @@ class Reports_model extends CI_Model
                                         // $quota_checker -= 3600; //LUNCH
                                         if (@$key == $arrsize - 1 && $h > $g) { //check if last subject for today
                                             $quota_checker -= ($h - $g); // subtracts the time hours spent based on the last subject time out
-                                            
+                                        }
+
+                                        if($late_time!=0){
+                                            $quota_checker =$quota_checker - $late_time;
                                         }
                                         // echo 'DAY '.$day.' - '.$quota_checker.' - '.$quota.'<br>';
 
@@ -878,6 +895,7 @@ class Reports_model extends CI_Model
         $y = $x - (int) $x; //get decimal 1.80 -1.00 = 0.80
         // echo 'X-' . ($x - (int) $x ).'<br>';
         // echo $x .'<br>';
+
         $y = $y >= 0.25 ? ($y >= 0.5 ? ($y >= 0.75 ? 0.75 : 0.5) : 0.25) : 0; //round off to specific point
         // echo $y .'<br>';
         $x = (int) $x + $y; //finalize point 1.00 + 0.75
@@ -1137,7 +1155,7 @@ class Reports_model extends CI_Model
                 // break;
                 $quota = 0;
                 $q = $this->calculate_daily_overload(@$quota_checker);
-                $quota_total += $q-1;
+                $quota_total += $q - 1;
                 // $quota_total = 0;
             }
 
