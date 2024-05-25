@@ -136,7 +136,7 @@ $daysArray = range(1, $number_of_days);
                         <label style="font-size: 130%;">
                             TOTAL
                         </label>
-                        <input type="text" style="border-top: none; border-right: none; border-left: none; border-bottom: solid black 1px; padding-bottom: 1px;text-align: center; width:50%;" value="<?=@$details['faculty_details']->quota?>">
+                        <input type="text" style="border-top: none; border-right: none; border-left: none; border-bottom: solid black 1px; padding-bottom: 1px;text-align: center; width:50%;" value="<?=@$details['faculty_details']->quota;?> <?=@$details['faculty_details']->ot != null ? ' | ' . @$details['faculty_details']->ot  : '';?>">
 
                     </div>
 
