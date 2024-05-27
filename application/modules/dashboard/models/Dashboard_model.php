@@ -151,9 +151,14 @@ class Dashboard_model extends CI_Model
     }
     public function get_user_details()
     {
-        $this->db->select('*');
-        $this->db->from($this->Table->user);
-        $this->db->where('ID', $this->session->ID);
+        $this->db->select('u.*,'.
+        'd.*,'.
+        'r.*'
+    );
+        $this->db->from($this->Table->user.' u');
+        $this->db->join($this->Table->department.' d','d.ID = u.Department','left');
+        $this->db->join($this->Table->ranks.' r','r.ID = u.Rank','left');
+        $this->db->where('u.ID', $this->session->ID);
         $query = $this->db->get()->row();
 
         // echo json_encode($query);

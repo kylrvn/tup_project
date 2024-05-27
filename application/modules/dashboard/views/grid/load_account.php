@@ -49,71 +49,79 @@ main_header(['Dashboard']);
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
+        <!-- <div class="input-group mb-3">
           <input type="text" id="age" class="form-control" value="<?=@$details->Age?>" placeholder="Age">
           <div class="input-group-append">
             <div class="input-group-text">
             </div>
           </div>
-        </div>
-        <div class="input-group mb-3">
+        </div> -->
+        <!-- <div class="input-group mb-3">
           <input type="text" id="address" class="form-control" value="<?=@$details->Address?>" placeholder="Address">
           <div class="input-group-append">
             <div class="input-group-text">
             </div>
           </div>
-        </div>
-        <div class="input-group mb-3">
+        </div> -->
+        <!-- <div class="input-group mb-3">
           <input type="text" id="conNo" class="form-control" value="<?=@$details->Contact_Number?>" placeholder="Contact Number">
           <div class="input-group-append">
             <div class="input-group-text">
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="input-group mb-3">
-          <input type="text" id="eType" class="form-control" value="<?=@$details->User_type?>"  placeholder="Employee Type">
+        <input type="text" id="eType" class="form-control" 
+       value="<?= 
+       (@$details->User_type == 1) ? 'Faculty (Full-Time)' : 
+       ((@$details->User_type == 2) ? 'Program Head' : 
+       ((@$details->User_type == 3) ? 'HR Officer' : 
+       ((@$details->User_type == 4) ? 'Faculty (Part-Time)' : ''))) ?>"  
+       placeholder="Employee Type">
+
+
           <div class="input-group-append">
             <div class="input-group-text">
             </div>
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="text" id="department" class="form-control" value="<?=@$details->Department?>" placeholder="Department">
+          <input type="text" id="department" class="form-control" value="<?=@$details->department_name?>" placeholder="Department">
           <div class="input-group-append">
             <div class="input-group-text">
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
+        <!-- <div class="input-group mb-3">
           <input type="text" id="eStatus" class="form-control" value="<?=@$details->Estatus?>" placeholder="Employee Status">
           <div class="input-group-append">
             <div class="input-group-text">
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="input-group mb-3">
-          <input type="text" id="position" class="form-control" value="<?=@$details->Rank?>" placeholder="Position">
+          <input type="text" id="position" class="form-control" value="<?=@$details->rankName?>" placeholder="Position">
           <div class="input-group-append">
             <div class="input-group-text">
     
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
+        <!-- <div class="input-group mb-3">
           <input type="text" id="pics" class="form-control" value="<?=@$details->Pics?>" placeholder="Pics">
           <div class="input-group-append">
             <div class="input-group-text">
             </div>
           </div>
-        </div>
-        <div class="input-group mb-3">
+        </div> -->
+        <!-- <div class="input-group mb-3">
           <input type="email" id="email" class="form-control" value="<?=@$details->Email?>"  placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- <div class="input-group mb-3">
           <input type="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
