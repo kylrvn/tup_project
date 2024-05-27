@@ -347,9 +347,9 @@ function get_overtime($ti, $sti, $to, $sto)
                     <strong> <?=@$late_undertime[0]['lt']?> MINS LATE </strong><br>
                     <strong> <?=@$late_undertime[0]['ut']?> MINS UNDERTIME </strong><br>
                 <?php } else {
-                    echo '<strong>COMPLETED</strong><br>';
+                    // echo '<strong>COMPLETED</strong><br>';
                 } ?>
-                <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br>
+                <!-- <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br> -->
             </td>
 
             <td>
@@ -367,9 +367,9 @@ function get_overtime($ti, $sti, $to, $sto)
                     <strong> <?=@$late_undertime[0]['lt']?> MINS LATE </strong><br>
                     <strong> <?=@$late_undertime[0]['ut']?> MINS UNDERTIME </strong><br>
                 <?php } else {
-                    echo '<strong>COMPLETED</strong><br>';
+                    // echo '<strong>COMPLETED</strong><br>';
                 } ?>
-                <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br>
+                <!-- <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br> -->
             </td>
 
             <td>
@@ -387,9 +387,9 @@ function get_overtime($ti, $sti, $to, $sto)
                     <strong> <?=@$late_undertime[0]['lt']?> MINS LATE </strong><br>
                     <strong> <?=@$late_undertime[0]['ut']?> MINS UNDERTIME </strong><br>
                 <?php } else {
-                    echo '<strong>COMPLETED</strong><br>';
+                    // echo '<strong>COMPLETED</strong><br>';
                 } ?>
-                <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br>
+                <!-- <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br> -->
             </td>
 
             <td>
@@ -407,9 +407,9 @@ function get_overtime($ti, $sti, $to, $sto)
                     <strong> <?=@$late_undertime[0]['lt']?> MINS LATE </strong><br>
                     <strong> <?=@$late_undertime[0]['ut']?> MINS UNDERTIME </strong><br>
                 <?php } else {
-                    echo '<strong>COMPLETED</strong><br>';
+                    // echo '<strong>COMPLETED</strong><br>';
                 } ?>
-                <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br>
+                <!-- <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br> -->
             </td>
 
             <td>
@@ -427,9 +427,9 @@ function get_overtime($ti, $sti, $to, $sto)
                     <strong> <?=@$late_undertime[0]['lt']?> MINS LATE </strong><br>
                     <strong> <?=@$late_undertime[0]['ut']?> MINS UNDERTIME </strong><br>
                 <?php } else {
-                    echo '<strong>COMPLETED</strong><br>';
+                    // echo '<strong>COMPLETED</strong><br>';
                 } ?>
-                <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br>
+                <!-- <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br> -->
             </td>
 
             <td>
@@ -447,9 +447,9 @@ function get_overtime($ti, $sti, $to, $sto)
                     <strong> <?=@$late_undertime[0]['lt']?> MINS LATE </strong><br>
                     <strong> <?=@$late_undertime[0]['ut']?> MINS UNDERTIME </strong><br>
                 <?php } else {
-                    echo '<strong>COMPLETED</strong><br>';
+                    // echo '<strong>COMPLETED</strong><br>';
                 } ?>
-                <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br>
+                <!-- <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br> -->
             </td>
 
         </tr>
