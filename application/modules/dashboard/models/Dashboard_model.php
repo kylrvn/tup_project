@@ -73,8 +73,8 @@ class Dashboard_model extends CI_Model
 
         $this->db->select('*');
         $this->db->from($this->Table->exam_schedule);
-        $this->db->where('from_date', date('Y-m-d', strtotime($this->date)));
-        $this->db->or_where('to_date', date('Y-m-d', strtotime($this->date)));
+        $this->db->where('from_date', date('Y-m-d', strtotime($this->from_date)));
+        $this->db->or_where('to_date', date('Y-m-d', strtotime($this->to_date)));
         $this->db->where('term', $active_term->active_term);
         $this->db->where('school_year', $active_term->active_school_year);
 
@@ -114,8 +114,7 @@ class Dashboard_model extends CI_Model
 
         $this->db->select('*');
         $this->db->from($this->Table->sched);
-        $this->db->where('Day', strtolower(date('l', strtotime($this->date))));
-        // $this->db->where('Date',strtolower(date('Y-m-d',strtotime($this->date))));
+        $this->db->where_in('Day', $this->days);
         $this->db->where('Faculty_id', $this->session->ID);
         $this->db->where('school_term', $active_term->active_term);
         $this->db->where('school_year', $active_term->active_school_year);
@@ -132,7 +131,7 @@ class Dashboard_model extends CI_Model
 
         $this->db->select('*');
         $this->db->from($this->Table->logs);
-        $this->db->where("DATE(date_log)", $this->date);
+        $this->db->where_in("DATE(date_log)", $this->dates);
         $this->db->where('FacultyID', $this->session->ID);
         // $this->db->where('school_term', $active_term->active_term);
         // $this->db->where('school_year', $active_term->active_school_year);

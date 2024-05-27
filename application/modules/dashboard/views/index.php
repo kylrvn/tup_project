@@ -62,7 +62,7 @@ foreach($forVerif as $key => $value){
 
 
 <head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             background-color: #f4f4f4;
@@ -80,7 +80,7 @@ foreach($forVerif as $key => $value){
 
         th,
         td {
-            padding: 15px;
+            padding: 6px;
             text-align: left;
             border-bottom: 1px solid #ddd;
             border: 1px solid #ddd;
@@ -215,4 +215,5 @@ foreach($forVerif as $key => $value){
 <?php
 main_footer();
 ?>
+
 <script src="<?php echo base_url() ?>/assets/js/dashboard/dashboard.js"></script>

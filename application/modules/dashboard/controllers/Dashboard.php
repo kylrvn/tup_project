@@ -43,8 +43,30 @@ class Dashboard extends MY_Controller
 	}
 	public function filter_calendar()
 	{
-		$this->cModel->date = $this->input->post('date');
-		if (!empty($this->cModel->date)) {
+		$date_range = $this->input->post('date');
+		list($start_date, $end_date) = explode(' - ', $date_range);
+		$start_date = date('Y-m-d', strtotime($start_date));
+		$end_date = date('Y-m-d', strtotime($end_date));
+		$days = [];
+		$dates = [];
+        $current_date = strtotime($start_date);
+        $end_date = strtotime($end_date);
+        
+        while ($current_date <= $end_date) {
+            $day_name = strtolower(date('l', $current_date));
+			$date_value =  date('Y-m-d', strtotime($current_date));  
+            if ($day_name != 'sunday') {  // Exclude Sundays
+                $days[] = $day_name;
+				$dates[] = date('Y-m-d', $current_date);
+            }
+            $current_date = strtotime('+1 day', $current_date);
+        }
+		array_unique($days);
+		$this->cModel->days = $days;
+		$this->cModel->dates = $dates;
+		$this->cModel->from_date = $start_date;
+		$this->cModel->to_date = $end_date;
+		if (!empty($this->cModel->days)) {
 			$this->data['details'] = $this->cModel->filter_calendar();
 			$this->data['dtr_logs'] = $this->cModel->filter_dtr_logs();
 			$this->data['exam_Schedule'] = $this->cModel->get_exam_schedule_filter();
