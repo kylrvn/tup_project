@@ -36,7 +36,14 @@ class Login_service extends MY_Controller
 	public function log_out()
 	{
 		$this->session->session_destroy();
-		
+	}
+
+	public function change_password(){
+		$this->login->userID = $this->input->post('userID', true);
+		$this->login->newPassword = $this->input->post('newPassword', true);
+
+		$response = $this->login->changePassword();
+		echo json_encode($response);
 	}
 
 }

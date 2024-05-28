@@ -123,7 +123,7 @@ function click_user(element) {
   document.getElementById('User_type').selectedIndex = element.getAttribute('data-User_type');
   document.getElementById('Username').value = element.getAttribute('data-Username');
 
-  document.getElementById('password_container').innerHTML = `<button class="btn btn-warning" id="reset_password" style="display:block">Reset Password</button>`;
+  document.getElementById('password_container').innerHTML = `<button class="btn btn-warning" data-userID="` + loaded_user_ID + `" onclick="reset_password(this)" style="display:block">Reset Password</button>`;
   document.getElementById('Save').setAttribute('hidden', true);
 
   document.getElementById('Update').removeAttribute('hidden');
@@ -230,5 +230,26 @@ function update_actives(elements) {
     },
   });
 }
+
+function reset_password(element) {
+  // alert(element.getAttribute('data-userID'));
+  $.ajax({
+    url: 'create_user/service/Create_user_service/reset_password',
+    type: 'POST',
+    data: {
+      userID: element.getAttribute('data-userID'),
+    },
+
+    success: function (e) {
+      var e = JSON.parse(e);
+      if (e.has_error == false) {
+        toastr.success(e.message);
+      } else {
+        toastr.error(e.message);
+      }
+    },
+  })
+}
+
 
 

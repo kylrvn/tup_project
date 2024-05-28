@@ -109,7 +109,7 @@ $(document).on('click', '#approve_leave', function () {
                     data: {
                         ID: selected_ID,
                     },
-                    success: function (response) {
+                    success: function (respon se) {
                         // load_attachements();
                     }
                 })

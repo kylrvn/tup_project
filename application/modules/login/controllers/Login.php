@@ -24,4 +24,10 @@ class Login extends MY_Controller
 		$this->data['content'] = 'index';
 		$this->load->view($this->data['content'], $this->data);
 	}
+
+	public function change_password(){
+		$this->data['session'] =  $this->session;
+		$this->data['content'] = 'change_password';
+		$this->load->view($this->data['content'], $this->data);
+	}
 }

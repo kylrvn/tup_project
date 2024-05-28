@@ -32,19 +32,6 @@ class Login_model extends CI_Model
             $term_data = $this->db->get()->row();
 
             $query->term_data = $term_data;
-            
-            // if($query->Active == 0){
-            //     throw new Exception(DISABLED_ACCOUNT, true);
-            // }
-            
-            // if(empty($query->Branch)){
-            //     $userAgent = $_SERVER['HTTP_USER_AGENT'];
-
-            //     if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false || strpos($userAgent, 'iPhone') !== false || strpos($userAgent, 'Tablet') !== false || strpos($userAgent, 'iPad') !== false) {
-            //         // It's a mobile device
-            //         throw new Exception(MOBILE_DEVICE);
-            //     } 
-            // }
 
             if(empty($query)){
                 throw new Exception(NO_ACCOUNT, true);
@@ -58,6 +45,41 @@ class Login_model extends CI_Model
 
             return array('has_error' => false, 'message' => 'Login Success', 'session' => $this->session);
         } catch (Exception $ex) {
+            return array('error_message' => $ex->getMessage(), 'has_error' => true);
+        }
+    }
+
+    public function changePassword()
+    {
+
+        try {
+            
+            $locker = locker();
+            $password = sha1(password_generator($this->newPassword, $locker));
+
+            $data = array
+            (
+                'Password' => $password,
+                'Salt' => $locker,
+                'changePassword' => '1',
+            );
+
+            $this->db->trans_start();
+
+            $this->db->where('ID', $this->userID);
+            $this->db->update($this->Table->user, $data);
+
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                throw new Exception(ERROR_PROCESSING, true);
+            } else {
+                $this->db->trans_commit();
+                return array('message' => SAVED_SUCCESSFUL, 'has_error' => false);
+            }
+
+        } 
+        catch (Exception $ex) {
             return array('error_message' => $ex->getMessage(), 'has_error' => true);
         }
     }
