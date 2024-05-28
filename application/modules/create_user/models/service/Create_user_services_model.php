@@ -104,9 +104,15 @@ class Create_user_services_model extends CI_Model
     {
         try {
 
+            $Defaultpassword = "123456";
+            $locker = locker();
+            $password = sha1(password_generator($Defaultpassword, $locker));
+
             $data = array
             (
                 'changePassword' => 0,
+                'Password' => $password,
+                'Salt' => $locker,
             );
 
             $this->db->trans_start();
