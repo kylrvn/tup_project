@@ -159,7 +159,7 @@ class Reports_model extends CI_Model
                             break;
                         } 
 
-                        else if ($leave_dates[0]->leaveDate == $this->month . '-' . $dayFormatted) {
+                        else if (@$leave_dates[0]->leaveDate == $this->month . '-' . $dayFormatted) {
                             
                             foreach ($leave_dates as $leave) {
     
