@@ -92,13 +92,20 @@ $daysArray = range(1, $numberOfDaysInMonth);
 
                                         if (!empty($dayData)) {
                                             // Display undertime and tardiness for the specific day
-                                            echo sprintf(
-                                                '%02d:%02d %02d:%02d',
-                                                floor($dayData['t_daily'] / 60),
-                                                $dayData['t_daily'] % 60,
-                                                floor($dayData['ut_daily'] / 60),
-                                                $dayData['ut_daily'] % 60
-                                            );
+
+                                            if(floor($dayData['t_daily'] / 60) == 0 && $dayData['t_daily'] % 60 == 0 && floor($dayData['ut_daily'] / 60) == 0 && $dayData['ut_daily'] % 60 == 0){
+                                                echo '&nbsp;';
+                                            }
+                                            else{
+                                                echo sprintf(
+                                                    '%02d:%02d %02d:%02d',
+                                                    floor($dayData['t_daily'] / 60),
+                                                    $dayData['t_daily'] % 60,
+                                                    floor($dayData['ut_daily'] / 60),
+                                                    $dayData['ut_daily'] % 60
+                                                );
+                                            }
+                                            
                                             // if($dayData['ut_daily']!=0){
                                             //     echo sprintf('%02d:%02d', floor($dayData['t_daily'] / 60), $dayData['t_daily'] % 60) . '<br>';
                                             // }
