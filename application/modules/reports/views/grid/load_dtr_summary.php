@@ -96,6 +96,9 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                             if(floor($dayData['t_daily'] / 60) == 0 && $dayData['t_daily'] % 60 == 0 && floor($dayData['ut_daily'] / 60) == 0 && $dayData['ut_daily'] % 60 == 0){
                                                 echo '&nbsp;';
                                             }
+                                            else if(floor($dayData['t_daily'] / 60) == -1 && $dayData['t_daily'] % 60 == -1 && floor($dayData['ut_daily'] / 60) == -1 && $dayData['ut_daily'] % 60 == -1){
+                                                echo @$dayData['leave_data'];
+                                            }
                                             else{
                                                 echo sprintf(
                                                     '%02d:%02d %02d:%02d',
@@ -105,7 +108,7 @@ $daysArray = range(1, $numberOfDaysInMonth);
                                                     $dayData['ut_daily'] % 60
                                                 );
                                             }
-                                            
+
                                             // if($dayData['ut_daily']!=0){
                                             //     echo sprintf('%02d:%02d', floor($dayData['t_daily'] / 60), $dayData['t_daily'] % 60) . '<br>';
                                             // }

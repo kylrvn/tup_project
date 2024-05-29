@@ -94,6 +94,7 @@ function verify_file(element) {
 
 $(document).on('click', '#approve_leave', function () {
     // alert(selected_ID);
+    // return;
     $.post({
         url: baseUrl + 'request/service/request_service/save_leave_date',
         data: {
@@ -109,7 +110,7 @@ $(document).on('click', '#approve_leave', function () {
                     data: {
                         ID: selected_ID,
                     },
-                    success: function (respon se) {
+                    success: function (response) {
                         // load_attachements();
                     }
                 })
