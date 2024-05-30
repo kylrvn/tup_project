@@ -57,6 +57,13 @@ class Create_user_service extends MY_Controller
 		echo json_encode($response);
 	}
 
+	public function reset_password()
+	{
+		$this->csModel->userID = $this->input->post("userID");
+		$response = $this->csModel->resetPassword();
+		echo json_encode($response);
+	}
+
 	public function add_department()
 	{
 		$this->csModel->dept_name = $this->input->post("dept_name");

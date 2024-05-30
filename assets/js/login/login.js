@@ -13,18 +13,20 @@ $(document).ready(function () {
                 if (response.has_error) {
                     toastr.error(response.error_message);
                 } else {
-                    // console.log(response.session.User_type);
-                    if (response.session.User_type == "1" || response.session.User_type == "2") {
-                        window.location = base_url + "dashboard";
+                    if(response.session.changePassword == 0){
+                        window.location = base_url + "login/change_password";
                     }
-                    else if (response.session.User_type == "3") {
-                        window.location = base_url + "schedule";
+                    else{
+                        if (response.session.User_type == "1" || response.session.User_type == "2") {
+                            window.location = base_url + "dashboard";
+                        }
+                        else if (response.session.User_type == "3") {
+                            window.location = base_url + "schedule";
+                        }
+                        else {
+                            window.location = base_url + "dashboard";
+                        }
                     }
-                    else {
-                        window.location = base_url + "dashboard";
-                    }
-
-
                 }
             }
         });

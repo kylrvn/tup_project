@@ -100,6 +100,39 @@ class Create_user_services_model extends CI_Model
         }
     }
 
+    public function resetPassword()
+    {
+        try {
+
+            $Defaultpassword = "123456";
+            $locker = locker();
+            $password = sha1(password_generator($Defaultpassword, $locker));
+
+            $data = array
+            (
+                'changePassword' => 0,
+                'Password' => $password,
+                'Salt' => $locker,
+            );
+
+            $this->db->trans_start();
+
+            $this->db->where('ID', $this->userID);
+            $this->db->update($this->Table->user, $data);
+
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                throw new Exception(ERROR_PROCESSING, true);
+            } else {
+                $this->db->trans_commit();
+                return array('message' => "Password Reset Successful, User change password on Login", 'has_error' => false);
+            }
+        } catch (Exception $msg) {
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
+        }
+    }
+
     public function add_dept()
     {
         try {

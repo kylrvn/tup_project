@@ -38,6 +38,7 @@ class Reports_model extends CI_Model
         $logs_data = array();
         $quota = 0;
         $days_in_selected_month = date('t', mktime(0, 0, 0, $month, 1, $year));
+        $leave_dates = [];
 
         $data_to_send = [];
 
@@ -65,6 +66,8 @@ class Reports_model extends CI_Model
         $data_to_send["data"] = $this->db->get()->result();
         $holiday = $this->get_holidays($year, $month);
         foreach ($data_to_send["data"] as $val) {
+
+            $leave_dates = $this->get_leave_dates($val->ID);
             $logs = $this->get_logs($val->ID);
             $sched = $this->get_sched($val->ID);
 
@@ -122,18 +125,21 @@ class Reports_model extends CI_Model
                         ];
                         break;
                     }
+
                     if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
                         // echo '<br>'.$day.'- ';
                         // $quota = 18000;
                         $quota = $quota * 3600;
                         $quota_checker = 0;
+                        $dayFormatted = sprintf('%02d', $day);
+
                         if (in_array($this->month . '-' . $day, $exam_sched_arrdays)) {
                             $quota = 18000;
                             $quota_checker = 0;
                             $t = 0; // placeholder for tardiness
                             //checks for undertime
-                            $timein =  date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
-                            $timeout =  date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
+                            $timein = date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
+                            $timeout = date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
                             $time_in = strtotime($timein);
                             $time_out = strtotime($timeout);
                             $quota_checker = $time_out - $time_in;
@@ -151,7 +157,62 @@ class Reports_model extends CI_Model
                                 "ol_daily" => $ov,
                             ];
                             break;
-                        } else {
+                        } 
+
+                        else if (@$leave_dates[0]->leaveDate == $this->month . '-' . $dayFormatted) {
+                            
+                            foreach ($leave_dates as $leave) {
+    
+                                // var_dump($this->month . '-' . $day);
+    
+                                if ($leave->leaveDate == $this->month . '-' . $dayFormatted) {
+
+                                    $leaveType = $this->get_leave_type($leave->leaveType);
+                                    $leaveTypeLegend = [
+                                        "Vacation Leave" => "VL",
+                                        "Mandatory/Forced Leave" => "M/FL",
+                                        "Sick Leave" => "SL",
+                                        "Maternity Leave" => "ML",
+                                        "Paternity Leave" => "PL",
+                                        "Special Privilege Leave" => "SPL",
+                                        "Solo Parent Leave" => "PRL",
+                                        "Study Leave" => "STDY",
+                                        "10-Day VAWC Leave" => "VAWC",
+                                        "Rehabilitation Privilige" => "RP",
+                                        "Special Benefits for Women" => "SBW",
+                                        "Special Emergency (Calamity) Leave" => "CL",
+                                        "Adoption Leave" => "AL",
+                                        "Official Business" => "OB",
+                                        "Suspended" => "S",
+                                        "Leave without Pay" => "LWOP",
+                                    ];
+
+                                    $leaveAbbv = null;
+                                    foreach ($leaveTypeLegend as $key => $value){
+                                        if($key == $leaveType->LeaveType){
+                                            $leaveAbbv = $value;
+                                        }
+                                    }
+    
+                                    $undertime_tard_daily[$day] = [
+
+                                        "day" => $day,
+                                        "ut_daily" => -1,
+                                        "t_daily" => -1,
+                                        "leave_data" => $leaveAbbv,
+
+                                    ];
+                                    $overload_daily[$day] = [
+                                        "day" => $day,
+                                        "ol_daily" => -1,
+                                    ];
+    
+                                    break;
+                                }
+                            }
+                        } 
+
+                        else {
 
                             //checker to check if current schedule of the day contains any AM subject.
                             if (strpos(@$tempschedarr[0]['time_frame'], 'AM') !== false) {
@@ -301,6 +362,7 @@ class Reports_model extends CI_Model
                             ];
                             break;
                         }
+
                     } // end of if date checker
 
                 } //end log foreach loop
@@ -459,6 +521,7 @@ class Reports_model extends CI_Model
                                 $absent_checker = true;
                                 break;
                             }
+
                             if (in_array($this->month . '-' . $day, $leave_dates)) {
                                 // echo 'AAA';
                                 $undertime_tard_daily[$day] = [
@@ -474,6 +537,7 @@ class Reports_model extends CI_Model
                                 $absent_checker = true;
                                 break;
                             }
+
                             if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
                                 $absent_checker = true;
                                 $absent_count--;
@@ -486,8 +550,8 @@ class Reports_model extends CI_Model
                                     $quota_checker = 0;
 
                                     //checks for undertime
-                                    $timein =  date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
-                                    $timeout =  date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
+                                    $timein = date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
+                                    $timeout = date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
                                     $time_in = strtotime($timein);
                                     $time_out = strtotime($timeout);
                                     $quota_checker = $time_out - $time_in;
@@ -681,8 +745,8 @@ class Reports_model extends CI_Model
                                     $quota_checker = 0;
 
                                     //checks for undertime
-                                    $timein =  date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
-                                    $timeout =  date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
+                                    $timein = date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
+                                    $timeout = date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
                                     $time_in = strtotime($timein);
                                     $time_out = strtotime($timeout);
                                     $quota_checker = $time_out - $time_in;
@@ -926,6 +990,17 @@ class Reports_model extends CI_Model
         return $leave;
     }
 
+    public function get_leave_type($ID)
+    {
+        $this->db->select(
+            'LeaveType'
+        );
+        $this->db->from($this->Table->leave_type);
+        $this->db->where('ID', $ID);
+        $leave = $this->db->get()->row();
+        return $leave;
+    }
+
     public function get_faculty()
     {
         $user_type = ["1", "5"];
@@ -1062,8 +1137,8 @@ class Reports_model extends CI_Model
                             $quota_checker = 0;
 
                             //checks for undertime
-                            $timein =  date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
-                            $timeout =  date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
+                            $timein = date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
+                            $timeout = date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
                             $time_in = strtotime($timein);
                             $time_out = strtotime($timeout);
                             $quota_checker = $time_out - $time_in;

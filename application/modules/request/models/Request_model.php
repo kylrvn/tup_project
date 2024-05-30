@@ -24,6 +24,7 @@ class Request_model extends CI_Model
             'u.Fname,' .
             'u.Lname,' .
             'u.Mname,' . 
+            'u.ID as facultyID,' . 
             'lt.LeaveType,' 
         );
         $this->db->from($this->Table->file_attachments . ' fa');
