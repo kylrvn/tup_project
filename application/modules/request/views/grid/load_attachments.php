@@ -34,7 +34,7 @@
                     <?= $value->verified == "0" ? '<label style="color: red;">UNVERIFIED</label>' : '<label style="color: green;">VERIFIED</label>' ?>
                 </td>
                 <td>
-                    <button class="btn btn-primary btn-sm" data-id="<?= $value->facultyID ?>" onclick="view_file(this)"><i
+                    <button class="btn btn-primary btn-sm" data-id="<?= $value->ID ?>" onclick="view_file(this)"><i
                             class="fas fa-eye"></i></button>
                     <button class="btn btn-success btn-sm" <?= $value->verified == "1" ? 'disabled' : '' ?>
                         data-id="<?= $value->facultyID ?>" onclick="verify_file(this)"><i class="fas fa-check"></i> VERIFY</button>

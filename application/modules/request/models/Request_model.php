@@ -98,6 +98,7 @@ class Request_model extends CI_Model
         $this->db->where('ID', $this->ID);
         $query = $this->db->get()->row();
 
+        // var_dump($query);
         return $query;
     }
 

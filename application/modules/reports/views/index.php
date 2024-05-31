@@ -91,7 +91,7 @@ main_header(['Reports']);
 <section class="content">
     <div class="card">
         <div class="card-header" style="background-color:#9F3A3B; color: white;">
-            <h3 class="card-title" style="font-weight:550;">Report of deduction for Leave w/o pay, Tardiness and
+            <h3 class="card-title" style="font-weight:550;">Report of Deduction for Leave w/o Pay, Tardiness and
                 Undertime</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool expand2" data-card-widget="collapse" title="Collapse">
