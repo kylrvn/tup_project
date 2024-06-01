@@ -333,14 +333,14 @@ function get_overtime($ti, $sti, $to, $sto)
         </tr>
         <tr>
             <td>
-                <strong>Start Time:<br></strong><label><?= !empty($firstMondayItem->Start_time) ? date('h:i a', strtotime($firstMondayItem->Start_time)) : '' ?></label><br><br>
-                <strong>End Time:<br></strong><label><?= !empty($lastMondayItem->End_time) ? date('h:i a', strtotime($lastMondayItem->End_time)) : '' ?></label><br><br>
+                <strong>Start Time:<br></strong><label><?= !empty($firstMondayItem->Start_time) ? date('h:i a', strtotime($firstMondayItem->Start_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
+                <strong>End Time:<br></strong><label><?= !empty($lastMondayItem->End_time) ? date('h:i a', strtotime($lastMondayItem->End_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
                 <label>AM</label><br>
-                <strong>Arrival: <br><?php echo ($monday_timein_am != NULL) ? date('h:i a', strtotime($monday_timein_am)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?php echo ($monday_timeout_am != NULL) ? date('h:i a', strtotime($monday_timeout_am)) : ' ' ?></strong> <br><br>
+                <strong>Arrival: <br><?php echo ($monday_timein_am != NULL) ? date('h:i a', strtotime($monday_timein_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?php echo ($monday_timeout_am != NULL) ? date('h:i a', strtotime($monday_timeout_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
                 <label>PM</label><br>
-                <strong>Arrival: <br><?php echo ($monday_timein_pm != NULL) ? date('h:i a', strtotime($monday_timein_pm)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?php echo ($monday_timeout_pm != NULL) ? date('h:i a', strtotime($monday_timeout_pm)) : ' '?></strong> <br><br><br><br>
+                <strong>Arrival: <br><?php echo ($monday_timein_pm != NULL) ? date('h:i a', strtotime($monday_timein_pm)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?php echo ($monday_timeout_pm != NULL) ? date('h:i a', strtotime($monday_timeout_pm)) : ' '?></strong> <hr style="background-color:black;max-width:100%">
 
                 <strong>Status: <?php echo @(reset($mondayDetails)->Active == 1) ? '<label style="color:green">ACTIVE</label>' : '' ?></strong><br><br><br>
                 <?php if (@$late_undertime[0]['ut']!= null || @$late_undertime[0]['lt']!= null) { ?>
@@ -351,16 +351,15 @@ function get_overtime($ti, $sti, $to, $sto)
                 } ?>
                 <!-- <strong>Overload: <?= @$overtime[0] * 60 ?> MINS</strong><br> -->
             </td>
-
             <td>
-                <strong>Start Time:<br></strong><label><?= !empty($firstTuesdayItem->Start_time) ? date('h:i a', strtotime($firstTuesdayItem->Start_time)) : '' ?></label><br><br>
-                <strong>End Time:<br></strong><label><?= !empty($lastTuesdayItem->End_time) ? date('h:i a', strtotime($lastTuesdayItem->End_time)) : '' ?></label><br><br>
+                <strong>Start Time:<br></strong><label><?= !empty($firstTuesdayItem->Start_time) ? date('h:i a', strtotime($firstTuesdayItem->Start_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
+                <strong>End Time:<br></strong><label><?= !empty($lastTuesdayItem->End_time) ? date('h:i a', strtotime($lastTuesdayItem->End_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
                 <label>AM</label><br>
-                <strong>Arrival: <br><?php echo ($tuesday_timein_am != NULL) ? date('h:i a', strtotime($tuesday_timein_am)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?php echo ($tuesday_timeout_am != NULL) ? date('h:i a', strtotime($tuesday_timeout_am)) : ' ' ?></strong> <br><br>
+                <strong>Arrival: <br><?php echo ($tuesday_timein_am != NULL) ? date('h:i a', strtotime($tuesday_timein_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?php echo ($tuesday_timeout_am != NULL) ? date('h:i a', strtotime($tuesday_timeout_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
                 <label>PM</label><br>
-                <strong>Arrival: <br><?php echo ($tuesday_timein_pm != NULL) ? date('h:i a', strtotime($tuesday_timein_pm)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?php echo ($tuesday_timeout_pm != NULL) ? date('h:i a', strtotime($tuesday_timeout_pm)) : ' '?></strong> <br><br><br><br>
+                <strong>Arrival: <br><?php echo ($tuesday_timein_pm != NULL) ? date('h:i a', strtotime($tuesday_timein_pm)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?php echo ($tuesday_timeout_pm != NULL) ? date('h:i a', strtotime($tuesday_timeout_pm)) : ' '?></strong> <hr style="background-color:black;max-width:100%">
 
                 <strong>Status: <?php echo @(reset($tuesdayDetails)->Active == 1) ? '<label style="color:green">ACTIVE</label>' : '' ?></strong><br><br><br>
                 <?php if (@$late_undertime[0]['ut']!= null || @$late_undertime[0]['lt']!= null) { ?>
@@ -373,15 +372,14 @@ function get_overtime($ti, $sti, $to, $sto)
             </td>
 
             <td>
-                <strong>Start Time:<br></strong><label><?= !empty($firstWednesdayItem->Start_time) ? date('h:i a', strtotime($firstWednesdayItem->Start_time)) : '' ?></label><br><br>
-                <strong>End Time:<br></strong><label><?= !empty($lastWednesdayItem->End_time) ? date('h:i a', strtotime($lastWednesdayItem->End_time)) : '' ?></label><br><br>
+                <strong>Start Time:<br></strong><label><?= !empty($firstWednesdayItem->Start_time) ? date('h:i a', strtotime($firstWednesdayItem->Start_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
+                <strong>End Time:<br></strong><label><?= !empty($lastWednesdayItem->End_time) ? date('h:i a', strtotime($lastWednesdayItem->End_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
                 <label>AM</label><br>
-                <strong>Arrival: <br><?php echo ($wednesday_timein_am != NULL) ? date('h:i a', strtotime($wednesday_timein_am)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?php echo ($wednesday_timeout_am != NULL) ? date('h:i a', strtotime($wednesday_timeout_am)) : ' ' ?></strong> <br><br>
+                <strong>Arrival: <br><?php echo ($wednesday_timein_am != NULL) ? date('h:i a', strtotime($wednesday_timein_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?php echo ($wednesday_timeout_am != NULL) ? date('h:i a', strtotime($wednesday_timeout_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
                 <label>PM</label><br>
-                <strong>Arrival: <br><?php echo ($wednesday_timein_pm != NULL) ? date('h:i a', strtotime($wednesday_timein_pm)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?php echo ($wednesday_timeout_pm != NULL) ? date('h:i a', strtotime($wednesday_timeout_pm)) : ' '?></strong> <br><br><br><br>
-
+                <strong>Arrival: <br><?php echo ($wednesday_timein_pm != NULL) ? date('h:i a', strtotime($wednesday_timein_pm)) : ' '  ?></strong><hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?php echo ($wednesday_timeout_pm != NULL) ? date('h:i a', strtotime($wednesday_timeout_pm)) : ' '?></strong> <hr style="background-color:black;max-width:100%">
                 <strong>Status: <?php echo @(reset($wednesdayDetails)->Active == 1) ? '<label style="color:green">ACTIVE</label>' : '' ?></strong><br><br><br>
                 <?php if (@$late_undertime[0]['ut']!= null || @$late_undertime[0]['lt']!= null) { ?>
                     <strong> <?=@$late_undertime[0]['lt']?> MINS LATE </strong><br>
@@ -393,14 +391,14 @@ function get_overtime($ti, $sti, $to, $sto)
             </td>
 
             <td>
-                <strong>Start Time:<br></strong><label><?= !empty($firstThursdayItem->Start_time) ? date('h:i a', strtotime($firstThursdayItem->Start_time)) : '' ?></label><br><br>
-                <strong>End Time:<br></strong><label><?= !empty($lastThursdayItem->End_time) ? date('h:i a', strtotime($lastThursdayItem->End_time)) : '' ?></label><br><br>
+                <strong>Start Time:<br></strong><label><?= !empty($firstThursdayItem->Start_time) ? date('h:i a', strtotime($firstThursdayItem->Start_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
+                <strong>End Time:<br></strong><label><?= !empty($lastThursdayItem->End_time) ? date('h:i a', strtotime($lastThursdayItem->End_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
                 <label>AM</label><br>
-                <strong>Arrival: <br><?=!empty($thursday_timein_am) ? date('h:i a', strtotime($thursday_timein_am)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?=!empty($thursday_timeout_am) ? date('h:i a', strtotime($thursday_timeout_am)) : ' ' ?></strong> <br><br>
+                <strong>Arrival: <br><?=!empty($thursday_timein_am) ? date('h:i a', strtotime($thursday_timein_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?=!empty($thursday_timeout_am) ? date('h:i a', strtotime($thursday_timeout_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
                 <label>PM</label><br>
-                <strong>Arrival: <br><?=!empty($thursday_timein_pm) ? date('h:i a', strtotime($thursday_timein_pm)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?=!empty($thursday_timeout_pm) ? date('h:i a', strtotime($thursday_timeout_pm)) : ' ' ?></strong>  <br><br><br><br>
+                <strong>Arrival: <br><?=!empty($thursday_timein_pm) ? date('h:i a', strtotime($thursday_timein_pm)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?=!empty($thursday_timeout_pm) ? date('h:i a', strtotime($thursday_timeout_pm)) : ' ' ?></strong>  <hr style="background-color:black;max-width:100%">
 
                 <strong>Status: <?php echo @(reset($thursdayDetails)->Active == 1) ? '<label style="color:green">ACTIVE</label>' : '' ?></strong><br><br><br>
                 <?php if (@$late_undertime[0]['ut']!= null || @$late_undertime[0]['lt']!= null) { ?>
@@ -413,14 +411,14 @@ function get_overtime($ti, $sti, $to, $sto)
             </td>
 
             <td>
-                <strong>Start Time:<br></strong><label><?= !empty($firstFridayItem->Start_time) ? date('h:i a', strtotime($firstFridayItem->Start_time)) : '' ?></label><br><br>
-                <strong>End Time:<br></strong><label><?= !empty($lastFridayItem->End_time) ? date('h:i a', strtotime($lastFridayItem->End_time)) : '' ?></label><br><br>
+                <strong>Start Time:<br></strong><label><?= !empty($firstFridayItem->Start_time) ? date('h:i a', strtotime($firstFridayItem->Start_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
+                <strong>End Time:<br></strong><label><?= !empty($lastFridayItem->End_time) ? date('h:i a', strtotime($lastFridayItem->End_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
                 <label>AM</label><br>
-                <strong>Arrival: <br><?=($friday_timein_am != NULL) ? date('h:i a', strtotime($friday_timein_am)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?=!empty($friday_timeout_am != NULL) ? date('h:i a', strtotime($friday_timeout_am)) : ' ' ?></strong> <br><br>
+                <strong>Arrival: <br><?=($friday_timein_am != NULL) ? date('h:i a', strtotime($friday_timein_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?=!empty($friday_timeout_am != NULL) ? date('h:i a', strtotime($friday_timeout_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
                 <label>PM</label><br>
-                <strong>Arrival: <br><?=($friday_timein_pm != NULL) ? date('h:i a', strtotime($friday_timein_pm)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?=($friday_timeout_pm != NULL) ? date('h:i a', strtotime($friday_timeout_pm)) : ' '?></strong> <br><br><br><br>
+                <strong>Arrival: <br><?=($friday_timein_pm != NULL) ? date('h:i a', strtotime($friday_timein_pm)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?=($friday_timeout_pm != NULL) ? date('h:i a', strtotime($friday_timeout_pm)) : ' '?></strong> <hr style="background-color:black;max-width:100%">
 
                 <strong>Status: <?php echo @(reset($fridayDetails)->Active == 1) ? '<label style="color:green">ACTIVE</label>' : '' ?></strong><br><br><br>
                 <?php if (@$late_undertime[0]['ut']!= null || @$late_undertime[0]['lt']!= null) { ?>
@@ -433,14 +431,14 @@ function get_overtime($ti, $sti, $to, $sto)
             </td>
 
             <td>
-                <strong>Start Time:<br></strong><label><?= !empty($firstSaturdayItem->Start_time) ? date('h:i a', strtotime($firstSaturdayItem->Start_time)) : '' ?></label><br><br>
-                <strong>End Time:<br></strong><label><?= !empty($lastSaturdayItem->End_time) ? date('h:i a', strtotime($lastSaturdayItem->End_time)) : '' ?></label><br><br>
+                <strong>Start Time:<br></strong><label><?= !empty($firstSaturdayItem->Start_time) ? date('h:i a', strtotime($firstSaturdayItem->Start_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
+                <strong>End Time:<br></strong><label><?= !empty($lastSaturdayItem->End_time) ? date('h:i a', strtotime($lastSaturdayItem->End_time)) : '' ?></label><hr style="background-color:black;max-width:100%">
                 <label>AM</label><br>
-                <strong>Arrival: <br><?=($saturday_timein_am != NULL) ? date('h:i a', strtotime($saturday_timein_am)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?=!empty($saturday_timeout_am != NULL) ? date('h:i a', strtotime($saturday_timeout_am)) : ' ' ?></strong> <br><br>
+                <strong>Arrival: <br><?=($saturday_timein_am != NULL) ? date('h:i a', strtotime($saturday_timein_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?=!empty($saturday_timeout_am != NULL) ? date('h:i a', strtotime($saturday_timeout_am)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
                 <label>PM</label><br>
-                <strong>Arrival: <br><?=($saturday_timein_pm != NULL) ? date('h:i a', strtotime($saturday_timein_pm)) : ' ' ?></strong> <br><br>
-                <strong>Departure: <br><?=($saturday_timeout_pm != NULL) ? date('h:i a', strtotime($saturday_timeout_pm)) : ' '?></strong> <br><br><br><br>
+                <strong>Arrival: <br><?=($saturday_timein_pm != NULL) ? date('h:i a', strtotime($saturday_timein_pm)) : ' ' ?></strong> <hr style="background-color:black;max-width:100%">
+                <strong>Departure: <br><?=($saturday_timeout_pm != NULL) ? date('h:i a', strtotime($saturday_timeout_pm)) : ' '?></strong> <hr style="background-color:black;max-width:100%">
 
                 <strong>Status: <?php echo @(reset($saturdayDetails)->Active == 1) ? '<label style="color:green">ACTIVE</label>' : '' ?></strong><br><br><br>
                 <?php if (@$late_undertime[0]['ut']!= null || @$late_undertime[0]['lt']!= null) { ?>
