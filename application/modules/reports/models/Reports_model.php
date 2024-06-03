@@ -54,6 +54,7 @@ class Reports_model extends CI_Model
             // 'd.Date_time,'.
         );
         $this->db->from($this->Table->user . ' u');
+        $this->db->order_by('Lname', 'ASC');
 
         if ($this->facultyType == "1") {
             $this->db->where_in('u.User_type', $this->user_type);
@@ -466,6 +467,7 @@ class Reports_model extends CI_Model
             // 'd.Date_time,'.
         );
         $this->db->from($this->Table->user . ' u');
+        $this->db->order_by('Lname', 'ASC');
 
         if ($this->facultyType == "1") {
             $this->db->where_in('u.User_type', $this->user_type);
