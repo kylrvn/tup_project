@@ -51,7 +51,11 @@ class Schedule_service extends MY_Controller
 	}
 
 	public function delete_event(){
-		
+		$this->SsModel->title = $this->input->post("title");
+		$this->SsModel->date = $this->input->post("date");
+
+		$response = $this->SsModel->delete_event();
+		echo json_encode($response);
 	}
 
 }

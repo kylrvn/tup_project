@@ -146,7 +146,7 @@ function deleteEvent(element) {
             if (e.has_error == false) {
                 toastr.success(e.message);
                 setTimeout(function () {
-                    
+                    window.location.reload();
                 }, 2000);
             }
             else {
