@@ -47,6 +47,11 @@ function generate_username(f, l) {
 }
 
 $(document).on('click', '#save_doc', function () {
+
+  if($('#fname').val() == "" || $('#lname').val() == "" || $('#mname').val() == ""){
+    toastr.error("Last Name, First Name or Middle Name is Blank, PLease check");
+    return;
+  }
   $.ajax({
     url: 'create_user/service/Create_user_service/save',
     // selector: '.form-control',
