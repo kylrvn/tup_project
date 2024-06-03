@@ -50,4 +50,8 @@ class Schedule_service extends MY_Controller
 		echo json_encode($response);
 	}
 
+	public function delete_event(){
+		
+	}
+
 }

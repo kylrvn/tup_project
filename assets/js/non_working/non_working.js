@@ -42,7 +42,7 @@ $(function () {
                 textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color'),
             };
         }
-        
+
     });
 
     calendar = new Calendar(calendarEl, {
@@ -65,6 +65,10 @@ $(function () {
         events: [
 
         ],
+
+        eventClick: function (info) {
+            evenClickHandler(info.event);
+        },
         eventResizableFromStart: false,
         editable: true,
         droppable: true,
@@ -73,7 +77,7 @@ $(function () {
                 info.draggedEl.parentNode.removeChild(info.draggedEl);
             }
         },
-        eventResize: function(info) {
+        eventResize: function (info) {
             info.revert();
         }
     });
@@ -97,6 +101,63 @@ $(function () {
     })
 
 });
+
+var titleFlag = null;
+var dateFlag = null;
+function evenClickHandler(event) {
+    // alert('Event: ' + event.title);
+
+    const date = new Date(event.start);
+
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    const formattedDate = `${month} ${day.toString().padStart(2, '0')}, ${year}`;
+
+    document.getElementById('eventTitle').innerHTML = event.title;
+    document.getElementById('eventDate').innerHTML = formattedDate;
+
+    titleFlag = event.title;
+    dateFlag = formattedDate;
+
+    $('#view_event').modal('show');
+
+    // console.log('Event start: ' + event.start);
+    // console.log('Event end: ' + event.end);
+}
+
+function deleteEvent(element) {
+    // alert(titleFlag + " " + dateFlag);
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'schedule/service/schedule_service/delete_event',
+        data: {
+            title: titleFlag,
+            date: dateFlag
+        },
+        success: function (data) {
+            e = JSON.parse(data);
+            if (e.has_error == false) {
+                toastr.success(e.message);
+                setTimeout(function () {
+                    
+                }, 2000);
+            }
+            else {
+                toastr.error(e.message);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error loading attachments:', textStatus, errorThrown);
+        }
+    });
+}
 
 function formatDate(dateString) {
     if (dateString === null) {
@@ -142,7 +203,7 @@ $('#save_dates').click(function () {
         },
         success: function (data) {
             toastr.success("Dates Saved Successfully");
-            setTimeout(function () { 
+            setTimeout(function () {
                 window.location.reload();
             }, 1000)
         },

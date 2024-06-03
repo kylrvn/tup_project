@@ -310,6 +310,13 @@ function return_subject(element) {
 
 $('#save_schedule').click(function () {
 
+    $('#monday_scheme').trigger('input');
+    $('#tuesday_scheme').trigger('input');
+    $('#wednesday_scheme').trigger('input');
+    $('#thursday_scheme').trigger('input');
+    $('#friday_scheme').trigger('input');
+    $('#saturday_scheme').trigger('input');
+
     if ($('#term').val() == null) {
         toastr.error('Select Term');
         return;
