@@ -46,6 +46,7 @@ $(function () {
     calendar = new Calendar(calendarEl, {
         headerToolbar: null,
         initialView: 'timeGridWeek',
+        hiddenDays: [0],
         themeSystem: 'bootstrap',
         slotDuration: '00:15:00',
         slotMinTime: '08:00',
