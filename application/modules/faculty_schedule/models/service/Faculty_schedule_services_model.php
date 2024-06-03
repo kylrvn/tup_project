@@ -24,6 +24,7 @@ class Faculty_schedule_services_model extends CI_Model
         // var_dump($this->data);
 
         try {
+            $last_insert_ID = null;
             foreach ($this->data as $key => $value) {
                 // echo "subject = " . $key . " ";
                 // var_dump($value['subject']);
@@ -32,6 +33,18 @@ class Faculty_schedule_services_model extends CI_Model
                 // echo "day = " . $key . " ";
                 // var_dump($value['day']);
                 // echo "\n";
+                $scheme_value = null;
+                if($value['scheme'] == 0){
+                    $this->db->select(
+                        'scheme,'
+                    );
+                    $this->db->from($this->Table->sched);
+                    $query = $this->db->get()->row();
+                    $scheme_value = $query->scheme;
+                }
+                else{
+                    $scheme_value = $value['scheme'];
+                }
 
                 $data = array(
                     'Faculty_id' => $this->faculty_id,
@@ -45,7 +58,7 @@ class Faculty_schedule_services_model extends CI_Model
                     'Room' => $value['room'],
                     'Section' => $value['section'],
                     'Day' => $value['day'],
-                    'scheme' => $value['scheme'],
+                    'scheme' => $scheme_value,
 
                     'Start_time' => $value['start_time'],
                     'End_time' => $value['end_time'],
@@ -56,8 +69,8 @@ class Faculty_schedule_services_model extends CI_Model
                     empty($value['time_frame']) || $value['time_frame'] == "" &&
                     empty($value['start_time']) || $value['start_time'] == "" &&
                     empty($value['end_time']) || $value['end_time'] == "" &&
-                    empty($value['subject']) || $value['subject'] == "" &&
-                    empty($value['section']) || $value['section'] == "" 
+                    empty($value['subject']) || $value['subject'] == ""
+                    // empty($value['section']) || $value['section'] == "" 
                     // empty($value['room']) || $value['room'] == ""
                 ) {
                     // Do Nothing
@@ -65,6 +78,7 @@ class Faculty_schedule_services_model extends CI_Model
                     $this->db->trans_start();
 
                     $this->db->insert($this->Table->sched, $data);
+                    $last_insert_ID = $this->db->insert_id();
 
                     $this->db->trans_complete();
                 }
