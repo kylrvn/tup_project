@@ -228,6 +228,7 @@ class Reports_model extends CI_Model
                                             $ve = date("H:i:s", strtotime($subject['end_time']));
                                             $ve = strtotime($ve);
                                             $vacant += ($ve-$vs);
+                                            echo $vacant.'<br>';
                                         }
                                         if ($subject['time_frame'] == "AM") {
 
