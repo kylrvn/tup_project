@@ -1483,7 +1483,7 @@ class Reports_model extends CI_Model
         $y = $to > $last_to ? $last_to : $to;
         // echo $type.'<br>';
         $quota_checker = $type == 'ampm' ? ($y - $x) - 3600 : ($y - $x);
-        $quota_checker = $late > 0 ? $quota_checker - $late :  $quota_checker;
+        $quota_checker = $late > 0 ? $quota_checker:  $quota_checker;
 
         return $quota_checker;
     }
