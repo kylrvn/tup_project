@@ -95,22 +95,29 @@ $('#save_schedule').click(function () {
             // },
         })
         });
-
+        $(document).ready(function() {
+            $('.forVerif').click(function() {
+                $(this).closest('tr').find('#reason').prop('disabled', false);
+            });
+            $('.acknowledgement').click(function() {
+                $(this).closest('tr').find('#reason').prop('disabled', true);
+            });
+        });
         $('#confirm').click(function() {
-            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var radio = document.querySelectorAll('input[type="radio"]');
             var checkedData = [];
             
-            checkboxes.forEach(function(checkbox){
-                if(checkbox.checked){
+            radio.forEach(function(checkedRadio){
+                if(checkedRadio.checked){
                     var data = {};
-                    data.dataID = checkbox.getAttribute('data-week');
-                    data.FacultyID = checkbox.getAttribute('data-FacID');
-                    if (checkbox.classList.contains('acknowledgement')) {
-                        data.Acknowledge = checkbox.value;
-                        // acknowledgeReason = checkbox.parentElement.nextElementSibling.nextElementSibling.querySelector('input[type="text"]').value;
-                    } else if (checkbox.classList.contains('forVerif')) {
-                        data.ForVerif = checkbox.value;
-                        data.ForVerifReason = checkbox.parentElement.nextElementSibling.querySelector('input[type="text"]').value;
+                    data.dataID = checkedRadio.getAttribute('data-week');
+                    data.FacultyID = checkedRadio.getAttribute('data-FacID');
+                    if (checkedRadio.classList.contains('acknowledgement')) {
+                        data.Acknowledge = checkedRadio.value;
+                        // acknowledgeReason = checkedRadio.parentElement.nextElementSibling.nextElementSibling.querySelector('input[type="text"]').value;
+                    } else if (checkedRadio.classList.contains('forVerif')) {
+                        data.ForVerif = checkedRadio.value;
+                        data.ForVerifReason = checkedRadio.parentElement.nextElementSibling.querySelector('input[type="text"]').value;
                     }
                     checkedData.push(data);
                 }

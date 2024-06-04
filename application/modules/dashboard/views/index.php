@@ -55,6 +55,7 @@ foreach($approved as $key => $value){
 foreach($forVerif as $key => $value){
     $groupedForVerif[] = $value->Schedule;
 }
+// var_dump($forVerif);
 ?>
 
 
@@ -129,6 +130,13 @@ foreach($forVerif as $key => $value){
             margin-left: 10px;
             cursor: pointer;
         }
+            .centered-radio {
+        text-align: center;
+    }
+
+    .centered-radio input[type="radio"] {
+        margin: auto;
+    }
     </style>
 </head>
 
@@ -168,20 +176,32 @@ foreach($forVerif as $key => $value){
                     <th>Request for Verification</th>
                     <th>Description for Request</th>
                 </tr>
-                <?php foreach ($formattedWeeks  as $week) {  ?>
+                <?php foreach ($formattedWeeks as $week) {  ?>
                  <tr>   
                 <td><?=$week?></td>
-                <td> <input type="checkbox" value="1" class="acknowledgement"  data-week="<?=$week?>" data-FacID="<?=$session->ID?>" name="acknowledgement[]" <?php foreach($groupedApproved as $approvedSched){
+                <td class="text-center"> <input type="radio" value="1" name="radio_option_<?=$week?>" class="acknowledgement"  data-week="<?=$week?>" data-FacID="<?=$session->ID?>" <?php foreach($groupedApproved as $approvedSched){
                     if($approvedSched == $week){
                         echo 'checked';
                     }
                 }?>></td>
-                <td> <input type="checkbox" value="1" class="forVerif" data-week="<?=$week?>" data-FacID="<?=$session->ID?>" name="forVerif[]" <?php foreach($groupedForVerif as $forVerif){
-                    if($forVerif == $week){
+                <td class="text-center"> <input type="radio" value="1" name="radio_option_<?=$week?>" class="forVerif" data-week="<?=$week?>" data-FacID="<?=$session->ID?>" name="forVerif[]" <?php foreach($groupedForVerif as $forVerific){
+                    if($forVerific == $week){
                         echo 'checked';
                     }
                 }?>></td>
-                <td><input type="text" id="reason"></td>
+                <td><input type="text" id="reason" value="<?php foreach($forVerif as $verifSched) {
+                    if($verifSched->Schedule == $week){
+                        echo $verifSched->ForVerifReason;
+                    }else{
+                        echo '';
+                    }
+                } ?>" <?php foreach($forVerif as $verifSched) {
+                    if($verifSched->Schedule == $week){
+                        echo 'disabled = false';
+                    }else{
+                        echo 'disabled';
+                    }
+                } ?>></td>
                  </tr>
                 <?php }?>
                 <!-- <tr>

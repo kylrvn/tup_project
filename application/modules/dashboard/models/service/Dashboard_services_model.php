@@ -64,7 +64,7 @@ class Dashboard_services_model extends CI_Model
             //     empty($this->Category_ID)){
             //     throw new Exception(MISSING_DETAILS, true);
             // }   
-            if(empty($this->Acknowledge)){
+            if(empty($this->Acknowledge) && !empty($this->ForVerif)){
                 $this->db->select('*');
                 $this->db->from($this->Table->active_term);
                 $active_term = $this->db->get()->row();
@@ -91,7 +91,7 @@ class Dashboard_services_model extends CI_Model
                     return array('message' => "Request For Verification Sent", 'has_error' => false);
                 }
             }
-            else if(!empty($this->Acknowledge)){
+            else if(!empty($this->Acknowledge) && empty($this->ForVerif)){
                 $this->db->select('*');
                 $this->db->from($this->Table->active_term);
                 $active_term = $this->db->get()->row();
@@ -113,7 +113,13 @@ class Dashboard_services_model extends CI_Model
                     throw new Exception(ERROR_PROCESSING, true);	
                 }else{
                     $this->db->trans_commit();
-                    return array('message' => "DTR Schedule Acknowledged", 'has_error' => false);
+                    if(!empty($this->Acknowledge) && empty($this->ForVerif)){
+                        return array('message' => "DTR Schedule Acknowledged", 'has_error' => false);
+                    } else if(empty($this->Acknowledge) && !empty($this->ForVerif)){
+                        return array('message' => "Request for Verification has been sent", 'has_error' => false);
+                    } else{
+                        return array('message' => "Acknowledged schedules has been recorded and requests for verification have been processed", 'has_error' => false);
+                    }
                 }
             }
           

@@ -60,12 +60,17 @@ class Dashboard_service extends MY_Controller
 			$this->dsModel->FacultyID = $data["FacultyID"];
 			$this->dsModel->ForVerif = $data["ForVerif"];
 			$this->dsModel->ForVerifReason = $data["ForVerifReason"];
+			$this->dsModel->Acknowledge = "";
+			// var_dump($data["ForVerif"]);
 		}
 		else if(!empty($data["dataID"] && $data["FacultyID"] && $data["Acknowledge"])){
 			$this->dsModel->dataID = $data["dataID"];
 			$this->dsModel->FacultyID = $data["FacultyID"];
 			$this->dsModel->Acknowledge = $data["Acknowledge"];
+			$this->dsModel->ForVerif ="";
+			// var_dump($data["Acknowledge"]);
 		}
+
         $response = $this->dsModel->insert_acknowledgement();
     }
 		echo json_encode($response);

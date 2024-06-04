@@ -453,5 +453,19 @@ function get_overtime($ti, $sti, $to, $sto)
         </tr>
     </table>
 </div>
-<script>$('#search_date').daterangepicker();</script>
+<script>
+    $('#search_date').daterangepicker({
+      autoApply: true,
+      startDate: moment().startOf('month'),
+      endDate: moment().endOf('day'),
+      ranges: {
+        // 'Today': [moment(), moment()],
+        // 'Today': [moment(), moment().add(5, 'days')],
+        // 'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'This Week': [moment().startOf('week'), moment().endOf('week')],
+        //  'Next Month': [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')],
+        // 'Previous Month': [moment().add(-1, 'month').startOf('month'), moment().add(-1, 'month').endOf('month')],
+      }
+    });
+</script>
 <script src="<?php echo base_url() ?>/assets/js/dashboard/calendar.js"></script>
