@@ -479,8 +479,10 @@ class Reports_model extends CI_Model
             $this->db->where('u.User_type', $this->facultyType);
         }
         $data_to_send["data"] = $this->db->get()->result();
+
         $holiday = $this->get_holidays($year, $month);
         // var_dump($holiday);
+
         foreach ($data_to_send["data"] as $val) {
 
             $logs = $this->get_logs($val->ID);
@@ -514,7 +516,9 @@ class Reports_model extends CI_Model
                     if ($dayOfWeek == 'saturday' || $dayOfWeek == 'sunday') {
                         $absent_checker = true;
                         $absent_count--;
-                    } elseif (in_array($this->month . '-' . $day, $holiday)) {
+                    }
+                    
+                    if (in_array($this->month . '-' . $day, $holiday)) {
                         // echo 'AAA';
                         $undertime_tard_daily[$day] = [
                             "day" => $day,
@@ -529,6 +533,7 @@ class Reports_model extends CI_Model
                         $absent_checker = true;
                         break;
                     } else {
+                        echo $this->month . '-' . $day;
                         $am_count = 0;
                         $tempschedarr = array();
 
@@ -757,10 +762,30 @@ class Reports_model extends CI_Model
                     //     array_push($absent_dates, $date_absent);
                     // }
                 } elseif ($month != date('m')) {
+                    // echo $this->month . '-' . $day;
+
+
                     if ($dayOfWeek == 'saturday' || $dayOfWeek == 'sunday') {
                         $absent_count--;
                         $absent_checker = true;
-                    } else {
+                    }
+                    if (in_array($this->month . '-' . $day, $holiday)) {
+                        // echo 'AAA';
+                        echo $this->month . '-' . $day . " ";
+                        $undertime_tard_daily[$day] = [
+                            "day" => $day,
+                            "ut_daily" => 0,
+                            "t_daily" => 0,
+                        ];
+                        $overload_daily[$day] = [
+                            "day" => $day,
+                            "ol_daily" => 0,
+                        ];
+                        $absent_count--;
+                        $absent_checker = true;
+                        break;
+                    } 
+                    else {
                         $am_count = 0;
                         $tempschedarr = array();
 
@@ -1446,22 +1471,23 @@ class Reports_model extends CI_Model
         $this->db->select('*');
         $this->db->where('MONTH(from_date)', $m);
         $this->db->where('YEAR(from_date)', $y);
-        $this->db->where('MONTH(to_date)', $m);
-        $this->db->where('YEAR(to_date)', $y);
+        // $this->db->where('MONTH(to_date)', $m);
+        // $this->db->where('YEAR(to_date)', $y);
         $this->db->from($this->Table->non_working_days);
         $result = $this->db->get()->result();
+        // var_dump($result);
         $arr = [];
         foreach ($result as $key => $value) {
 
             @$start_hold = date('j', strtotime($value->from_date));
-            @$end_hold = date('j', strtotime($value->to_date));
-            if ($start_hold == $end_hold) {
+            // @$end_hold = date('j', strtotime($value->to_date));
+            // if ($start_hold == $end_hold) {
                 $arr[] = $y . '-' . $m . '-' . $start_hold;
-            } else {
-                for ($start_hold; $start_hold <= $end_hold; $start_hold++) {
-                    $arr[] = $y . '-' . $m . '-' . $start_hold;
-                }
-            }
+            // } else {
+            //     for ($start_hold; $start_hold <= $end_hold; $start_hold++) {
+            //         $arr[] = $y . '-' . $m . '-' . $start_hold;
+            //     }
+            // }
         }
         return $arr;
     }
