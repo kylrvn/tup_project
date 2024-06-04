@@ -111,6 +111,8 @@ class Reports_model extends CI_Model
                 }
 
                 @$arrsize = sizeof(@$tempschedarr);
+                usort($tempschedarr, fn($a,$b) => $a['time_frame'] <=> $b['time_frame']);
+                // if($val->ID == '67') var_dump($tempschedarr);
                 foreach ($logs as $k => $log) {
 
                     if (in_array($this->month . '-' . $day, $holiday)) {
@@ -1090,7 +1092,7 @@ class Reports_model extends CI_Model
     public function get_sched($ID)
     {
         $this->db->select('*');
-        $this->db->where('Faculty_id', $ID);
+        $this->db->where('Faculty_id', $ID);    
         $this->db->where('Active', 1);
         $this->db->order_by("STR_TO_DATE(Start_time, '%h:%i %p') ASC");
         $this->db->from($this->Table->sched);
@@ -1144,7 +1146,7 @@ class Reports_model extends CI_Model
             $logs = $this->get_logs($data_to_send['faculty_details']->ID);
             $sched = $this->get_sched($data_to_send['faculty_details']->ID);
 
-            // var_dump($logs);
+            // var_dump($sched);
             $this->db->select('*');
             $this->db->where('faculty_id', $data_to_send['faculty_details']->ID);
             $this->db->where('MONTH(from_date)', $month);
@@ -1188,8 +1190,11 @@ class Reports_model extends CI_Model
                     }
                 }
 
+                // var_dump($tempschedarr);
+                // echo $dayOfWeek.'<br>';
                 @$arrsize = sizeof(@$tempschedarr);
-
+                usort($tempschedarr, fn($a,$b) => $a['time_frame'] <=> $b['time_frame']);
+                
                 foreach ($logs as $k => $log) {
 
                     if (in_array($this->month . '-' . $day, $holiday)) {
@@ -1474,6 +1479,7 @@ class Reports_model extends CI_Model
         // $quota_checker = $last_to > $to ? $quota_checker - ($to - $last_to) : $quota_checker; // ends the quota checker on last scheduled time out
         $x = $sti > $ti ? $sti : $ti;
         $y = $to > $last_to ? $last_to : $to;
+        // echo $type.'<br>';
         $quota_checker = $type == 'ampm' ? ($y - $x) - 3600 : ($y - $x);
         $quota_checker = $late > 0 ? $quota_checker - $late :  $quota_checker;
 
