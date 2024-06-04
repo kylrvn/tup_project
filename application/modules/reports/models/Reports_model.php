@@ -110,7 +110,7 @@ class Reports_model extends CI_Model
                         );
                     }
                 }
-
+                $dayFormatted = sprintf('%02d', $day);
                 if (in_array($this->month . '-' . $day, $holiday)) {
                     $undertime_tard_daily[$day] = [
                         "day" => $day,
@@ -121,10 +121,8 @@ class Reports_model extends CI_Model
                         "day" => $day,
                         "ol_daily" => 0,
                     ];
-                    break;
-                }
-                $dayFormatted = sprintf('%02d', $day);
-                if (@$leave_dates[0]->leaveDate == $this->month . '-' . $dayFormatted) {
+                    // break;
+                } else if (@$leave_dates[0]->leaveDate == $this->month . '-' . $dayFormatted) {
 
                     foreach ($leave_dates as $leave) {
 
@@ -175,226 +173,228 @@ class Reports_model extends CI_Model
                             break;
                         }
                     }
-                }
-
-                @$arrsize = sizeof(@$tempschedarr);
-                usort($tempschedarr, fn ($a, $b) => $a['time_frame'] <=> $b['time_frame']);
-                // if($val->ID == '67') var_dump($tempschedarr);
-                foreach ($logs as $k => $log) {
-
-                    if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
-                        // echo '<br>'.$day.'- ';
-                        // $quota = 18000;
-                        $quota = $quota * 3600;
-                        $quota_checker = 0;
-                        $dayFormatted = sprintf('%02d', $day);
-
-                        if (in_array($this->month . '-' . $day, $exam_sched_arrdays)) {
-                            $quota = 18000;
+                } else{
+                    @$arrsize = sizeof(@$tempschedarr);
+                    usort($tempschedarr, fn ($a, $b) => $a['time_frame'] <=> $b['time_frame']);
+                    // if($val->ID == '67') var_dump($tempschedarr);
+                    foreach ($logs as $k => $log) {
+    
+                        if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
+                            // echo '<br>'.$day.'- ';
+                            // $quota = 18000;
+                            $quota = $quota * 3600;
                             $quota_checker = 0;
-                            $t = 0; // placeholder for tardiness
-                            //checks for undertime
-                            $timein = date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
-                            $timeout = date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
-                            $time_in = strtotime($timein);
-                            $time_out = strtotime($timeout);
-                            $quota_checker = $time_out - $time_in;
-                            if ($quota_checker < $quota) {
-                                $ut += floor((($quota - $quota_checker) / 60));
-                                $undertime_total += floor((($quota - $quota_checker) / 60));
-                            }
-                            $undertime_tard_daily[$day] = [
-                                "day" => $day,
-                                "ut_daily" => $ut,
-                                "t_daily" => $t,
-                            ];
-                            $overload_daily[$day] = [
-                                "day" => $day,
-                                "ol_daily" => $ov,
-                            ];
-                            break;
-                        } else {
-
-                            //checker to check if current schedule of the day contains any AM subject.
-                            if (strpos(@$tempschedarr[0]['time_frame'], 'AM') !== false) {
-                                $ti = 0;
-                                $time_timein = '';
-                                $start_day = 0;
-                                $start_time = '';
-                                $late_time = 0;
-
-                                foreach ($tempschedarr as $key => $subject) {
-
-                                    if ($subject['time_frame'] == "AM") {
-
-                                        //for am late detection
-                                        $amsched = date("H:i:s", strtotime(@$tempschedarr[0]['start_time'])); // gets the first subject only for basis in late calculation
-                                        $start_time = $amsched;
-                                        $amschedout = date("H:i:s", strtotime($subject['end_time']));
-                                        $amtimein = date("H:i:s", strtotime($log->timein_am));
-                                        $time_timein = $amtimein;
-                                        $sti = strtotime($amsched); // am schedule start 
-                                        $ti = strtotime($amtimein); // am timein
-                                        $eto = strtotime($amschedout);
-                                        $start_day = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
-                                        $start_day = strtotime($start_day); // data for basis in undertime and overload calculation
-
-                                        $tardiness_minutes = (int) (($ti - $sti) / 60); // divide by 60 to get minutes format
-
-                                        // if ($subject['subject_am'] !== null && $tardiness_minutes > 0) {
-                                        if ($tardiness_minutes > 0 && @$tempschedarr[0]['start_time'] == $subject['start_time']) {
-                                            $t += $tardiness_minutes; //total daily
-                                            $late_time = $tardiness_minutes * 60;
-                                            $tard_total += $tardiness_minutes;
-                                        }
-
-                                        //checks if user decides to time out in the morning and if current looped subject is 2nd morning subject || UPDATE : should cater 2 subjects or more.
-                                        if (@$am_count == $key + 1) {
-                                            $time_out = date("H:i:s", strtotime($log->timeout_pm == null ? $log->timeout_am : $log->timeout_pm));
-                                            if ($time_out <= "13:00:00") {
-                                                $pm_to = strtotime($time_out);
-                                                $quota_checker += ($pm_to - $sti);
-                                                $undertime_earlyout_minutes = floor((($eto - $pm_to) / 60));
-                                                if ($quota_checker < $quota) {
-                                                    // $ut += floor(($quota - $quota_checker) / 60);
-                                                    // $undertime_total += floor(($quota - $quota_checker) / 60);
-                                                    if ($undertime_earlyout_minutes > 0) {
-                                                        $ut += $undertime_earlyout_minutes;
-                                                        $undertime_total += $undertime_earlyout_minutes;
-                                                        // echo $ut;
-
+                            $dayFormatted = sprintf('%02d', $day);
+    
+                            if (in_array($this->month . '-' . $day, $exam_sched_arrdays)) {
+                                $quota = 18000;
+                                $quota_checker = 0;
+                                $t = 0; // placeholder for tardiness
+                                //checks for undertime
+                                $timein = date("H:i:s", strtotime($log->timein_am == null ? $log->timein_pm : $log->timein_am));
+                                $timeout = date("H:i:s", strtotime($log->timeout_am == null ? $log->timeout_pm : $log->timeout_am));
+                                $time_in = strtotime($timein);
+                                $time_out = strtotime($timeout);
+                                $quota_checker = $time_out - $time_in;
+                                if ($quota_checker < $quota) {
+                                    $ut += floor((($quota - $quota_checker) / 60));
+                                    $undertime_total += floor((($quota - $quota_checker) / 60));
+                                }
+                                $undertime_tard_daily[$day] = [
+                                    "day" => $day,
+                                    "ut_daily" => $ut,
+                                    "t_daily" => $t,
+                                ];
+                                $overload_daily[$day] = [
+                                    "day" => $day,
+                                    "ol_daily" => $ov,
+                                ];
+                                break;
+                            } else {
+    
+                                //checker to check if current schedule of the day contains any AM subject.
+                                if (strpos(@$tempschedarr[0]['time_frame'], 'AM') !== false) {
+                                    $ti = 0;
+                                    $time_timein = '';
+                                    $start_day = 0;
+                                    $start_time = '';
+                                    $late_time = 0;
+    
+                                    foreach ($tempschedarr as $key => $subject) {
+    
+                                        if ($subject['time_frame'] == "AM") {
+    
+                                            //for am late detection
+                                            $amsched = date("H:i:s", strtotime(@$tempschedarr[0]['start_time'])); // gets the first subject only for basis in late calculation
+                                            $start_time = $amsched;
+                                            $amschedout = date("H:i:s", strtotime($subject['end_time']));
+                                            $amtimein = date("H:i:s", strtotime($log->timein_am));
+                                            $time_timein = $amtimein;
+                                            $sti = strtotime($amsched); // am schedule start 
+                                            $ti = strtotime($amtimein); // am timein
+                                            $eto = strtotime($amschedout);
+                                            $start_day = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
+                                            $start_day = strtotime($start_day); // data for basis in undertime and overload calculation
+    
+                                            $tardiness_minutes = (int) (($ti - $sti) / 60); // divide by 60 to get minutes format
+    
+                                            // if ($subject['subject_am'] !== null && $tardiness_minutes > 0) {
+                                            if ($tardiness_minutes > 0 && @$tempschedarr[0]['start_time'] == $subject['start_time']) {
+                                                $t += $tardiness_minutes; //total daily
+                                                $late_time = $tardiness_minutes * 60;
+                                                $tard_total += $tardiness_minutes;
+                                            }
+    
+                                            //checks if user decides to time out in the morning and if current looped subject is 2nd morning subject || UPDATE : should cater 2 subjects or more.
+                                            if (@$am_count == $key + 1) {
+                                                $time_out = date("H:i:s", strtotime($log->timeout_pm == null ? $log->timeout_am : $log->timeout_pm));
+                                                if ($time_out <= "13:00:00") {
+                                                    $pm_to = strtotime($time_out);
+                                                    $quota_checker += ($pm_to - $sti);
+                                                    $undertime_earlyout_minutes = floor((($eto - $pm_to) / 60));
+                                                    if ($quota_checker < $quota) {
+                                                        // $ut += floor(($quota - $quota_checker) / 60);
+                                                        // $undertime_total += floor(($quota - $quota_checker) / 60);
+                                                        if ($undertime_earlyout_minutes > 0) {
+                                                            $ut += $undertime_earlyout_minutes;
+                                                            $undertime_total += $undertime_earlyout_minutes;
+                                                            // echo $ut;
+    
+                                                        }
+                                                        break;
                                                     }
-                                                    break;
                                                 }
                                             }
+                                        } else {
+                                            $pmsched_out = date("H:i:s", strtotime($subject['end_time']));
+                                            $pmtime_out = date("H:i:s", strtotime($log->timeout_pm));
+                                            $pm_so = strtotime($pmsched_out);
+                                            $pm_to = strtotime($pmtime_out);
+                                            $last_pmtime_out = date("H:i:s", strtotime(@$tempschedarr[$arrsize - 1]['end_time']));
+                                            $last_to = strtotime($last_pmtime_out);
+    
+                                            // if ($val->ID == '65') {
+                                            //     $quota_checker_test = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to);
+    
+                                            // }
+                                            if ($ti < @$start_day) {
+                                                $quota_checker += ($pm_to - ($ti + ($start_day - $ti))) - 3600;
+                                            } else {
+                                                $quota_checker += ($pm_to - $ti) - 3600; // end time - start time
+                                            }
+    
+                                            $undertime_afternoon_minutes = floor((($quota - $quota_checker) / 60));
+                                            if ($quota_checker < $quota && $undertime_afternoon_minutes > 0) {
+                                                $undertime_total += $undertime_afternoon_minutes;
+                                                $ut += $undertime_afternoon_minutes;
+                                            }
+                                            $quota_checker = ($pm_to - $start_day) - 3600;
+                                            //overload checker 
+                                            if (@$key == $arrsize - 1 && $pm_to > $pm_so) { //check if last subject for today
+                                                $quota_checker -= ($pm_to - $pm_so); // subtracts the time hours spent based on the last subject time out
+                                            }
+    
+                                            if ($late_time != 0) {
+                                                $quota_checker = $quota_checker - $late_time;
+                                            } else {
+                                                $quota_checker = ($pm_to - $ti) - 3600; // end time - start time
+                                            }
+    
+                                            // if($val->ID=='65') echo 'DAY '.$day.'am - '.$quota_checker.'<br>';
+                                            $quota_checker = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to, 'ampm');
+                                            if ($quota_checker > $quota && @$key == $arrsize - 1) {
+                                                // echo $day.' triggered<br>';
+                                                $o = 0; // points for overload
+                                                $o = $quota_checker - $quota;
+                                                $ov = $o >= 900 ? $this->calculate_daily_overload($o) : 0; //if 15 mins has passed, calculate overload
+                                                $overtime_total += $ov;
+                                                // if ($val->ID == '65') echo 'DAY ' . $day . 'am - ' . $o . '<br>';
+                                                // echo $day.' '.$overtime_total.' triggered<br>';
+    
+                                            }
+    
+                                            // if (@$key == $arrsize - 1 && $val->ID == '73') {
+                                            //     $quota_checker_test = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to, 'ampm');
+                                            //     echo 'DAY ' .$day.'<br>';
+                                            //     echo 'first sched: '.$start_time. '<br>';
+                                            //     echo 'last sched : '.$last_pmtime_out. '<br>';
+                                            //     echo 'timein: '.$time_timein. '<br>';
+                                            //     echo 'time out: '.$pmtime_out. '<br>';
+                                            //     echo 'quota: ' . $quota_checker . '<br>';
+                                            //     echo 'quota test: ' . $quota_checker_test . '<br>';
+                                            // }
                                         }
-                                    } else {
-                                        $pmsched_out = date("H:i:s", strtotime($subject['end_time']));
-                                        $pmtime_out = date("H:i:s", strtotime($log->timeout_pm));
-                                        $pm_so = strtotime($pmsched_out);
-                                        $pm_to = strtotime($pmtime_out);
+                                    }
+                                    // echo $quota_checker;
+                                } else { //AFTERNOON SUBJECT CHECKER
+                                    $ti = 0;
+                                    $start_day = 0;
+                                    $late_time = 0;
+                                    foreach (@$tempschedarr as $key => $subject) {
+                                        $start_time = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
+                                        $start_time = strtotime($start_time);
+                                        $timein = date("H:i:s", strtotime($log->timein_pm));
+                                        $schedstart = date("H:i:s", strtotime($subject['start_time']));
+                                        $time_in = strtotime($timein);
+                                        $sched_start = strtotime($schedstart);
+                                        $start_day = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
+                                        $start_day = strtotime($start_day);
                                         $last_pmtime_out = date("H:i:s", strtotime(@$tempschedarr[$arrsize - 1]['end_time']));
                                         $last_to = strtotime($last_pmtime_out);
-
-                                        // if ($val->ID == '65') {
-                                        //     $quota_checker_test = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to);
-
-                                        // }
-                                        if ($ti < @$start_day) {
-                                            $quota_checker += ($pm_to - ($ti + ($start_day - $ti))) - 3600;
-                                        } else {
-                                            $quota_checker += ($pm_to - $ti) - 3600; // end time - start time
+                                        $tardiness_minutes = (int) (($time_in - $sched_start) / 60);
+    
+                                        if ($tardiness_minutes > 0  && @$tempschedarr[0]['start_time'] == $subject['start_time']) { // updated code to check only if late
+                                            $t += $tardiness_minutes; //total daily
+                                            $tard_total += $tardiness_minutes;
+                                            $late_time = $tardiness_minutes * 60; // for deduction on hr spent and overload quota calculation
                                         }
-
-                                        $undertime_afternoon_minutes = floor((($quota - $quota_checker) / 60));
-                                        if ($quota_checker < $quota && $undertime_afternoon_minutes > 0) {
-                                            $undertime_total += $undertime_afternoon_minutes;
-                                            $ut += $undertime_afternoon_minutes;
+    
+                                        $schedend = date("H:i:s", strtotime($subject['end_time']));
+                                        $sched_end = strtotime($schedend);
+                                        $timeout = date("H:i:s", strtotime($log->timeout_pm));
+                                        $time_out = strtotime($timeout);
+                                        $quota_checker = $this->quota_checker_func($sched_end, $time_out, $ti, $start_day, $quota, $late_time, $last_to, 'pm');
+    
+                                        // undertime
+                                        if (@$arrsize == $key + 1 || $time_out < $sched_end) {
+                                            $undertime_afternoon_minutes = floor((($time_out - $sched_end) / 60));
+                                            if ($quota_checker < $quota && $undertime_afternoon_minutes > 0) {
+                                                $ut += $undertime_afternoon_minutes;
+                                            }
                                         }
-                                        $quota_checker = ($pm_to - $start_day) - 3600;
-                                        //overload checker 
-                                        if (@$key == $arrsize - 1 && $pm_to > $pm_so) { //check if last subject for today
-                                            $quota_checker -= ($pm_to - $pm_so); // subtracts the time hours spent based on the last subject time out
+    
+                                        // overload
+                                        if (@$arrsize == $key + 1 && $time_out > $sched_end) {
+                                            $quota_checker -= ($time_out - $sched_end);
                                         }
-
-                                        if ($late_time != 0) {
-                                            $quota_checker = $quota_checker - $late_time;
-                                        } else {
-                                            $quota_checker = ($pm_to - $ti) - 3600; // end time - start time
-                                        }
-
-                                        // if($val->ID=='65') echo 'DAY '.$day.'am - '.$quota_checker.'<br>';
-                                        $quota_checker = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to, 'ampm');
-                                        if ($quota_checker > $quota && @$key == $arrsize - 1) {
-                                            // echo $day.' triggered<br>';
+                                        // echo 'DAY '.$day.'pm - '.$quota_checker.'<br>';
+                                        if ($quota_checker > $quota) {
                                             $o = 0; // points for overload
                                             $o = $quota_checker - $quota;
+    
                                             $ov = $o >= 900 ? $this->calculate_daily_overload($o) : 0; //if 15 mins has passed, calculate overload
                                             $overtime_total += $ov;
-                                            // if ($val->ID == '65') echo 'DAY ' . $day . 'am - ' . $o . '<br>';
-                                            // echo $day.' '.$overtime_total.' triggered<br>';
-
-                                        }
-
-                                        // if (@$key == $arrsize - 1 && $val->ID == '73') {
-                                        //     $quota_checker_test = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to, 'ampm');
-                                        //     echo 'DAY ' .$day.'<br>';
-                                        //     echo 'first sched: '.$start_time. '<br>';
-                                        //     echo 'last sched : '.$last_pmtime_out. '<br>';
-                                        //     echo 'timein: '.$time_timein. '<br>';
-                                        //     echo 'time out: '.$pmtime_out. '<br>';
-                                        //     echo 'quota: ' . $quota_checker . '<br>';
-                                        //     echo 'quota test: ' . $quota_checker_test . '<br>';
-                                        // }
-                                    }
-                                }
-                                // echo $quota_checker;
-                            } else { //AFTERNOON SUBJECT CHECKER
-                                $ti = 0;
-                                $start_day = 0;
-                                $late_time = 0;
-                                foreach (@$tempschedarr as $key => $subject) {
-                                    $start_time = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
-                                    $start_time = strtotime($start_time);
-                                    $timein = date("H:i:s", strtotime($log->timein_pm));
-                                    $schedstart = date("H:i:s", strtotime($subject['start_time']));
-                                    $time_in = strtotime($timein);
-                                    $sched_start = strtotime($schedstart);
-                                    $start_day = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
-                                    $start_day = strtotime($start_day);
-                                    $last_pmtime_out = date("H:i:s", strtotime(@$tempschedarr[$arrsize - 1]['end_time']));
-                                    $last_to = strtotime($last_pmtime_out);
-                                    $tardiness_minutes = (int) (($time_in - $sched_start) / 60);
-
-                                    if ($tardiness_minutes > 0  && @$tempschedarr[0]['start_time'] == $subject['start_time']) { // updated code to check only if late
-                                        $t += $tardiness_minutes; //total daily
-                                        $tard_total += $tardiness_minutes;
-                                        $late_time = $tardiness_minutes * 60; // for deduction on hr spent and overload quota calculation
-                                    }
-
-                                    $schedend = date("H:i:s", strtotime($subject['end_time']));
-                                    $sched_end = strtotime($schedend);
-                                    $timeout = date("H:i:s", strtotime($log->timeout_pm));
-                                    $time_out = strtotime($timeout);
-                                    $quota_checker = $this->quota_checker_func($sched_end, $time_out, $ti, $start_day, $quota, $late_time, $last_to, 'pm');
-
-                                    // undertime
-                                    if (@$arrsize == $key + 1 || $time_out < $sched_end) {
-                                        $undertime_afternoon_minutes = floor((($time_out - $sched_end) / 60));
-                                        if ($quota_checker < $quota && $undertime_afternoon_minutes > 0) {
-                                            $ut += $undertime_afternoon_minutes;
                                         }
                                     }
-
-                                    // overload
-                                    if (@$arrsize == $key + 1 && $time_out > $sched_end) {
-                                        $quota_checker -= ($time_out - $sched_end);
-                                    }
-                                    // echo 'DAY '.$day.'pm - '.$quota_checker.'<br>';
-                                    if ($quota_checker > $quota) {
-                                        $o = 0; // points for overload
-                                        $o = $quota_checker - $quota;
-
-                                        $ov = $o >= 900 ? $this->calculate_daily_overload($o) : 0; //if 15 mins has passed, calculate overload
-                                        $overtime_total += $ov;
-                                    }
                                 }
+    
+                                $undertime_tard_daily[$day] = [
+                                    "day" => $day,
+                                    "ut_daily" => $ut,
+                                    "t_daily" => $t,
+                                ];
+                                $overload_daily[$day] = [
+                                    "day" => $day,
+                                    "ol_daily" => $ov,
+                                ];
+                                break;
                             }
+                        } // end of if date checker
+    
+                    } //end log foreach loop
+                }
 
-                            $undertime_tard_daily[$day] = [
-                                "day" => $day,
-                                "ut_daily" => $ut,
-                                "t_daily" => $t,
-                            ];
-                            $overload_daily[$day] = [
-                                "day" => $day,
-                                "ol_daily" => $ov,
-                            ];
-                            break;
-                        }
-                    } // end of if date checker
-
-                } //end log foreach loop
+ 
 
                 if (!isset($undertime_tard_daily[$day])) {
                     $undertime_tard_daily[$day] = [];
@@ -479,10 +479,8 @@ class Reports_model extends CI_Model
             $this->db->where('u.User_type', $this->facultyType);
         }
         $data_to_send["data"] = $this->db->get()->result();
-
         $holiday = $this->get_holidays($year, $month);
         // var_dump($holiday);
-
         foreach ($data_to_send["data"] as $val) {
 
             $logs = $this->get_logs($val->ID);
@@ -516,9 +514,7 @@ class Reports_model extends CI_Model
                     if ($dayOfWeek == 'saturday' || $dayOfWeek == 'sunday') {
                         $absent_checker = true;
                         $absent_count--;
-                    }
-                    
-                    if (in_array($this->month . '-' . $day, $holiday)) {
+                    } elseif (in_array($this->month . '-' . $day, $holiday)) {
                         // echo 'AAA';
                         $undertime_tard_daily[$day] = [
                             "day" => $day,
@@ -531,9 +527,22 @@ class Reports_model extends CI_Model
                         ];
                         $absent_count--;
                         $absent_checker = true;
-                        break;
+                        // break;
+                    } elseif (in_array($this->month . '-' . $day, $leave_dates)) {
+                        // echo 'AAA';
+                        $undertime_tard_daily[$day] = [
+                            "day" => $day,
+                            "ut_daily" => 0,
+                            "t_daily" => 0,
+                        ];
+                        $overload_daily[$day] = [
+                            "day" => $day,
+                            "ol_daily" => 0,
+                        ];
+                        $absent_count--;
+                        $absent_checker = true;
+                        // break;
                     } else {
-                        echo $this->month . '-' . $day;
                         $am_count = 0;
                         $tempschedarr = array();
 
@@ -555,23 +564,6 @@ class Reports_model extends CI_Model
                         @$arrsize = sizeof(@$tempschedarr);
                         foreach ($logs as $k => $log) {
                             // if (date("j", strtotime($log->date_log)) == $day) {
-
-
-                            if (in_array($this->month . '-' . $day, $leave_dates)) {
-                                // echo 'AAA';
-                                $undertime_tard_daily[$day] = [
-                                    "day" => $day,
-                                    "ut_daily" => 0,
-                                    "t_daily" => 0,
-                                ];
-                                $overload_daily[$day] = [
-                                    "day" => $day,
-                                    "ol_daily" => 0,
-                                ];
-                                $absent_count--;
-                                $absent_checker = true;
-                                break;
-                            }
 
                             if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
 
@@ -762,16 +754,12 @@ class Reports_model extends CI_Model
                     //     array_push($absent_dates, $date_absent);
                     // }
                 } elseif ($month != date('m')) {
-                    // echo $this->month . '-' . $day;
-
 
                     if ($dayOfWeek == 'saturday' || $dayOfWeek == 'sunday') {
                         $absent_count--;
                         $absent_checker = true;
-                    }
-                    if (in_array($this->month . '-' . $day, $holiday)) {
+                    } elseif (in_array($this->month . '-' . $day, $holiday)) {
                         // echo 'AAA';
-                        echo $this->month . '-' . $day . " ";
                         $undertime_tard_daily[$day] = [
                             "day" => $day,
                             "ut_daily" => 0,
@@ -783,9 +771,22 @@ class Reports_model extends CI_Model
                         ];
                         $absent_count--;
                         $absent_checker = true;
-                        break;
-                    } 
-                    else {
+                        // break;
+                    } elseif (in_array($this->month . '-' . $day, $leave_dates)) {
+                        // echo 'AAA';
+                        $undertime_tard_daily[$day] = [
+                            "day" => $day,
+                            "ut_daily" => 0,
+                            "t_daily" => 0,
+                        ];
+                        $overload_daily[$day] = [
+                            "day" => $day,
+                            "ol_daily" => 0,
+                        ];
+                        $absent_count--;
+                        $absent_checker = true;
+                        // break;
+                    } else {
                         $am_count = 0;
                         $tempschedarr = array();
 
@@ -1042,7 +1043,7 @@ class Reports_model extends CI_Model
                 $ut = 0;
                 $t = 0;
                 $quota = 0;
-            } //TEST
+            }
 
             $undertime_tard_total = $undertime_total + $tard_total;
             $val->ut = $undertime_total;
@@ -1475,14 +1476,13 @@ class Reports_model extends CI_Model
         // $this->db->where('YEAR(to_date)', $y);
         $this->db->from($this->Table->non_working_days);
         $result = $this->db->get()->result();
-        // var_dump($result);
         $arr = [];
         foreach ($result as $key => $value) {
 
             @$start_hold = date('j', strtotime($value->from_date));
             // @$end_hold = date('j', strtotime($value->to_date));
             // if ($start_hold == $end_hold) {
-                $arr[] = $y . '-' . $m . '-' . $start_hold;
+            $arr[] = $y . '-' . $m . '-' . $start_hold;
             // } else {
             //     for ($start_hold; $start_hold <= $end_hold; $start_hold++) {
             //         $arr[] = $y . '-' . $m . '-' . $start_hold;
