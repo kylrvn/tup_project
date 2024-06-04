@@ -111,23 +111,76 @@ class Reports_model extends CI_Model
                     }
                 }
 
+                if (in_array($this->month . '-' . $day, $holiday)) {
+                    $undertime_tard_daily[$day] = [
+                        "day" => $day,
+                        "ut_daily" => 0,
+                        "t_daily" => 0,
+                    ];
+                    $overload_daily[$day] = [
+                        "day" => $day,
+                        "ol_daily" => 0,
+                    ];
+                    break;
+                }
+                $dayFormatted = sprintf('%02d', $day);
+                if (@$leave_dates[0]->leaveDate == $this->month . '-' . $dayFormatted) {
+
+                    foreach ($leave_dates as $leave) {
+
+                        // var_dump($this->month . '-' . $day);
+
+                        if ($leave->leaveDate == $this->month . '-' . $dayFormatted) {
+
+                            $leaveType = $this->get_leave_type($leave->leaveType);
+                            $leaveTypeLegend = [
+                                "Vacation Leave" => "VL",
+                                "Mandatory/Forced Leave" => "M/FL",
+                                "Sick Leave" => "SL",
+                                "Maternity Leave" => "ML",
+                                "Paternity Leave" => "PL",
+                                "Special Privilege Leave" => "SPL",
+                                "Solo Parent Leave" => "PRL",
+                                "Study Leave" => "STDY",
+                                "10-Day VAWC Leave" => "VAWC",
+                                "Rehabilitation Privilige" => "RP",
+                                "Special Benefits for Women" => "SBW",
+                                "Special Emergency (Calamity) Leave" => "CL",
+                                "Adoption Leave" => "AL",
+                                "Official Business" => "OB",
+                                "Suspended" => "S",
+                                "Leave without Pay" => "LWOP",
+                            ];
+
+                            $leaveAbbv = null;
+                            foreach ($leaveTypeLegend as $key => $value) {
+                                if ($key == $leaveType->LeaveType) {
+                                    $leaveAbbv = $value;
+                                }
+                            }
+
+                            $undertime_tard_daily[$day] = [
+
+                                "day" => $day,
+                                "ut_daily" => -1,
+                                "t_daily" => -1,
+                                "leave_data" => $leaveAbbv,
+
+                            ];
+                            $overload_daily[$day] = [
+                                "day" => $day,
+                                "ol_daily" => -1,
+                            ];
+
+                            break;
+                        }
+                    }
+                }
+
                 @$arrsize = sizeof(@$tempschedarr);
                 usort($tempschedarr, fn ($a, $b) => $a['time_frame'] <=> $b['time_frame']);
                 // if($val->ID == '67') var_dump($tempschedarr);
                 foreach ($logs as $k => $log) {
-
-                    if (in_array($this->month . '-' . $day, $holiday)) {
-                        $undertime_tard_daily[$day] = [
-                            "day" => $day,
-                            "ut_daily" => 0,
-                            "t_daily" => 0,
-                        ];
-                        $overload_daily[$day] = [
-                            "day" => $day,
-                            "ol_daily" => 0,
-                        ];
-                        break;
-                    }
 
                     if ($this->month . '-' . $day == date("Y-m-j", strtotime(@$log->date_log))) {
                         // echo '<br>'.$day.'- ';
@@ -160,57 +213,6 @@ class Reports_model extends CI_Model
                                 "ol_daily" => $ov,
                             ];
                             break;
-                        } else if (@$leave_dates[0]->leaveDate == $this->month . '-' . $dayFormatted) {
-
-                            foreach ($leave_dates as $leave) {
-
-                                // var_dump($this->month . '-' . $day);
-
-                                if ($leave->leaveDate == $this->month . '-' . $dayFormatted) {
-
-                                    $leaveType = $this->get_leave_type($leave->leaveType);
-                                    $leaveTypeLegend = [
-                                        "Vacation Leave" => "VL",
-                                        "Mandatory/Forced Leave" => "M/FL",
-                                        "Sick Leave" => "SL",
-                                        "Maternity Leave" => "ML",
-                                        "Paternity Leave" => "PL",
-                                        "Special Privilege Leave" => "SPL",
-                                        "Solo Parent Leave" => "PRL",
-                                        "Study Leave" => "STDY",
-                                        "10-Day VAWC Leave" => "VAWC",
-                                        "Rehabilitation Privilige" => "RP",
-                                        "Special Benefits for Women" => "SBW",
-                                        "Special Emergency (Calamity) Leave" => "CL",
-                                        "Adoption Leave" => "AL",
-                                        "Official Business" => "OB",
-                                        "Suspended" => "S",
-                                        "Leave without Pay" => "LWOP",
-                                    ];
-
-                                    $leaveAbbv = null;
-                                    foreach ($leaveTypeLegend as $key => $value) {
-                                        if ($key == $leaveType->LeaveType) {
-                                            $leaveAbbv = $value;
-                                        }
-                                    }
-
-                                    $undertime_tard_daily[$day] = [
-
-                                        "day" => $day,
-                                        "ut_daily" => -1,
-                                        "t_daily" => -1,
-                                        "leave_data" => $leaveAbbv,
-
-                                    ];
-                                    $overload_daily[$day] = [
-                                        "day" => $day,
-                                        "ol_daily" => -1,
-                                    ];
-
-                                    break;
-                                }
-                            }
                         } else {
 
                             //checker to check if current schedule of the day contains any AM subject.
@@ -1499,7 +1501,7 @@ class Reports_model extends CI_Model
 
         // $y = $y >= 0.25 ? ($y >= 0.5 ? ($y >= 0.75 ? 0.75 : 0.5) : 0.25) : 0; //round off to specific point
         $y = $y * 60; //DECIMAL TO TIME CONVERTER
-        $y = $y >= 0 && $y <= 9 ? 0 : ($y >= 10 && $y <= 19 ? 0.25 : ($y >= 20 && $y <= 34 ? 0.5 : ($y >= 35 && $y <= 49 ? 0.75 : 0.99))); 
+        $y = $y >= 0 && $y <= 9 ? 0 : ($y >= 10 && $y <= 19 ? 0.25 : ($y >= 20 && $y <= 34 ? 0.5 : ($y >= 35 && $y <= 49 ? 0.75 : 0.99)));
         // echo $y .'<br>';
         $x = $y == 0.99 ? (int) $x + 1 :  (int) $x + $y; //finalize point 1.00 + 0.75
         return $x;
