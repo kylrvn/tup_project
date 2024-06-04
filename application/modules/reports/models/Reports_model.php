@@ -104,6 +104,7 @@ class Reports_model extends CI_Model
                         $quota = $quota == 0 ? $schedule->scheme : $quota;
 
                         $tempschedarr[] = array(
+                            'sched_name' => $schedule->sched_name,
                             'start_time' => $schedule->Start_time,
                             'end_time' => $schedule->End_time,
                             'time_frame' => $schedule->time_frame,
@@ -175,7 +176,19 @@ class Reports_model extends CI_Model
                     }
                 } else {
                     @$arrsize = sizeof(@$tempschedarr);
-                    usort($tempschedarr, fn ($a, $b) => $a['time_frame'] <=> $b['time_frame']);
+                    // if ($val->ID == 69) var_dump($tempschedarr);
+                    // usort($tempschedarr, fn ($a, $b) => $a['time_frame'] <=> $b['time_frame']);
+                    usort($tempschedarr, function ($a, $b) {
+                        // First compare by time_frame
+                        $timeFrameComparison = strcmp($a['time_frame'], $b['time_frame']);
+    
+                        if ($timeFrameComparison !== 0) {
+                            return $timeFrameComparison;
+                        }
+    
+                        // If time_frame is the same, compare by start_time
+                        return strcmp($a['start_time'], $b['start_time']);
+                    });
                     // if($val->ID == '67') var_dump($tempschedarr);
                     foreach ($logs as $k => $log) {
 
@@ -221,15 +234,16 @@ class Reports_model extends CI_Model
                                     $late_time = 0;
 
                                     foreach ($tempschedarr as $key => $subject) {
-                                        
+
                                         if (@$subject['sched_name'] == "VACANT") {
                                             $vs = date("H:i:s", strtotime($subject['start_time']));
                                             $vs = strtotime($vs);
                                             $ve = date("H:i:s", strtotime($subject['end_time']));
                                             $ve = strtotime($ve);
-                                            $vacant += ($ve-$vs);
-                                            echo $vacant.'<br>';
+                                            $vacant += ($ve - $vs);
+                                            // if($val->ID==69)echo $day.' - '.$vacant.'<br>';
                                         }
+
                                         if ($subject['time_frame'] == "AM") {
 
                                             //for am late detection
@@ -307,30 +321,30 @@ class Reports_model extends CI_Model
                                             } else {
                                                 $quota_checker = ($pm_to - $ti) - 3600; // end time - start time
                                             }
-
-                                            // if($val->ID=='65') echo 'DAY '.$day.'am - '.$quota_checker.'<br>';
                                             $quota_checker = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to, 'ampm', $vacant);
+                                            // if($val->ID=='69') echo 'DAY '.$day.'am - '.$quota_checker.'<br>';
+
                                             if ($quota_checker > $quota && @$key == $arrsize - 1) {
                                                 // echo $day.' triggered<br>';
                                                 $o = 0; // points for overload
                                                 $o = $quota_checker - $quota;
-                                                // if($val->ID == 62)echo $day.' - '.$o.'<br>';
-                                                $ov = $o >= 900 ? $this->calculate_daily_overload($o) : 0; //if 15 mins has passed, calculate overload
+                                                // if($val->ID == 69)echo $day.' - '.$o.'<br>';
+                                                $ov = $o >= 900 ? $this->calculate_daily_overload($o, $val->ID, $day) : 0; //if 15 mins has passed, calculate overload
                                                 $overtime_total += $ov;
                                                 // if ($val->ID == '65') echo 'DAY ' . $day . 'am - ' . $o . '<br>';
                                                 // echo $day.' '.$overtime_total.' triggered<br>';
 
                                             }
 
-                                            // if (@$key == $arrsize - 1 && $val->ID == '73') {
-                                            //     $quota_checker_test = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to, 'ampm');
-                                            //     echo 'DAY ' .$day.'<br>';
-                                            //     echo 'first sched: '.$start_time. '<br>';
-                                            //     echo 'last sched : '.$last_pmtime_out. '<br>';
-                                            //     echo 'timein: '.$time_timein. '<br>';
-                                            //     echo 'time out: '.$pmtime_out. '<br>';
+                                            // if (@$key == $arrsize - 1 && $val->ID == '69') {
+                                            //     $quota_checker = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to, 'ampm', $vacant);
+                                            //     echo 'DAY ' . $day . '<br>';
+                                            //     echo 'first sched: ' . $start_time . '<br>';
+                                            //     echo 'last sched : ' . $last_pmtime_out . '<br>';
+                                            //     echo 'timein: ' . $time_timein . '<br>';
+                                            //     echo 'time out: ' . $pmtime_out . '<br>';
                                             //     echo 'quota: ' . $quota_checker . '<br>';
-                                            //     echo 'quota test: ' . $quota_checker_test . '<br>';
+                                            //     echo 'vacant: ' . $vacant    . '<br>';
                                             // }
                                         }
                                     }
@@ -345,7 +359,7 @@ class Reports_model extends CI_Model
                                             $vs = strtotime($vs);
                                             $ve = date("H:i:s", strtotime($subject['end_time']));
                                             $ve = strtotime($ve);
-                                            $vacant += ($ve-$vs);
+                                            $vacant += ($ve - $vs);
                                         }
                                         $start_time = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
                                         $start_time = strtotime($start_time);
@@ -425,7 +439,8 @@ class Reports_model extends CI_Model
                 $ov = 0;
                 $ut = 0;
                 $t = 0;
-                $quota = 0;$vacant = 0;
+                $quota = 0;
+                $vacant = 0;
             }
 
             $undertime_tard_total = $undertime_total + $tard_total;
@@ -570,6 +585,7 @@ class Reports_model extends CI_Model
                                 $quota = $quota == 0 ? $schedule->scheme : $quota;
                                 // echo "Time Frame: {$schedule->time_frame}, AM Count: {$am_count}\n";
                                 $tempschedarr[] = array(
+                                    'sched_name' => $schedule->sched_name,
                                     'start_time' => $schedule->Start_time,
                                     'end_time' => $schedule->End_time,
                                     'time_frame' => $schedule->time_frame,
@@ -627,7 +643,7 @@ class Reports_model extends CI_Model
                                                 $vs = strtotime($vs);
                                                 $ve = date("H:i:s", strtotime($subject['end_time']));
                                                 $ve = strtotime($ve);
-                                                $vacant += ($ve-$vs);
+                                                $vacant += ($ve - $vs);
                                             }
                                             // $ti = 0;
                                             // $pm_to = 0;
@@ -722,7 +738,7 @@ class Reports_model extends CI_Model
                                                 $vs = strtotime($vs);
                                                 $ve = date("H:i:s", strtotime($subject['end_time']));
                                                 $ve = strtotime($ve);
-                                                $vacant += ($ve-$vs);
+                                                $vacant += ($ve - $vs);
                                             }
 
                                             $timein = date("H:i:s", strtotime($log->timein_pm));
@@ -883,7 +899,7 @@ class Reports_model extends CI_Model
                                                 $vs = strtotime($vs);
                                                 $ve = date("H:i:s", strtotime($subject['end_time']));
                                                 $ve = strtotime($ve);
-                                                $vacant += ($ve-$vs);
+                                                $vacant += ($ve - $vs);
                                             }
                                             if ($subject['time_frame'] == "AM") {
 
@@ -999,7 +1015,7 @@ class Reports_model extends CI_Model
                                                 $vs = strtotime($vs);
                                                 $ve = date("H:i:s", strtotime($subject['end_time']));
                                                 $ve = strtotime($ve);
-                                                $vacant += ($ve-$vs);
+                                                $vacant += ($ve - $vs);
                                             }
                                             $start_time = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
                                             $start_time = strtotime($start_time);
@@ -1085,7 +1101,8 @@ class Reports_model extends CI_Model
                 $ov = 0;
                 $ut = 0;
                 $t = 0;
-                $quota = 0;$vacant=0;
+                $quota = 0;
+                $vacant = 0;
             }
 
             $undertime_tard_total = $undertime_total + $tard_total;
@@ -1172,7 +1189,7 @@ class Reports_model extends CI_Model
             'sub.Subject_name AS sched_name');
         $this->db->where('s.Faculty_id', $ID);
         $this->db->where('s.Active', 1);
-        $this->db->order_by("STR_TO_DATE(s.Start_time, '%h:%i %p') ASC");
+        $this->db->order_by("STR_TO_DATE(Start_time, '%h:%i %p') ASC");
         $this->db->from($this->Table->sched . ' s');
         $this->db->join($this->Table->subjects . ' sub', 'sub.ID=s.Subject', 'left');
         // Moved 'ASC' outside STR_TO_DATE() function
@@ -1273,8 +1290,18 @@ class Reports_model extends CI_Model
                 // var_dump($tempschedarr);
                 // echo $dayOfWeek.'<br>';
                 @$arrsize = sizeof(@$tempschedarr);
-                usort($tempschedarr, fn ($a, $b) => $a['time_frame'] <=> $b['time_frame']);
+                // usort($tempschedarr, fn ($a, $b) => $a['time_frame'] <=> $b['time_frame']);
+                usort($tempschedarr, function ($a, $b) {
+                    // First compare by time_frame
+                    $timeFrameComparison = strcmp($a['time_frame'], $b['time_frame']);
 
+                    if ($timeFrameComparison !== 0) {
+                        return $timeFrameComparison;
+                    }
+
+                    // If time_frame is the same, compare by start_time
+                    return strcmp($a['start_time'], $b['start_time']);
+                });
                 foreach ($logs as $k => $log) {
 
                     if (in_array($this->month . '-' . $day, $holiday)) {
@@ -1323,7 +1350,7 @@ class Reports_model extends CI_Model
                                         $vs = strtotime($vs);
                                         $ve = date("H:i:s", strtotime($subject['end_time']));
                                         $ve = strtotime($ve);
-                                        $vacant += ($ve-$vs);
+                                        $vacant += ($ve - $vs);
                                     }
                                     if ($subject['time_frame'] == "AM") {
 
@@ -1424,14 +1451,14 @@ class Reports_model extends CI_Model
                                 $ti = 0;
                                 $start_day = 0;
                                 $late_time = 0;
-                                
+
                                 foreach (@$tempschedarr as $key => $subject) {
                                     if (@$subject['sched_name'] == "VACANT") {
                                         $vs = date("H:i:s", strtotime($subject['start_time']));
                                         $vs = strtotime($vs);
                                         $ve = date("H:i:s", strtotime($subject['end_time']));
                                         $ve = strtotime($ve);
-                                        $vacant += ($ve-$vs);
+                                        $vacant += ($ve - $vs);
                                     }
 
                                     $start_time = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
@@ -1513,7 +1540,8 @@ class Reports_model extends CI_Model
 
                 // echo 'day ' . $day . ' hr spent -' . $quota_checker . '<br>';
                 // echo 'day ' . $day . ' quota -' . $quota . '<br>';
-                $quota = 0;$vacant = 0;
+                $quota = 0;
+                $vacant = 0;
                 $q = $this->calculate_daily_overload(@$quota_checker);
                 $quota_total += $q != 0 ? $q - @$ot : 0;
                 $overtime_total += ($q != 0 && $ot != 0) ? @$ot : 0;
@@ -1568,22 +1596,27 @@ class Reports_model extends CI_Model
 
     private function quota_checker_func($sto, $to, $ti, $sti, $quota, $late, $last_to, $type, $vacant)
     {
+        // echo $vacant.'<br>';
         $quota_checker = 0; //echo $quota_checker . '<br>';
         // $quota_checker = ($to - $ti) - 3600; //timeout - timein  - lunch 
         // $quota_checker = $late > 0 ? $quota_checker - $late : $quota_checker; // minus late
         // $quota_checker = $ti < $sti ? $quota_checker - ($sti - $ti) : $quota_checker; // makes sure quota checker starts on the scheduled start time
         // $quota_checker = $last_to > $to ? $quota_checker - ($to - $last_to) : $quota_checker; // ends the quota checker on last scheduled time out
         $x = $sti > $ti ? $sti : $ti;
-        $y = $to > $last_to ? $last_to : $to;
+        // echo $sti.' - '.$ti.' - '.$x.'<br>';
+        // $y = $to > $last_to ? $last_to : $to;
         // echo $type.'<br>';
+        $y = $to > $last_to ? $last_to : $to;
+
         $quota_checker = $type == 'ampm' ? ($y - $x) - 3600 : ($y - $x);
+        // echo $quota_checker.'<br>';
         $quota_checker = $vacant > 0 ? $quota_checker - $vacant :  $quota_checker;
 
         return $quota_checker;
     }
 
 
-    private function calculate_daily_overload($pts)
+    private function calculate_daily_overload($pts, $ID, $day)
     {
         $x = $y = 0;
         $x = round($pts / 3600, 2); //divide per hr then round off
@@ -1594,7 +1627,7 @@ class Reports_model extends CI_Model
         // $y = $y >= 0.25 ? ($y >= 0.5 ? ($y >= 0.75 ? 0.75 : 0.5) : 0.25) : 0; //round off to specific point
         $y = $y * 60;
         $y = intval($y); //DECIMAL TO TIME CONVERTER
-        // if($ID==62) echo $day.' - '.$y.'<br>';
+        // if($ID==69) echo $day.' - '.$y.'<br>';
         $y = $y >= 0 && $y <= 9 ? 0 : ($y >= 10 && $y <= 19 ? 0.25 : ($y >= 20 && $y <= 34 ? 0.5 : ($y >= 35 && $y <= 49 ? 0.75 : 0.99)));
         // echo $y .'<br>';
         $x = $y == 0.99 ? (int) $x + 1 :  (int) $x + $y; //finalize point 1.00 + 0.75
