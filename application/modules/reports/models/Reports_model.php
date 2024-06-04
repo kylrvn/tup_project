@@ -1616,7 +1616,7 @@ class Reports_model extends CI_Model
     }
 
 
-    private function calculate_daily_overload($pts, $ID, $day)
+    private function calculate_daily_overload($pts)
     {
         $x = $y = 0;
         $x = round($pts / 3600, 2); //divide per hr then round off
