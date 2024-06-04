@@ -101,4 +101,30 @@ class Schedule_services_model extends CI_Model
         }
     }
 
+    public function delete_event()
+    {
+        try {
+
+            $dateTime = DateTime::createFromFormat('F d, Y', $this->date);
+            $sqlDate = $dateTime->format('Y-m-d');
+
+            $this->db->trans_start();
+
+            $this->db->where('type', $this->title);
+            $this->db->where('from_date', $sqlDate);
+            $this->db->delete($this->Table->non_working_days);
+
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                throw new Exception(ERROR_PROCESSING, true);
+            } else {
+                $this->db->trans_commit();
+                return array('message' => "Calendar Event Deleted Successfully", 'has_error' => false);
+            }
+        } catch (Exception $msg) {
+            return (array('message' => $msg->getMessage(), 'has_error' => true));
+        }
+    }
+
 }
