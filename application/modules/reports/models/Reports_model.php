@@ -1017,7 +1017,7 @@ class Reports_model extends CI_Model
                 $ut = 0;
                 $t = 0;
                 $quota = 0;
-            }
+            } //TEST
 
             $undertime_tard_total = $undertime_total + $tard_total;
             $val->ut = $undertime_total;
