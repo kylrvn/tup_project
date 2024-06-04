@@ -92,8 +92,8 @@ $daysArray = range(1, $numberOfDaysInMonth);
 
                                         if (!empty($dayData)) {
                                             // Display undertime and tardiness for the specific day
-                                            echo ($dayData['ol_daily'] == -1 ? 0 : $dayData['ol_daily']);
-
+                                            // echo ($dayData['ol_daily'] == -1 ? 0 : $dayData['ol_daily']);
+                                            echo ($dayData['ol_daily'] == -1 ||  $dayData['ol_daily'] == 0? "" : $dayData['ol_daily']);
                                 
                                         } else {
                                             // If no data available for the day, display a placeholder
