@@ -112,7 +112,7 @@ class Reports_model extends CI_Model
                 }
 
                 @$arrsize = sizeof(@$tempschedarr);
-                usort($tempschedarr, fn($a,$b) => $a['time_frame'] <=> $b['time_frame']);
+                usort($tempschedarr, fn ($a, $b) => $a['time_frame'] <=> $b['time_frame']);
                 // if($val->ID == '67') var_dump($tempschedarr);
                 foreach ($logs as $k => $log) {
 
@@ -512,6 +512,20 @@ class Reports_model extends CI_Model
                     if ($dayOfWeek == 'saturday' || $dayOfWeek == 'sunday') {
                         $absent_checker = true;
                         $absent_count--;
+                    } elseif (in_array($this->month . '-' . $day, $holiday)) {
+                        // echo 'AAA';
+                        $undertime_tard_daily[$day] = [
+                            "day" => $day,
+                            "ut_daily" => 0,
+                            "t_daily" => 0,
+                        ];
+                        $overload_daily[$day] = [
+                            "day" => $day,
+                            "ol_daily" => 0,
+                        ];
+                        $absent_count--;
+                        $absent_checker = true;
+                        break;
                     } else {
                         $am_count = 0;
                         $tempschedarr = array();
@@ -534,21 +548,7 @@ class Reports_model extends CI_Model
                         @$arrsize = sizeof(@$tempschedarr);
                         foreach ($logs as $k => $log) {
                             // if (date("j", strtotime($log->date_log)) == $day) {
-                            if (in_array($this->month . '-' . $day, $holiday)) {
-                                // echo 'AAA';
-                                $undertime_tard_daily[$day] = [
-                                    "day" => $day,
-                                    "ut_daily" => 0,
-                                    "t_daily" => 0,
-                                ];
-                                $overload_daily[$day] = [
-                                    "day" => $day,
-                                    "ol_daily" => 0,
-                                ];
-                                $absent_count--;
-                                $absent_checker = true;
-                                break;
-                            }
+
 
                             if (in_array($this->month . '-' . $day, $leave_dates)) {
                                 // echo 'AAA';
@@ -818,11 +818,11 @@ class Reports_model extends CI_Model
                                         $start_day = 0;
                                         $start_time = '';
                                         $late_time = 0;
-        
+
                                         foreach ($tempschedarr as $key => $subject) {
-        
+
                                             if ($subject['time_frame'] == "AM") {
-        
+
                                                 //for am late detection
                                                 $amsched = date("H:i:s", strtotime(@$tempschedarr[0]['start_time'])); // gets the first subject only for basis in late calculation
                                                 $start_time = $amsched;
@@ -834,16 +834,16 @@ class Reports_model extends CI_Model
                                                 $eto = strtotime($amschedout);
                                                 $start_day = date("H:i:s", strtotime(@$tempschedarr[0]['start_time']));
                                                 $start_day = strtotime($start_day); // data for basis in undertime and overload calculation
-        
+
                                                 $tardiness_minutes = (int) (($ti - $sti) / 60); // divide by 60 to get minutes format
-        
+
                                                 // if ($subject['subject_am'] !== null && $tardiness_minutes > 0) {
                                                 if ($tardiness_minutes > 0 && @$tempschedarr[0]['start_time'] == $subject['start_time']) {
                                                     $t += $tardiness_minutes; //total daily
                                                     $late_time = $tardiness_minutes * 60;
                                                     $tard_total += $tardiness_minutes;
                                                 }
-        
+
                                                 //checks if user decides to time out in the morning and if current looped subject is 2nd morning subject || UPDATE : should cater 2 subjects or more.
                                                 if (@$am_count == $key + 1) {
                                                     $time_out = date("H:i:s", strtotime($log->timeout_pm == null ? $log->timeout_am : $log->timeout_pm));
@@ -858,7 +858,7 @@ class Reports_model extends CI_Model
                                                                 $ut += $undertime_earlyout_minutes;
                                                                 $undertime_total += $undertime_earlyout_minutes;
                                                                 // echo $ut;
-        
+
                                                             }
                                                             break;
                                                         }
@@ -871,17 +871,17 @@ class Reports_model extends CI_Model
                                                 $pm_to = strtotime($pmtime_out);
                                                 $last_pmtime_out = date("H:i:s", strtotime(@$tempschedarr[$arrsize - 1]['end_time']));
                                                 $last_to = strtotime($last_pmtime_out);
-        
+
                                                 // if ($val->ID == '65') {
                                                 //     $quota_checker_test = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to);
-        
+
                                                 // }
                                                 if ($ti < @$start_day) {
                                                     $quota_checker += ($pm_to - ($ti + ($start_day - $ti))) - 3600;
                                                 } else {
                                                     $quota_checker += ($pm_to - $ti) - 3600; // end time - start time
                                                 }
-        
+
                                                 $undertime_afternoon_minutes = floor((($quota - $quota_checker) / 60));
                                                 if ($quota_checker < $quota && $undertime_afternoon_minutes > 0) {
                                                     $undertime_total += $undertime_afternoon_minutes;
@@ -892,13 +892,13 @@ class Reports_model extends CI_Model
                                                 if (@$key == $arrsize - 1 && $pm_to > $pm_so) { //check if last subject for today
                                                     $quota_checker -= ($pm_to - $pm_so); // subtracts the time hours spent based on the last subject time out
                                                 }
-        
+
                                                 if ($late_time != 0) {
                                                     $quota_checker = $quota_checker - $late_time;
                                                 } else {
                                                     $quota_checker = ($pm_to - $ti) - 3600; // end time - start time
                                                 }
-        
+
                                                 // if($val->ID=='65') echo 'DAY '.$day.'am - '.$quota_checker.'<br>';
                                                 $quota_checker = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to, 'ampm');
                                                 if ($quota_checker > $quota && @$key == $arrsize - 1) {
@@ -909,9 +909,9 @@ class Reports_model extends CI_Model
                                                     $overtime_total += $ov;
                                                     // if ($val->ID == '65') echo 'DAY ' . $day . 'am - ' . $o . '<br>';
                                                     // echo $day.' '.$overtime_total.' triggered<br>';
-        
+
                                                 }
-        
+
                                                 // if (@$key == $arrsize - 1 && $val->ID == '73') {
                                                 //     $quota_checker_test = $this->quota_checker_func($pm_so, $pm_to, $ti, $start_day, $quota, $late_time, $last_to, 'ampm');
                                                 //     echo 'DAY ' .$day.'<br>';
@@ -925,7 +925,7 @@ class Reports_model extends CI_Model
                                             }
                                         }
                                         // echo $quota_checker;
-                                    }  else { //AFTERNOON SUBJECT CHECKER
+                                    } else { //AFTERNOON SUBJECT CHECKER
                                         $ti = 0;
                                         $start_day = 0;
                                         $late_time = 0;
@@ -1094,7 +1094,7 @@ class Reports_model extends CI_Model
     public function get_sched($ID)
     {
         $this->db->select('*');
-        $this->db->where('Faculty_id', $ID);    
+        $this->db->where('Faculty_id', $ID);
         $this->db->where('Active', 1);
         $this->db->order_by("STR_TO_DATE(Start_time, '%h:%i %p') ASC");
         $this->db->from($this->Table->sched);
@@ -1195,8 +1195,8 @@ class Reports_model extends CI_Model
                 // var_dump($tempschedarr);
                 // echo $dayOfWeek.'<br>';
                 @$arrsize = sizeof(@$tempschedarr);
-                usort($tempschedarr, fn($a,$b) => $a['time_frame'] <=> $b['time_frame']);
-                
+                usort($tempschedarr, fn ($a, $b) => $a['time_frame'] <=> $b['time_frame']);
+
                 foreach ($logs as $k => $log) {
 
                     if (in_array($this->month . '-' . $day, $holiday)) {
