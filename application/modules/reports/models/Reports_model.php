@@ -314,7 +314,7 @@ class Reports_model extends CI_Model
                                                 $o = 0; // points for overload
                                                 $o = $quota_checker - $quota;
                                                 // if($val->ID == 62)echo $day.' - '.$o.'<br>';
-                                                $ov = $o >= 900 ? $this->calculate_daily_overload($o, $val->ID, $day) : 0; //if 15 mins has passed, calculate overload
+                                                $ov = $o >= 900 ? $this->calculate_daily_overload($o) : 0; //if 15 mins has passed, calculate overload
                                                 $overtime_total += $ov;
                                                 // if ($val->ID == '65') echo 'DAY ' . $day . 'am - ' . $o . '<br>';
                                                 // echo $day.' '.$overtime_total.' triggered<br>';
@@ -1582,7 +1582,7 @@ class Reports_model extends CI_Model
     }
 
 
-    private function calculate_daily_overload($pts, $ID, $day)
+    private function calculate_daily_overload($pts)
     {
         $x = $y = 0;
         $x = round($pts / 3600, 2); //divide per hr then round off
