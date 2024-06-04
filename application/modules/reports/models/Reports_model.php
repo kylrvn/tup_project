@@ -1483,7 +1483,7 @@ class Reports_model extends CI_Model
         $y = $to > $last_to ? $last_to : $to;
         // echo $type.'<br>';
         $quota_checker = $type == 'ampm' ? ($y - $x) - 3600 : ($y - $x);
-        $quota_checker = $late > 0 ? $quota_checker:  $quota_checker;
+        $quota_checker = $late > 0 ? $quota_checker :  $quota_checker;
 
         return $quota_checker;
     }
@@ -1497,9 +1497,11 @@ class Reports_model extends CI_Model
         // echo 'X-' . ($x - (int) $x ).'<br>';
         // echo $x .'<br>';
 
-        $y = $y >= 0.25 ? ($y >= 0.5 ? ($y >= 0.75 ? 0.75 : 0.5) : 0.25) : 0; //round off to specific point
+        // $y = $y >= 0.25 ? ($y >= 0.5 ? ($y >= 0.75 ? 0.75 : 0.5) : 0.25) : 0; //round off to specific point
+        $y = $y * 60; //DECIMAL TO TIME CONVERTER
+        $y = $y >= 0 && $y <= 9 ? 0 : ($y >= 10 && $y <= 19 ? 0.25 : ($y >= 20 && $y <= 34 ? 0.5 : ($y >= 35 && $y <= 49 ? 0.75 : 0.99))); 
         // echo $y .'<br>';
-        $x = (int) $x + $y; //finalize point 1.00 + 0.75
+        $x = $y == 0.99 ? (int) $x + 1 :  (int) $x + $y; //finalize point 1.00 + 0.75
         return $x;
     }
 
